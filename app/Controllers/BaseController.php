@@ -54,5 +54,16 @@ class BaseController extends Controller
 		// Preload any models, libraries, etc, here.
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
+		
+		// Helpers
+		helper(['form', 'akun']);
+		
+		// Libraries
+
+		// Models
+		$this->USER =  new \App\Models\M_User();
+
+		// Variables
+		
 	}
 }
