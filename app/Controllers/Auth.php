@@ -53,6 +53,7 @@ class Auth extends BaseController
                 ];
 
                 $this->USER->insert($userData);
+                $this->USER->initUserInfo($data['id']);
             }
 
             session()->set('loggedEmail', $data['email']);
