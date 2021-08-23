@@ -13,7 +13,7 @@ class M_RUG extends Model
     protected $allowedFields = ['user_id', 'role_id'];
     
     function setUserRole($user, $role){
-        $this->update(null, ['user_id' => $user, 'role_id' => $role]);
+        $this->where(['user_id' => $user, ])->update(null, ['role_id' => $role]);
     }
 }
 
