@@ -3,7 +3,7 @@
 use App\Models\M_User;
 
 function getGoogleClient(){
-        include_once APPPATH . '..\vendor\autoload.php';
+        include_once APPPATH . '../vendor/autoload.php';
         $googleClient = new \Google_Client();
         $googleClient->setClientId(getenv('OAuth.id'));
         $googleClient->setClientSecret(getenv('OAuth.secret'));
