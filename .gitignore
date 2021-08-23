@@ -22,3 +22,5 @@ writable/uploads/*
 writable/debugbar/*
 
 php_errors.log
+
+/public/uploads/*
