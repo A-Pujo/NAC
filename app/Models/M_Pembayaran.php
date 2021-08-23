@@ -15,6 +15,14 @@ class M_Pembayaran extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'pembayaran_dibuat';
     protected $updatedField  = 'pembayaran_diupdate';
+
+    function setActive($user_id){
+        return $this->where(['user_id' => $user_id])->update(null, ['pembayaran_aktif' => 1]);
+    }
+
+    function setDeactive($user_id){
+        return $this->where(['user_id' => $user_id])->update(null, ['pembayaran_aktif' => 0]);
+    }
 }
 
 ?>
