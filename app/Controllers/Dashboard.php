@@ -17,7 +17,7 @@ class Dashboard extends BaseController
 		if(isInRole('admin')){
             return redirect()->to(base_url('/dashboard/admin'));
         }
-        return view('test/dashboard');
+        return view('dashboard/pages/home');
 	}
 
     public function admin(){
@@ -28,7 +28,7 @@ class Dashboard extends BaseController
             'data_partisipan' => $this->PARTISIPAN->getAll(),
         ];
 
-        return view('test/admin', $data);
+        return view('dashboard/pages/admin', $data);
     }
 
     public function update_pendaftaran(){
@@ -37,13 +37,6 @@ class Dashboard extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => lang('Validasi.required'),
-                ],
-            ],
-            'nama_tim' => [
-                'rules' => 'required|is_unique[data_partisipan.nama_tim]',
-                'errors' => [
-                    'required' => lang('Validasi.required'),
-                    'is_unique' => lang('Validasi.is_unique'),
                 ],
             ],
             'nama_ketua' => [
@@ -64,22 +57,6 @@ class Dashboard extends BaseController
                     'required' => lang('Validasi.required'),
                 ],
             ],
-            'ktm' => [
-                'rules' => 'uploaded[ktm]|max_size[ktm,2048]|ext_in[ktm,jpg,png,jpeg]',
-                'errors' => [
-                    'uploaded' => lang('Validasi.required'),
-                    'max_size' => lang('Validasi.max_size', ['gambar KTM', '2MB']),
-                    'ext_in' => lang('Validasi.ext_in', ['gambar KTM', 'jpg, jpeg, atau png']),
-                ],
-            ],
-            'twibbon' => [
-                'rules' => 'uploaded[twibbon]|max_size[twibbon,2048]|ext_in[twibbon,jpg,png,jpeg]',
-                'errors' => [
-                    'uploaded' => lang('Validasi.required'),
-                    'max_size' => lang('Validasi.max_size', ['bukti Twibbon', '2MB']),
-                    'ext_in' => lang('Validasi.ext_in', ['bukti Twibbon', 'jpg, jpeg, atau png']),
-                ],
-            ],
         ];
 
         if($this->request->getVar('partisipan_jenis') == 'tim'){
@@ -93,6 +70,61 @@ class Dashboard extends BaseController
                 'rules' => 'required',
                 'errors' => [
                     'required' => lang('Validasi.required'),
+                ],
+            ];
+        }
+
+        if($this->request->getVar('nama_tim_lama') == $this->request->getVar('nama_tim')){
+            $validasi['nama_tim'] = [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                ],
+            ];
+        } else {
+            $validasi['nama_tim'] = [
+                'rules' => 'required|is_unique[data_partisipan.nama_tim]',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                    'is_unique' => lang('Validasi.is_unique'),
+                ],
+            ];
+        }
+
+        if(empty(userinfo()->ktm)){
+            $validasi['ktm'] = [
+                'rules' => 'uploaded[ktm]|max_size[ktm,2048]|ext_in[ktm,jpg,png,jpeg]',
+                'errors' => [
+                    'uploaded' => lang('Validasi.required'),
+                    'max_size' => lang('Validasi.max_size', ['bukti KTM', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti KTM', 'jpg, jpeg, atau png']),
+                ],
+            ];
+        } else {
+            $validasi['ktm'] = [
+                'rules' => 'max_size[ktm,2048]|ext_in[ktm,jpg,png,jpeg]',
+                'errors' => [
+                    'max_size' => lang('Validasi.max_size', ['bukti KTM', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti KTM', 'jpg, jpeg, atau png']),
+                ],
+            ];
+        }
+
+        if(empty(userinfo()->twibbon)){
+            $validasi['twibbon'] = [
+                'rules' => 'uploaded[twibbon]|max_size[twibbon,2048]|ext_in[twibbon,jpg,png,jpeg]',
+                'errors' => [
+                    'uploaded' => lang('Validasi.required'),
+                    'max_size' => lang('Validasi.max_size', ['bukti twibbon', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti twibbon', 'jpg, jpeg, atau png']),
+                ],
+            ];
+        } else {
+            $validasi['twibbon'] = [
+                'rules' => 'max_size[twibbon,2048]|ext_in[twibbon,jpg,png,jpeg]',
+                'errors' => [
+                    'max_size' => lang('Validasi.max_size', ['bukti twibbon', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti twibbon', 'jpg, jpeg, atau png']),
                 ],
             ];
         }
@@ -111,12 +143,22 @@ class Dashboard extends BaseController
                         array_push($ktm, $newName);
                     }
                 }
+                if($this->request->getVar('old_ktm') != $ktm and $this->request->getVar('old_ktm') != null){
+                    foreach(explode('|', $this->request->getVar('old_ktm')) as $ktmFile){
+                        unlink(APPPATH.'../public/uploads/partisipan/ktm/' . $ktmFile);
+                    }
+                }
                 foreach($uploadedFiles['twibbon'] as $img){
                     if ($img->isValid() && ! $img->hasMoved())
                     {
                         $newName = $img->getRandomName();
                         $img->move(APPPATH . '../public/uploads/partisipan/twibbon', $newName);
                         array_push($twibbon, $newName);
+                    }
+                }
+                if($this->request->getVar('old_twibbon') != $twibbon and $this->request->getVar('old_twibbon') != null){
+                    foreach(explode('|', $this->request->getVar('old_twibbon')) as $twibbonFile){
+                        unlink(APPPATH.'../public/uploads/partisipan/twibbon/' . $twibbonFile);
                     }
                 }
             }
@@ -134,7 +176,7 @@ class Dashboard extends BaseController
             ];
 
             $this->PARTISIPAN->where(['user_id' => userinfo()->id])->update(null, $record);
-            return redirect()->to(base_url());
+            return redirect()->to(base_url('/dashboard'));
         }
     }
 
@@ -164,15 +206,26 @@ class Dashboard extends BaseController
                     'required' => lang('Validasi.required'),
                 ],
             ],
-            'bukti_transfer' => [
+        ];
+
+        if(empty(userinfo()->bukti_transfer)){
+            $validasi['bukti_transfer'] = [
                 'rules' => 'uploaded[bukti_transfer]|max_size[bukti_transfer,2048]|ext_in[bukti_transfer,jpg,png,jpeg]',
                 'errors' => [
                     'uploaded' => lang('Validasi.required'),
-                    'max_size' => lang('Validasi.max_size', ['bukti transfer', '2MB']),
-                    'ext_in' => lang('Validasi.ext_in', ['bukti transfer', 'jpg, jpeg, atau png']),
+                    'max_size' => lang('Validasi.max_size', ['bukti bukti_transfer', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti bukti_transfer', 'jpg, jpeg, atau png']),
                 ],
-            ],
-        ];
+            ];
+        } else {
+            $validasi['bukti_transfer'] = [
+                'rules' => 'max_size[bukti_transfer,2048]|ext_in[bukti_transfer,jpg,png,jpeg]',
+                'errors' => [
+                    'max_size' => lang('Validasi.max_size', ['bukti bukti_transfer', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti bukti_transfer', 'jpg, jpeg, atau png']),
+                ],
+            ];
+        }
 
         if(! $this->validate($validasi)){
             return redirect()->to('/dashboard')->withInput();
@@ -181,6 +234,9 @@ class Dashboard extends BaseController
             if ($file->isValid() && ! $file->hasMoved()){
                 $bukti_transfer = $file->getRandomName();
                 $file->move(APPPATH . '../public/uploads/pembayaran/bukti', $bukti_transfer);
+            }
+            if($this->request->getVar('old_bukti_transfer') != $bukti_transfer and $this->request->getVar('old_bukti_transfer') != null){
+                unlink(APPPATH.'../public/uploads/pembayaran/bukti/' . $this->request->getVar('old_bukti_transfer'));
             }
 
             $record = [
@@ -192,7 +248,7 @@ class Dashboard extends BaseController
             ];
 
             $this->PEMBAYARAN->where(['user_id' => userinfo()->id])->update(null, $record);
-            return redirect()->to(base_url());
+            return redirect()->to(base_url('/dashboard'));
         }
     }
 

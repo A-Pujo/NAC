@@ -13,18 +13,7 @@ class Home extends BaseController
 
 	public function index()
 	{
-		if(isLoggedIn()){
-			echo print_r(userinfo());
-			if(isInRole('umum')){
-				echo '<br>umum nih bos <br>';
-			}
-			echo 'Data partisipan:<br>';
-			foreach ($this->PARTISIPAN->getAll() as $partisipan) {
-				echo print_r($partisipan) . '<br>';
-			}
-		} else{
-			return 'belum login <br> <a href="' . base_url('/auth/login') . '">login sini</a>';
-		}
+		return view('statis/pages/home');
 	}
 
 	public function tes(){
