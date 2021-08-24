@@ -9,8 +9,8 @@
     <div class="text-base-100">
         <h1>Ini Halaman Home</h1>
         <div>
-            Pendaftaran awal:
             <?php if(userinfo()->partisipan_aktif == 0 or userinfo()->pembayaran_aktif == 0) : ?>
+                Pendaftaran awal:
                 <?= form_open_multipart(base_url('/dashboard/update-pendaftaran'), ['method' => 'post']) ?>
                     <?= csrf_field() ?>
                     <div>
@@ -103,6 +103,43 @@
                     </div>
                     <button type="submit" class="btn btn-sm btn-primary">submit</button>
                 </form>
+            <?php else: ?>
+                <p>
+                    <small>Perguruan Tinggi</small><br>
+                    <b><?= userinfo()->pt ?></b><br>
+                    <small>Nama TIm</small><br>
+                    <b><?= userinfo()->nama_tim ?></b><br>
+                    <small>Nama Ketua</small><br>
+                    <b><?= userinfo()->nama_ketua ?></b><br>
+                    <small>Nama Anggota 1</small><br>
+                    <b><?= userinfo()->nama_1 ?></b><br>
+                    <small>Nama Anggota 2</small><br>
+                    <b><?= userinfo()->nama_2 ?></b><br>
+                    <small>Jenis Partisipasi</small><br>
+                    <b><?= userinfo()->partisipan_jenis ?></b><br>
+                    <small>Whatsapp</small><br>
+                    <b><?= userinfo()->wa ?></b><br>
+                    <small>KTM</small><br>
+                    <?php 
+                    if(userinfo()->ktm != null) : 
+                        foreach(explode('|', userinfo()->ktm) as $ktm) :
+                    ?>
+                        <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm) ?>" alt="">
+                    <?php 
+                        endforeach;
+                    endif; 
+                    ?>
+                    <small>Twibbon</small><br>
+                    <?php 
+                    if(userinfo()->twibbon != null) : 
+                        foreach(explode('|', userinfo()->twibbon) as $twibbon) :
+                    ?>
+                        <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon) ?>" alt="">
+                    <?php 
+                        endforeach;
+                    endif; 
+                    ?>
+                </p>
             <?php endif; ?>
         </div>
         Status Pembayaran:
