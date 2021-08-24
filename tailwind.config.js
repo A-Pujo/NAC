@@ -1,8 +1,8 @@
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: false,
     content: [
-      './app/**/*.php',
+      // './app/**/*.php',
     ]
   },
   darkMode: false, // or 'media' or 'class'
@@ -12,5 +12,7 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 }

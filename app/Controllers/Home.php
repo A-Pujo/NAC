@@ -26,4 +26,8 @@ class Home extends BaseController
 			return 'belum login <br> <a href="' . base_url('/auth/login') . '">login sini</a>';
 		}
 	}
+
+	public function tes(){
+		return view('dashboard/pages/home');
+	}
 }
