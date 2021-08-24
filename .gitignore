@@ -24,3 +24,5 @@ writable/debugbar/*
 php_errors.log
 
 /public/uploads/*
+
+/node_modules/*
