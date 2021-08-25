@@ -14,16 +14,27 @@ class Dashboard extends BaseController
 
 	public function index()
 	{
-		if(isInRole('admin')){
-            return redirect()->to(base_url('/dashboard/admin'));
-        }
         return view('dashboard/pages/home');
 	}
 
-    public function admin(){
-        if(! isInRole('admin')){
+    public function pendaftaran()
+	{
+        if(! isInRole('tim registrasi')){
             return redirect()->to(base_url('/dashboard'));
         }
+        return view('dashboard/pages/pendaftaran');
+	}
+
+    public function pembayaran()
+	{
+        if(! isInRole('tim pembayaran')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+        return view('dashboard/pages/pembayaran');
+	}
+
+    public function admin(){
+        
         $data = [
             'data_partisipan' => $this->PARTISIPAN->getAll(),
         ];
