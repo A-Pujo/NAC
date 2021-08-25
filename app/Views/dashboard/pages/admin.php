@@ -89,7 +89,7 @@
             <?php endforeach; ?>
             </p>
             <small>Pembayaran</small>
-            <?php if($partisipan->partisipan_aktif == 0) : ?>
+            <?php if($partisipan->pembayaran_aktif == 0) : ?>
             <p><a href="<?= base_url('/dashboard/aktivasi-pembayaran/'.$partisipan->user_id) ?>" class="btn btn-sm btn-primary">Aktivasi</a></p>
             <?php else: ?>
             <p><a href="<?= base_url('/dashboard/deaktivasi-pembayaran/'.$partisipan->user_id) ?>" class="btn btn-sm btn-primary">Deaktivasi</a></p>
