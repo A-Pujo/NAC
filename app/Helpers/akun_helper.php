@@ -29,7 +29,7 @@ function getGoogleClient(){
 
     function userinfo(){
         if(! isLoggedIn()){
-            return redirect()->to(base_url() . '/auth/login');
+            return redirect()->to(getGoogleClient()->createAuthUrl());
         }
 
         $USER = new \App\Models\M_User();
