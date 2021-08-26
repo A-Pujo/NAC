@@ -1,38 +1,30 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
-    <style>
-        .modal{
-            overflow-y: initial !important
-        }
-
-        .modal-box{
-            height: 90vh;
-            overflow-y: auto;
-        }
-
-    </style>
-
     <div class="text-base-100">
         <table id="tabel-partisipan" class="table w-full text-accent-content">
             <thead>
                 <tr>
-                    <th>Email</th>
-                    <th>Nama</th>
-                    <th>Role</th>
+                    <th>Nama Tim</th>
+                    <th>jenis Partisipasi</th>
+                    <th>Nama Ketua</th>
+                    <th>Pembayaran Aktif</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach($data_partisipan as $partisipan) : ?>
+                <?php foreach($data_partisipan as $partisipan) : 
+                    if($partisipan->role_id == 0 or $partisipan->role_id == 2):?>
                 <tr>
-                    <td><?= $partisipan->email ?></td>
-                    <td><?= $partisipan->nama ?></td>
-                    <td><?= $partisipan->role_name ?></td>
+                    <td><?= $partisipan->nama_tim ?></td>
+                    <td><?= $partisipan->partisipan_jenis ?></td>
+                    <td><?= $partisipan->nama_ketua ?></td>
+                    <td><?= $partisipan->pembayaran_aktif == 0 ? 'Belum Bayar' : 'Sudah Bayar' ?></td>
+                    <td><a class="btn btn-primary" href="<?= base_url('/dashboard/verifikasi-pembayaran/'.$partisipan->user_id) ?>">Periksa</a></td>
                 </tr>
-                <?php endforeach; ?>
+                <?php endif;
+                endforeach; ?>
             </tbody>
         </table>
-        <a class="btn btn-secondary" href="<?= base_url('/dashboard/admin/tim-regis') ?>">Kelola Tim Regis</a>
-        <a class="btn btn-secondary" href="<?= base_url('/dashboard/admin/tim-bendahara') ?>">Kelola Tim Bendahara</a>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
