@@ -4,31 +4,125 @@ namespace App\Controllers;
 
 class Dashboard extends BaseController
 {
-	protected $PARTISIPAN, $PEMBAYARAN;
+	protected $PARTISIPAN, $PEMBAYARAN, $RUG;
 
 	function __construct(){
 		$this->PARTISIPAN = new \App\Models\M_Partisipan();
         $this->PEMBAYARAN = new \App\Models\M_Pembayaran();
+        $this->RUG =  new \App\Models\M_RUG();
 	}
 
 
 	public function index()
 	{
-		if(isInRole('admin')){
-            return redirect()->to(base_url('/dashboard/admin'));
-        }
         return view('dashboard/pages/home');
 	}
 
-    public function admin(){
-        if(! isInRole('admin')){
+    public function pendaftaran()
+	{
+        if(!isInRole('umum')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+        return view('dashboard/pages/pendaftaran');
+	}
+
+    public function pembayaran()
+	{
+        if(!isInRole('umum')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+        return view('dashboard/pages/pembayaran');
+	}
+
+    public function admin($page = null){
+        if(!isInRole('admin')){
             return redirect()->to(base_url('/dashboard'));
         }
         $data = [
-            'data_partisipan' => $this->PARTISIPAN->getAll(),
+            'data_partisipan' => $this->RUG->getAllUserRole(),
         ];
-
+        
+        if($page == 'tim-regis'){
+            return view('dashboard/pages/admin-kelola-tim-regis', $data);
+        } else if($page == 'tim-bendahara'){
+            return view('dashboard/pages/admin-kelola-tim-bendahara', $data);
+        }
         return view('dashboard/pages/admin', $data);
+    }
+
+    public function tambah_anggota($page = null){
+        $data = [
+            'data_partisipan' => $this->RUG->getAllUserRole(),
+        ];
+        
+        if($page == 'tim-regis'){
+            return view('dashboard/pages/admin-tambah-tim-regis', $data);
+        } else if($page == 'tim-bendahara'){
+            return view('dashboard/pages/admin-tambah-tim-bendahara', $data);
+        }
+        return view('dashboard/pages/admin', $data);
+    }
+
+    public function tambah_registrasi($user_id = null){
+        if($user_id != null){
+            $this->RUG->setUserRole($user_id, 91);
+        }
+        return redirect()->to(base_url('/dashboard/admin'));
+    }
+
+    public function tambah_bendahara($user_id = null){
+        if($user_id != null){
+            $this->RUG->setUserRole($user_id, 92);
+        }
+        return redirect()->to(base_url('/dashboard/admin'));
+    }
+
+    public function hapus_role($user_id = null){
+        if($user_id != null){
+            $this->RUG->setUserRole($user_id, 0);
+        }
+        return redirect()->to(base_url('/dashboard/admin'));
+    }
+
+    public function verifikasi_pendaftaran($id = null){
+        if(! isInRole('tim registrasi')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+
+        if($id == null){
+            $data = [
+                'data_partisipan' => $this->PARTISIPAN->getAll(),
+            ];
+    
+            return view('dashboard/pages/verifikasi-pendaftaran', $data);
+        } else {
+            $data = [
+                'partisipan' => $this->PARTISIPAN->getSingle($id),
+            ];
+    
+            return view('dashboard/pages/verifikasi-pendaftaran-single', $data);
+        }
+
+    }
+
+    public function verifikasi_pembayaran($id = null){
+        if(! isInRole('tim bendahara')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+        if($id == null){
+            $data = [
+                'data_partisipan' => $this->PARTISIPAN->getAll(),
+            ];
+    
+            return view('dashboard/pages/verifikasi-pembayaran', $data);
+        } else {
+            $data = [
+                'partisipan' => $this->PARTISIPAN->getSingle($id),
+            ];
+    
+            return view('dashboard/pages/verifikasi-pembayaran-single', $data);
+        }
+
     }
 
     public function update_pendaftaran(){
@@ -130,7 +224,7 @@ class Dashboard extends BaseController
         }
 
         if(! $this->validate($validasi)){
-            return redirect()->to('/dashboard')->withInput();
+            return redirect()->to('/dashboard/pendaftaran')->withInput();
         } else {
             $ktm = array();
             $twibbon = array();
@@ -228,7 +322,7 @@ class Dashboard extends BaseController
         }
 
         if(! $this->validate($validasi)){
-            return redirect()->to('/dashboard')->withInput();
+            return redirect()->to('/dashboard/pembayaran')->withInput();
         } else {
             $file = $this->request->getFile('bukti_transfer');
             if ($file->isValid() && ! $file->hasMoved()){
@@ -253,34 +347,36 @@ class Dashboard extends BaseController
     }
 
     public function aktivasi_partisipan($user_id){
-        if($user_id == null or !isInRole('admin')){
-            return redirect()->to(base_url());
+        if($user_id == null or !isInRole('tim registrasi')){
+            return redirect()->to(base_url('/dashboard'));
         }
         $this->PARTISIPAN->setActive($user_id);
         return redirect()->to(base_url('/dashboard/admin'));
     }
 
     public function deaktivasi_partisipan($user_id){
-        if($user_id == null or !isInRole('admin')){
-            return redirect()->to(base_url());
+        if($user_id == null or !isInRole('tim registrasi')){
+            return redirect()->to(base_url('/dashboard'));
         }
         $this->PARTISIPAN->setDeactive($user_id);
         return redirect()->to(base_url('/dashboard/admin'));
     }
     
     public function aktivasi_pembayaran($user_id){
-        if($user_id == null or !isInRole('admin')){
-            return redirect()->to(base_url());
+        if($user_id == null or !isInRole('tim bendahara')){
+            return redirect()->to(base_url('/dashboard'));
         }
         $this->PEMBAYARAN->setActive($user_id);
+        $this->RUG->setUserRole($user_id, 2);
         return redirect()->to(base_url('/dashboard/admin'));
     }
 
     public function deaktivasi_pembayaran($user_id){
-        if($user_id == null or !isInRole('admin')){
-            return redirect()->to(base_url());
+        if($user_id == null or !isInRole('tim bendahara')){
+            return redirect()->to(base_url('/dashboard'));
         }
         $this->PEMBAYARAN->setDeactive($user_id);
+        $this->RUG->setUserRole($user_id, 0);
         return redirect()->to(base_url('/dashboard/admin'));
     }
 }

@@ -17,7 +17,7 @@ class M_Partisipan extends Model
     protected $updatedField  = 'partisipan_diupdate';
 
     function getAll(){
-        return $this->join('users', 'users.id = data_partisipan.user_id')->join('data_pembayaran', 'data_pembayaran.user_id = data_partisipan.user_id')->findAll();
+        return $this->join('users', 'users.id = data_partisipan.user_id')->join('data_pembayaran', 'data_pembayaran.user_id = data_partisipan.user_id')->join('role_user_groups', 'role_user_groups.user_id = users.id')->findAll();
     }
 
     function getSingle($user_id){

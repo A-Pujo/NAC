@@ -12,8 +12,12 @@ class M_RUG extends Model
 
     protected $allowedFields = ['user_id', 'role_id'];
     
-    function setUserRole($user, $role){
-        $this->where(['user_id' => $user, ])->update(null, ['role_id' => $role]);
+    function getAllUserRole(){
+        return $this->join('users', 'users.id = role_user_groups.user_id')->join('roles', 'roles.role_id = role_user_groups.role_id')->findAll();
+    }
+
+    function setUserRole($user_id, $role_id){
+        $this->where(['user_id' => $user_id, ])->update(null, ['role_id' => $role_id]);
     }
 }
 
