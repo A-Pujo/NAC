@@ -9,5 +9,9 @@
         <?php elseif(isInRole('tim bendahara')) : ?>
         <a href="<?= base_url('/dashboard/verifikasi-pembayaran') ?>" class="link">Tim Bendahara</a>
         <?php endif;?>
+        
+        <?php if(isInRole('peserta lomba')) : ?>
+        <a href="<?= base_url('/lomba/generate-voucher') ?>" class="link">Generate Voucher Lomba</a>
+        <?php endif; ?>
         <a href="<?= base_url('/auth/logout') ?>" class="link">Logout</a>
 </div>

@@ -140,9 +140,9 @@ class Dashboard extends BaseController
                 ],
             ],
             'partisipan_jenis' => [
-                'rules' => 'in_list[tim,individu]',
+                'rules' => 'in_list[AuditUniv,AccUniv,AccSMA]',
                 'errors' => [
-                    'in_list' => lang('Validasi.in_list', ['tim, atau individu']),
+                    'in_list' => lang('Validasi.in_list', ['Audit Universitas, Akuntansi Universita, atau Akuntansi SMA']),
                 ],
             ],
             'wa' => [
@@ -152,21 +152,6 @@ class Dashboard extends BaseController
                 ],
             ],
         ];
-
-        if($this->request->getVar('partisipan_jenis') == 'tim'){
-            $validasi['nama_1'] = [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => lang('Validasi.required'),
-                ],
-            ];
-            $validasi['nama_2'] = [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => lang('Validasi.required'),
-                ],
-            ];
-        }
 
         if($this->request->getVar('nama_tim_lama') == $this->request->getVar('nama_tim')){
             $validasi['nama_tim'] = [
@@ -223,39 +208,84 @@ class Dashboard extends BaseController
             ];
         }
 
+        if(empty(userinfo()->surat_pernyataan)){
+            $validasi['surat_pernyataan'] = [
+                'rules' => 'uploaded[surat_pernyataan]|max_size[surat_pernyataan,2048]|ext_in[surat_pernyataan,pdf,doc,docx]',
+                'errors' => [
+                    'uploaded' => lang('Validasi.required'),
+                    'max_size' => lang('Validasi.max_size', ['bukti surat pernyataan', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti surat pernyataan', 'pdf, doc, atau docx']),
+                ],
+            ];
+        } else {
+            $validasi['surat_pernyataan'] = [
+                'rules' => 'max_size[surat_pernyataan,2048]|ext_in[surat_pernyataan,pdf,doc,docx]',
+                'errors' => [
+                    'max_size' => lang('Validasi.max_size', ['bukti surat pernyataan', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti surat pernyataan', 'pdf, doc, atau docx']),
+                ],
+            ];
+        }
+
         if(! $this->validate($validasi)){
             return redirect()->to('/dashboard/pendaftaran')->withInput();
         } else {
             $ktm = array();
             $twibbon = array();
+            $surat_pernyataan = '';
+
             if($uploadedFiles = $this->request->getFiles()){
-                foreach($uploadedFiles['ktm'] as $img){
+                if(count($uploadedFiles['ktm']) > 3 or count($uploadedFiles['twibbon']) > 3){
+                    return redirect()->to(base_url('/dashboard'));
+                } //cek jika upload lebih dari 3 file
+
+                foreach($uploadedFiles['ktm'] as $img){ //upload ktm
                     if ($img->isValid() && ! $img->hasMoved())
                     {
                         $newName = $img->getRandomName();
                         $img->move(APPPATH . '../public/uploads/partisipan/ktm', $newName);
                         array_push($ktm, $newName);
+                    } else {
+                        array_push($ktm, $this->request->getVar('old_ktm'));
+                        array_unique($ktm);
                     }
                 }
-                if($this->request->getVar('old_ktm') != $ktm and $this->request->getVar('old_ktm') != null){
+                if($this->request->getVar('old_ktm') != implode('|', $ktm) and $this->request->getVar('old_ktm') != null){
                     foreach(explode('|', $this->request->getVar('old_ktm')) as $ktmFile){
                         unlink(APPPATH.'../public/uploads/partisipan/ktm/' . $ktmFile);
                     }
                 }
-                foreach($uploadedFiles['twibbon'] as $img){
+
+                foreach($uploadedFiles['twibbon'] as $img){ //upload twibbon
                     if ($img->isValid() && ! $img->hasMoved())
                     {
                         $newName = $img->getRandomName();
                         $img->move(APPPATH . '../public/uploads/partisipan/twibbon', $newName);
                         array_push($twibbon, $newName);
+                    } else {
+                        array_push($twibbon, $this->request->getVar('old_twibbon'));
+                        array_unique($twibbon);
                     }
                 }
-                if($this->request->getVar('old_twibbon') != $twibbon and $this->request->getVar('old_twibbon') != null){
+                if($this->request->getVar('old_twibbon') != implode('|', $twibbon) and $this->request->getVar('old_twibbon') != null){
                     foreach(explode('|', $this->request->getVar('old_twibbon')) as $twibbonFile){
                         unlink(APPPATH.'../public/uploads/partisipan/twibbon/' . $twibbonFile);
                     }
                 }
+
+                if($this->request->getFile('surat_pernyataan')->isValid() and ! $this->request->getFile('surat_pernyataan')->hasMoved()){
+                    $surat_pernyataan = $this->request->getFile('surat_pernyataan')->getRandomName();
+                    $this->request->getFile('surat_pernyataan')->move(APPPATH . '../public/uploads/partisipan/surat-pernyataan/', $surat_pernyataan);
+                } else {
+                    $surat_pernyataan = $this->request->getVar('old_surat_pernyataan');
+                }
+                
+                if($this->request->getVar('old_surat_pernyataan') != $surat_pernyataan and $this->request->getVar('old_surat_pernyataan') != null){
+                    unlink(APPPATH.'../public/uploads/partisipan/surat-pernyataan/' . $this->request->getVar('old_surat_pernyataan'));
+                }
             }
+
+            $partisipan_jenis = implode('|', $this->request->getVar('partisipan_jenis'));
 
             $record = [
                 'pt' => $this->request->getVar('pt'),
@@ -263,8 +293,9 @@ class Dashboard extends BaseController
                 'nama_ketua' => $this->request->getVar('nama_ketua'),
                 'nama_1' => $this->request->getVar('nama_1'),
                 'nama_2' => $this->request->getVar('nama_2'),
-                'partisipan_jenis' => $this->request->getVar('partisipan_jenis'),
+                'partisipan_jenis' => $partisipan_jenis,
                 'wa' => $this->request->getVar('wa'),
+                'surat_pernyataan' => $surat_pernyataan,
                 'ktm' => implode('|', $ktm),
                 'twibbon' => implode('|', $twibbon),
             ];
@@ -307,8 +338,8 @@ class Dashboard extends BaseController
                 'rules' => 'uploaded[bukti_transfer]|max_size[bukti_transfer,2048]|ext_in[bukti_transfer,jpg,png,jpeg]',
                 'errors' => [
                     'uploaded' => lang('Validasi.required'),
-                    'max_size' => lang('Validasi.max_size', ['bukti bukti_transfer', '2MB']),
-                    'ext_in' => lang('Validasi.ext_in', ['bukti bukti_transfer', 'jpg, jpeg, atau png']),
+                    'max_size' => lang('Validasi.max_size', ['bukti transfer', '2MB']),
+                    'ext_in' => lang('Validasi.ext_in', ['bukti transfer', 'jpg, jpeg, atau png']),
                 ],
             ];
         } else {
@@ -328,6 +359,8 @@ class Dashboard extends BaseController
             if ($file->isValid() && ! $file->hasMoved()){
                 $bukti_transfer = $file->getRandomName();
                 $file->move(APPPATH . '../public/uploads/pembayaran/bukti', $bukti_transfer);
+            } else {
+                $bukti_transfer = $this->request->getVar('old_bukti_transfer');
             }
             if($this->request->getVar('old_bukti_transfer') != $bukti_transfer and $this->request->getVar('old_bukti_transfer') != null){
                 unlink(APPPATH.'../public/uploads/pembayaran/bukti/' . $this->request->getVar('old_bukti_transfer'));

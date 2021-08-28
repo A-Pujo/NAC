@@ -15,6 +15,8 @@
         <p><?= $partisipan->partisipan_jenis ?></p>
         <small>Whatsapp</small>
         <p><?= $partisipan->wa ?></p>
+        <small>Surat Pernyataan</small>
+        <p><a href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank" style="color: red;">surat pernyataan</a></p>
         <small>Bukti KTM</small>
         <p>
         <?php foreach(explode('|', $partisipan->ktm) as $ktm) : ?>
