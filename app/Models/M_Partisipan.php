@@ -10,7 +10,7 @@ class M_Partisipan extends Model
 
     protected $returnType     = 'object';
 
-    protected $allowedFields = ['user_id', 'pt', 'nama_tim', 'nama_ketua', 'nama_1', 'nama_2','partisipan_jenis', 'wa', 'ktm', 'twibbon', 'partisipan_aktif'];
+    protected $allowedFields = ['user_id', 'pt', 'nama_tim', 'nama_ketua', 'nama_1', 'nama_2','partisipan_jenis', 'wa', 'surat_pernyataan', 'ktm', 'twibbon', 'partisipan_aktif'];
 
     protected $useTimestamps = true;
     protected $createdField  = 'partisipan_dibuat';

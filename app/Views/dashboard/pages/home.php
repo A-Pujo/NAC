@@ -22,7 +22,7 @@
             ?>        
         </h1>
         <?php if(isInRole('umum') and userinfo()->partisipan_aktif == 0) : ?>
-            <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="btn btn-info">Ajukan Pendaftaran</a>
+            <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="btn btn-info">Update Pendaftaran</a>
         <?php endif; ?>
         <?php if(userinfo()->partisipan_aktif == 1 and userinfo()->pembayaran_aktif == 0) : ?>
             <a href="<?= base_url('/dashboard/pembayaran') ?>" class="btn btn-info">Lengkapi Pembayaranmu</a>
@@ -44,6 +44,8 @@
             <p><?= userinfo()->partisipan_jenis ?></p>
             <small>Whatsapp</small>
             <p><?= userinfo()->wa ?></p>
+            <small>Surat Pernyataan</small>
+            <p><a href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.userinfo()->surat_pernyataan) ?>" target="_blank" style="color: red;">surat pernyataan</a></p>
             <small>Bukti KTM</small>
             <p>
             <?php foreach(explode('|', userinfo()->ktm) as $ktm) : ?>

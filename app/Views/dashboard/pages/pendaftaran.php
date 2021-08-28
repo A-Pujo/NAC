@@ -51,10 +51,10 @@
                     </div>
                     <div>
                         <label class="label">Jenis Partisipsi</label>
-                        <select name="partisipan_jenis" class="select select-sm select-bordered select-info">
-                            <option value="" <?= userinfo()->partisipan_jenis == 'individu' ? 'selected' : '' ?> >Pilih..</option>
-                            <option value="individu" <?= userinfo()->partisipan_jenis == 'individu' ? 'selected' : '' ?> >individu</option>
-                            <option value="tim" <?= userinfo()->partisipan_jenis == 'tim' ? 'selected' : '' ?> >Tim</option>
+                        <select name="partisipan_jenis[]" class="select select-sm select-bordered select-info" multiple>
+                            <option value="AuditUniv" <?= in_array('AuditUniv', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Audit Perguruan Tinggi</option>
+                            <option value="AccUniv" <?= in_array('AccUniv', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Akuntansi Perguruan Tinggi</option>
+                            <option value="AccSMA" <?= in_array('AccSMA', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Akuntansi SMA</option>
                         </select>
                         <?php if(initValidation()->hasError('partisipan_jenis')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('partisipan_jenis'); ?></small>
@@ -65,6 +65,17 @@
                         <input type="text" class="form-control" name="wa" value="<?= userinfo()->wa ?>" />
                         <?php if(initValidation()->hasError('wa')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('wa'); ?></small>
+                        <?php endif; ?>
+                    </div>
+                    <div>
+                        <label class="label">Surat Pernyataan</label>
+                        <input type="file" class="form-control" name="surat_pernyataan"/>
+                        <input type="hidden" value="<?= userinfo()->surat_pernyataan ?>" name="old_surat_pernyataan">
+                        <?php if(initValidation()->hasError('surat_pernyataan')) : ?>
+                            <small style="color: red;"><?= initValidation()->getError('surat_pernyataan'); ?></small>
+                        <?php endif; ?>
+                        <?php if(userinfo()->surat_pernyataan != null) : ?>
+                            <a style="color: red;" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.userinfo()->surat_pernyataan) ?>" target="_blank">Surat Pernyataan</a>
                         <?php endif; ?>
                     </div>
                     <div>
