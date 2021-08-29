@@ -11,6 +11,15 @@
     <br>
     Lagi lomba <b><?= $daftar_lomba[$partisipan_info->kode_lomba] ?></b>
     <br>
-    <a href="<?=base_url('/lomba/percobaan-lomba/'.$kode_voucher)?>">Coba</a>
+    <p>Coba</p>
+    <?php if($partisipan_info->kode_lomba == 'AuditUniv') : ?>
+        <a href="<?=base_url('/lomba/percobaan-lomba/'.$kode_voucher)?>">Mulai</a>
+    <?php else: ?>
+        <a href="<?=base_url('/lomba/percobaan-lomba/'.$kode_voucher.'/1')?>">Mulai Soal Paket 1</a>
+        &nbsp;&nbsp;
+        <a href="<?=base_url('/lomba/percobaan-lomba/'.$kode_voucher.'/2')?>">Mulai Soal Paket 2</a>
+        &nbsp;&nbsp;
+        <a href="<?=base_url('/lomba/percobaan-lomba/'.$kode_voucher.'/3')?>">Mulai Soal Paket 3</a>
+    <?php endif; ?>
 </body>
 </html>

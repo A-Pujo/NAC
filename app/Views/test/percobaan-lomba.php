@@ -32,7 +32,7 @@
     <?php else : ?>
         <?php foreach($daftar_pilihan as $pilihan) : ?>
             <?php if($pilihan->soal_id == $soal->soal_id) : ?>
-                <input type="radio" name="jawaban[<?=$soal->soal_id?>]" value="<?= $pilihan->jawaban_id ?>">
+                <input type="radio" name="jawaban[<?=$soal->soal_id?>]" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_kode == null ? 'checked' : '' ?>>
                 <label><?= $pilihan->jawaban_teks ?></label>
             <?php endif; ?>
         <?php endforeach; ?>

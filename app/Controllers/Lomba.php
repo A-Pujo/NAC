@@ -67,8 +67,12 @@ class Lomba extends BaseController
 		return view('/test/lomba-partisipan-info', $data);
 	}
 
-	public function percobaan_lomba($kode_voucher){
+	public function percobaan_lomba($kode_voucher, $segmen = 1){
 		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher)){
+			return redirect()->to(base_url('/lomba'));
+		}
+
+		if(! in_array($segmen, [1,2,3])){
 			return redirect()->to(base_url('/lomba'));
 		}
 
@@ -78,7 +82,7 @@ class Lomba extends BaseController
 			'AccUniv' => 'Lomba Akuntansi Universitas',
 			'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
 		];
-		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($data['partisipan_info']->percobaan -1 ) * 2);
+		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 2);
 		$data['daftar_pilihan'] = $this->JAWABAN->findAll();
 		
 		return view('/test/percobaan-lomba', $data);
