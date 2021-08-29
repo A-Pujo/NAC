@@ -36,6 +36,9 @@ class Lomba extends BaseController
 	}
 
 	public function generate_voucher(){
+		if(!isInRole('peserta lomba')){
+			return redirect()->to(base_url('/dashboard'));
+		}
 		foreach(explode('|', userinfo()->partisipan_jenis) as $kode_lomba){
 			if($kode_lomba == ''){
 				continue;
