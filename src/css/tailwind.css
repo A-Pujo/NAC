@@ -3,7 +3,13 @@
 @tailwind utilities;
 
 @layer components {
-    .link {
-        @apply py-1 px-2 hover:bg-green-200 hover:text-green-900 rounded w-36 no-underline transition;
+    .sidebar-menu {
+        @apply btn bg-transparent border-0 hover:bg-primary-200 justify-start items-center;
+    }
+    .sidebar-menu-aktif {
+        @apply btn btn-primary border-0 justify-start items-center;
+    }
+    .sidebar-text {
+        @apply ml-16 font-bold text-16 text-base-100;
     }
 }

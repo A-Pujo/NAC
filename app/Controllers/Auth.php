@@ -34,6 +34,7 @@ class Auth extends BaseController
 
             $googleService = new \Google\Service\Oauth2($this->googleClient);
             $data = $googleService->userinfo->get();
+
             $userData = array();
             
             if($this->USER->isAlreadyRegistered($data['id'])){

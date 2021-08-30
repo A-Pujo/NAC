@@ -1,32 +1,46 @@
 <?= $this->extend('dashboard/layout/main')  ?>
-<?= $this->section('content') ?>
-    <style>
-        select, *{
-            color: blue;
-        }
-    </style>
 
+<?= $this->section('content') ?>
     <div class="text-base-100">
         <h1>
-            Selamat Datang 
             <?php 
             if(isInRole('admin')){
-                echo 'Admin';
+                echo 'Selamat datang Admin';
             } else if(isInRole('tim registrasi')){
-                echo 'Tim Registrasi';
+                echo 'Selamat datang Tim Registrasi';
             } else if(isInRole('tim bendahara')){
-                echo 'Tim Bendahara';
-            } else {
-                
+                echo 'Selamat dartang Tim Bendahara';
             }
             ?>        
         </h1>
-        <?php if(isInRole('umum') and userinfo()->partisipan_aktif == 0) : ?>
-            <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="btn btn-info">Update Pendaftaran</a>
+        <!-- Button Pendaftaran -->
+        <?php if(isInRole('umum') and userinfo()->nama_tim == '') : ?>
+            <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="btn btn-primary">Daftar !</a>
         <?php endif; ?>
+        <!-- Button Update Pendaftaran  -->
+        <?php if(isInRole('umum') and userinfo()->nama_tim != '' and userinfo()->partisipan_aktif == 0) : ?>
+            <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="btn btn-primary">Update Pendaftaran</a>
+        <?php endif; ?>
+
+        <!-- Button Pembayaran  -->
         <?php if(userinfo()->partisipan_aktif == 1 and userinfo()->pembayaran_aktif == 0) : ?>
-            <a href="<?= base_url('/dashboard/pembayaran') ?>" class="btn btn-info">Lengkapi Pembayaranmu</a>
+            <a href="<?= base_url('/dashboard/pembayaran') ?>" class="btn btn-primary">Pembayaran</a>
         <?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div>
             <?php if(isInRole('peserta lomba')) : ?>
             <P><b>Peserta Lomba (Sudah bayar)</b></p>

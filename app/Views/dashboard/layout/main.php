@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
-    <title>JUDUL</title>
+    <title>Dashboard</title>
 </head>
 <body>
     <div class="flex flex-row">
-        <div class="bg-green-500 min-h-screen items-stretch">
+        <!-- Sidebar -->
+        <div class="w-300 bg-neutral-200 min-h-screen">
             <?= $this->include('dashboard/layout/sidebar') ?>
         </div>
-        <div class="w-full bg-gray-200">
-            <div class="bg-blue-500">
+        <!-- End of Sidebar -->
+        <div class="w-full bg-neutral-100">
+            <div class="h-163 w-full flex justify-between items-center p-32">
                 <?= $this->include('dashboard/layout/topbar') ?> 
             </div>
             <div class="">

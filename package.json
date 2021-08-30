@@ -4,11 +4,8 @@
   "description": "website nac 2021",
   "main": "index.js",
   "dependencies": {
-    "autoprefixer": "^10.3.2",
-    "daisyui": "^1.13.2",
-    "package.json": "^2.0.1",
-    "postcss-cli": "^8.3.1",
-    "tailwindcss": "^2.2.7"
+    "daisyui": "^1.14.0",
+    "package.json": "^2.0.1"
   },
   "scripts": {
     "dev": "postcss ./src/css/tailwind.css -o ./public/css/style.css",
@@ -23,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/A-Pujo/NAC/issues"
   },
-  "homepage": "https://github.com/A-Pujo/NAC#readme"
+  "homepage": "https://github.com/A-Pujo/NAC#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.3.3",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.2.8"
+  }
 }

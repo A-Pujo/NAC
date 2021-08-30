@@ -15,7 +15,11 @@ class Dashboard extends BaseController
 
 	public function index()
 	{
-        return view('dashboard/pages/home');
+        $data =[
+            'judul' => 'Selamat Datang',
+            'halaman' => 'beranda',
+        ];
+        echo view('dashboard/pages/home', $data);
 	}
 
     public function pendaftaran()
@@ -23,7 +27,11 @@ class Dashboard extends BaseController
         if(!isInRole('umum')){
             return redirect()->to(base_url('/dashboard'));
         }
-        return view('dashboard/pages/pendaftaran');
+        $data =[
+            'judul' => 'Pendaftaran Lomba',
+            'halaman' => 'pendaftaran',
+        ];
+        return view('dashboard/pages/pendaftaran', $data);
 	}
 
     public function pembayaran()
@@ -40,11 +48,19 @@ class Dashboard extends BaseController
         }
         $data = [
             'data_partisipan' => $this->RUG->getAllUserRole(),
+            'judul' => 'Kelola Role',
+            'halaman' => 'admin',
         ];
         
         if($page == 'tim-regis'){
+            $data = [
+                'judul' => 'Kelola Tim Registrasi'
+            ];
             return view('dashboard/pages/admin-kelola-tim-regis', $data);
         } else if($page == 'tim-bendahara'){
+            $data = [
+                'judul' => 'Kelola Tim Bendahara'
+            ];
             return view('dashboard/pages/admin-kelola-tim-bendahara', $data);
         }
         return view('dashboard/pages/admin', $data);
