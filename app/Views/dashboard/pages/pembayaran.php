@@ -1,11 +1,5 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
-    <style>
-        select, *{
-            color: blue;
-        }
-    </style>
-
     <div class="text-base-100">
         Status Pembayaran:
         <div>
@@ -14,41 +8,51 @@
                 Isi bukti pembayaran
                 <?= form_open_multipart(base_url('/dashboard/update-pembayaran'), ['method' => 'post']) ?>
                 <?= csrf_field() ?>
-                    <div>
-                        <label class="label">Nama Bank</label>
-                        <input type="text" class="form-control" name="nama_bank" value="<?= userinfo()->nama_bank ?>" />
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-base-100">Nama Bank</span>
+                        </label>
+                        <input type="text" class="form-input" name="nama_bank" value="<?= userinfo()->nama_bank ?>" />
                         <?php if(initValidation()->hasError('nama_bank')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_bank'); ?></small>
                         <?php endif; ?>
                     </div>
 
-                    <div>
-                        <label class="label">Nama Nasabah</label>
-                        <input type="text" class="form-control" name="nama_nasabah" value="<?= userinfo()->nama_nasabah ?>" />
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-base-100">Nama Nasabah</span>
+                        </label>
+                        <input type="text" class="form-input" name="nama_nasabah" value="<?= userinfo()->nama_nasabah ?>" />
                         <?php if(initValidation()->hasError('nama_nasabah')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_nasabah'); ?></small>
                         <?php endif; ?>
                     </div>
 
-                    <div>
-                        <label class="label">Nomor Rekening</label>
-                        <input type="text" class="form-control" name="nomor_rekening" value="<?= userinfo()->nomor_rekening ?>" />
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-base-100">Nomor Rekening</span>
+                        </label>
+                        <input type="text" class="form-input" name="nomor_rekening" value="<?= userinfo()->nomor_rekening ?>" />
                         <?php if(initValidation()->hasError('nomor_rekening')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nomor_rekening'); ?></small>
                         <?php endif; ?>
                     </div>
 
-                    <div>
-                        <label class="label">Jumlah Transfer</label>
-                        <input type="number" class="form-control" name="jumlah_transfer" value="<?= userinfo()->jumlah_transfer ?>" />
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-base-100">Jumlah Transfer</span>
+                        </label>
+                        <input type="number" class="form-input" name="jumlah_transfer" value="<?= userinfo()->jumlah_transfer ?>" />
                         <?php if(initValidation()->hasError('jumlah_transfer')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('jumlah_transfer'); ?></small>
                         <?php endif; ?>
                     </div>
 
-                    <div>
-                        <label class="label">Bukti Transfer</label>
-                        <input type="file" class="form-control" name="bukti_transfer" />
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text text-base-100">Bukti Transfer</span>
+                        </label>
+                        <input type="file" class="form-input" name="bukti_transfer" />
                         <input type="hidden" value="<?= userinfo()->bukti_transfer ?>" name="old_bukti_transfer" />
                         <?php if(initValidation()->hasError('bukti_transfer')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('bukti_transfer'); ?></small>

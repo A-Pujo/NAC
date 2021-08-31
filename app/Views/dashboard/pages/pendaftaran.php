@@ -13,7 +13,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Perguruan Tinggi</span>
                         </label>
-                        <input type="text" class="input" name="pt" value="<?= userinfo()->pt ?>" />
+                        <input type="text" class="form-input" name="pt" value="<?= userinfo()->pt ?>" />
                         <?php if(initValidation()->hasError('pt')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('pt'); ?></small>
                         <?php endif; ?>
@@ -24,8 +24,8 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Tim</span>
                         </label>
-                        <input type="text" class="input" name="nama_tim" value="<?= userinfo()->nama_tim ?>" />
-                        <input type="hidden" class="input" name="nama_tim_lama" value="<?= userinfo()->nama_tim ?>" />
+                        <input type="text" class="form-input" name="nama_tim" value="<?= userinfo()->nama_tim ?>" />
+                        <input type="hidden" class="form-input" name="nama_tim_lama" value="<?= userinfo()->nama_tim ?>" />
                         <?php if(initValidation()->hasError('nama_tim')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_tim'); ?></small>
                         <?php endif; ?>
@@ -36,7 +36,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Ketua Tim</span>
                         </label>
-                        <input type="text" class="input" name="nama_ketua" value="<?= userinfo()->nama_ketua ?>" />
+                        <input type="text" class="form-input" name="nama_ketua" value="<?= userinfo()->nama_ketua ?>" />
                         <?php if(initValidation()->hasError('nama_ketua')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_ketua'); ?></small>
                         <?php endif; ?>
@@ -47,7 +47,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Anggota 1</span>
                         </label>
-                        <input type="text" class="input" name="nama_1" value="<?= userinfo()->nama_1 ?>" />
+                        <input type="text" class="form-input" name="nama_1" value="<?= userinfo()->nama_1 ?>" />
                         <?php if(initValidation()->hasError('nama_1')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_1'); ?></small>
                         <?php endif; ?>
@@ -58,7 +58,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Anggota 2</span>
                         </label>
-                        <input type="text" class="input" name="nama_2" value="<?= userinfo()->nama_2 ?>" />
+                        <input type="text" class="form-input" name="nama_2" value="<?= userinfo()->nama_2 ?>" />
                         <?php if(initValidation()->hasError('nama_2')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_2'); ?></small>
                         <?php endif; ?>
@@ -69,7 +69,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Jenis Lomba</span>
                         </label>
-                        <select name="partisipan_jenis[]" class="select select-bordered select-primary w-full max-w-xs" multiple>
+                        <select name="partisipan_jenis[]" class="text-primary-100" multiple>
                             <option value="AuditUniv" <?= in_array('AuditUniv', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Audit Perguruan Tinggi</option>
                             <option value="AccUniv" <?= in_array('AccUniv', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Akuntansi Perguruan Tinggi</option>
                             <option value="AccSMA" <?= in_array('AccSMA', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Akuntansi SMA</option>
@@ -84,7 +84,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Whatsapp</span>
                         </label>
-                        <input type="text" class="input" name="wa" value="<?= userinfo()->wa ?>" />
+                        <input type="text" class="form-input" name="wa" value="<?= userinfo()->wa ?>" />
                         <?php if(initValidation()->hasError('wa')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('wa'); ?></small>
                         <?php endif; ?>
@@ -95,7 +95,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Surat Pernyataan</span>
                         </label>
-                        <input type="file" class="input" name="surat_pernyataan"/>
+                        <input type="file" class="form-input" name="surat_pernyataan"/>
                         <input type="hidden" value="<?= userinfo()->surat_pernyataan ?>" name="old_surat_pernyataan">
                         <?php if(initValidation()->hasError('surat_pernyataan')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('surat_pernyataan'); ?></small>
@@ -110,7 +110,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Kartu Tanda Mahasiswa</span>
                         </label>
-                        <input type="file" class="input" name="ktm[]" multiple/>
+                        <input type="file" class="form-input" name="ktm[]" multiple/>
                         <input type="hidden" value="<?= userinfo()->ktm ?>" name="old_ktm">
                         <?php if(initValidation()->hasError('ktm')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('ktm'); ?></small>
@@ -131,7 +131,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Bukti Twibbon</span>
                         </label>
-                        <input type="file" class="input" value="<?= userinfo()->twibbon ?>" name="twibbon[]" multiple/>
+                        <input type="file" class="form-input" value="<?= userinfo()->twibbon ?>" name="twibbon[]" multiple/>
                         <input type="hidden" value="<?= userinfo()->twibbon ?>" name="old_twibbon">
                         <?php if(initValidation()->hasError('twibbon')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('twibbon'); ?></small>

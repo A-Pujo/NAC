@@ -12,4 +12,39 @@
     .sidebar-text {
         @apply ml-16 font-bold text-16 text-base-100;
     }
+
+    /* Form */
+    .form-input {
+        @apply input input-primary bg-primary-200;
+    }
+
+    /* Datatables */
+    .tabel {
+        @apply min-w-full overflow-x-auto cursor-pointer;
+    }
+    .tabel thead tr th {
+        @apply px-24 py-8 font-bold text-16 text-left;
+    }
+    .tabel tbody tr {
+        @apply border-b-8 border-neutral-300 bg-primary-200 hover:bg-opacity-90;
+    }
+    .tabel tbody tr td {
+        @apply p-8 text-16;
+    }
+
+    /* Tabel show card */
+    /* .tabel-card:not(last-child(1)) {
+        @apply border-t ;
+    } */
+    .tabel-card tr td {
+        @apply p-4 text-base-100;
+    }
+
+    /* Status verifikasi */
+    .verif-sukses {
+        @apply p-4 bg-success rounded-md;
+    }
+    .verif-gagal {
+        @apply p-4 bg-error rounded-md;
+    }
 }

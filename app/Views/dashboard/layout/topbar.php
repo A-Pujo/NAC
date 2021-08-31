@@ -3,8 +3,20 @@
 <!-- User Info -->
 <div class="flex py-16 px-24 space-x-16 border items-center border-primary-100 rounded-md">
     <div class="flex flex-col space-y-4 items-end text-base-100">
-        <span class="font-bold text-16"><?= userinfo()->nama ?></span>
-        <span class="font-light text-14 ">Peserta</span>
+        <span class="font-bold text-16"><?= explode(' ',userinfo()->nama)[0] ?></span>
+        <span class="font-light text-14 ">
+            <?php if(isInRole('umum')) :?>
+                Pengguna Umum
+            <?php elseif(isInRole('admin')) :?>
+                Admin
+            <?php elseif(isInRole('tim registrasi')) :?>
+                Tim Registrasi
+            <?php elseif(isInRole('tim bendahara')) :?>
+                Tim Bendahara
+            <?php elseif(isInRole('peserta lomba')) :?>
+                Admin
+            <?php endif ?>
+        </span>
     </div>
     <div>
         <img class="h-48 w-48 rounded-full" src="<?php echo userinfo()->avatar ?>" alt="avatar">

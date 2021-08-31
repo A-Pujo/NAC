@@ -38,8 +38,15 @@ class Dashboard extends BaseController
 	{
         if(!isInRole('umum')){
             return redirect()->to(base_url('/dashboard'));
+        } elseif(userinfo()->partisipan_aktif == 0){
+            return redirect()->to(base_url('/dashboard'));
         }
-        return view('dashboard/pages/pembayaran');
+        
+        $data =[
+            'judul' => 'Pembayaran Lomba',
+            'halaman' => 'pembayaran',
+        ];
+        return view('dashboard/pages/pembayaran', $data);
 	}
 
     public function admin($page = null){
@@ -53,14 +60,10 @@ class Dashboard extends BaseController
         ];
         
         if($page == 'tim-regis'){
-            $data = [
-                'judul' => 'Kelola Tim Registrasi'
-            ];
+            $data['judul'] = 'Kelola Tim Registrasi';
             return view('dashboard/pages/admin-kelola-tim-regis', $data);
         } else if($page == 'tim-bendahara'){
-            $data = [
-                'judul' => 'Kelola Tim Bendahara'
-            ];
+            $data['judul'] = 'Kelola Tim Bendahara';
             return view('dashboard/pages/admin-kelola-tim-bendahara', $data);
         }
         return view('dashboard/pages/admin', $data);
@@ -69,11 +72,14 @@ class Dashboard extends BaseController
     public function tambah_anggota($page = null){
         $data = [
             'data_partisipan' => $this->RUG->getAllUserRole(),
+            'halaman' => 'admin',
         ];
         
         if($page == 'tim-regis'){
+            $data['judul'] = 'Tambah Tim Registrasi';
             return view('dashboard/pages/admin-tambah-tim-regis', $data);
         } else if($page == 'tim-bendahara'){
+            $data['judul'] = 'Tambah Tim Bendahara';
             return view('dashboard/pages/admin-tambah-tim-bendahara', $data);
         }
         return view('dashboard/pages/admin', $data);
@@ -107,12 +113,16 @@ class Dashboard extends BaseController
 
         if($id == null){
             $data = [
+                'judul' => 'Data Peserta',
+                'halaman' => 'kelola-pendaftaran',
                 'data_partisipan' => $this->PARTISIPAN->getAll(),
             ];
     
             return view('dashboard/pages/verifikasi-pendaftaran', $data);
         } else {
             $data = [
+                'judul' => 'Verifikasi Peserta',
+                'halaman' => 'kelola-pendaftaran',
                 'partisipan' => $this->PARTISIPAN->getSingle($id),
             ];
     
@@ -127,12 +137,16 @@ class Dashboard extends BaseController
         }
         if($id == null){
             $data = [
+                'judul' => 'Data Peserta',
+                'halaman' => 'kelola-pembayaran',
                 'data_partisipan' => $this->PARTISIPAN->getAll(),
             ];
     
             return view('dashboard/pages/verifikasi-pembayaran', $data);
         } else {
             $data = [
+                'judul' => 'Data Peserta',
+                'halaman' => 'kelola-pembayaran',
                 'partisipan' => $this->PARTISIPAN->getSingle($id),
             ];
     
@@ -400,7 +414,7 @@ class Dashboard extends BaseController
             return redirect()->to(base_url('/dashboard'));
         }
         $this->PARTISIPAN->setActive($user_id);
-        return redirect()->to(base_url('/dashboard/admin'));
+        return redirect()->to(base_url('/dashboard/verifikasi-pendaftaran'));
     }
 
     public function deaktivasi_partisipan($user_id){
@@ -408,7 +422,7 @@ class Dashboard extends BaseController
             return redirect()->to(base_url('/dashboard'));
         }
         $this->PARTISIPAN->setDeactive($user_id);
-        return redirect()->to(base_url('/dashboard/admin'));
+        return redirect()->to(base_url('/dashboard/verifikasi-pendaftaran'));
     }
     
     public function aktivasi_pembayaran($user_id){
@@ -417,7 +431,7 @@ class Dashboard extends BaseController
         }
         $this->PEMBAYARAN->setActive($user_id);
         $this->RUG->setUserRole($user_id, 2);
-        return redirect()->to(base_url('/dashboard/admin'));
+        return redirect()->to(base_url('/dashboard/verifikasi-pembayaran'));
     }
 
     public function deaktivasi_pembayaran($user_id){
@@ -426,7 +440,7 @@ class Dashboard extends BaseController
         }
         $this->PEMBAYARAN->setDeactive($user_id);
         $this->RUG->setUserRole($user_id, 0);
-        return redirect()->to(base_url('/dashboard/admin'));
+        return redirect()->to(base_url('/dashboard/verifikasi-pembayaran'));
     }
 }
 ?>

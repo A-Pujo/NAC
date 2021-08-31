@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "postcss ./src/css/tailwind.css -o ./public/css/style.css",
-    "watch": "postcss ./src/css/tailwind.css -o ./public/css/style.css --watch"
+    "watch": "postcss ./src/css/tailwind.css -o ./public/css/style.css --watch",
+    "sass": "sass ./src/scss/datatables.scss ./public/css/datatables.css"
   },
   "repository": {
     "type": "git",

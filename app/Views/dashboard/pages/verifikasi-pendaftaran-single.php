@@ -1,45 +1,74 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
-    <div class="text-base-100">
-        <small>Nama Tim</small>
-        <p><?= $partisipan->nama_tim ?></p>
-        <small>Perguruan Tinggi</small>
-        <p><?= $partisipan->pt ?></p>
-        <small>Nama Ketua</small>
-        <p><?= $partisipan->nama_ketua ?></p>
-        <small>Anggota 1</small>
-        <p><?= $partisipan->nama_1 ?></p>
-        <small>Anggota 2</small>
-        <p><?= $partisipan->nama_2 ?></p>
-        <small>Jenis Partisipasi</small>
-        <p><?= $partisipan->partisipan_jenis ?></p>
-        <small>Whatsapp</small>
-        <p><?= $partisipan->wa ?></p>
-        <small>Surat Pernyataan</small>
-        <p><a href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank" style="color: red;">surat pernyataan</a></p>
-        <small>Bukti KTM</small>
-        <p>
-        <?php foreach(explode('|', $partisipan->ktm) as $ktm) : ?>
-            <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
-        <?php endforeach; ?>
-        </p>
-        <small>Bukti Twibbon</small>
-        <p>
-        <?php foreach(explode('|', $partisipan->twibbon) as $twibbon) : ?>
-            <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
-        <?php endforeach; ?>
-        </p>
-        <small>Partisipan</small>
+    <div class="text-primary-100 p-32 text-14">
+        <div class="bg-neutral-100 p-24 rounded-md inline-block">
+            <table class="tabel-card">
+                <tr>
+                    <td>Nama Tim</td>
+                    <td>:</td>
+                    <td><?= $partisipan->nama_tim ?></td>
+                </tr>
+                <tr>
+                    <td>Nama Perguruan Tinggi</td>
+                    <td>:</td>
+                    <td><?= $partisipan->pt ?></td>
+                </tr>
+                <tr>
+                    <td>Nama Ketua Tim</td>
+                    <td>:</td>
+                    <td><?= $partisipan->nama_ketua ?></td>
+                </tr>
+                <tr>
+                    <td>Nama Anggota 1</td>
+                    <td>:</td>
+                    <td><?= $partisipan->nama_1 ?></td>
+                </tr>
+                <tr>
+                    <td>Nama Anggota 2</td>
+                    <td>:</td>
+                    <td><?= $partisipan->nama_2 ?></td>
+                </tr>
+                <tr>
+                    <td>Jenis Lomba</td>
+                    <td>:</td>
+                    <td><?= $partisipan->partisipan_jenis ?></td>
+                </tr>
+                <tr>
+                    <td>Nomor Whatsapp</td>
+                    <td>:</td>
+                    <td><?= $partisipan->wa ?></td>
+                </tr>
+                <tr>
+                    <td>Surat Pernyataan</td>
+                    <td>:</td>
+                    <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <p>Bukti KTM</p>
+        <div class="bg-neutral-100 p-24 rounded-md flex flex-row space-x-24">
+            <?php foreach(explode('|', $partisipan->ktm) as $ktm) : ?>
+                <div class="border-2 rounded-l">
+                    <img class="h-300 w-300" src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <p>Bukti Twibbon</p>
+        <div class="bg-neutral-100 p-24 rounded-md flex flex-row space-x-24">
+            <?php foreach(explode('|', $partisipan->twibbon) as $twibbon) : ?>
+                <div class="border-2 rounded-l">
+                    <img class="h-300 w-300" src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
+                </div>
+            <?php endforeach; ?>
+        </div>
+
         <?php if($partisipan->partisipan_aktif == 0) : ?>
-        <p><a href="<?= base_url('/dashboard/aktivasi-partisipan/'.$partisipan->user_id) ?>" class="btn btn-sm btn-primary">Aktivasi</a></p>
+        <p><a href="<?= base_url('/dashboard/aktivasi-partisipan/'.$partisipan->user_id) ?>" class="btn btn-block btn-primary mt-24">Verifikasi</a></p>
         <?php else: ?>
-        <p><a href="<?= base_url('/dashboard/deaktivasi-partisipan/'.$partisipan->user_id) ?>" class="btn btn-sm btn-primary">Deaktivasi</a></p>
+        <p><a href="<?= base_url('/dashboard/deaktivasi-partisipan/'.$partisipan->user_id) ?>" class="btn btn-block btn-primary mt-24">Cabut Verifikasi</a></p>
         <?php endif; ?>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit-icons.min.js"></script>
 <?= $this->endSection() ?>

@@ -1,11 +1,11 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
-    <div class="text-base-100">
-        <table id="tabel-partisipan" class="table w-full text-accent-content">
+    <div class="p-32">
+        <table id="tabel" class="tabel">
             <thead>
                 <tr>
                     <th>Nama Tim</th>
-                    <th>jenis Partisipasi</th>
+                    <th>Jenis Partisipasi</th>
                     <th>Nama Ketua</th>
                     <th>Partisipan Aktif</th>
                     <th>Aksi</th>
@@ -13,13 +13,19 @@
             </thead>
             <tbody>
                 <?php foreach($data_partisipan as $partisipan) : 
-                        if($partisipan->role_id == 0 or $partisipan->role_id == 2):
+                        if(($partisipan->role_id == 0 and $partisipan->nama_tim != '') or $partisipan->role_id == 2):
                     ?>
                 <tr>
                     <td><?= $partisipan->nama_tim ?></td>
                     <td><?= $partisipan->partisipan_jenis ?></td>
                     <td><?= $partisipan->nama_ketua ?></td>
-                    <td><?= $partisipan->partisipan_aktif == 0 ? 'Belum Diverifikasi' : 'Terverifikasi' ?></td>
+                    <td>
+                        <?php if($partisipan->partisipan_aktif == 1) : ?>
+                            <span class="verif-sukses"> Terverifikasi <span>
+                        <?php else: ?>
+                            <span class="verif-gagal"> Belum Terverifikasi <span>
+                        <?php endif ?>
+                    </td>
                     <td><a class="btn btn-primary" href="<?= base_url('/dashboard/verifikasi-pendaftaran/'.$partisipan->user_id) ?>">Periksa</a></td>
                 </tr>
                 <?php endif;
@@ -28,15 +34,5 @@
         </table>
     </div>
     
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script defer src="https://unpkg.com/alpinejs@3.2.3/dist/cdn.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.2/dist/js/uikit-icons.min.js"></script>
-    <script>
-
-        $(document).ready( function () {
-            $('#tabel-partisipan').DataTable();
-        } );
-    </script>
+    <?= $this->include('dashboard/layout/datatables') ?>
 <?= $this->endSection() ?>

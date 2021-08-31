@@ -48,6 +48,15 @@ module.exports = {
           100: '#FCFEFF',
           80: '#FFFFFF',
         },
+        success: {
+          DEFAULT : '#1BCD98',
+        },
+        warning: {
+          DEFAULT: '#FFED48'
+        },
+        error: {
+          DEFAULT: '#FF4848'
+        }
       },
       spacing: {
         'auto' : 'auto',
@@ -129,9 +138,9 @@ module.exports = {
           'base-content': '#1f2937',
 
           'info': '#2094f3',
-          'success': '#009485',
-          'warning': '#ff9900',
-          'error': '#ff5724',
+          'success': '#1BCD98',
+          'warning': '#FFED48',
+          'error': '#FF4848',
         }
       }
     ]

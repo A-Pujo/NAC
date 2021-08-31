@@ -1,6 +1,6 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
-    <div class="text-base-100">
+    <div class="text-primary-100">
         <small>Nama Bank</small>
         <p><?= $partisipan->nama_bank ?></p>
         <small>Nama Nasabah</small>
