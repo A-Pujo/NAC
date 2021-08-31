@@ -61,7 +61,7 @@ class Admin_Lomba extends BaseController
 					}
 				}
 			}
-			$dummy_nilai = $jawaban_benar/$counter * 100;
+			$dummy_nilai = $counter <= 0 ? 0 : $jawaban_benar/$counter * 100;
 			$this->NILAI->where(['kode_voucher' => $nilai->kode_voucher])->update(null, ['kuantitas_nilai' => number_format((float)$dummy_nilai, 2, '.', '')]);
 		}
 
