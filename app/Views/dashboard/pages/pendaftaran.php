@@ -15,14 +15,14 @@
                     <?= csrf_field() ?>
                     <div>
                         <label class="label">Perguruan Tinggi</label>
-                        <input type="text" class="form-control" name="pt" value="<?= userinfo()->pt ?>" />
+                        <input type="text" class="form-control" name="pt" value="<?= ! initValidation()->hasError('pt') ? old('pt') : userinfo()->pt ?>" />
                         <?php if(initValidation()->hasError('pt')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('pt'); ?></small>
                         <?php endif; ?>
                     </div>
                     <div>
                         <label class="label">Nama Tim</label>
-                        <input type="text" class="form-control" name="nama_tim" value="<?= userinfo()->nama_tim ?>" />
+                        <input type="text" class="form-control" name="nama_tim" value="<?= ! initValidation()->hasError('nama_tim') ? old('nama_tim') : userinfo()->nama_tim ?>" />
                         <input type="hidden" class="form-control" name="nama_tim_lama" value="<?= userinfo()->nama_tim ?>" />
                         <?php if(initValidation()->hasError('nama_tim')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_tim'); ?></small>
@@ -30,21 +30,21 @@
                     </div>
                     <div>
                         <label class="label">Nama Ketua</label>
-                        <input type="text" class="form-control" name="nama_ketua" value="<?= userinfo()->nama_ketua ?>" />
+                        <input type="text" class="form-control" name="nama_ketua" value="<?= ! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua ?>" />
                         <?php if(initValidation()->hasError('nama_ketua')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_ketua'); ?></small>
                         <?php endif; ?>
                     </div>
                     <div>
                         <label class="label">Nama Anggota 1</label>
-                        <input type="text" class="form-control" name="nama_1" value="<?= userinfo()->nama_1 ?>" />
+                        <input type="text" class="form-control" name="nama_1" value="<?= ! initValidation()->hasError('nama_1') ? old('nama_1') : userinfo()->nama_1 ?>" />
                         <?php if(initValidation()->hasError('nama_1')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_1'); ?></small>
                         <?php endif; ?>
                     </div>
                     <div>
                         <label class="label">Nama Anggota 2</label>
-                        <input type="text" class="form-control" name="nama_2" value="<?= userinfo()->nama_2 ?>" />
+                        <input type="text" class="form-control" name="nama_2" value="<?= ! initValidation()->hasError('nama_2') ? old('nama_2') : userinfo()->nama_2 ?>" />
                         <?php if(initValidation()->hasError('nama_2')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_2'); ?></small>
                         <?php endif; ?>
@@ -62,7 +62,7 @@
                     </div>
                     <div>
                         <label class="label">Whatsapp</label>
-                        <input type="text" class="form-control" name="wa" value="<?= userinfo()->wa ?>" />
+                        <input type="text" class="form-control" name="wa" value="<?= initValidation()->hasError('wa') ? old('wa') : userinfo()->wa ?>" />
                         <?php if(initValidation()->hasError('wa')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('wa'); ?></small>
                         <?php endif; ?>
@@ -154,4 +154,23 @@
             <?php endif; ?>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            var arr = new Array();
+            $("select[multiple]").change(function() {
+                $(this).find("option:selected")
+                if ($(this).find("option:selected").length > 2) {
+                    $(this).find("option").removeAttr("selected");
+                    $(this).val(arr);
+                }
+                else {
+                    arr = new Array();
+                    $(this).find("option:selected").each(function(index, item) {
+                        arr.push($(item).val());
+                    });
+                }
+            });
+        });
+    </script>
 <?= $this->endSection() ?>

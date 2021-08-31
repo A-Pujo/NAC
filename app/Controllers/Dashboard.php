@@ -139,10 +139,22 @@ class Dashboard extends BaseController
                     'required' => lang('Validasi.required'),
                 ],
             ],
+            'nama_1' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                ],
+            ],
+            'nama_2' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                ],
+            ],
             'partisipan_jenis' => [
                 'rules' => 'in_list[AuditUniv,AccUniv,AccSMA]',
                 'errors' => [
-                    'in_list' => lang('Validasi.in_list', ['Audit Universitas, Akuntansi Universita, atau Akuntansi SMA']),
+                    'in_list' => lang('Validasi.in_list', ['2 pilihan dari Audit Universitas, Akuntansi Universita, atau Akuntansi SMA']),
                 ],
             ],
             'wa' => [
