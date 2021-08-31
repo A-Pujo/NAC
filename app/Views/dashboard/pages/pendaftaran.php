@@ -7,7 +7,6 @@
                 Pendaftaran awal:
                 <?= form_open_multipart(base_url('/dashboard/update-pendaftaran'), ['method' => 'post']) ?>
                     <?= csrf_field() ?>
-<<<<<<< HEAD
 
                     <!-- PT -->
                     <div class="form-control">
@@ -15,81 +14,51 @@
                             <span class="label-text text-base-100">Perguruan Tinggi</span>
                         </label>
                         <input type="text" class="form-input" name="pt" value="<?= userinfo()->pt ?>" />
-=======
-                    <div>
-                        <label class="label">Perguruan Tinggi</label>
-                        <input type="text" class="form-control" name="pt" value="<?= ! initValidation()->hasError('pt') ? old('pt') : userinfo()->pt ?>" />
->>>>>>> 45fc7503f388e795fe1ca2aac6061be85f6d129f
                         <?php if(initValidation()->hasError('pt')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('pt'); ?></small>
                         <?php endif; ?>
                     </div>
-<<<<<<< HEAD
 
                     <!-- Nama Tim -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Nama Tim</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_tim" value="<?= userinfo()->nama_tim ?>" />
+                        <input type="text" class="form-input" name="nama_tim" value="<?= ! initValidation()->hasError('nama_tim') ? old('nama_tim') : userinfo()->nama_tim ?>" />
                         <input type="hidden" class="form-input" name="nama_tim_lama" value="<?= userinfo()->nama_tim ?>" />
-=======
-                    <div>
-                        <label class="label">Nama Tim</label>
-                        <input type="text" class="form-control" name="nama_tim" value="<?= ! initValidation()->hasError('nama_tim') ? old('nama_tim') : userinfo()->nama_tim ?>" />
-                        <input type="hidden" class="form-control" name="nama_tim_lama" value="<?= userinfo()->nama_tim ?>" />
->>>>>>> 45fc7503f388e795fe1ca2aac6061be85f6d129f
                         <?php if(initValidation()->hasError('nama_tim')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_tim'); ?></small>
                         <?php endif; ?>
                     </div>
-<<<<<<< HEAD
 
                     <!-- Ketua -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Nama Ketua Tim</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_ketua" value="<?= userinfo()->nama_ketua ?>" />
-=======
-                    <div>
-                        <label class="label">Nama Ketua</label>
-                        <input type="text" class="form-control" name="nama_ketua" value="<?= ! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua ?>" />
->>>>>>> 45fc7503f388e795fe1ca2aac6061be85f6d129f
+                        <input type="text" class="form-input" name="nama_ketua" value="<?= ! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua ?>" />
                         <?php if(initValidation()->hasError('nama_ketua')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_ketua'); ?></small>
                         <?php endif; ?>
                     </div>
-<<<<<<< HEAD
 
                     <!-- Anggota 1 -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Nama Anggota 1</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_1" value="<?= userinfo()->nama_1 ?>" />
-=======
-                    <div>
-                        <label class="label">Nama Anggota 1</label>
-                        <input type="text" class="form-control" name="nama_1" value="<?= ! initValidation()->hasError('nama_1') ? old('nama_1') : userinfo()->nama_1 ?>" />
->>>>>>> 45fc7503f388e795fe1ca2aac6061be85f6d129f
+                        <input type="text" class="form-input" name="nama_1" value="<?= ! initValidation()->hasError('nama_1') ? old('nama_1') : userinfo()->nama_1 ?>" />
                         <?php if(initValidation()->hasError('nama_1')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_1'); ?></small>
                         <?php endif; ?>
                     </div>
-<<<<<<< HEAD
 
                     <!-- Anggota 2 -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Nama Anggota 2</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_2" value="<?= userinfo()->nama_2 ?>" />
-=======
-                    <div>
-                        <label class="label">Nama Anggota 2</label>
-                        <input type="text" class="form-control" name="nama_2" value="<?= ! initValidation()->hasError('nama_2') ? old('nama_2') : userinfo()->nama_2 ?>" />
->>>>>>> 45fc7503f388e795fe1ca2aac6061be85f6d129f
+                        <input type="text" class="form-input" name="nama_2" value="<?= ! initValidation()->hasError('nama_2') ? old('nama_2') : userinfo()->nama_2 ?>" />
                         <?php if(initValidation()->hasError('nama_2')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_2'); ?></small>
                         <?php endif; ?>
@@ -109,19 +78,13 @@
                             <small style="color: red;"><?= initValidation()->getError('partisipan_jenis'); ?></small>
                         <?php endif; ?>
                     </div>
-<<<<<<< HEAD
 
                     <!-- WA -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Whatsapp</span>
                         </label>
-                        <input type="text" class="form-input" name="wa" value="<?= userinfo()->wa ?>" />
-=======
-                    <div>
-                        <label class="label">Whatsapp</label>
-                        <input type="text" class="form-control" name="wa" value="<?= initValidation()->hasError('wa') ? old('wa') : userinfo()->wa ?>" />
->>>>>>> 45fc7503f388e795fe1ca2aac6061be85f6d129f
+                        <input type="text" class="form-input" name="wa" value="<?= ! initValidation()->hasError('wa') ? old('wa') : userinfo()->wa ?>" />
                         <?php if(initValidation()->hasError('wa')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('wa'); ?></small>
                         <?php endif; ?>
