@@ -15,12 +15,16 @@
     <script>
     $(document).ready( function () {
         $('#tabel').DataTable({
-            dom: `  <"flex justify-between items-center text-base-100"
-                        <"flex items-center"lB>
-                        <f>
+            "scrollX": true,
+            dom: `  <"flex justify-between items-center text-base-100 text-16"
+                        <"flex items-center"
+                            <"length" l>
+                            B
+                        >
+                        <"find"f>
                     > 
                     <"text-base-100" rt>
-                    <"flex justify-between text-base-100"ip>`,
+                    <"flex justify-between text-base-100 text-16"ip>`,
             buttons: [
                 { extend: 'excel', className: 'btn btn-primary ml-4' },
                 { extend: 'pdf', className: 'btn btn-primary ml-4' }

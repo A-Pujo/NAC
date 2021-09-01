@@ -1,5 +1,14 @@
+<!-- Open Sidebar -->
+<button 
+    class="btn btn-ghost text-base-100 font-bold text-16 lg:hidden" 
+    @click="sidebar = true" 
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+        </svg>
+    </button>
 <!-- Judul -->
-<h1 class="text-64 font-bold text-base-100"><?= $judul ?></h1>
+<h1 class="text-32 font-bold text-base-100"><?= $judul ?></h1>
 <!-- User Info -->
 <div class="flex py-16 px-24 space-x-16 border items-center border-primary-100 rounded-md">
     <div class="flex flex-col space-y-4 items-end text-base-100">
