@@ -11,11 +11,12 @@
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Perguruan Tinggi</span>
-                        </label>
-                        <?= userinfo()->pt ?>
-                        <input type="text" class="form-input" name="pt" value="<?= !initValidation()->hasError('pt') ? old('pt') : userinfo()->pt ?>" />
-                        <?php if(initValidation()->hasError('pt')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('pt'); ?></small>
+                        </label> | Nama Perguruan Tinggi sesuai pada daftar DIKTI
+                        <!-- db ga kosong --update ? db : ( --daftar ga ada eror ? old () : '' ))  -->
+                        <!-- <input type="text" class="form-input" name="pt" value="<?=  old('pt') ?? !initValidation()->hasError('pt') ? old('pt') : userinfo()->pt  ?>" /> -->
+                        <input type="text" class="form-input" name="pt" value="<?=  old('pt') ?? userinfo()->pt  ?>" />
+                        <?php if(true) : ?>
+                            <small style="color: red;"><?= initValidation()->getError('pt'); ?> Nama Tidak Sesuai</small>
                         <?php endif; ?>
                     </div>
 
@@ -36,7 +37,8 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Ketua Tim</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_ketua" value="<?= ! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua ?>" />
+                        <!-- <input type="text" class="form-input" name="nama_ketua" value="<?= userinfo()->nama_ketua != '' ? userinfo()->nama_ketua : (! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua) ?>" /> -->
+                        <input type="text" class="form-input" name="nama_ketua" value="<?= old('nama_ketua') ?? userinfo()->nama_ketua ?>" />
                         <?php if(initValidation()->hasError('nama_ketua')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_ketua'); ?></small>
                         <?php endif; ?>

@@ -66,9 +66,13 @@ module.exports = {
         '16' : '16px',
         '24' : '24px',
         '32' : '32px',
+        '40' : '40px',
+        '42' : '42px',
         '48' : '48px',
         '56' : '56px',
+        '58' : '58px',
         '64' : '64px',
+        '80' : '80px',
         '96' : '96px',
         '112' : '112px',
         '120' : '120px',
@@ -96,6 +100,7 @@ module.exports = {
       },
       inset:{
         '32' : '32px',
+        '96' : '96px',
         'timeline' : 'calc(50% - (279px/2))',
       },
       letterSpacing:{
@@ -123,14 +128,18 @@ module.exports = {
           'primary': '#2C549A',
           'primary-focus': '#3A6FCC',
           'primary-content': '#D0D0D0',
+          
+          'accent': '#37cdbe',
+          'accent-focus': '#2aa79b',
+          'accent-content': '#ffffff',
 
-          'secondary': '#006C80',
-          'secondary-focus': '#0292AC',
-          'secondary-content': '#D0D0D0',
-
-          'neutral': '#06102E',
-          'neutral-focus': '#0D193E',
+          'neutral': '#006C80',
+          'neutral-focus': '#0292AC',
           'neutral-content': '#D0D0D0',
+
+          'secondary': '#06102E',
+          'secondary-focus': '#0D193E',
+          'secondary-content': '#D0D0D0',
 
           'base-100': '#E3E5E6',
           'base-200': '#EEF0F0',

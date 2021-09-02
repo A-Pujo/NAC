@@ -1,38 +1,19 @@
-<div class="sticky top-0 flex flex-col space-y-2 p-32 space-y-16 sidebar"
+<div class="sticky top-0 flex flex-col space-y-16 p-32 sidebar h-screen relative"
     :class="
         {'sidebar-expand' : sidebarExpand == true ,
         'sidebar-limit' : sidebarExpand == false }
     ">
-    <div class="flex justify-between items-center">
-        <span class="text-base-100 text-3xl font-black">LOGO</span>
-        <!-- Btn Show -->
-        <button 
-            class="btn btn-primary btn-ghost text-base-100 text-14 font-bold lg:hidden" 
-            @click="sidebar = false"
+    <span class="border-0 flex flex-nowrap justify-start items-center space-x-16">
+        <span class="w-58 p-8 flex-shrink-0 bg-neutral-300 rounded-md">
+            <img src="<?= base_url('img/logo.png') ?>" alt="">
+        </span>
+        <span 
+            class="text-base-100 font-black text-24 whitespace-nowrap"
+            x-show="sidebarExpand"
             >
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                </svg>
-            </button>
-        <!-- Btn Expand -->
-        <button 
-            class="btn btn-primary btn-ghost text-base-100 text-14 font-bold hidden lg:inline-block " 
-            @click="sidebarExpand = !sidebarExpand"
-            :class="
-                {'rotate-0' : sidebarExpand == true ,
-                'rotate-180' : sidebarExpand == false }
-            "
-            >
-                <svg 
-                    :class="
-                        {'rotate-0' : sidebarExpand == true ,
-                        'rotate-180' : sidebarExpand == false }
-                    "
-                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-                </svg>
-            </button>
-    </div>
+            NAC 2021 
+        </span>
+    </span>
 
     <!-- Home  -->
     <a href="<?= base_url('/dashboard') ?>" class="<?= $halaman == 'beranda' ? 'aktif' : 'nonaktif' ?>">
@@ -93,5 +74,38 @@
                 <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
             </svg>
             <span >Logout</span>
-        </a>   
-</div>
+        </a> 
+        
+        
+
+        <!-- BUTTON -->
+        <div class="absolute bottom-32 right-32">
+            <!-- Btn Show -->
+            <button 
+            class="btn btn-primary text-base-100 text-14 font-bold lg:hidden" 
+            @click="sidebar = false"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <!-- Btn Expand -->
+            <button 
+                class="btn btn-primary text-base-100 text-14 font-bold hidden lg:inline-block " 
+                @click="sidebarExpand = !sidebarExpand"
+                :class="
+                    {'rotate-0' : sidebarExpand == true ,
+                    'rotate-180' : sidebarExpand == false }
+                "
+            >
+                <svg 
+                    :class="
+                        {'rotate-0' : sidebarExpand == true ,
+                        'rotate-180' : sidebarExpand == false }
+                    "
+                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M15.707 15.707a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 010 1.414zm-6 0a1 1 0 01-1.414 0l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 1.414L5.414 10l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+            </button> 
+        </div>
+    </div>

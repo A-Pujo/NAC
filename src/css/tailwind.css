@@ -4,7 +4,7 @@
 
 @layer components {
     .sidebar a {
-        @apply btn border-0 flex flex-nowrap justify-start items-center
+        @apply btn border-0 flex flex-nowrap justify-start items-center;
     }
     .sidebar .aktif {
         @apply btn-primary;
@@ -24,9 +24,6 @@
     .sidebar-limit a span{
         @apply hidden;
     }
-    /* .sidebar-text {
-        @apply ml-16 font-bold text-14 lg:text-16 text-base-100 whitespace-nowrap;
-    } */
 
     /* Form */
     .form-input {
@@ -40,10 +37,10 @@
     .tabel thead tr th {
         @apply px-24 py-8 font-bold text-16 text-left;
     }
-    .tabel tbody:nth-child(even) {
+    .tabel tbody tr:nth-child(even) {
         @apply border-b-8 border-neutral-300 bg-primary-200 hover:bg-opacity-90;
     }
-    .tabel tbody:nth-child(odd) {
+    .tabel tbody tr:nth-child(odd) {
         @apply border-b-8 border-neutral-300 bg-secondary-200 hover:bg-opacity-90;
     }
     .tabel tbody tr td {

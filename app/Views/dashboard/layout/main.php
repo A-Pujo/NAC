@@ -10,15 +10,14 @@
 </head>
 <body class="antialiased min-h-screen relative lg:flex" x-data="{sidebar : false, sidebarExpand : true }">
     <!-- Sidebar -->
-    <div 
+    <nav 
         class="bg-neutral-200 absolute inset-0 z-10 lg:relative min-h-full transform lg:transform-none inline-block transition"
         :class="
             {'-translate-x-full' : sidebar == false }
         "
         >
-        yy
         <?= $this->include('dashboard/layout/sidebar') ?>
-    </div>
+    </nav>
     <!-- End of Sidebar -->
     <div class="relative z-0 w-full flex-grow-0 bg-neutral-300 overflow-scroll"
         :class="{'hidden' : sidebar == true }"

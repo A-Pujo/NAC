@@ -15,7 +15,7 @@
                 <tr>
                     <td><?= $partisipan->email ?></td>
                     <td ><?= $partisipan->nama ?></td>
-                    <td ><a href="<?= base_url('dashboard/tambah-bendahara/'.$partisipan->id) ?>" class="btn btn-secondary">Pilih</a></td>
+                    <td ><a href="<?= base_url('dashboard/tambah-bendahara/'.$partisipan->id) ?>" class="btn btn-sm btn-neutral">Pilih</a></td>
                 </tr>
                 <?php 
                     endif;
