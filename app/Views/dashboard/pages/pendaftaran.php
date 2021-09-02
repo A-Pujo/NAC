@@ -13,7 +13,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Perguruan Tinggi</span>
                         </label>
-                        <input type="text" class="form-input" name="pt" value="<?= userinfo()->pt ?>" />
+                        <input type="text" class="form-input" name="pt" value="<?= ! initValidation()->hasError('pt') ? old('pt') : userinfo()->pt ?>" />
                         <?php if(initValidation()->hasError('pt')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('pt'); ?></small>
                         <?php endif; ?>
