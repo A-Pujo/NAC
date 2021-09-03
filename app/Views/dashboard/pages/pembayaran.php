@@ -22,6 +22,7 @@
                 Isi bukti pembayaran
                 <?= form_open_multipart(base_url('/dashboard/update-pembayaran'), ['method' => 'post']) ?>
                 <?= csrf_field() ?>
+>>>>>>> 69de7630ff46d5ac7fedd93494aebf604b087457
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Nama Bank</span>

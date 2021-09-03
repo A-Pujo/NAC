@@ -1,6 +1,4 @@
 <!-- Datatables -->
-
-    <!-- <link rel="stylesheet" href="/css/datatables.css"> -->
     <!-- Main Script -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.js"></script>
@@ -15,12 +13,16 @@
     <script>
     $(document).ready( function () {
         $('#tabel').DataTable({
-            dom: `  <"flex justify-between items-center text-base-100"
-                        <"flex items-center"lB>
-                        <f>
+            "scrollX": true,
+            dom: `  <"flex justify-between items-center text-base-100 text-16"
+                        <"flex items-center"
+                            <"length" l>
+                            B
+                        >
+                        <"find"f>
                     > 
                     <"text-base-100" rt>
-                    <"flex justify-between text-base-100"ip>`,
+                    <"flex justify-between text-base-100 text-16"ip>`,
             buttons: [
                 { extend: 'excel', className: 'btn btn-primary ml-4' },
                 { extend: 'pdf', className: 'btn btn-primary ml-4' }

@@ -25,11 +25,9 @@
     <h1>Ini Halaman Home</h1>
         <div>
             <?php if(userinfo()->partisipan_aktif == 0 or userinfo()->pembayaran_aktif == 0) : ?>
-                Pendaftaran awal:
                 <?= form_open_multipart(base_url('/dashboard/update-pendaftaran'), ['method' => 'post']) ?>
                     <?= csrf_field() ?>
 
-                    <!-- PT -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Perguruan Tinggi</span>
@@ -85,7 +83,6 @@
                         <?php endif; ?>
                     </div>
 
-                    <!-- Jenis Lomba -->
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text text-base-100">Jenis Lomba</span>
@@ -113,10 +110,13 @@
 
                     <!-- SP -->
                     <div class="form-control">
-                        <label class="label">
+                        <label class="label" for="surat_pernyataan">
                             <span class="label-text text-base-100">Surat Pernyataan</span>
                         </label>
-                        <input type="file" class="form-input" name="surat_pernyataan"/>
+                        <div class="inline-block">
+                            <label for="surat_pernyataan" class="btn btn-primary">Upload Data</label>
+                        </div>
+                        <input type="file" class="form-input hidden" name="surat_pernyataan" id="surat_pernyataan" />
                         <input type="hidden" value="<?= userinfo()->surat_pernyataan ?>" name="old_surat_pernyataan">
                         <?php if(initValidation()->hasError('surat_pernyataan')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('surat_pernyataan'); ?></small>
@@ -136,96 +136,13 @@
                         <?php if(initValidation()->hasError('ktm')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('ktm'); ?></small>
                         <?php endif; ?>
-                        <?php 
-                        if(userinfo()->ktm != null) : 
-                            foreach(explode('|', userinfo()->ktm) as $ktm) :
-                        ?>
-                            <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm) ?>" alt="">
-                        <?php 
-                            endforeach;
-                        endif; 
-                        ?>
                     </div>
 
-                    <!-- Twib -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Bukti Twibbon</span>
-                        </label>
-                        <input type="file" class="form-input" value="<?= userinfo()->twibbon ?>" name="twibbon[]" multiple/>
-                        <input type="hidden" value="<?= userinfo()->twibbon ?>" name="old_twibbon">
-                        <?php if(initValidation()->hasError('twibbon')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('twibbon'); ?></small>
-                        <?php endif; ?>
-                        <?php 
-                        if(userinfo()->twibbon != null) : 
-                            foreach(explode('|', userinfo()->twibbon) as $twibbon) :
-                        ?>
-                            <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon) ?>" alt="">
-                        <?php 
-                            endforeach;
-                        endif; 
-                        ?>
-                    </div>
                     <button type="submit" class="btn btn-sm btn-primary">submit</button>
                 </form>
-            <?php else: ?>
-                <p>
-                    <small>Perguruan Tinggi</small><br>
-                    <b><?= userinfo()->pt ?></b><br>
-                    <small>Nama TIm</small><br>
-                    <b><?= userinfo()->nama_tim ?></b><br>
-                    <small>Nama Ketua</small><br>
-                    <b><?= userinfo()->nama_ketua ?></b><br>
-                    <small>Nama Anggota 1</small><br>
-                    <b><?= userinfo()->nama_1 ?></b><br>
-                    <small>Nama Anggota 2</small><br>
-                    <b><?= userinfo()->nama_2 ?></b><br>
-                    <small>Jenis Partisipasi</small><br>
-                    <b><?= userinfo()->partisipan_jenis ?></b><br>
-                    <small>Whatsapp</small><br>
-                    <b><?= userinfo()->wa ?></b><br>
-                    <small>KTM</small><br>
-                    <?php 
-                    if(userinfo()->ktm != null) : 
-                        foreach(explode('|', userinfo()->ktm) as $ktm) :
-                    ?>
-                        <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm) ?>" alt="">
-                    <?php 
-                        endforeach;
-                    endif; 
-                    ?>
-                    <small>Twibbon</small><br>
-                    <?php 
-                    if(userinfo()->twibbon != null) : 
-                        foreach(explode('|', userinfo()->twibbon) as $twibbon) :
-                    ?>
-                        <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon) ?>" alt="">
-                    <?php 
-                        endforeach;
-                    endif; 
-                    ?>
-                </p>
-            <?php endif; ?>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            var arr = new Array();
-            $("select[multiple]").change(function() {
-                $(this).find("option:selected")
-                if ($(this).find("option:selected").length > 2) {
-                    $(this).find("option").removeAttr("selected");
-                    $(this).val(arr);
-                }
-                else {
-                    arr = new Array();
-                    $(this).find("option:selected").each(function(index, item) {
-                        arr.push($(item).val());
-                    });
-                }
-            });
-        });
-    </script>
+
+                    <?php endif; ?>
+                    </div>
+                    </div>
+
 <?= $this->endSection() ?>

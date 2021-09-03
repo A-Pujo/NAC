@@ -3,20 +3,106 @@
 @tailwind utilities;
 
 @layer components {
-    .sidebar-menu {
-        @apply btn bg-transparent border-0 hover:bg-primary-200 justify-start items-center;
+    .sidebar a {
+        @apply btn border-0 flex flex-nowrap justify-start items-center ;
     }
-    .sidebar-menu-aktif {
-        @apply btn btn-primary border-0 justify-start items-center;
+    .sidebar .aktif {
+        @apply btn-primary;
     }
-    .sidebar-text {
-        @apply ml-16 font-bold text-16 text-base-100;
+    .sidebar .nonaktif {
+        @apply bg-transparent hover:bg-primary-200;
+    }
+    .sidebar-expand {
+        @apply items-stretch; 
+    }
+    .sidebar-limit {
+        @apply items-start; 
+    }
+    .sidebar-expand a span{
+        @apply ml-16 font-bold text-14 lg:text-16 text-base-100 whitespace-nowrap capitalize;
+    }
+    .sidebar-limit a span{
+        @apply hidden;
     }
 
     /* Form */
-    .form-input {
-        @apply input input-primary bg-primary-200;
-    }
+        .form-input, .form-upload, .form-select {
+            @apply flex flex-col items-start p-8;
+        }
+        .form-input label, .form-upload label:nth-child(1), .form-select label {
+            @apply font-bold text-16;
+        }
+        .form-input span, .form-upload span, .form-select span:nth-child(4) {
+            @apply mt-4 font-light text-12 text-error;
+        }
+            /* Input */
+            .form-input div {
+                @apply relative mt-8 self-stretch;
+            }
+            .form-input div input[type=text] {
+                @apply w-full bg-neutral-200 border border-neutral-60 focus:border-primary-100 rounded-md p-8 text-base-100 text-12
+            }
+            .form-input div i {
+                @apply absolute right-8 top-input-icon text-primary-200;
+            }
+            .form-input div i svg{
+                @apply h-18;
+            }
+
+            /* Select */
+            .form-select {
+                @apply w-1/2 relative;
+            }
+            .form-select div:nth-child(2) {
+                @apply self-stretch bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 relative
+            }
+            .form-select div:nth-child(2) i {
+                @apply absolute right-8 top-input-icon text-primary-200 ;
+            }
+            .form-select div:nth-child(3) {
+                @apply absolute right-0 top-48 bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 ;
+            }
+            .form-select div:nth-child(3) ul {
+                @apply divide-y divide-primary-100
+            }
+            .form-select div:nth-child(3) ul li {
+                @apply cursor-pointer p-8;
+            }
+            .form-select select {
+                @apply hidden;
+            }
+
+            /* Upload */
+            .form-upload label:nth-child(3) {
+                @apply btn btn-sm btn-primary mt-8;
+            }
+            .form-upload input {
+                @apply hidden;
+            }
+            .form-upload div {
+                @apply flex mt-8;
+            }
+            .form-upload div div {
+                @apply flex items-start space-x-8;
+            }
+            .form-upload div div img {
+                @apply h-48 rounded-sm;
+            }
+            .form-upload div div div {
+                @apply flex flex-col items-start space-y-4 justify-start ;
+            }
+            .form-upload div div div span:nth-child(1) {
+                @apply text-base-100 font-medium text-16;
+            }
+            .form-upload div div div span:nth-child(2) {
+                @apply text-base-100 font-light text-12;
+            }
+
+
+
+
+
+
 
     /* Datatables */
     .tabel {
@@ -25,11 +111,20 @@
     .tabel thead tr th {
         @apply px-24 py-8 font-bold text-16 text-left;
     }
-    .tabel tbody tr {
+    .tabel tbody tr:nth-child(even) {
         @apply border-b-8 border-neutral-300 bg-primary-200 hover:bg-opacity-90;
     }
+    .tabel tbody tr:nth-child(odd) {
+        @apply border-b-8 border-neutral-300 bg-secondary-200 hover:bg-opacity-90;
+    }
     .tabel tbody tr td {
-        @apply p-8 text-16;
+        @apply p-8 text-16 whitespace-nowrap;
+    }
+    .find div label input {
+        @apply text-primary-300 rounded-md p-8 ml-8;
+    }
+    .length div label select {
+        @apply text-primary-300 rounded-md p-8 mx-8;
     }
 
     /* Tabel show card */

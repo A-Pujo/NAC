@@ -454,5 +454,16 @@ class Dashboard extends BaseController
         $this->RUG->setUserRole($user_id, 0);
         return redirect()->to(base_url('/dashboard/verifikasi-pembayaran'));
     }
+    public function peserta_index(){
+        if(!isInRole('tim registrasi')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+        $data = [
+            'data_peserta' => $this->PARTISIPAN->getAll(),
+            'halaman' => 'kelola-peserta',
+            'judul'=> 'Data Semua Peserta',
+        ];
+        return view('dashboard/pages/peserta-index', $data);
+    }
 }
 ?>

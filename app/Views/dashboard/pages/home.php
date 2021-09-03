@@ -1,6 +1,23 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 
 <?= $this->section('content') ?>
+    <div class="grid-cols-12">
+        <h2 class="col-span-12 text-36 font-black text-base-100">Informasi</h2>
+        <div class="col-span-12 rounded-md p-32 bg-primary-40">
+            <h3 class="text-24 font-extrabold text-neutral-100">Tentang Dashboard</h3>
+            <p class="text-16 text-neutral-100">
+                Halaman ini adalah halaman utama/pusat bagi yang sudah daftar atau bergabung (sign up) di website kami. Anda sebagai calon peserta bisa mendaftar sebagai peserta lomba di website ini, verifikasi pendaftaran dan pembayaran dapat dilakukan di website ini. Segala informasi teknis maupun non teknis bisa dilihat di panduan.
+            </p>    
+        </div>
+        <div></div>
+    </div>
+
+
+
+
+
+
+
     <div class="text-base-100">
         <h1>
             <?php 
@@ -32,52 +49,4 @@
             <a href="<?= base_url('/dashboard/pembayaran') ?>" class="btn btn-primary">Update Pembayaran</a>
         <?php endif; ?>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div>
-            <?php if(isInRole('peserta lomba')) : ?>
-            <P><b>Peserta Lomba (Sudah bayar)</b></p>
-            <small>Nama Tim</small>
-            <p><?= userinfo()->nama_tim ?></p>
-            <small>Perguruan Tinggi</small>
-            <p><?= userinfo()->pt ?></p>
-            <small>Nama Ketua</small>
-            <p><?= userinfo()->nama_ketua ?></p>
-            <small>Anggota 1</small>
-            <p><?= userinfo()->nama_1 ?></p>
-            <small>Anggota 2</small>
-            <p><?= userinfo()->nama_2 ?></p>
-            <small>Jenis Partisipasi</small>
-            <p><?= userinfo()->partisipan_jenis ?></p>
-            <small>Whatsapp</small>
-            <p><?= userinfo()->wa ?></p>
-            <small>Surat Pernyataan</small>
-            <p><a href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.userinfo()->surat_pernyataan) ?>" target="_blank" style="color: red;">surat pernyataan</a></p>
-            <small>Bukti KTM</small>
-            <p>
-            <?php foreach(explode('|', userinfo()->ktm) as $ktm) : ?>
-                <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
-            <?php endforeach; ?>
-            </p>
-            <small>Bukti Twibbon</small>
-            <p>
-            <?php foreach(explode('|', userinfo()->twibbon) as $twibbon) : ?>
-                <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
-            <?php endforeach; ?>
-            </p>
-            <?php endif; ?>
-        </div>
-    </div>
 <?= $this->endSection() ?>
