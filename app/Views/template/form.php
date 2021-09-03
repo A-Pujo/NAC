@@ -5,7 +5,7 @@
                 <div>
                     <input 
                         placeholder="contoh : PKN STAN"
-                        value="Fernanda Akhsanuddin"
+                        value="<?= old('nama_tim') ?? userinfo()->nama_tim ?>"
                         type="text"
                         name="nama_tim" />
                     <i>
@@ -14,7 +14,7 @@
                         </svg>
                     </i>
                 </div>
-                <span>Error Display</span>
+                <span><?= initValidation()->getError('nama_tim') ?? '' ?></span>
             </div>
             <!-- Upload File -->
             <div class="form-upload" x-data="{files : ''}">
@@ -32,7 +32,7 @@
                     </template>
                 </div>
                 <label for="ktm">Upload Data</label>
-                <input type="file" id="ktm" @change="files = $event.target.files" multiple onchange="berkas(event)">
+                <input type="file" id="ktm" @change="files = $event.target.files" multiple>
                 <span>Error Display</span>
             </div>
             <!-- Select -->
