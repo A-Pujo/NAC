@@ -1,5 +1,26 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
+<?php
+    $isError = empty(initValidation()->getErrors()) ? false : true;
+    if($isError){
+        // handling kalo error
+        $pt = ! initValidation()->hasError('pt') ? old('pt') : '' ;
+        $nama_tim = ! initValidation()->hasError('nama_tim') ? old('nama_tim') : '' ;
+        $nama_ketua = ! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : '' ;
+        $nama_1 = ! initValidation()->hasError('nama_1') ? old('nama_1') : '' ;
+        $nama_2 = ! initValidation()->hasError('nama_2') ? old('nama_2') : '' ;
+        $wa = ! initValidation()->hasError('wa') ? old('wa') : '';
+    } else {
+        // seed awal value input
+        $pt = userinfo()->pt;
+        $nama_tim = userinfo()->nama_tim;
+        $nama_ketua = userinfo()->nama_ketua;
+        $nama_1 = userinfo()->nama_1;
+        $nama_2 = userinfo()->nama_2;
+        $wa = userinfo()->wa;
+    }
+
+?>
     <div class="text-base-100 p-32">
     <h1>Ini Halaman Home</h1>
         <div>
@@ -13,7 +34,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Perguruan Tinggi</span>
                         </label>
-                        <input type="text" class="form-input" name="pt" value="<?= ! initValidation()->hasError('pt') ? old('pt') : userinfo()->pt ?>" />
+                        <input type="text" class="form-input" name="pt" value="<?= $pt ?>" />
                         <?php if(initValidation()->hasError('pt')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('pt'); ?></small>
                         <?php endif; ?>
@@ -24,7 +45,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Tim</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_tim" value="<?= ! initValidation()->hasError('nama_tim') ? old('nama_tim') : userinfo()->nama_tim ?>" />
+                        <input type="text" class="form-input" name="nama_tim" value="<?= $nama_tim  ?>" />
                         <input type="hidden" class="form-input" name="nama_tim_lama" value="<?= userinfo()->nama_tim ?>" />
                         <?php if(initValidation()->hasError('nama_tim')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_tim'); ?></small>
@@ -36,7 +57,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Ketua Tim</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_ketua" value="<?= ! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua ?>" />
+                        <input type="text" class="form-input" name="nama_ketua" value="<?= $nama_ketua ?>" />
                         <?php if(initValidation()->hasError('nama_ketua')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_ketua'); ?></small>
                         <?php endif; ?>
@@ -47,7 +68,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Anggota 1</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_1" value="<?= ! initValidation()->hasError('nama_1') ? old('nama_1') : userinfo()->nama_1 ?>" />
+                        <input type="text" class="form-input" name="nama_1" value="<?= $nama_1 ?>" />
                         <?php if(initValidation()->hasError('nama_1')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_1'); ?></small>
                         <?php endif; ?>
@@ -58,7 +79,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Anggota 2</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_2" value="<?= ! initValidation()->hasError('nama_2') ? old('nama_2') : userinfo()->nama_2 ?>" />
+                        <input type="text" class="form-input" name="nama_2" value="<?= $nama_2 ?>" />
                         <?php if(initValidation()->hasError('nama_2')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_2'); ?></small>
                         <?php endif; ?>
@@ -84,7 +105,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Whatsapp</span>
                         </label>
-                        <input type="text" class="form-input" name="wa" value="<?= ! initValidation()->hasError('wa') ? old('wa') : userinfo()->wa ?>" />
+                        <input type="text" class="form-input" name="wa" value="<?= $wa ?>" />
                         <?php if(initValidation()->hasError('wa')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('wa'); ?></small>
                         <?php endif; ?>

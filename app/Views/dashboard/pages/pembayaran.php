@@ -1,5 +1,19 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
+<?php 
+    $isError = empty(initValidation()->getErrors()) ? false : true;
+    if($isError){
+        $nama_bank = ! initValidation()->hasError('nama_bank') ? old('nama_bank') : '';
+        $nama_nasabah = ! initValidation()->hasError('nama_nasabah') ? old('nama_nasabah') : '';
+        $nomor_rekening = ! initValidation()->hasError('nomor_rekening') ? old('nomor_rekening') : '';
+        $jumlah_transfer = ! initValidation()->hasError('jumlah_transfer') ? old('jumlah_transfer') : '';
+    } else {
+        $nama_bank = userinfo()->nama_bank;
+        $nama_nasabah = userinfo()->nama_nasabah;
+        $nomor_rekening = userinfo()->nomor_rekening;
+        $jumlah_transfer = userinfo()->jumlah_transfer;
+    }
+?>
     <div class="text-base-100">
         Status Pembayaran:
         <div>
@@ -12,7 +26,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Bank</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_bank" value="<?= ! initValidation()->hasError('nama_bank') ? old('nama_bank') : userinfo()->nama_bank ?>" />
+                        <input type="text" class="form-input" name="nama_bank" value="<?= $nama_bank ?>" />
                         <?php if(initValidation()->hasError('nama_bank')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_bank'); ?></small>
                         <?php endif; ?>
@@ -22,7 +36,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nama Nasabah</span>
                         </label>
-                        <input type="text" class="form-input" name="nama_nasabah" value="<?= ! initValidation()->hasError('nama_nasabah') ? old('nama_nasabah') : userinfo()->nama_nasaba ?>" />
+                        <input type="text" class="form-input" name="nama_nasabah" value="<?= $nama_nasabah ?>" />
                         <?php if(initValidation()->hasError('nama_nasabah')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nama_nasabah'); ?></small>
                         <?php endif; ?>
@@ -32,7 +46,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Nomor Rekening</span>
                         </label>
-                        <input type="text" class="form-input" name="nomor_rekening" value="<?= ! initValidation()->hasError('nomor_rekening') ? old('nomor_rekening') : userinfo()->nomor_rekening ?>" />
+                        <input type="text" class="form-input" name="nomor_rekening" value="<?= $nomor_rekening ?>" />
                         <?php if(initValidation()->hasError('nomor_rekening')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('nomor_rekening'); ?></small>
                         <?php endif; ?>
@@ -42,7 +56,7 @@
                         <label class="label">
                             <span class="label-text text-base-100">Jumlah Transfer</span>
                         </label>
-                        <input type="number" class="form-input" name="jumlah_transfer" value="<?= ! initValidation()->hasError('jumlah_transfer') ? old('jumlah_transfer') : userinfo()->jumlah_transfer ?>" />
+                        <input type="number" class="form-input" name="jumlah_transfer" value="<?= $jumlah_transfer ?>" />
                         <?php if(initValidation()->hasError('jumlah_transfer')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('jumlah_transfer'); ?></small>
                         <?php endif; ?>
