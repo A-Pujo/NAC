@@ -25,7 +25,7 @@
         <div class="h-163 flex justify-between items-center p-32">
             <?= $this->include('dashboard/layout/topbar') ?> 
         </div>
-        <div class="">
+        <div class="p-32">
             <?= $this->renderSection('content')?>
         </div>
         <div class="bg-gray-500">

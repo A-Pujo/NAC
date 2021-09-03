@@ -64,6 +64,7 @@ module.exports = {
         '8' : '8px',
         '14' : '14px',
         '16' : '16px',
+        '18' : '18px',
         '24' : '24px',
         '32' : '32px',
         '40' : '40px',
@@ -91,6 +92,7 @@ module.exports = {
       },
       fontSize: {
         '10' : '10px',
+        '12' : '12px',
         '14' : '14px',
         '16' : '16px',
         '18' : '18px',
@@ -99,13 +101,18 @@ module.exports = {
         '64' : '64px',
       },
       inset:{
+        '8' : '8px',
         '32' : '32px',
         '96' : '96px',
         'timeline' : 'calc(50% - (279px/2))',
+        'input-icon' : 'calc(50% - 9px)',
       },
       letterSpacing:{
         '6.5' : '0.065',
         '30' : '0.3'
+      },
+      lineHeight:{
+        '18' : '18px',
       },
       maxWidth : {
         '1000' : '1000px'

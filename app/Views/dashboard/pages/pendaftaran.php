@@ -8,89 +8,55 @@
                     <?= csrf_field() ?>
 
                     <!-- PT -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Perguruan Tinggi</span>
-                        </label> | Nama Perguruan Tinggi sesuai pada daftar DIKTI
-                        <!-- db ga kosong --update ? db : ( --daftar ga ada eror ? old () : '' ))  -->
-                        <!-- <input type="text" class="form-input" name="pt" value="<?=  old('pt') ?? !initValidation()->hasError('pt') ? old('pt') : userinfo()->pt  ?>" /> -->
-                        <input type="text" class="form-input" name="pt" value="<?=  old('pt') ?? userinfo()->pt  ?>" />
-                        <?php if(true) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('pt'); ?> Nama Tidak Sesuai</small>
-                        <?php endif; ?>
+                    <div class="form-input">
+                        <label>Nama Sekolah / Perguruan Tinggi</label>
+                        <div>
+                            <input 
+                                placeholder="contoh : PKN STAN"
+                                value="<?= old('pt') ?? userinfo()->pt ?>"
+                                type="text"
+                                name="pt" />
+                            <i>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                                </svg>
+                            </i>
+                        </div>
+                        <span><?= initValidation()->getError('pt') ?? '' ?></span>
                     </div>
 
-                    <!-- Nama Tim -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Nama Tim</span>
-                        </label>
-                        <input type="text" class="form-input" name="nama_tim" value="<?= userinfo()->nama_tim ?>" />
-                        <input type="hidden" class="form-input" name="nama_tim_lama" value="<?= ! initValidation()->hasError('nama_tim') ? old('nama_tim') : userinfo()->nama_tim ?>" />
-                        <?php if(initValidation()->hasError('nama_tim')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('nama_tim'); ?></small>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Ketua -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Nama Ketua Tim</span>
-                        </label>
-                        <!-- <input type="text" class="form-input" name="nama_ketua" value="<?= userinfo()->nama_ketua != '' ? userinfo()->nama_ketua : (! initValidation()->hasError('nama_ketua') ? old('nama_ketua') : userinfo()->nama_ketua) ?>" /> -->
-                        <input type="text" class="form-input" name="nama_ketua" value="<?= old('nama_ketua') ?? userinfo()->nama_ketua ?>" />
-                        <?php if(initValidation()->hasError('nama_ketua')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('nama_ketua'); ?></small>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Anggota 1 -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Nama Anggota 1</span>
-                        </label>
-                        <input type="text" class="form-input" name="nama_1" value="<?= ! initValidation()->hasError('nama_1') ? old('nama_1') : userinfo()->nama_1 ?>" />
-                        <?php if(initValidation()->hasError('nama_1')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('nama_1'); ?></small>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Anggota 2 -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Nama Anggota 2</span>
-                        </label>
-                        <input type="text" class="form-input" name="nama_2" value="<?= ! initValidation()->hasError('nama_2') ? old('nama_2') : userinfo()->nama_2 ?>" />
-                        <?php if(initValidation()->hasError('nama_2')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('nama_2'); ?></small>
-                        <?php endif; ?>
-                    </div>
-
-                    <!-- Jenis Lomba -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Jenis Lomba</span>
-                        </label>
-                        <select name="partisipan_jenis[]" class="text-primary-100" multiple>
-                            <option value="AuditUniv" <?= in_array('AuditUniv', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Audit Perguruan Tinggi</option>
-                            <option value="AccUniv" <?= in_array('AccUniv', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Akuntansi Perguruan Tinggi</option>
-                            <option value="AccSMA" <?= in_array('AccSMA', explode('|', userinfo()->partisipan_jenis)) ? 'selected' : '' ?> >Akuntansi SMA</option>
+                    <!-- Select -->
+                    <div class="form-select" x-data="{lomba : 'Pilih Jenis Lomba', dropdown : false}">
+                        <label>Pilih Jenis Lomba</label>
+                        <div
+                            @click="dropdown = !dropdown"
+                            >
+                            <span x-text="lomba"></span>
+                            <i class="">
+                                <svg
+                                class="transition transform h-18"
+                                :class="{'rotate-0': !dropdown,'rotate-180': dropdown}"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
+                            </i>
+                        </div>
+                        <div x-show="dropdown" @click.outside="dropdown = false">
+                            <ul>
+                                <li @click="lomba = 'Accounting SMA'">Accounting SMA</li>
+                                <li @click="lomba = 'Accounting Universitas'">Accounting Universitas</li>
+                            </ul>
+                        </div>
+                        <span><?= initValidation()->getError('partisipan_jenis') ?? '' ?></span>
+                        <!-- Input data -->
+                        <select name="partisipan_jenis">
+                            <option x-text="lomba == 'Accounting SMA' ? 'AccSMA' : (lomba == 'Accounting Universitas' ? 'AccUniv' : '') "></option>
                         </select>
-                        <?php if(initValidation()->hasError('partisipan_jenis')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('partisipan_jenis'); ?></small>
-                        <?php endif; ?>
-                    </div>
+                    </div> 
+ 
 
-                    <!-- WA -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Whatsapp</span>
-                        </label>
-                        <input type="text" class="form-input" name="wa" value="<?=! initValidation()->hasError('wa') ? old('wa') : userinfo()->wa ?>" />
-                        <?php if(initValidation()->hasError('wa')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('wa'); ?></small>
-                        <?php endif; ?>
-                    </div>
+                    <!-- --- -->
+ 
+                    <!-- Jenis Lomba -->
+
 
                     <!-- SP -->
                     <div class="form-control">
@@ -120,96 +86,13 @@
                         <?php if(initValidation()->hasError('ktm')) : ?>
                             <small style="color: red;"><?= initValidation()->getError('ktm'); ?></small>
                         <?php endif; ?>
-                        <?php 
-                        if(userinfo()->ktm != null) : 
-                            foreach(explode('|', userinfo()->ktm) as $ktm) :
-                        ?>
-                            <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm) ?>" alt="">
-                        <?php 
-                            endforeach;
-                        endif; 
-                        ?>
                     </div>
 
-                    <!-- Twib -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text text-base-100">Bukti Twibbon</span>
-                        </label>
-                        <input type="file" class="form-input" value="<?= userinfo()->twibbon ?>" name="twibbon[]" multiple/>
-                        <input type="hidden" value="<?= userinfo()->twibbon ?>" name="old_twibbon">
-                        <?php if(initValidation()->hasError('twibbon')) : ?>
-                            <small style="color: red;"><?= initValidation()->getError('twibbon'); ?></small>
-                        <?php endif; ?>
-                        <?php 
-                        if(userinfo()->twibbon != null) : 
-                            foreach(explode('|', userinfo()->twibbon) as $twibbon) :
-                        ?>
-                            <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon) ?>" alt="">
-                        <?php 
-                            endforeach;
-                        endif; 
-                        ?>
-                    </div>
                     <button type="submit" class="btn btn-sm btn-primary">submit</button>
                 </form>
-            <?php else: ?>
-                <p>
-                    <small>Perguruan Tinggi</small><br>
-                    <b><?= userinfo()->pt ?></b><br>
-                    <small>Nama TIm</small><br>
-                    <b><?= userinfo()->nama_tim ?></b><br>
-                    <small>Nama Ketua</small><br>
-                    <b><?= userinfo()->nama_ketua ?></b><br>
-                    <small>Nama Anggota 1</small><br>
-                    <b><?= userinfo()->nama_1 ?></b><br>
-                    <small>Nama Anggota 2</small><br>
-                    <b><?= userinfo()->nama_2 ?></b><br>
-                    <small>Jenis Partisipasi</small><br>
-                    <b><?= userinfo()->partisipan_jenis ?></b><br>
-                    <small>Whatsapp</small><br>
-                    <b><?= userinfo()->wa ?></b><br>
-                    <small>KTM</small><br>
-                    <?php 
-                    if(userinfo()->ktm != null) : 
-                        foreach(explode('|', userinfo()->ktm) as $ktm) :
-                    ?>
-                        <img src="<?= base_url('/uploads/partisipan/ktm/'.$ktm) ?>" alt="">
-                    <?php 
-                        endforeach;
-                    endif; 
-                    ?>
-                    <small>Twibbon</small><br>
-                    <?php 
-                    if(userinfo()->twibbon != null) : 
-                        foreach(explode('|', userinfo()->twibbon) as $twibbon) :
-                    ?>
-                        <img src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon) ?>" alt="">
-                    <?php 
-                        endforeach;
-                    endif; 
-                    ?>
-                </p>
-            <?php endif; ?>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            var arr = new Array();
-            $("select[multiple]").change(function() {
-                $(this).find("option:selected")
-                if ($(this).find("option:selected").length > 2) {
-                    $(this).find("option").removeAttr("selected");
-                    $(this).val(arr);
-                }
-                else {
-                    arr = new Array();
-                    $(this).find("option:selected").each(function(index, item) {
-                        arr.push($(item).val());
-                    });
-                }
-            });
-        });
-    </script>
+
+                    <?php endif; ?>
+                    </div>
+                    </div>
+
 <?= $this->endSection() ?>

@@ -4,7 +4,7 @@
 
 @layer components {
     .sidebar a {
-        @apply btn border-0 flex flex-nowrap justify-start items-center;
+        @apply btn border-0 flex flex-nowrap justify-start items-center ;
     }
     .sidebar .aktif {
         @apply btn-primary;
@@ -19,16 +19,90 @@
         @apply items-start; 
     }
     .sidebar-expand a span{
-        @apply ml-16 font-bold text-14 lg:text-16 text-base-100 whitespace-nowrap
+        @apply ml-16 font-bold text-14 lg:text-16 text-base-100 whitespace-nowrap capitalize;
     }
     .sidebar-limit a span{
         @apply hidden;
     }
 
     /* Form */
-    .form-input {
-        @apply input input-primary bg-primary-200;
-    }
+        .form-input, .form-upload, .form-select {
+            @apply flex flex-col items-start p-8;
+        }
+        .form-input label, .form-upload label:nth-child(1), .form-select label {
+            @apply font-bold text-16;
+        }
+        .form-input span, .form-upload span, .form-select span:nth-child(4) {
+            @apply mt-4 font-light text-12 text-error;
+        }
+            /* Input */
+            .form-input div {
+                @apply relative mt-8 self-stretch;
+            }
+            .form-input div input[type=text] {
+                @apply w-full bg-neutral-200 border border-neutral-60 focus:border-primary-100 rounded-md p-8 text-base-100 text-12
+            }
+            .form-input div i {
+                @apply absolute right-8 top-input-icon text-primary-200;
+            }
+            .form-input div i svg{
+                @apply h-18;
+            }
+
+            /* Select */
+            .form-select {
+                @apply w-1/2 relative;
+            }
+            .form-select div:nth-child(2) {
+                @apply self-stretch bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 relative
+            }
+            .form-select div:nth-child(2) i {
+                @apply absolute right-8 top-input-icon text-primary-200 ;
+            }
+            .form-select div:nth-child(3) {
+                @apply absolute right-0 top-48 bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 ;
+            }
+            .form-select div:nth-child(3) ul {
+                @apply divide-y divide-primary-100
+            }
+            .form-select div:nth-child(3) ul li {
+                @apply cursor-pointer p-8;
+            }
+            .form-select select {
+                @apply hidden;
+            }
+
+            /* Upload */
+            .form-upload label:nth-child(3) {
+                @apply btn btn-sm btn-primary mt-8;
+            }
+            .form-upload input {
+                @apply hidden;
+            }
+            .form-upload div {
+                @apply flex mt-8;
+            }
+            .form-upload div div {
+                @apply flex items-start space-x-8;
+            }
+            .form-upload div div img {
+                @apply h-48 rounded-sm;
+            }
+            .form-upload div div div {
+                @apply flex flex-col items-start space-y-4 justify-start ;
+            }
+            .form-upload div div div span:nth-child(1) {
+                @apply text-base-100 font-medium text-16;
+            }
+            .form-upload div div div span:nth-child(2) {
+                @apply text-base-100 font-light text-12;
+            }
+
+
+
+
+
+
 
     /* Datatables */
     .tabel {
