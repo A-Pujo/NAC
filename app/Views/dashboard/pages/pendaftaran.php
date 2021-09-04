@@ -22,9 +22,7 @@
     // print_r(initValidation()->getErrors());
 
     // API provinsi
-    $json_data = file_get_contents('http://dev.farizdotid.com/api/daerahindonesia/provinsi');
-    $response_data = json_decode($json_data);
-    $provincies = $response_data->provinsi;
+    $provincies = ["Nanggroe Aceh Darussalam", "Sumatera Utara", "Sumatera Selatan", "Sumatera Barat", "Bengkulu", "Riau", "Kepulauan Riau", "Jambi", "Lampung", "Bangka Belitung", "Kalimantan Barat", "Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Utara", "Banten", "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta", "Jawa timur", "Bali", "Nusa Tenggara Timur", "Nusa Tenggara Barat", "Gorontalo", "Sulawesi Barat", "Sulawesi Tengah", "Sulawesi Utara", "Sulawesi Tenggara", "Sulawesi Selatan", "Maluku Utara", "Maluku", "Papua Barat", "Papua"];
 ?>
     <div class="text-base-100 p-32">
     <h1>Ini Halaman Home</h1>
@@ -161,7 +159,7 @@
                         <div x-show="dropdown" @click.outside="dropdown = false">
                             <ul>
                                 <?php foreach($provincies as $p) : ?>
-                                <li @click="provinsi = '<?= $p->nama ?>'"><?= $p->nama ?></li>
+                                <li @click="provinsi = '<?= $p ?>'"><?= $p ?></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
@@ -189,7 +187,7 @@
                             </template>
                         </div>
                         <label for="file_abstrak">Upload Data</label>
-                        <input type="file" id="file_abstrak" @change="files = $event.target.files" name="file_abstrak" />
+                        <input type="file" id="file_abstrak" @change="files = $event.target.files" name="file_abstrak[]" multiple />
                         <input type="hidden" value="<?= userinfo()->file_abstrak ?>" name="old_file_abstrak">
                         <span><?= initValidation()->getError('file_abstrak') ?? '' ?></span>
                     </div>

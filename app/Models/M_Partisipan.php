@@ -28,8 +28,8 @@ class M_Partisipan extends Model
 
         $i = 0;
         for ($i=0; $i < count($datas) ; $i++) { 
-            $datas[$i]->nama_verifikator = $datas[$i]->partisipan_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[0]->id_tim_regis])->get()->getRow()->nama;
-            $datas[$i]->nama_bendahara = $datas[$i]->pembayaran_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[0]->id_tim_bendahara])->get()->getRow()->nama;
+            $datas[$i]->nama_verifikator = $datas[$i]->partisipan_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[$i]->id_tim_regis])->get()->getRow()->nama;
+            $datas[$i]->nama_bendahara = $datas[$i]->pembayaran_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[$i]->id_tim_bendahara])->get()->getRow()->nama;
         }
 
         return $datas;

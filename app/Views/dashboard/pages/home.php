@@ -41,7 +41,7 @@
 
         <!-- Button Pendaftaran -->
         <?php if(isInRole('umum') and userinfo()->nama_tim == '') : ?>
-            <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="btn btn-primary">Daftar !</a>
+            <a href="<?= base_url('/dashboard/pendaftaran-index') ?>" class="btn btn-primary">Daftar !</a>
         <?php endif; ?>
         <!-- Button Update Pendaftaran  -->
         <?php if(isInRole('umum') and userinfo()->nama_tim != '' and userinfo()->partisipan_aktif == 0) : ?>
