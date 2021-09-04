@@ -41,7 +41,7 @@ class Dashboard extends BaseController
         }
         $data =[
             'judul' => 'Pendaftaran Lomba',
-            'halaman' => 'Formulir Pendaftaran',
+            'halaman' => 'pendaftaran',
         ];
         if($this->request->getGet('lomba') == null){
             $jenis_lomba = userinfo()->partisipan_jenis != null ? userinfo()->partisipan_jenis : null;
@@ -67,7 +67,7 @@ class Dashboard extends BaseController
         
         $data =[
             'judul' => 'Pembayaran Lomba',
-            'halaman' => 'Formulir Pembayaran',
+            'halaman' => 'pendaftaran',
         ];
         return view('dashboard/pages/pembayaran', $data);
 	}
