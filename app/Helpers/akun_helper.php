@@ -36,4 +36,19 @@ function getGoogleClient(){
         return $USER->getFullUserInfo();
     }
 
+    function countPartisipan($where = null){
+        $PARTISIPAN = new \App\Models\M_Partisipan();
+        $PARTISIPAN->join('users', 'users.id = data_partisipan.user_id')
+        ->join('data_pembayaran', 'data_pembayaran.user_id = data_partisipan.user_id')
+        ->join('role_user_groups', 'role_user_groups.user_id = users.id');
+
+        if($where == null){
+            $partisipan = $PARTISIPAN->findAll();
+        } else{
+            $partisipan = $PARTISIPAN->where($where)->findAll();
+        }
+
+        return empty($partisipan) ? 0 : count($partisipan);
+    }
+
 ?>

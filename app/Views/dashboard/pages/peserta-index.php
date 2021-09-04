@@ -11,13 +11,15 @@
                     <th>Nama Anggota 2</th>
                     <th>Jenis Lomba</th>
                     <th>Whatsapp</th>
+                    <th>Nama Verifikator</th>
                     <th>Tanggal Pendaftaran</th>
                     <th>Update Pendaftaran</th>
                     <th>Nama Bank</th>
                     <th>Nama Nasabah</th>
                     <th>Nomor Rekening</th>
                     <th>Jumlah Transfer</th>
-                    <th>Tanggal Pemabayaran</th>
+                    <th>Nama Bendahara</th>
+                    <th>Tanggal Pembayaran</th>
                     <th>Update Pembayaran</th>
                     <th>Status Pendaftaran</th>
                     <th>Status Pembayaran</th>
@@ -26,6 +28,7 @@
             <tbody>
 
                 <?php foreach($data_peserta as $peserta) : 
+                        if($peserta->role_id > 10) continue;
                         if($peserta->nama_bank != ' '):
                     ?>
                 <tr>
@@ -36,12 +39,14 @@
                     <td><?= $peserta->nama_2 ?></td>
                     <td><?= $peserta->partisipan_jenis ?></td>
                     <td><?= $peserta->wa ?></td>
+                    <td><?= $peserta->nama_verifikator ?></td>
                     <td><?= $peserta->partisipan_dibuat ?></td>
                     <td><?= $peserta->partisipan_diupdate ?></td>
                     <td><?= $peserta->nama_bank ?></td>
                     <td><?= $peserta->nama_nasabah ?></td>
                     <td><?= $peserta->nomor_rekening ?></td>
                     <td><?= $peserta->jumlah_transfer ?></td>
+                    <td><?= $peserta->nama_bendahara ?></td>
                     <td><?= $peserta->pembayaran_dibuat ?></td>
                     <td><?= $peserta->pembayaran_diupdate ?></td>
                     <td>
