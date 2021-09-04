@@ -7,7 +7,15 @@
         </div>
         <!-- Main -->
         <div>
-            <h1 class="text-48 font-bold"></h1>
+            <h1 class="text-48 font-bold">Guide Book Accounting for SMA</h1>
+            <h2 class="text-36 font-bold">Pendaftaran Peserta</h2>
+            <p>
+                <span>Alur Pendaftaran calon peserta Accounting Challange for SMA<span>
+                <ul>
+                    <li>Masuk ke <a href="<?= base_url('dashboard/') ?>">dashbord</a> website menggunakan gmail.<br>
+                    (satu akun hanya untuk satu jenis perlombaan)</li>
+                </ul>
+            </p>
         </div>
 
     </div>
