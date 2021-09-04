@@ -1,13 +1,21 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 
 <?= $this->section('content') ?>
-    <div class="grid-cols-12">
+    <div class="grid grid-cols-12 gap-x-32">
+        <!--  -->
         <h2 class="col-span-12 text-36 font-black text-base-100">Informasi</h2>
-        <div class="col-span-12 rounded-md p-32 bg-primary-40">
+        <div class="col-span-12 lg:col-span-6 rounded-md p-32 bg-primary-40 mt-16">
             <h3 class="text-24 font-extrabold text-neutral-100">Tentang Dashboard</h3>
             <p class="text-16 text-neutral-100">
                 Halaman ini adalah halaman utama/pusat bagi yang sudah daftar atau bergabung (sign up) di website kami. Anda sebagai calon peserta bisa mendaftar sebagai peserta lomba di website ini, verifikasi pendaftaran dan pembayaran dapat dilakukan di website ini. Segala informasi teknis maupun non teknis bisa dilihat di panduan.
             </p>    
+        </div>
+        <div class="col-span-12 lg:col-span-6 rounded-md p-32 border border-primary-100 mt-16">
+            <h3 class="text-24 font-extrabold text-base-100">Mengenai Teknis</h3>
+            <p class="text-16 text-base-100">
+                Halaman ini adalah halaman utama/pusat bagi yang sudah daftar atau bergabung (sign up) di website kami. Anda sebagai calon peserta bisa mendaftar sebagai peserta lomba di website ini, verifikasi pendaftaran dan pembayaran dapat dilakukan di website ini. Segala informasi teknis maupun non teknis bisa dilihat di panduan.
+            </p> 
+            <a href="btn btn-primary btn-sm">Ke Panduan</a>   
         </div>
         <div></div>
     </div>

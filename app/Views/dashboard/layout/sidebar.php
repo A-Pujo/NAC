@@ -23,14 +23,13 @@
         <span >Beranda</span>
     </a>
     <!-- Umum -->
-    <?php if(isInRole('umum') and userinfo()->nama_tim != '') : ?>
-        <a href="<?= base_url('/dashboard/pendaftaran') ?>" class="<?= $halaman == 'pendaftaran' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"/></svg>
+    <?php if(isInRole('umum')): ?>
+        <a href="<?= base_url('/dashboard/pendaftaran_index') ?>" class="<?= $halaman == 'pendaftaran' ? 'aktif' : 'nonaktif' ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+            <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+        </svg>
             <span >Pendaftaran</span>
-        </a>
-        <a href="<?= base_url('/dashboard/pembayaran') ?>" class="<?= $halaman == 'pembayaran' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z"/></svg>
-            <span >Pembayaran</span>
         </a>
 
     <!-- Admin -->

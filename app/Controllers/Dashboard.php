@@ -22,6 +22,18 @@ class Dashboard extends BaseController
         echo view('dashboard/pages/home', $data);
 	}
 
+    public function pendaftaran_index()
+	{
+        if(!isInRole('umum')){
+            return redirect()->to(base_url('/dashboard'));
+        }
+        $data =[
+            'judul' => 'Pendaftaran',
+            'halaman' => 'pendaftaran',
+        ];
+        return view('dashboard/pages/pendaftaran-index', $data);
+	}
+
     public function pendaftaran()
 	{
         if(!isInRole('umum')){
@@ -29,7 +41,7 @@ class Dashboard extends BaseController
         }
         $data =[
             'judul' => 'Pendaftaran Lomba',
-            'halaman' => 'pendaftaran',
+            'halaman' => 'Formulir Pendaftaran',
         ];
         return view('dashboard/pages/pendaftaran', $data);
 	}
@@ -44,7 +56,7 @@ class Dashboard extends BaseController
         
         $data =[
             'judul' => 'Pembayaran Lomba',
-            'halaman' => 'pembayaran',
+            'halaman' => 'Formulir Pembayaran',
         ];
         return view('dashboard/pages/pembayaran', $data);
 	}
