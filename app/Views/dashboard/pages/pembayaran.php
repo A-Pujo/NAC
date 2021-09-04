@@ -19,24 +19,24 @@
     $jumlah_transfer = 0;
     if(userinfo()->partisipan_jenis == 'AccUniv'){
         if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
-            $jumlah_transfer = '110'.substr(userinfo()->wa, -3);
+            $jumlah_transfer = '110000';
         } else {
-            $jumlah_transfer = '120'.substr(userinfo()->wa, -3);
+            $jumlah_transfer = '120000';
         }
     } elseif(userinfo()->partisipan_jenis == 'AccSMA'){
         if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
-            $jumlah_transfer = '80'.substr(userinfo()->wa, -3);
+            $jumlah_transfer = '80000';
         } else {
-            $jumlah_transfer = '90'.substr(userinfo()->wa, -3);
+            $jumlah_transfer = '90000';
         }
     } else{
         if(date(userinfo()->pertama_input) <= date('2021-10-09 23:59:59')){
-            $jumlah_transfer = '50'.substr(userinfo()->wa, -3);
+            $jumlah_transfer = '50000';
         } else {
-            $jumlah_transfer = '70'.substr(userinfo()->wa, -3);
+            $jumlah_transfer = '70000';
         }
     }
-
+    $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;
 ?>
     <div class="text-base-100">
         Status Pembayaran:
