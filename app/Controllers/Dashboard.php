@@ -43,7 +43,11 @@ class Dashboard extends BaseController
             'judul' => 'Pendaftaran Lomba',
             'halaman' => 'Formulir Pendaftaran',
         ];
-        $jenis_lomba = $this->request->getGet('lomba');
+        if($this->request->getGet('lomba') == null){
+            $jenis_lomba = userinfo()->partisipan_jenis != null ? userinfo()->partisipan_jenis : null;
+        } else{
+            $jenis_lomba = $this->request->getGet('lomba');
+        }
 
         if($jenis_lomba == null or !in_array($jenis_lomba, ['AccUniv', 'AccSMA', 'CFP'])) {
             return redirect()->to(base_url('/dashboard'));
@@ -163,30 +167,30 @@ class Dashboard extends BaseController
 
     }
 
-    public function verifikasi_lomba($id = null){
-        if(! isInRole('tim lomba')){
-            return redirect()->to(base_url('/dashboard'));
-        }
+    // public function verifikasi_lomba($id = null){
+    //     if(! isInRole('tim lomba')){
+    //         return redirect()->to(base_url('/dashboard'));
+    //     }
 
-        if($id == null){
-            $data = [
-                'judul' => 'Data Peserta',
-                'halaman' => 'kelola-lomba',
-                'data_partisipan' => $this->PARTISIPAN->getAll(),
-            ];
+    //     if($id == null){
+    //         $data = [
+    //             'judul' => 'Data Peserta',
+    //             'halaman' => 'kelola-lomba',
+    //             'data_partisipan' => $this->PARTISIPAN->getAll(),
+    //         ];
     
-            return view('dashboard/pages/verifikasi-lomba', $data);
-        } else {
-            $data = [
-                'judul' => 'Verifikasi Peserta',
-                'halaman' => 'kelola-lomba',
-                'partisipan' => $this->PARTISIPAN->getSingle($id),
-            ];
+    //         return view('dashboard/pages/verifikasi-lomba', $data);
+    //     } else {
+    //         $data = [
+    //             'judul' => 'Verifikasi Peserta',
+    //             'halaman' => 'kelola-lomba',
+    //             'partisipan' => $this->PARTISIPAN->getSingle($id),
+    //         ];
     
-            return view('dashboard/pages/verifikasi-lomba-single', $data);
-        }
+    //         return view('dashboard/pages/verifikasi-lomba-single', $data);
+    //     }
 
-    }
+    // }
 
     public function verifikasi_pembayaran($id = null){
         if(! isInRole('tim bendahara')){
@@ -328,6 +332,7 @@ class Dashboard extends BaseController
         }
 
         if($this->request->getVar('partisipan_jenis') == 'CFP'){
+            // abstrak
             if(empty(userinfo()->file_abstrak)){
                 $validasi['file_abstrak'] = [
                     'rules' => 'uploaded[file_abstrak]|max_size[file_abstrak,10000]|ext_in[file_abstrak,pdf,doc,docx]',
@@ -340,6 +345,26 @@ class Dashboard extends BaseController
             } else {
                 $validasi['file_abstrak'] = [
                     'rules' => 'max_size[file_abstrak,10000]|ext_in[file_abstrak,pdf,doc,docx]',
+                    'errors' => [
+                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
+                        'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
+                    ],
+                ];  
+            }
+
+            // paper
+            if(empty(userinfo()->file_paper)){
+                $validasi['file_paper'] = [
+                    'rules' => 'uploaded[file_paper]|max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
+                    'errors' => [
+                        'uploaded' => lang('Validasi.required'),
+                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
+                        'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
+                    ],
+                ];  
+            } else {
+                $validasi['file_paper'] = [
+                    'rules' => 'max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
                     'errors' => [
                         'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
                         'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
@@ -405,16 +430,30 @@ class Dashboard extends BaseController
                     unlink(APPPATH.'../public/uploads/partisipan/surat-pernyataan/' . $this->request->getVar('old_surat_pernyataan'));
                 }
 
-                if($this->request->getFile('file_abstrak')->isValid() and ! $this->request->getFile('file_abstrak')->hasMoved()){
-                    $file_abstrak = $this->request->getFile('file_abstrak')->getRandomName();
-                    $this->request->getFile('file_abstrak')->move(APPPATH . '../public/uploads/partisipan/lomba/abstrak/', $file_abstrak);
-                } else {
-                    $file_abstrak = $this->request->getVar('old_file_abstrak');
+                if($this->request->getVar('partisipan_jenis') == 'CFP'){
+                    if($this->request->getFile('file_abstrak')->isValid() and ! $this->request->getFile('file_abstrak')->hasMoved()){
+                        $file_abstrak = $this->request->getFile('file_abstrak')->getRandomName();
+                        $this->request->getFile('file_abstrak')->move(APPPATH . '../public/uploads/partisipan/lomba/abstrak/', $file_abstrak);
+                    } else {
+                        $file_abstrak = $this->request->getVar('old_file_abstrak');
+                    }
+                    
+                    if($this->request->getVar('old_file_abstrak') != $file_abstrak and $this->request->getVar('old_file_abstrak') != null){
+                        unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $this->request->getVar('old_file_abstrak'));
+                    }
+    
+                    if($this->request->getFile('file_paper')->isValid() and ! $this->request->getFile('file_paper')->hasMoved()){
+                        $file_paper = $this->request->getFile('file_paper')->getRandomName();
+                        $this->request->getFile('file_paper')->move(APPPATH . '../public/uploads/partisipan/lomba/paper/', $file_paper);
+                    } else {
+                        $file_paper = $this->request->getVar('old_file_paper');
+                    }
+                    
+                    if($this->request->getVar('old_file_paper') != $file_paper and $this->request->getVar('old_file_paper') != null){
+                        unlink(APPPATH.'../public/uploads/partisipan/lomba/paper/' . $this->request->getVar('old_file_paper'));
+                    }
                 }
-                
-                if($this->request->getVar('old_file_abstrak') != $file_abstrak and $this->request->getVar('old_file_abstrak') != null){
-                    unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $this->request->getVar('old_file_abstrak'));
-                }
+
             }
 
             $partisipan_jenis = $this->request->getVar('partisipan_jenis');
@@ -429,12 +468,16 @@ class Dashboard extends BaseController
                 'partisipan_jenis' => $partisipan_jenis,
                 'wa' => $this->request->getVar('wa'),
                 'provinsi' => $this->request->getVar('provinsi'),
-                'file_abstrak' => $file_abstrak,
                 'surat_pernyataan' => $surat_pernyataan,
                 'ktm' => implode('|', $ktm),
                 'twibbon' => implode('|', $twibbon),
                 'pertama_input' => $pertama_input,
             ];
+
+            if($partisipan_jenis == 'CFP'){
+                $record['file_abstrak'] = $file_abstrak;
+                $record['file_paper']  = $file_paper;
+            }
 
             $this->PARTISIPAN->where(['user_id' => userinfo()->id])->update(null, $record);
             return redirect()->to(base_url('/dashboard'));
