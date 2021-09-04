@@ -15,6 +15,10 @@ class Home extends BaseController
 	{
 		return view('statis/pages/home');
 	}
+	public function guide()
+	{
+		return view('statis/pages/guide');
+	}
 
 	public function tes(){
 		return view('dashboard/pages/home');

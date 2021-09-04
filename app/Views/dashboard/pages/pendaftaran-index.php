@@ -34,17 +34,22 @@
                 <img src="<?= userinfo()->avatar ?>" alt="avatar" class="h-24 rounded-full">
                 <span> <?= userinfo()->nama_tim ?> </span>
                 <span> <?= userinfo()->partisipan_jenis == 'AccSMA' ? 'Accounting SMA' : (userinfo()->partisipan_jenis == 'AccUniv' ? 'Accounting Universitas' : 'Paper') ?> </span>
+                <span> <?= userinfo()->pt ?></span>
                 <?php if(userinfo()->partisipan_aktif) : ?>
                     <span class="verif-sukses">Terverifikasi</span>
+                    <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </div>
                 <?php else :?>
                     <span class="verif-gagal">Belum terverifikasi</span>
+                    <a href="<?= base_url('/dashboard/pendaftaran') ?>" data-tip="Edit Pendaftaran" class="tooltip tooltip-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                        </svg>
+                    </a>
                 <?php endif?>
-                <span> <?= userinfo()->pt ?></span>
-                <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-left">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
-                    </svg>
-                </div>
             </div>
             <div class="col-span-12 lg:col-span-6 lg:row-span-2 rounded-md bg-neutral-100 p-24 mt-4">
                 <table class="tabel-card">
