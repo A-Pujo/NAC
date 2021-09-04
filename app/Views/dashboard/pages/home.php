@@ -49,7 +49,7 @@
         <?php endif; ?>
 
         <!-- Button Pembayaran  -->
-        <?php if(userinfo()->partisipan_aktif == 1 and userinfo()->pembayaran_aktif == 0 and userinfo()->nama_bank = '')  : ?>
+        <?php if(userinfo()->partisipan_aktif == 1 and userinfo()->pembayaran_aktif == 0 and userinfo()->nama_bank == '')  : ?>
             <a href="<?= base_url('/dashboard/pembayaran') ?>" class="btn btn-primary">Pembayaran</a>
         <?php endif; ?>
         <!-- Button Pembayaran  -->
