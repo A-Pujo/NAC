@@ -341,24 +341,24 @@ class Dashboard extends BaseController
             }
 
             // paper
-            if(empty(userinfo()->file_paper)){
-                $validasi['file_paper'] = [
-                    'rules' => 'uploaded[file_paper]|max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
-                    'errors' => [
-                        'uploaded' => lang('Validasi.required'),
-                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
-                        'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
-                    ],
-                ];  
-            } else {
-                $validasi['file_paper'] = [
-                    'rules' => 'max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
-                    'errors' => [
-                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
-                        'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
-                    ],
-                ];  
-            }
+            // if(empty(userinfo()->file_paper)){
+            //     $validasi['file_paper'] = [
+            //         'rules' => 'uploaded[file_paper]|max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
+            //         'errors' => [
+            //             'uploaded' => lang('Validasi.required'),
+            //             'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
+            //             'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
+            //         ],
+            //     ];  
+            // } else {
+            //     $validasi['file_paper'] = [
+            //         'rules' => 'max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
+            //         'errors' => [
+            //             'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
+            //             'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
+            //         ],
+            //     ];  
+            // }
         }
 
         if(! $this->validate($validasi)){
@@ -430,16 +430,16 @@ class Dashboard extends BaseController
                         unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $this->request->getVar('old_file_abstrak'));
                     }
     
-                    if($this->request->getFile('file_paper')->isValid() and ! $this->request->getFile('file_paper')->hasMoved()){
-                        $file_paper = $this->request->getFile('file_paper')->getRandomName();
-                        $this->request->getFile('file_paper')->move(APPPATH . '../public/uploads/partisipan/lomba/paper/', $file_paper);
-                    } else {
-                        $file_paper = $this->request->getVar('old_file_paper');
-                    }
+                    // if($this->request->getFile('file_paper')->isValid() and ! $this->request->getFile('file_paper')->hasMoved()){
+                    //     $file_paper = $this->request->getFile('file_paper')->getRandomName();
+                    //     $this->request->getFile('file_paper')->move(APPPATH . '../public/uploads/partisipan/lomba/paper/', $file_paper);
+                    // } else {
+                    //     $file_paper = $this->request->getVar('old_file_paper');
+                    // }
                     
-                    if($this->request->getVar('old_file_paper') != $file_paper and $this->request->getVar('old_file_paper') != null){
-                        unlink(APPPATH.'../public/uploads/partisipan/lomba/paper/' . $this->request->getVar('old_file_paper'));
-                    }
+                    // if($this->request->getVar('old_file_paper') != $file_paper and $this->request->getVar('old_file_paper') != null){
+                    //     unlink(APPPATH.'../public/uploads/partisipan/lomba/paper/' . $this->request->getVar('old_file_paper'));
+                    // }
                 }
 
             }
@@ -464,7 +464,7 @@ class Dashboard extends BaseController
 
             if($partisipan_jenis == 'CFP'){
                 $record['file_abstrak'] = $file_abstrak;
-                $record['file_paper']  = $file_paper;
+                // $record['file_paper']  = $file_paper;
             }
 
             $this->PARTISIPAN->where(['user_id' => userinfo()->id])->update(null, $record);

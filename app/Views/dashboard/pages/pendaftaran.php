@@ -194,30 +194,7 @@
                         <span><?= initValidation()->getError('file_abstrak') ?? '' ?></span>
                     </div>
                     <?php endif; ?>
-
-                    <!-- Paper -->
-                    <?php if(userinfo()->partisipan_aktif == 1) : ?>
-                    <div class="form-upload" x-data="{files : ''}">
-                        <label for="file_paper">Dokumen Paper</label>
-                        <div x-show="files">
-                            <!-- Loop the image -->
-                            <template x-for="file in files" x-if="files">
-                                <div>
-                                    <img :src="URL.createObjectURL(file)">
-                                    <div>
-                                        <span x-text="file.name"></span>
-                                        <span x-text="file.size / 1000 + ' Kb'"></span>
-                                    </div> 
-                                </div>
-                            </template>
-                        </div>
-                        <label for="file_paper">Upload Data</label>
-                        <input type="file" id="file_paper" @change="files = $event.target.files" name="file_paper" />
-                        <input type="hidden" value="<?= userinfo()->file_paper ?>" name="old_file_paper">
-                        <span><?= initValidation()->getError('file_paper') ?? '' ?></span>
-                    </div>
-                    <?php endif; ?>
-
+                    
                     <!-- SP -->
                     <div class="form-upload" x-data="{files : ''}">
                         <label for="surat_pernyataan">Surat Pernyataan</label>
