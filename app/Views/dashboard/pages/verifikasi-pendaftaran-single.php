@@ -41,7 +41,7 @@
                 <tr>
                     <td>Surat Pernyataan</td>
                     <td>:</td>
-                    <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/lomba/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
+                    <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
                 </tr>
                 <?php if($partisipan->partisipan_jenis == 'CFP'): ?>
                 <tr>
