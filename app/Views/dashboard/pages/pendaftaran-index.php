@@ -113,6 +113,8 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+
+            <!-- Accounting -->
             <!-- Pembayaran -->
             <p class="col-span-12 mt-24">Formulir Pembayaran</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex justify-between items-center">
@@ -143,6 +145,12 @@
                     </div>
                 <?php endif ?>
             </div>
+            <!-- End Accounting -->
+
+            <!-- CFP -->
+            
+            <!-- End CFP -->
+            
             <!-- Pesan -->
             <p class="col-span-12 mt-8 text-10">Pastikan formulir Pendaftaran dan Pembayaran telah terverifikasi sebelum mengikuti perlombaan</p>
         <?php endif ?>

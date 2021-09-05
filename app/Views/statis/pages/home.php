@@ -5,7 +5,7 @@
         px-32 w-full
         sm:px-0 sm:w-554
         ">
-        <h1 class="text-36 font-black tracking-6.5 m-8 text-center">NATIONAL ACCOUNTING CHALLANGE</h1>
+        <h1 class="text-36 font-black tracking-6.5 m-8 text-center">NATIONAL ACCOUNTING CHALLENGE</h1>
         <h2 class="text-18 tracking-30 font-light">POLITEKNIK KEUANGAN NEGARA STAN</h2>
         <p class="text-16 my-16 text-center">NAC atau Singkatan dari National Accounting Challange merupakan sebuah wadah kompetensi di bidang akuntansi maupun keuangan bagi siapapun diluar sana. Kampus kami dengan segenap panitia NAC 2021 PKN STAN mengajak kalian untuk bergabung</p>
         <div>
