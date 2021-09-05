@@ -142,4 +142,15 @@
     .verif-gagal {
         @apply p-4 bg-error rounded-md;
     }
+
+    /* guide link */
+    .link-guide-dropdown {
+        @apply font-bold text-16 flex items-center p-8 cursor-pointer;
+    }
+    .link-guide {
+        @apply hover:text-primary-100 p-8 hover:bg-opacity-25 rounded;
+    }
+    .link-guide-aktif {
+        @apply bg-primary-100 bg-opacity-25 text-primary-100 cursor-pointer;
+    }
 }

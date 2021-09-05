@@ -35,7 +35,7 @@
                         <label>Nama Perguruan Tinggi</label>
                         <div>
                             <input 
-                                placeholder="contoh : PKN STAN"
+                                placeholder="contoh : Politeknik Keuangan Negara STAN"
                                 value="<?= $pt ?>"
                                 type="text"
                                 name="pt" />
