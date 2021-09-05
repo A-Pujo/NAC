@@ -1,5 +1,27 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
+<?php 
+if(userinfo()->partisipan_jenis == 'AccUniv'){
+    if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
+        $jumlah_transfer = '110000';
+    } else {
+        $jumlah_transfer = '120000';
+    }
+} elseif(userinfo()->partisipan_jenis == 'AccSMA'){
+    if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
+        $jumlah_transfer = '80000';
+    } else {
+        $jumlah_transfer = '90000';
+    }
+} else{
+    if(date(userinfo()->partisipan_diupdate) <= date('2021-10-09 23:59:59')){
+        $jumlah_transfer = '50000';
+    } else {
+        $jumlah_transfer = '70000';
+    }
+}
+$jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
+?>
     <div class="grid grid-cols-12 text-base-100 gap-x-32">
         <!-- Daftar Lomba -->
         <?php if( userinfo()->nama_tim == '' ) : ?>
@@ -125,7 +147,7 @@
                 <?php if(!userinfo()->partisipan_aktif) : ?> 
                     <span>Silakan Anda menunggu status pendaftaran Anda telah terverifikasi sebelum Anda melanjutkan pembayaran</span>
                 <?php elseif(userinfo()->nama_bank == '') : ?> 
-                    <span>Jumlah yang harus Anda bayar sebesar <?= 'Rp.100.' . substr(userinfo()->wa, -3) ?></span>
+                    <span>Jumlah yang harus Anda bayar sebesar <?= $jumlah_transfer ?></span>
                     <a href="" class="btn btn-sm btn-primary">Unggah bukti bayar</a>
                 <?php else : ?>
                     <span> <?= userinfo()->nama_bank ?> </span>
