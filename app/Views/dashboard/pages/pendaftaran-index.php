@@ -24,7 +24,11 @@
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-                Unduh template surat pernyataan <a href="#" class="underline hover:text-primary-100">disini!</a>
+                Unduh template surat pernyataan 
+                <a href="https://drive.google.com/uc?export=download&id=1x0yaHmVVDuxS_mBux0GllXC7UxO-xx9d" class="underline hover:text-primary-100">Akuntansi SMA</a>
+                <a href="https://drive.google.com/uc?export=download&id=1gArwtmwXdEkFjbnkA2PiUgltjHMNSARC" class="underline hover:text-primary-100">Akuntansi Universitas</a>
+                <a href="https://drive.google.com/uc?export=download&id=1YuxF1ZZzebKnVB1WZfbUE5V91966KB2O" class="underline hover:text-primary-100">Call for Paper 1</a>
+                <a href="https://drive.google.com/uc?export=download&id=1UJGDzSD1_cRywlrF88-My2BqML7_u7Gz" class="underline hover:text-primary-100">Call for Paper 2</a>
             </div>
         <?php else : ?>
             <h2 class="col-span-12 text-36 font-extrabold">Pendaftaran Lomba</h2>
@@ -97,12 +101,12 @@
             </div>
             <!-- KTM dan Twibbon -->
             <div class="col-span-12 lg:col-span-6 rounded-md bg-neutral-100 p-24 mt-4 grid grid-cols-3 gap-x-12 gap-y-12">
-                <?php foreach(explode('|', userinfo()->twibbon) as $twibbon) : ?>
+                <?php foreach(explode('|', userinfo()->ktm) as $ktm) : ?>
                     <div 
                         class="rounded-md overflow-hidden" 
-                        @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>', imgTitle = 'Unggah bukti upload twibbon'"
+                        @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>', imgTitle = 'Unggah bukti upload ktm'"
                     >
-                        <img class="bg-base-100 object-cover" src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
+                        <img class="bg-base-100 object-cover" src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
                     </div>
                 <?php endforeach; ?>
             </div>

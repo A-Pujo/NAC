@@ -230,18 +230,6 @@ class Dashboard extends BaseController
                     'required' => lang('Validasi.required'),
                 ],
             ],
-            'nama_1' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => lang('Validasi.required'),
-                ],
-            ],
-            'nama_2' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => lang('Validasi.required'),
-                ],
-            ],
             'wa' => [
                 'rules' => 'required',
                 'errors' => [
@@ -331,22 +319,38 @@ class Dashboard extends BaseController
             ];
         }
 
+        if($this->request->getVar('partisipan_jenis') != 'CFP'){
+            // anggota 1 2
+            $validasi['nama_1'] = [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                ],
+            ];
+            $validasi['nama_2'] = [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                ],
+            ];
+        }
+
         if($this->request->getVar('partisipan_jenis') == 'CFP'){
             // abstrak
             if(empty(userinfo()->file_abstrak)){
                 $validasi['file_abstrak'] = [
-                    'rules' => 'uploaded[file_abstrak]|max_size[file_abstrak,10000]|ext_in[file_abstrak,pdf,doc,docx]',
+                    'rules' => 'uploaded[file_abstrak]|max_size[file_abstrak,5000]|ext_in[file_abstrak,pdf,doc,docx]',
                     'errors' => [
                         'uploaded' => lang('Validasi.required'),
-                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
+                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '5 MB']),
                         'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
                     ],
                 ];  
             } else {
                 $validasi['file_abstrak'] = [
-                    'rules' => 'max_size[file_abstrak,10000]|ext_in[file_abstrak,pdf,doc,docx]',
+                    'rules' => 'max_size[file_abstrak,5000]|ext_in[file_abstrak,pdf,doc,docx]',
                     'errors' => [
-                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '10 MB']),
+                        'max_size' => lang('Validasi.max_size', ['dokumen abstrak', '5 MB']),
                         'ext_in' => lang('Validasi.ext_in', ['dokumen abstrak', 'pdf, doc, atau docx']),
                     ],
                 ];  
@@ -378,12 +382,19 @@ class Dashboard extends BaseController
         } else {
             $ktm = array();
             $twibbon = array();
+            $abstraks = array();
             $surat_pernyataan = '';
 
             if($uploadedFiles = $this->request->getFiles()){
-                if(count($uploadedFiles['ktm']) > 3 or count($uploadedFiles['twibbon']) > 3){
+                if(count($uploadedFiles['ktm']) > 3 or count($uploadedFiles['twibbon']) > 3 ){
                     return redirect()->to(base_url('/dashboard'));
                 } //cek jika upload lebih dari 3 file
+
+                if($this->request->getVar('partisipan_jenis') == 'CFP'){
+                   if(count($uploadedFiles['file_abstrak']) > 2){
+                        return redirect()->to(base_url('/dashboard'));
+                   }
+                }
 
                 foreach($uploadedFiles['ktm'] as $img){ //upload ktm
                     if ($img->isValid() && ! $img->hasMoved())
@@ -431,16 +442,33 @@ class Dashboard extends BaseController
                 }
 
                 if($this->request->getVar('partisipan_jenis') == 'CFP'){
-                    if($this->request->getFile('file_abstrak')->isValid() and ! $this->request->getFile('file_abstrak')->hasMoved()){
-                        $file_abstrak = $this->request->getFile('file_abstrak')->getRandomName();
-                        $this->request->getFile('file_abstrak')->move(APPPATH . '../public/uploads/partisipan/lomba/abstrak/', $file_abstrak);
-                    } else {
-                        $file_abstrak = $this->request->getVar('old_file_abstrak');
+                    foreach($uploadedFiles['file_abstrak'] as $file){ //upload file_abstrak
+                        if ($file->isValid() && ! $file->hasMoved())
+                        {
+                            $newName = $file->getRandomName();
+                            $file->move(APPPATH . '../public/uploads/partisipan/lomba/abstrak/', $newName);
+                            array_push($abstraks, $newName);
+                        } else {
+                            array_push($abstraks, $this->request->getVar('old_file_abstrak'));
+                            array_unique($abstraks);
+                        }
                     }
+                    if($this->request->getVar('old_file_abstrak') != implode('|', $abstraks) and $this->request->getVar('old_file_abstrak') != null){
+                        foreach(explode('|', $this->request->getVar('old_file_abstrak')) as $abstrakFile){
+                            unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak' . $abstrakFile);
+                        }
+                    }
+
+                    // if($this->request->getFile('file_abstrak')->isValid() and ! $this->request->getFile('file_abstrak')->hasMoved()){
+                    //     $file_abstrak = $this->request->getFile('file_abstrak')->getRandomName();
+                    //     $this->request->getFile('file_abstrak')->move(APPPATH . '../public/uploads/partisipan/lomba/abstrak/', $file_abstrak);
+                    // } else {
+                    //     $file_abstrak = $this->request->getVar('old_file_abstrak');
+                    // }
                     
-                    if($this->request->getVar('old_file_abstrak') != $file_abstrak and $this->request->getVar('old_file_abstrak') != null){
-                        unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $this->request->getVar('old_file_abstrak'));
-                    }
+                    // if($this->request->getVar('old_file_abstrak') != $file_abstrak and $this->request->getVar('old_file_abstrak') != null){
+                    //     unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $this->request->getVar('old_file_abstrak'));
+                    // }
     
                     // if($this->request->getFile('file_paper')->isValid() and ! $this->request->getFile('file_paper')->hasMoved()){
                     //     $file_paper = $this->request->getFile('file_paper')->getRandomName();
@@ -475,7 +503,7 @@ class Dashboard extends BaseController
             ];
 
             if($partisipan_jenis == 'CFP'){
-                $record['file_abstrak'] = $file_abstrak;
+                $record['file_abstrak'] = implode('|', $abstraks);
                 // $record['file_paper']  = $file_paper;
             }
 

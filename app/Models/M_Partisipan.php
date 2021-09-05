@@ -28,8 +28,8 @@ class M_Partisipan extends Model
 
         $i = 0;
         for ($i=0; $i < count($datas) ; $i++) { 
-            $datas[$i]->nama_verifikator = $datas[$i]->partisipan_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[0]->id_tim_regis])->get()->getRow()->nama;
-            $datas[$i]->nama_bendahara = $datas[$i]->pembayaran_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[0]->id_tim_bendahara])->get()->getRow()->nama;
+            $datas[$i]->nama_verifikator = $datas[$i]->partisipan_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[$i]->id_tim_regis])->get()->getRow()->nama;
+            $datas[$i]->nama_bendahara = $datas[$i]->pembayaran_aktif == 0 ? 'Tidak ada' : $this->db->table('users')->select()->where(['id' => $datas[$i]->id_tim_bendahara])->get()->getRow()->nama;
         }
 
         return $datas;
@@ -50,19 +50,39 @@ class M_Partisipan extends Model
     function setReject($user_id){
         $data = $this->where(['user_id' => $user_id])->first();
         // delete sp
-        unlink(APPPATH.'../public/uploads/partisipan/surat-pernyataan/' . $data->surat_pernyataan);
+        if(! empty($data->surat_pernyataan)){
+            unlink(APPPATH.'../public/uploads/partisipan/surat-pernyataan/' . $data->surat_pernyataan);
+        }
 
         // delete ktm
-        foreach(explode('|', $data->ktm) as $ktmFile){
-            unlink(APPPATH.'../public/uploads/partisipan/ktm/' . $ktmFile);
+        if(! empty($data->ktm)){
+            foreach(explode('|', $data->ktm) as $ktmFile){
+                unlink(APPPATH.'../public/uploads/partisipan/ktm/' . $ktmFile);
+            }
         }
 
         // delete twibbon
-        foreach(explode('|', $data->twibbon) as $twibbonFile){
-            unlink(APPPATH.'../public/uploads/partisipan/twibbon/' . $twibbonFile);
+        if(! empty($data->twibbon)){
+            foreach(explode('|', $data->twibbon) as $twibbonFile){
+                unlink(APPPATH.'../public/uploads/partisipan/twibbon/' . $twibbonFile);
+            }
         }
 
-        return $this->where(['user_id' => $user_id])->update(null, [
+        // delete abstrak
+        if(! empty($data->file_abstrak)){
+            foreach(explode('|', $data->file_abstrak) as $file){
+                unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $file);
+            }
+        }
+
+        // delete paper
+        if(! empty($data->file_paper)){
+            foreach(explode('|', $data->file_paper) as $file){
+                unlink(APPPATH.'../public/uploads/partisipan/lomba/paper/' . $file);
+            }
+        }
+
+        $this->where(['user_id' => $user_id])->update(null, [
             'pt' => '',
             'nama_tim' => '',
             'nama_ketua' => '',
@@ -71,6 +91,8 @@ class M_Partisipan extends Model
             'partisipan_jenis' => '',
             'wa' => '',
             'provinsi' => '',
+            'file_abstrak' => '',
+            'file_paper' => '',
             'surat_pernyataan' => '',
             'ktm' => '',
             'twibbon' => '',

@@ -28,9 +28,11 @@ class M_Pembayaran extends Model
         $data = $this->where(['user_id' => $user_id])->first();
 
         // delete bukti pembayaran
-        unlink(APPPATH.'../public/uploads/pembayaran/bukti/' . $data->bukti_transfer);
+        if(! empty($data->bukti_transfer)){
+            unlink(APPPATH.'../public/uploads/pembayaran/bukti/' . $data->bukti_transfer);
+        }
 
-        return $this->where(['user_id' => $user_id])->update(null, [
+        $this->where(['user_id' => $user_id])->update(null, [
             'nama_bank' => '',
             'nama_nasabah' => '',
             'nomor_rekening' => '',

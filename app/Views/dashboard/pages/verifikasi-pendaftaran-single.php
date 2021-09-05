@@ -41,13 +41,17 @@
                 <tr>
                     <td>Surat Pernyataan</td>
                     <td>:</td>
-                    <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/lomba/abstrak/'.$partisipan->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
+                    <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
                 </tr>
                 <?php if($partisipan->partisipan_jenis == 'CFP'): ?>
                 <tr>
                     <td>Dokumen Abstrak</td>
                     <td>:</td>
-                    <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/lomba/abstrak/'.$partisipan->file_abstrak) ?>" target="_blank">dokumen abstrak</a></td>
+                    <td>
+                        <?php foreach(explode('|', $partisipan->file_abstrak) as $file) : ?>
+                        <a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/lomba/abstrak/'.$file) ?>" target="_blank">dokumen abstrak</a> &nbsp;
+                        <?php endforeach; ?>
+                    </td>
                 </tr>
                 <?php endif; ?>
             </table>
