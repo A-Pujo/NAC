@@ -64,7 +64,7 @@ class Auth extends BaseController
             return redirect()->to(base_url());
         }
 
-        return redirect()->to(base_url('/dashboard'));
+        return redirect()->to(base_url(session()->get('redirect')));
     }
 
     public function logout(){
