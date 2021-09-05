@@ -73,7 +73,7 @@
                     <div class="ml-24" x-show="show == <?= $i+1 ?>" x-transition>
                         <ul class="">
                             <?php foreach($halaman[$i][1] as $item) : ?>
-                                <li class="link-guide <?= ($_GET['halaman'] ?? '') == $item[1] ? 'link-guide-aktif' : '' ?>"> <a href="<?= base_url('home/guide?halaman='.$item[1]) ?>"><?= $item[0] ?></a></li>
+                                <li class="link-guide <?= ($_GET['halaman'] ?? '') == $item[1] ? 'link-guide-aktif' : '' ?>"> <a href="<?= base_url('guide?halaman='.$item[1]) ?>"><?= $item[0] ?></a></li>
                             <?php endforeach ?>
                         </ul>
                     </div>

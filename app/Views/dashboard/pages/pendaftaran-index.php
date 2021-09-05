@@ -1,6 +1,32 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
+<?php 
+if(userinfo()->partisipan_jenis == 'AccUniv'){
+    if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
+        $jumlah_transfer = '110000';
+    } else {
+        $jumlah_transfer = '120000';
+    }
+} elseif(userinfo()->partisipan_jenis == 'AccSMA'){
+    if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
+        $jumlah_transfer = '80000';
+    } else {
+        $jumlah_transfer = '90000';
+    }
+} else{
+    if(date(userinfo()->partisipan_diupdate) <= date('2021-10-09 23:59:59')){
+        $jumlah_transfer = '50000';
+    } else {
+        $jumlah_transfer = '70000';
+    }
+}
+$jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
+?>
     <div class="grid grid-cols-12 text-base-100 gap-x-32">
+        <?php if(userinfo()->partisipan_ditolak == 1) : ?>
+        <h4 class="col-span-12 text-36 font-extrabold">Pendaftaranmu Ditolak</h4>
+        <p class="col-span-12 text-16 mt-8"><?= userinfo()->alasan_ditolak ?></p>
+        <?php endif; ?>
         <!-- Daftar Lomba -->
         <?php if( userinfo()->nama_tim == '' ) : ?>
             <h2 class="col-span-12 text-36 font-extrabold">Daftar Perlombaan</h2>
@@ -12,13 +38,13 @@
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
-                <h3 class="font-bold text-16">Accounting Challange For SMA</h3>
+                <h3 class="font-bold text-16">Accounting Challange For Universitas</h3>
                 <p class="mt-8 text-16">Sebuah perlombaan bla bla bla Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde perspiciatis aperiam tempore voluptatum, illum necessitatibus id. Rem non libero tenetur.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=AccUniv') ?>" class="btn btn-primary mt-16">Daftar</a>
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
-                <h3 class="font-bold text-16">Accounting Challange For SMA</h3>
+                <h3 class="font-bold text-16">Call for Paper</h3>
                 <p class="mt-8 text-16">Sebuah perlombaan bla bla bla Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde perspiciatis aperiam tempore voluptatum, illum necessitatibus id. Rem non libero tenetur.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=CFP') ?>" class="btn btn-primary mt-16">Daftar</a>
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
@@ -125,7 +151,7 @@
                 <?php if(!userinfo()->partisipan_aktif) : ?> 
                     <span>Silakan Anda menunggu status pendaftaran Anda telah terverifikasi sebelum Anda melanjutkan pembayaran</span>
                 <?php elseif(userinfo()->nama_bank == '') : ?> 
-                    <span>Jumlah yang harus Anda bayar sebesar <?= 'Rp.100.' . substr(userinfo()->wa, -3) ?></span>
+                    <span>Jumlah yang harus Anda bayar sebesar <?= $jumlah_transfer ?></span>
                     <a href="" class="btn btn-sm btn-primary">Unggah bukti bayar</a>
                 <?php else : ?>
                     <span> <?= userinfo()->nama_bank ?> </span>

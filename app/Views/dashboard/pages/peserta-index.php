@@ -29,7 +29,7 @@
 
                 <?php foreach($data_peserta as $peserta) : 
                         if($peserta->role_id > 10) continue;
-                        if($peserta->nama_bank != ' '):
+                        if($peserta->nama_bank != ''):
                     ?>
                 <tr>
                     <td><?= $peserta->nama_tim ?></td>
