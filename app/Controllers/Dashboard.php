@@ -609,7 +609,7 @@ class Dashboard extends BaseController
             return redirect()->to(base_url('/dashboard'));
         }
         $this->PEMBAYARAN->setReject($user_id);
-        $this->PARTISIPAN->setReject($user_id);
+        $this->PARTISIPAN->setReject($user_id, $this->request->getGet('alasan_ditolak'));
         return redirect()->to(base_url('/dashboard/verifikasi-pendaftaran'));
     }
     
