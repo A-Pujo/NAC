@@ -5,17 +5,61 @@
         
         <div class="w-480 pr-36">
             <h2 class="font-bold text-20">Daftar Panduan</h2>
+            <?php 
+            // Daftar halaman guide book
+            $halaman = [
+                [
+                    'Acc for SMA',
+                    [
+                        ['Booklet', 'acc-sma-booklet'],
+                        ['Pendaftaran', 'acc-sma-pendaftaran'],
+                        ['Timeline', 'acc-sma-timeline'],
+                    ]
+                ],
+                [
+                    'Acc for Univ',
+                    [
+                        ['Booklet', 'acc-univ-booklet'],
+                        ['Pendaftaran', 'acc-univ-pendaftaran'],
+                        ['Timeline', 'acc-univ-timeline'],
+                    ]
+                ],
+                [
+                    'Call for Paper',
+                    [
+                        ['Booklet', 'cfp-booklet'],
+                        ['Pendaftaran', 'cfp-pendaftaran'],
+                        ['Timeline', 'cfp-timeline'],
+                    ]
+                ],
+                [
+                    'Course',
+                    [
+                        
+                    ]
+                ],
+                [
+                    'FAQ',
+                    [
+                        ['FAQ', 'faq'],
+                    ]
+                ],
+            ];
+            
+            ?>
             <ul x-data="{show : 
 
                 <?php 
-                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-pendaftaran','acc-sma-pre'])){
+                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-booklet','acc-sma-pendaftaran','acc-sma-timeline'])){
                         echo 1;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-grand','acc-univ-penghargaan','acc-univ-pendaftaran','acc-univ-pre'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-booklet','acc-univ-pendaftaran','acc-univ-timeline'])) {
                         echo 2;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-pendaftaran','cfp-pre'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-booklet','cfp-pendaftaran','cfp-timeline'])) {
                         echo 3;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['course-pendaftaran','course-pre'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['course-pendaftaran'])) {
                         echo 4;
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['faq'])) {
+                        echo 5;
                     } else {
                         echo 0;
                     }
@@ -23,44 +67,6 @@
                 ?>
             
             }">
-
-            <?php 
-            // Daftar halaman guide book
-            $halaman = [
-                [
-                    'Acc for SMA',
-                    [
-                        ['Pendaftaran', 'acc-sma-pendaftaran'],
-                        ['Pre Eleminary', 'acc-sma-pre'],
-                    ]
-                ],
-                [
-                    'Acc for Univ',
-                    [
-                        ['Grand Theme', 'acc-univ-grand'],
-                        ['Ruang Lingkup', 'acc-univ-lingkup'],
-                        ['Linimasa', 'acc-univ-linimasa'],
-                        ['Penghargaan', 'acc-univ-penghargaan'],
-                        ['Pendaftaran', 'acc-univ-pendaftaran'],
-                        ['Pre Eleminary', 'acc-univ-pre'],
-                    ]
-                ],
-                [
-                    'Call for Paper',
-                    [
-                        ['Latar Belakang', 'cfp-latar'],
-                        ['Pendaftaran', 'cfp-pendaftaran'],
-                    ]
-                ],
-                [
-                    'Course',
-                    [
-                        ['Pendaftaran', 'course-pendaftaran'],
-                    ]
-                ],
-            ];
-            
-            ?>
 
             <?php for($i = 0 ; $i < count($halaman); $i++) :?>
                 <li>
@@ -87,22 +93,21 @@
             </ul>
         </div>
         <!-- Main -->
-        <div>
+        <div class="w-full">
+            <!-- Get data php sesuai parameter halaman -->
+
             <?php 
-            if(($_GET['halaman'] ?? '') == 'cfp-pendaftaran'){
-                echo($this->include('statis/pages/guide-cfp-pendaftaran'));
-            } elseif(($_GET['halaman'] ?? '') == 'acc-univ-grand'){
-                echo($this->include('statis/pages/guide-acc-univ-grand'));
-            } elseif(($_GET['halaman'] ?? '') == 'acc-univ-penghargaan'){
-                echo($this->include('statis/pages/guide-acc-univ-penghargaan'));
-            } else {
-                echo('Halaman Sambutan');
-            }
+                echo $this->include('/statis/pages/guide/'. ($_GET['halaman'] ?? 'default'))
+                
             ?>
         </div>
     </div>
-    <div>
-        <img src="<?= base_url('img/pattern-booklet.png')?>" alt="" class="w-full">
+    <div class="flex justify-between bg-base-100 relative">
+        <img src="<?= base_url('img/guide-p-kiri.png') ?>" alt="" class="opacity-30">
+        <img src="<?= base_url('img/guide-p-kanan.png') ?>" alt="" class="opacity-30">
+        <div class="w-full h-full flex justify-center items-center absolute">
+            <p class="text-center text-neutral-200 font-bold text-36">The Presence of Accounting in Digital Transformation of the Economy for Resilient, Sustainable, and Inclusive Recovery</p>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
     <script>

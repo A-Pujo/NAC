@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: false,
     content: [
       './app/**/*.php',
     ],
@@ -104,6 +104,7 @@ module.exports = {
       },
       inset:{
         '8' : '8px',
+        '16' : '16px',
         '32' : '32px',
         '96' : '96px',
         'timeline' : 'calc(50% - (279px/2))',
