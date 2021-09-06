@@ -635,8 +635,15 @@ class Dashboard extends BaseController
         if(!isInRole('tim registrasi')){
             return redirect()->to(base_url('/dashboard'));
         }
+        
+        if($where = $this->request->getGet()){
+            $pesertas = $this->PARTISIPAN->where($where)->getAllWithVerificator();
+        } else {
+            $pesertas = $this->PARTISIPAN->getAllWithVerificator();
+        }
+
         $data = [
-            'data_peserta' => $this->PARTISIPAN->getAllWithVerificator(),
+            'data_peserta' => $pesertas,
             'halaman' => 'kelola-peserta',
             'judul'=> 'Data Semua Peserta',
         ];
