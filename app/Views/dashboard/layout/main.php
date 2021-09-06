@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="<?= base_url('css/style.css') ?>">
+    <link rel="shortcut icon" href="<?= base_url('img/logo.png')?>" type="image/x-icon">
     <title>Dashboard</title>
 </head>
 <body class="antialiased min-h-screen static lg:flex" :class="{'overflow-hidden h-screen' : show}" x-data="{sidebar : false, sidebarExpand : true, imgShow : false, imgSrc: '', imgTitle:'' }">
