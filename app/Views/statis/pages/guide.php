@@ -10,7 +10,7 @@
                 <?php 
                     if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-pendaftaran','acc-sma-pre'])){
                         echo 1;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-pendaftaran','acc-univ-pre'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-grand','acc-univ-penghargaan','acc-univ-pendaftaran','acc-univ-pre'])) {
                         echo 2;
                     } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-pendaftaran','cfp-pre'])) {
                         echo 3;
@@ -37,6 +37,10 @@
                 [
                     'Acc for Univ',
                     [
+                        ['Grand Theme', 'acc-univ-grand'],
+                        ['Ruang Lingkup', 'acc-univ-lingkup'],
+                        ['Linimasa', 'acc-univ-linimasa'],
+                        ['Penghargaan', 'acc-univ-penghargaan'],
                         ['Pendaftaran', 'acc-univ-pendaftaran'],
                         ['Pre Eleminary', 'acc-univ-pre'],
                     ]
@@ -87,11 +91,18 @@
             <?php 
             if(($_GET['halaman'] ?? '') == 'cfp-pendaftaran'){
                 echo($this->include('statis/pages/guide-cfp-pendaftaran'));
+            } elseif(($_GET['halaman'] ?? '') == 'acc-univ-grand'){
+                echo($this->include('statis/pages/guide-acc-univ-grand'));
+            } elseif(($_GET['halaman'] ?? '') == 'acc-univ-penghargaan'){
+                echo($this->include('statis/pages/guide-acc-univ-penghargaan'));
             } else {
                 echo('Halaman Sambutan');
             }
             ?>
         </div>
+    </div>
+    <div>
+        <img src="<?= base_url('img/pattern-booklet.png')?>" alt="" class="w-full">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
     <script>

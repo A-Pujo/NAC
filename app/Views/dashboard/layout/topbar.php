@@ -47,6 +47,12 @@
         x-show="NavbarPhone"
         @click.outside="NavbarPhone = false"
     >
-        <?= $this->include('/template/navbar-phone')?>
+        <div class="rounded-md bg-neutral-100 py-32 px-40">
+            <ul class="text-base-100 text-16 space-y-16 flex flex-col items-center">
+                <li class="btn btn-primary btn-ghost"><a href="<?= base_url() ?>">Home</a></li>
+                <li class="btn btn-primary btn-ghost"><a href="<?= base_url('/guide') ?>">Booklet</a></li>
+                <li class="btn btn-primary btn-ghost"><a href="<?= base_url('/auth/logout') ?>">Logout</a></li>
+            </ul>
+        </div>
     </div>
 </div>

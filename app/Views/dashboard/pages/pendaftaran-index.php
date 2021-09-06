@@ -3,23 +3,23 @@
     <div class="grid grid-cols-12 text-base-100 gap-x-32">
         <!-- Daftar Lomba -->
         <?php if( userinfo()->nama_tim == '' ) : ?>
-            <h2 class="col-span-12 text-36 font-extrabold">Daftar Perlombaan</h2>
-            <p class="col-span-12 text-16 mt-8">Dibawah ini adalah daftar perlombaan yang diselenggarakan NAC 2021</p>
+            <h2 class="col-span-12 text-36 font-extrabold">Jenis Perlombaan</h2>
+            <p class="col-span-12 text-16 mt-8">National Accounting Challenge 2021 hadir kembali dengan berbagai rangkaian perlombaan yang sangat menarik! Siapkan tim terbaikmu dan daftar segera!</p>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
-                <h3 class="font-bold text-16">Accounting Challange For SMA</h3>
-                <p class="mt-8 text-16">Sebuah perlombaan bla bla bla Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde perspiciatis aperiam tempore voluptatum, illum necessitatibus id. Rem non libero tenetur.</p>
+                <h3 class="font-bold text-16">Accounting Challenge for High School</h3>
+                <p class="mt-8 text-16">Accounting Challenge for High School merupakan kompetisi yang ditujukan kepada siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia yang memiliki minat di bidang akuntansi. Dalam kompetisi ini peserta dapat mengembangkan serta mengimplementasikan ilmu dan pengetahuan yang mereka miliki di bidang akuntasi.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=AccSMA') ?>" class="btn btn-primary mt-16">Daftar</a>
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
-                <h3 class="font-bold text-16">Accounting Challange For SMA</h3>
-                <p class="mt-8 text-16">Sebuah perlombaan bla bla bla Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde perspiciatis aperiam tempore voluptatum, illum necessitatibus id. Rem non libero tenetur.</p>
+                <h3 class="font-bold text-16">Accounting Challenge for University</h3>
+                <p class="mt-8 text-16">Accounting Challenge for University merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat di bidang akuntansi. Dalam kompetisi ini peserta dapat mengembangkan serta mengimplementasikan ilmu dan pengetahuan yang mereka miliki di bidang akuntansi.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=AccUniv') ?>" class="btn btn-primary mt-16">Daftar</a>
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
-                <h3 class="font-bold text-16">Accounting Challange For SMA</h3>
-                <p class="mt-8 text-16">Sebuah perlombaan bla bla bla Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde perspiciatis aperiam tempore voluptatum, illum necessitatibus id. Rem non libero tenetur.</p>
+                <h3 class="font-bold text-16">NAC Call For Paper</h3>
+                <p class="mt-8 text-16">NAC Call For Paper merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat dalam penulisan karya tulis di bidang akuntansi. Tahun ini NAC 2021 mengusung tema “The Presence of Accountant in Digital Transformation of the Economy for Resilient, Sustainable, and Inclusive Recovery”.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=CFP') ?>" class="btn btn-primary mt-16">Daftar</a>
                 <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
@@ -159,13 +159,13 @@
             <p class="col-span-12 mt-8 text-10">Pastikan formulir Pendaftaran dan Pembayaran telah terverifikasi sebelum mengikuti perlombaan</p>
         <?php endif ?>
 
-        <h2 class="col-span-12 text-36 font-extrabold mt-32">Daftar Seminar</h2>
-        <p class="col-span-12 text-16 mt-8">Dibawah ini adalah daftar seminar yang diselenggarakan NAC 2021</p>
+        <h2 class="col-span-12 text-36 font-extrabold mt-32">Webinar NAC Digital Series </h2>
+        <p class="col-span-12 text-16 mt-8">Webinar NAC Digital Series adalah bagian dari rangkaian acara National Accounting Challenge 2021 yang akan menghadirkan narasumber-narasumber berkompeten di bidang akuntansi/audit. Brace yourself and #GetReadyToTransform with us!</p>
         <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
             Coming Soon!
         </div>
-        <h2 class="col-span-12 text-36 font-extrabold mt-32">Daftar Course</h2>
-        <p class="col-span-12 text-16 mt-8">Course merupakan bla bla bla</p>
+        <h2 class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
+        <p class="col-span-12 text-16 mt-8">NAC Accounting Course adalah bagian dari rangkaian acara National Accounting Challenge 2021 berupa kelas pengenalan akuntansi yang dapat diikuti oleh seluruh siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia. Kelas singkat ini akan dipandu oleh dosen PKN STAN melalui beberapa rangkaian video serta diakhiri dengan mini quiz untuk mengukur pemahaman peserta terhadap materi yang disajikan. Peserta course yang berhasil menyelesaikan kelas tersebut akan mendapatkan sertifikat berlisensi dari kampus PKN STAN.</p>
         <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
             Coming Soon!
         </div>

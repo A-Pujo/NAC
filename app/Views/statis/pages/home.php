@@ -7,10 +7,10 @@
         ">
         <h1 class="text-36 font-black tracking-6.5 m-8 text-center">NATIONAL ACCOUNTING CHALLENGE</h1>
         <h2 class="text-18 tracking-30 font-light">POLITEKNIK KEUANGAN NEGARA STAN</h2>
-        <p class="text-16 my-16 text-center">NAC atau Singkatan dari National Accounting Challange merupakan sebuah wadah kompetensi di bidang akuntansi maupun keuangan bagi siapapun diluar sana. Kampus kami dengan segenap panitia NAC 2021 PKN STAN mengajak kalian untuk bergabung</p>
+        <p class="text-16 my-16 text-center">NAC 2021 merupakan kompetisi akuntansi terbesar yang diadakan oleh BEM Politeknik Keuangan Negara STAN. Acara ini melibatkan siswa/i SMA/SMK/MA/sederajat, mahasiswa/i PKN STAN serta mahasiswa/i perguruan tinggi di seluruh Indonesia. Total hadiah yang diperebutkan mencapai puluhan juta rupiah. Jangan lewatkan kesempatan ini dan jadilah juara!</p>
         <div>
-            <button class="btn btn-primary mr-24">Ikut Lomba</button>
-            <button class="btn btn-primary btn-outline">Pelajari Dulu</button>
+            <a href="<?= base_url('dashboard/pendaftaran_index') ?>" class="btn btn-primary mr-24">Daftar</a>
+            <a href="<?= base_url('dashboard/guide') ?>" class="btn btn-primary btn-outline">Booklet</a>
         </div>
     </div>
     <!-- Image -->

@@ -4,11 +4,14 @@
   "description": "website nac 2021",
   "main": "index.js",
   "dependencies": {
+    "@tailwindcss/typography": "^0.4.1",
     "daisyui": "^1.14.0",
-    "package.json": "^2.0.1"
+    "package.json": "^2.0.1",
+    "tailwindcss-typography": "^3.1.0"
   },
   "scripts": {
     "dev": "postcss ./src/css/tailwind.css -o ./public/css/style.css",
+    "pre": "postcss ./public/css/style.css --use autoprefixer -d ./public/css",
     "watch": "postcss ./src/css/tailwind.css -o ./public/css/style.css --watch",
     "sass": "sass ./src/scss/datatables.scss ./public/css/datatables.css"
   },

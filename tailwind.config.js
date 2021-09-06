@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: [
       './app/**/*.php',
     ],
@@ -121,7 +121,25 @@ module.exports = {
       },
       transitionProperty:{
         'collapse' : 'height, padding'
-      }
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            color: '#FCFEFF',
+            strong: {
+              fontWeight: '800',
+              color: '#FCFEFF'
+            },
+            h1: {
+              color: '#FCFEFF'
+            },
+            p : {
+              textIndent : '32px'
+            }
+          },
+        },
+      },
+
     },
   },
   variants: {
@@ -129,6 +147,7 @@ module.exports = {
   },
   plugins: [
     require('daisyui'),
+    require('@tailwindcss/typography'),
   ],
   daisyui: {
     themes: [
