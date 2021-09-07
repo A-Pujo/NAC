@@ -47,7 +47,7 @@ class M_Partisipan extends Model
         return $this->where(['user_id' => $user_id])->update(null, ['partisipan_aktif' => 0, 'id_tim_regis' => userinfo()->id]);
     }
 
-    function setReject($user_id){
+    function setReject($user_id, $alasan_ditolak){
         $data = $this->where(['user_id' => $user_id])->first();
         // delete sp
         if(! empty($data->surat_pernyataan)){
@@ -81,6 +81,8 @@ class M_Partisipan extends Model
                 unlink(APPPATH.'../public/uploads/partisipan/lomba/paper/' . $file);
             }
         }
+        
+        $alasan_ditolak = empty($alasan_ditolak) ? '' : $alasan_ditolak;
 
         $this->where(['user_id' => $user_id])->update(null, [
             'pt' => '',
@@ -98,6 +100,7 @@ class M_Partisipan extends Model
             'twibbon' => '',
             'partisipan_aktif' => 0, 
             'partisipan_ditolak' => 1,
+            'alasan_ditolak' => $alasan_ditolak,
             'id_tim_regis' => userinfo()->id,
         ]);
     }
