@@ -22,7 +22,7 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
 }
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
 ?>
-    <div class="grid grid-cols-12 text-base-100 gap-x-32">
+    <div class="grid grid-cols-12 text-base-100 gap-x-16">
         <!-- 1. ALERT -->
             <!-- User Ditolak -->
             <div class="alert alert-error col-span-12" x-data="{alert : '<?= userinfo()->alasan_ditolak ?>'}" x-show="alert">
@@ -64,32 +64,32 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                 Sebelum melakukan pendaftaran, silakan Anda mengunduh <a class="link link-neutral" href="<?= base_url('guide?halaman=twib') ?>">twibbon</a> dan <a class="link link-neutral" href="<?= base_url('guide?halaman=sp') ?>" >surat pernyataan</a> terlebih dahulu.
             </div>
         <?php else : ?>
-            <!-- 3. USER SUDAH DAFTAR : TAMPILKAN BIODATA PENDAFTARAN -->
+        <!-- 3. USER SUDAH DAFTAR : TAMPILKAN BIODATA PENDAFTARAN -->
             <h2 class="col-span-12 text-36 font-extrabold">Pendaftaran Lomba</h2>
             <p class="col-span-12 text-16 mt-8">Dibawah ini ringkasan pendaftaran lomba yang sedang Anda laksanakan</p>
             <p class="col-span-12 mt-24">Formulir Pendaftaran</p>
-            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex justify-between items-center">
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
                 <img src="<?= userinfo()->avatar ?>" alt="avatar" class="h-24 rounded-full">
                 <span> <?= userinfo()->nama_tim ?> </span>
                 <span> <?= userinfo()->partisipan_jenis == 'AccSMA' ? 'Accounting SMA' : (userinfo()->partisipan_jenis == 'AccUniv' ? 'Accounting Universitas' : 'Paper') ?> </span>
                 <span> <?= userinfo()->pt ?></span>
                 <?php if(userinfo()->partisipan_aktif) : ?>
                     <span class="verif-sukses">Terverifikasi</span>
-                    <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-left">
+                    <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-right lg:tooltip-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
                     </div>
                 <?php else :?>
                     <span class="verif-gagal">Belum terverifikasi</span>
-                    <a href="<?= base_url('/dashboard/pendaftaran') ?>" data-tip="Edit Pendaftaran" class="tooltip tooltip-left">
+                    <a href="<?= base_url('/dashboard/pendaftaran') ?>" data-tip="Edit Pendaftaran" class="tooltip tooltip-right lg:tooltip-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
                     </a>
                 <?php endif?>
             </div>
-            <div class="col-span-12 lg:col-span-6 lg:row-span-2 rounded-md bg-neutral-100 p-24 mt-4">
+            <div class="col-span-12 lg:col-span-6 lg:row-span-2 rounded-md bg-neutral-100 p-24 mt-16">
                 <table class="tabel-card">
                     <tr>
                         <td>Nama Tim</td>
@@ -119,7 +119,7 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                     <tr>
                         <td>Jenis Lomba</td>
                         <td>:</td>
-                        <td><?= userinfo()->partisipan_jenis ?></td>
+                        <td><?= userinfo()->partisipan_jenis == 'AccSMA' ? 'Accounting for High School' : (userinfo()->partisipan_jenis == 'AccUniv'  ? 'Accounting for University' : 'Call for Paper') ?></td>
                     </tr>
                     <tr>
                         <td>Nomor Whatsapp</td>
@@ -127,33 +127,36 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                         <td><?= userinfo()->wa ?></td>
                     </tr>
                     <tr>
-                        <td>Surat Pernyataan</td>
+                        <td class="last">Surat Pernyataan</td>
                         <td>:</td>
-                        <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'. userinfo()->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
+                        <td><a class="link link-neutral" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'. userinfo()->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
                     </tr>
                 </table>
             </div>
             <!-- KTM dan Twibbon -->
-            <div class="col-span-12 lg:col-span-6 rounded-md bg-neutral-100 p-24 mt-4 grid grid-cols-3 gap-x-12 gap-y-12">
+            <div class="col-span-12 lg:col-span-6 rounded-md bg-neutral-100 p-24 mt-16 grid grid-cols-3 gap-x-16">
                 <?php foreach(explode('|', userinfo()->ktm) as $ktm) : ?>
                     <div 
-                        class="rounded-md overflow-hidden" 
-                        @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>', imgTitle = 'Unggah bukti upload ktm'"
+                        class="rounded-md overflow-hidden cursor-pointer" 
+                        @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>', imgTitle = 'Unggah KTM'"
                     >
-                        <img class="bg-base-100 object-cover" src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
+                        <img class="bg-base-100 object-cover h-full" src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
                     </div>
                 <?php endforeach; ?>
             </div>
-            <div class="col-span-12 lg:col-span-6 rounded-md bg-neutral-100 p-24 mt-4 grid grid-cols-3 gap-x-12 gap-y-12">
+            <div class="col-span-12 lg:col-span-6 rounded-md bg-neutral-100 p-24 mt-16 grid grid-cols-3 gap-x-16">
                 <?php foreach(explode('|', userinfo()->twibbon) as $twibbon) : ?>
-                    <div class="rounded-md overflow-hidden">
+                    <div 
+                        class="rounded-md overflow-hidden cursor-pointer"
+                        @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>', imgTitle = 'Unggah bukti upload Twibbon'"
+                    >
                         <img class="bg-base-100 object-cover" src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
                     </div>
                 <?php endforeach; ?>
             </div>
 
-            <!-- Accounting -->
-            <!-- Pembayaran -->
+            <!-- 4. UPLOAD PAPER FOR CFP -->
+            <!-- 5. PEMBAYARAN -->
             <p class="col-span-12 mt-24">Formulir Pembayaran</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex justify-between items-center">
                 <?php if(!userinfo()->partisipan_aktif) : ?> 

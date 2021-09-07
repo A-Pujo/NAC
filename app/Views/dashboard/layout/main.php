@@ -11,8 +11,8 @@
 </head>
 <body class="antialiased min-h-screen static lg:flex" :class="{'overflow-hidden h-screen' : show}" x-data="{sidebar : false, sidebarExpand : true, imgShow : false, imgSrc: '', imgTitle:'' }">
     <!-- Show Image -->
-    <div x-show="imgShow" x-transition class="fixed top-0 bg-neutral-400 bg-opacity-75 w-full h-full flex justify-center items-center z-10">
-        <div class="relative">
+    <div x-show="imgShow" x-transition class="fixed top-0 bg-neutral-400 bg-opacity-75 w-full h-full flex justify-center items-center z-10 ">
+        <div class="relative" @click.outside="imgShow = false">
             <h2 class="absolute text-center left-0 top-0 w-full -top-32 text-16 font-bold text-base-100" x-text="imgTitle"></h2>
             <img :src="imgSrc" class="rounded-md overflow-hidden bg-base-100 max-w-1/2 max-h-1/2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32 text-primary-100 absolute -top-32 -right-32 cursor-pointer " viewBox="0 0 20 20" fill="currentColor"

@@ -128,9 +128,12 @@
     }
 
     /* Tabel show card */
-    /* .tabel-card:not(last-child(1)) {
-        @apply border-t ;
-    } */
+    .tabel-card tr:not(:last-child) td {
+        @apply border-b ;
+    }
+    .tabel-card tr {
+        @apply hover:bg-opacity-10 hover:bg-base-100
+    }
     .tabel-card tr td {
         @apply p-4 text-base-100;
     }

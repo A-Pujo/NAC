@@ -106,7 +106,7 @@ module.exports = {
         '8' : '8px',
         '16' : '16px',
         '32' : '32px',
-        '80' : '8 0px',
+        '80' : '80px',
         '96' : '96px',
         'timeline' : 'calc(50% - (279px/2))',
         'input-icon' : 'calc(50% - 9px)',
