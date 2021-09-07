@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: true,
+    enabled: false,
     content: [
       './app/**/*.php',
     ],
@@ -106,6 +106,7 @@ module.exports = {
         '8' : '8px',
         '16' : '16px',
         '32' : '32px',
+        '80' : '8 0px',
         '96' : '96px',
         'timeline' : 'calc(50% - (279px/2))',
         'input-icon' : 'calc(50% - 9px)',
@@ -118,7 +119,11 @@ module.exports = {
         '18' : '18px',
       },
       maxWidth : {
+        '600' : '600px',
         '1000' : '1000px'
+      },
+      minHeight : {
+        '300' : '300px'
       },
       transitionProperty:{
         'collapse' : 'height, padding'
