@@ -23,11 +23,22 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
 ?>
     <div class="grid grid-cols-12 text-base-100 gap-x-32">
-        <?php if(userinfo()->partisipan_ditolak == 1) : ?>
-        <h4 class="col-span-12 text-36 font-extrabold">Pendaftaranmu Ditolak</h4>
-        <p class="col-span-12 text-16 mt-8"><?= userinfo()->alasan_ditolak ?></p>
-        <?php endif; ?>
-        <!-- Daftar Lomba -->
+        <!-- 1. ALERT -->
+            <!-- User Ditolak -->
+            <div class="alert alert-error col-span-12" x-data="{alert : '<?= userinfo()->alasan_ditolak ?>'}" x-show="alert">
+                <div class="flex-1">
+                    <!-- Icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg> 
+                    <label class="mr-auto" x-text="alert"></label>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor" @click="alert = ''">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            </div>
+
+        <!-- 2. USER BELUM DAFTAR : TAMPILKAN MENU DAFTAR -->
         <?php if( userinfo()->nama_tim == '' ) : ?>
             <h2 class="col-span-12 text-36 font-extrabold">Jenis Perlombaan</h2>
             <p class="col-span-12 text-16 mt-8">National Accounting Challenge 2021 hadir kembali dengan berbagai rangkaian perlombaan yang sangat menarik! Siapkan tim terbaikmu dan daftar segera!</p>
@@ -35,28 +46,25 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                 <h3 class="font-bold text-16">Accounting Challenge for High School</h3>
                 <p class="mt-8 text-16">Accounting Challenge for High School merupakan kompetisi yang ditujukan kepada siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia yang memiliki minat di bidang akuntansi. Dalam kompetisi ini peserta dapat mengembangkan serta mengimplementasikan ilmu dan pengetahuan yang mereka miliki di bidang akuntasi.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=AccSMA') ?>" class="btn btn-primary mt-16">Daftar</a>
-                <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <a href="<?= base_url('guide?halaman=acc-sma-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">Accounting Challenge for University</h3>
                 <p class="mt-8 text-16">Accounting Challenge for University merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat di bidang akuntansi. Dalam kompetisi ini peserta dapat mengembangkan serta mengimplementasikan ilmu dan pengetahuan yang mereka miliki di bidang akuntansi.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=AccUniv') ?>" class="btn btn-primary mt-16">Daftar</a>
-                <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <a href="<?= base_url('guide?halaman=acc-univ-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">NAC Call For Paper</h3>
                 <p class="mt-8 text-16">NAC Call For Paper merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat dalam penulisan karya tulis di bidang akuntansi. Tahun ini NAC 2021 mengusung tema “The Presence of Accountant in Digital Transformation of the Economy for Resilient, Sustainable, and Inclusive Recovery”.</p>
                 <a href="<?= base_url('dashboard/pendaftaran?lomba=CFP') ?>" class="btn btn-primary mt-16">Daftar</a>
-                <a class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <a href="<?= base_url('guide?halaman=cfp-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
             </div>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-                Unduh template surat pernyataan 
-                <a href="https://drive.google.com/uc?export=download&id=1x0yaHmVVDuxS_mBux0GllXC7UxO-xx9d" class="underline hover:text-primary-100">Akuntansi SMA</a>
-                <a href="https://drive.google.com/uc?export=download&id=1gArwtmwXdEkFjbnkA2PiUgltjHMNSARC" class="underline hover:text-primary-100">Akuntansi Universitas</a>
-                <a href="https://drive.google.com/uc?export=download&id=1YuxF1ZZzebKnVB1WZfbUE5V91966KB2O" class="underline hover:text-primary-100">Call for Paper 1</a>
-                <a href="https://drive.google.com/uc?export=download&id=1UJGDzSD1_cRywlrF88-My2BqML7_u7Gz" class="underline hover:text-primary-100">Call for Paper 2</a>
+                Sebelum melakukan pendaftaran, silakan Anda mengunduh <a class="link link-neutral" href="<?= base_url('guide?halaman=twib') ?>">twibbon</a> dan <a class="link link-neutral" href="<?= base_url('guide?halaman=sp') ?>" >surat pernyataan</a> terlebih dahulu.
             </div>
         <?php else : ?>
+            <!-- 3. USER SUDAH DAFTAR : TAMPILKAN BIODATA PENDAFTARAN -->
             <h2 class="col-span-12 text-36 font-extrabold">Pendaftaran Lomba</h2>
             <p class="col-span-12 text-16 mt-8">Dibawah ini ringkasan pendaftaran lomba yang sedang Anda laksanakan</p>
             <p class="col-span-12 mt-24">Formulir Pendaftaran</p>

@@ -35,7 +35,7 @@
     <div class="relative z-0 w-full flex-grow-0 bg-neutral-300 overflow-scroll"
         :class="{'hidden' : sidebar == true }"
     >
-        <div class="h-163 flex justify-between items-center p-32">
+        <div class="">
             <?= $this->include('dashboard/layout/topbar') ?> 
         </div>
         <div class="p-32">

@@ -1,1 +1,1 @@
-default
+<br>Silakan Anda memilih halaman pada daftar panduan

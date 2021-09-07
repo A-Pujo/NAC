@@ -10,7 +10,7 @@
         <p class="text-16 my-16 text-center">NAC 2021 merupakan kompetisi akuntansi terbesar yang diadakan oleh BEM Politeknik Keuangan Negara STAN. Acara ini melibatkan siswa/i SMA/SMK/MA/sederajat, mahasiswa/i PKN STAN serta mahasiswa/i perguruan tinggi di seluruh Indonesia. Total hadiah yang diperebutkan mencapai puluhan juta rupiah. Jangan lewatkan kesempatan ini dan jadilah juara!</p>
         <div>
             <a href="<?= base_url('dashboard/pendaftaran_index') ?>" class="btn btn-primary mr-24">Daftar</a>
-            <a href="<?= base_url('guide') ?>" class="btn btn-primary btn-outline">Booklet</a>
+            <a href="<?= base_url('guide?halaman=acc-sma-booklet') ?>" class="btn btn-primary btn-outline">Booklet</a>
         </div>
     </div>
     <!-- Image -->
@@ -124,11 +124,11 @@
             <template x-for="item in tl">
                 <div 
                     :class="{ 
-                        '-translate-x-311 opacity-0' : item.pos < (active -1 ),
-                        '-translate-x-311 opacity-50' : item.pos == (active -1),
+                        '-translate-x-311 scale-75 opacity-0' : item.pos < (active -1 ),
+                        '-translate-x-311 scale-75 opacity-50' : item.pos == (active -1),
                         '' : item.pos == active,
-                        'translate-x-311 opacity-50' : item.pos == (active + 1),
-                        'translate-x-311 opacity-0' : item.pos > (active +1),
+                        'translate-x-311 scale-75 opacity-50' : item.pos == (active + 1),
+                        'translate-x-311 scale-75 opacity-0' : item.pos > (active +1),
                     }"
                     class="z-0 transition duration-1000 left-timeline transform top-0 absolute p-32 bg-primary-100 rounded-md flex justify-center items-center  w-300 h-112 flex items-center justify-between space-x-8">
                     <div class="text-base-100 bg-neutral-400 rounded-full h-64 w-64 text-center flex-shrink-0">

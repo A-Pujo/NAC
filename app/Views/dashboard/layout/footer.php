@@ -1,1 +1,1 @@
-Ini Footer
+<span class="block text-center"></span>

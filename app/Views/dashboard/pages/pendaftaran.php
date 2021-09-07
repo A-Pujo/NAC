@@ -24,8 +24,7 @@
     // API provinsi
     $provincies = ["Nanggroe Aceh Darussalam", "Sumatera Utara", "Sumatera Selatan", "Sumatera Barat", "Bengkulu", "Riau", "Kepulauan Riau", "Jambi", "Lampung", "Bangka Belitung", "Kalimantan Barat", "Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Utara", "Banten", "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta", "Jawa timur", "Bali", "Nusa Tenggara Timur", "Nusa Tenggara Barat", "Gorontalo", "Sulawesi Barat", "Sulawesi Tengah", "Sulawesi Utara", "Sulawesi Tenggara", "Sulawesi Selatan", "Maluku Utara", "Maluku", "Papua Barat", "Papua"];
 ?>
-    <div class="text-base-100 p-32">
-    <h1>Ini Halaman Home</h1>
+    <div class="text-base-100 max-w-600">
         <div>
             <?php if(userinfo()->partisipan_aktif == 0 or userinfo()->pembayaran_aktif == 0) : ?>
                 <?= form_open_multipart(base_url('/dashboard/update-pendaftaran'), ['method' => 'post']) ?>
@@ -256,7 +255,7 @@
                         <span><?= initValidation()->getError('twibbon') ?? '' ?></span>
                     </div>
 
-                    <button type="submit" class="btn btn-sm btn-primary">submit</button>
+                    <button type="submit" class="btn btn-block btn-primary">submit</button>
                 </form>
 
             <?php endif; ?>
