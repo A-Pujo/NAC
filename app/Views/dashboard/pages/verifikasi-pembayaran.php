@@ -1,6 +1,14 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
+    <div class="rounded-md bg-primary-100">
+        <div>
+            16
+        </div>
+        <div>
 
+        </div>
+        16 Rp.750.000
+    </div>
     <div class="p-32">
         <table id="tabel" class="tabel">
             <thead>

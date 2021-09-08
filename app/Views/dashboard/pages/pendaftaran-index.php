@@ -168,11 +168,25 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
             </div>
 
             <!-- 4. UPLOAD PAPER FOR CFP -->
-            <!-- 5. PEMBAYARAN -->
-            <p class="col-span-12 mt-24">Formulir Pembayaran</p>
+            <?php if(userinfo()->partisipan_jenis == 'CFP') : ?>
+            <p class="col-span-12 mt-24">Formulir Unggah Full Paper</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
-                <?php if(!userinfo()->partisipan_aktif) : ?> 
+                <span>Silakan Anda memantau perkembangan pendaftaran Anda. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
+            </div>
+            <?php endif ?>
+
+            
+            <!-- 5. PEMBAYARAN : ACC TERVERIFIKASI DAN CFP UDAH UP FULL PAPER-->
+            <p class="col-span-12 mt-24">Formulir Pembayaran</p>
+
+            
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
+                <!-- Peserta Acc belum terverifikasi -->
+                <?php if((userinfo()->partisipan_jenis == 'AccSMA' or userinfo()->partisipan_jenis == 'AccUniv') and !userinfo()->partisipan_aktif) : ?> 
                     <span>Silakan Anda menunggu status pendaftaran Anda telah terverifikasi sebelum Anda melanjutkan pembayaran</span>
+                <!-- Peserta CFP belum upload full paper -->
+                <?php elseif(userinfo()->partisipan_jenis == 'CFP' and !userinfo()->file_paper)  :?> 
+                    <span>Proses seleksi abstrak sedang berlangsung. Anda dapat melakukan pembayaran setelah dinyatakan lolos abstrak dan telah mengunggah full paper.</span>
                 <?php elseif(userinfo()->nama_bank == '') : ?> 
                     <span>Jumlah yang harus Anda bayar sebesar Rp.<?= substr($jumlah_transfer,0, -3).'.'. substr($jumlah_transfer, -3)?>
                         <div 
