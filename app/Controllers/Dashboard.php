@@ -455,7 +455,7 @@ class Dashboard extends BaseController
                     }
                     if($this->request->getVar('old_file_abstrak') != implode('|', $abstraks) and $this->request->getVar('old_file_abstrak') != null){
                         foreach(explode('|', $this->request->getVar('old_file_abstrak')) as $abstrakFile){
-                            unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak' . $abstrakFile);
+                            unlink(APPPATH.'../public/uploads/partisipan/lomba/abstrak/' . $abstrakFile);
                         }
                     }
 
