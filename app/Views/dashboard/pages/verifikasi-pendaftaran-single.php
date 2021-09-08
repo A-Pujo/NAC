@@ -61,16 +61,22 @@
         <p>Bukti KTM</p>
         <div class="bg-neutral-100 p-24 rounded-md flex flex-row space-x-24">
             <?php foreach(explode('|', $partisipan->ktm) as $ktm) : ?>
-                <div class="border-2 rounded-l">
-                    <img class="h-300 w-300" src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
+                <div 
+                    class="rounded-md overflow-hidden cursor-pointer" 
+                    @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>', imgTitle = 'Unggah KTM'"
+                >
+                    <img class="bg-base-100 object-cover h-full" src="<?= base_url('/uploads/partisipan/ktm/'.$ktm)?>" alt="" />
                 </div>
             <?php endforeach; ?>
         </div>
         <p>Bukti Twibbon</p>
         <div class="bg-neutral-100 p-24 rounded-md flex flex-row space-x-24">
             <?php foreach(explode('|', $partisipan->twibbon) as $twibbon) : ?>
-                <div class="border-2 rounded-l">
-                    <img class="h-300 w-300" src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
+                <div 
+                    class="rounded-md overflow-hidden cursor-pointer" 
+                    @click="imgShow = true, imgSrc = '<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>', imgTitle = 'Unggah bukti upload Twibbon'"
+                >
+                    <img class="bg-base-100 object-cover h-full" src="<?= base_url('/uploads/partisipan/twibbon/'.$twibbon)?>" alt="" />
                 </div>
             <?php endforeach; ?>
         </div>

@@ -39,11 +39,10 @@
     $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;
 ?>
     <div class="text-base-100">
-        Status Pembayaran:
         <div>
             <?php if(userinfo()->pembayaran_aktif == 0) : ?>
-                <b>Belum bayar</b>
-                Isi bukti pembayaran
+                <!-- <b>Belum bayar</b>
+                Isi bukti pembayaran -->
                 <?= form_open_multipart(base_url('/dashboard/update-pembayaran'), ['method' => 'post']) ?>
                 <?= csrf_field() ?>
                     <!-- Nama Bank -->
@@ -51,7 +50,7 @@
                         <label>Nama Bank</label>
                         <div>
                             <input 
-                                placeholder="contoh : Bank Benk"
+                                placeholder="contoh : BRI"
                                 value="<?= $nama_bank ?>"
                                 type="text"
                                 name="nama_bank" />
@@ -69,7 +68,7 @@
                         <label>Nama Nasabah</label>
                         <div>
                             <input 
-                                placeholder="contoh : Fulan Nasabah Benk"
+                                placeholder="contoh : Fulan"
                                 value="<?= $nama_nasabah ?>"
                                 type="text"
                                 name="nama_nasabah" />
@@ -101,7 +100,7 @@
                     </div>
 
                     <!-- Jumlah Transfer -->
-                    <div class="form-input">
+                    <div class="form-input hidden">
                         <label>Jumlah Transfer</label>
                         <div>
                             <input 
@@ -142,7 +141,7 @@
                     <button type="submit" class="btn btn-sm btn-primary">submit</button>
                 </form>
             <?php else :?>
-                <b>Udah bayar</b>
+                <!-- <b>Udah bayar</b> -->
             <?php endif; ?>
         </div>
     </div>

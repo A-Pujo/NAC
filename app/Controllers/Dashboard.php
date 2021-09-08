@@ -24,7 +24,7 @@ class Dashboard extends BaseController
 
     public function pendaftaran_index()
 	{
-        if(!isInRole('umum')){
+        if(!(isInRole('umum') or isInRole('peserta lomba'))){
             return redirect()->to(base_url('/dashboard'));
         }
         $data =[
@@ -36,7 +36,7 @@ class Dashboard extends BaseController
 
     public function pendaftaran()
 	{
-        if(!isInRole('umum')){
+        if(!isInRole('umum') ){
             return redirect()->to(base_url('/dashboard'));
         }
         $data =[

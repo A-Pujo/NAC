@@ -23,7 +23,7 @@
         <span >Beranda</span>
     </a>
     <!-- Umum -->
-    <?php if(isInRole('umum')): ?>
+    <?php if(isInRole('umum') or isInRole('peserta lomba')): ?>
         <a href="<?= base_url('/dashboard/pendaftaran_index') ?>" class="<?= $halaman == 'pendaftaran' ? 'aktif' : 'nonaktif' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -31,7 +31,7 @@
         </svg>
             <span >Pendaftaran</span>
         </a>
-
+        
     <!-- Admin -->
     <?php elseif(isInRole('admin')) : ?>
         <a href="<?= base_url('/dashboard/admin') ?>" class="<?= $halaman == 'admin' ? 'aktif' : 'nonaktif' ?>">
@@ -70,8 +70,6 @@
 
     <!-- Peserta Lomba -->
 
-    <?php elseif(isInRole('peserta lomba')) : ?>
-        <a href="<?= base_url('/lomba/generate-voucher') ?>" class="link">Generate Voucher Lomba</a>
     <?php endif; ?>
     
     <!-- Logout -->
