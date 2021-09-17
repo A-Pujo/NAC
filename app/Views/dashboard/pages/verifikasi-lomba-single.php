@@ -43,6 +43,15 @@
                     <td>:</td>
                     <td><a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/surat-pernyataan/'.$partisipan->surat_pernyataan) ?>" target="_blank">surat pernyataan</a></td>
                 </tr>
+                <tr>
+                <td>File Abstrak</td>
+                    <td>:</td>
+                    <td>
+                        <?php foreach(explode('|', $partisipan->file_abstrak) as $file) : ?>
+                        <a class="text-primary-200 hover:text-primary-100" href="<?= base_url('/uploads/partisipan/lomba/abstrak/'.$file) ?>" target="_blank">File Abstrak</a>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
             </table>
         </div>
 
@@ -65,10 +74,9 @@
         </div>
 
         <?php if($partisipan->partisipan_aktif == 0) : ?>
-        <p><a href="<?= base_url('/dashboard/aktivasi-partisipan/'.$partisipan->user_id) ?>" class="btn btn-block btn-primary mt-24">Verifikasi</a></p>
-        <p><a href="<?= base_url('/dashboard/tolak-partisipan/'.$partisipan->user_id) ?>" class="btn btn-block btn-danger mt-24">Tolak dan Hapus Data</a></p>
+        <p><a href="<?= base_url('/dashboard/lolos-abstrak/'.$partisipan->user_id) ?>" class="btn btn-block btn-primary mt-24">Verifikasi</a></p>
         <?php else: ?>
-        <p><a href="<?= base_url('/dashboard/deaktivasi-partisipan/'.$partisipan->user_id) ?>" class="btn btn-block btn-primary mt-24">Cabut Verifikasi</a></p>
+        <p><a href="<?= base_url('/dashboard/cabut-lolos-abstrak/'.$partisipan->user_id) ?>" class="btn btn-block btn-primary mt-24">Cabut Verifikasi</a></p>
         <?php endif; ?>
     </div>
     
