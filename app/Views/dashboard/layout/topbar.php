@@ -14,6 +14,7 @@
     <div 
         class="relative flex py-16 px-24 space-x-16 border items-center border-primary-100 rounded-md"
         x-data="{NavbarPhone : false}"
+        
     >
         <div class="flex flex-col space-y-4 items-end text-base-100">
             <span class="font-bold text-16"><?= explode(' ',userinfo()->nama)[0] ?></span>
@@ -34,7 +35,7 @@
         <div>
             <img class="h-48 w-48 rounded-full" src="<?php echo userinfo()->avatar ?>" alt="avatar">
         </div>
-        <div class="cursor-pointer" @click="NavbarPhone = !NavbarPhone">
+        <div class="cursor-pointer" @click=" NavbarPhone = ! NavbarPhone">
             <svg 
             class="transition transform"
             :class="{'rotate-0': !NavbarPhone,'rotate-180': NavbarPhone}"
@@ -60,3 +61,8 @@
 </div>
  <!-- Judul -->
     <h1 class="px-32 text-36 font-bold text-base-100 block lg:hidden"><?= $judul ?></h1>
+
+    <scipt>
+
+    
+    </scipt>

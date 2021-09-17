@@ -24,6 +24,8 @@
     // API provinsi
     $provincies = ["Nanggroe Aceh Darussalam", "Sumatera Utara", "Sumatera Selatan", "Sumatera Barat", "Bengkulu", "Riau", "Kepulauan Riau", "Jambi", "Lampung", "Bangka Belitung", "Kalimantan Barat", "Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Utara", "Banten", "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta", "Jawa timur", "Bali", "Nusa Tenggara Timur", "Nusa Tenggara Barat", "Gorontalo", "Sulawesi Barat", "Sulawesi Tengah", "Sulawesi Utara", "Sulawesi Tenggara", "Sulawesi Selatan", "Maluku Utara", "Maluku", "Papua Barat", "Papua"];
 ?>
+
+</div>
     <div class="text-base-100 max-w-600">
         <div>
             <?php if(userinfo()->partisipan_aktif == 0 or userinfo()->pembayaran_aktif == 0) : ?>
@@ -31,10 +33,22 @@
                     <?= csrf_field() ?>
 
                     <div class="form-input">
-                        <label>Nama Perguruan Tinggi</label>
+                        <label>
+                            <?php if(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccSMA'):?>
+                                Sekolah
+                            <?php else: ?>
+                                Perguruan Tinggi
+                            <?php endif?>
+                        </label>
                         <div>
                             <input 
-                                placeholder="contoh : Politeknik Keuangan Negara STAN"
+                                
+                                <?php if(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccSMA'):?>
+                                    placeholder="contoh : SMAN 1 Muara Karang"
+                                <?php else: ?>
+                                    placeholder="contoh : Politeknik Keuangan Negara STAN"
+                                <?php endif?>
+                                
                                 value="<?= $pt ?>"
                                 type="text"
                                 name="pt" />
@@ -159,6 +173,13 @@
                             <ul>
                                 <?php foreach($provincies as $p) : ?>
                                 <li @click="provinsi = '<?= $p ?>'"><?= $p ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 mt-8">
+                            <ul class="divide-y divide-primary-100 max-h-300 overflow-auto">
+                                <?php foreach($provincies as $p) : ?>
+                                <li @click="provinsi = '<?= $p ?>'" class="cursor-pointer p-8"><?= $p ?></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

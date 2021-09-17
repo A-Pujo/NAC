@@ -22,7 +22,7 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
 }
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
 ?>
-    <div class="grid grid-cols-12 text-base-100 gap-x-16">
+    <div class="grid grid-cols-12 text-base-100 gap-x-24 ">
 
     <h2 class="col-span-12 text-36 font-extrabold">Lomba NAC </h2>
     <p class="col-span-12 text-16 mt-8">National Accounting Challenge 2021 hadir kembali dengan berbagai rangkaian perlombaan yang sangat menarik! Siapkan tim terbaikmu dan daftar segera!</p>
@@ -126,6 +126,11 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                         <td>Nomor Whatsapp</td>
                         <td>:</td>
                         <td><?= userinfo()->wa ?></td>
+                    </tr>
+                    <tr>
+                        <td>Nomor Whatsapp</td>
+                        <td>:</td>
+                        <td><?= userinfo()->provinsi ?></td>
                     </tr>
                     <tr>
                         <td class="last">Surat Pernyataan</td>
