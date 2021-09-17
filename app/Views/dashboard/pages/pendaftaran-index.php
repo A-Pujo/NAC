@@ -20,7 +20,7 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
         $jumlah_transfer = '70000';
     }
 }
-$jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
+$jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . (userinfo()->id + 1)  ;    
 ?>
     <div class="grid grid-cols-12 text-base-100 gap-x-16">
 
@@ -28,6 +28,7 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
     <p class="col-span-12 text-16 mt-8">National Accounting Challenge 2021 hadir kembali dengan berbagai rangkaian perlombaan yang sangat menarik! Siapkan tim terbaikmu dan daftar segera!</p>
         <!-- 1. ALERT -->
             <!-- User Ditolak -->
+            <?php if(userinfo()->partisipan_ditolak == 1) : ?>
             <div class="alert alert-error col-span-12" x-data="{alert : '<?= userinfo()->alasan_ditolak ?>'}" x-show="alert">
                 <div class="flex-1">
                     <!-- Icon -->
@@ -40,6 +41,7 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                     </svg>
                 </div>
             </div>
+            <?php endif; ?>
 
         <!-- 2. USER BELUM DAFTAR : TAMPILKAN MENU DAFTAR -->
         <?php if( userinfo()->nama_tim == '' ) : ?>
