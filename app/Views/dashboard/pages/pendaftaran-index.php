@@ -229,8 +229,8 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                     <span> <?= userinfo()->jumlah_transfer ?> </span>
                     <span>
                         <img 
-                        src="<?= base_url('img/s.jpg') ?>" class="h-24 cursor-pointer" alt=""
-                        @click="imgShow = true, imgSrc = '<?= base_url('img/s.jpg')?>', imgTitle = 'Unggah bukti transfer'"
+                        src="<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer) ?>" class="h-24 cursor-pointer" alt=""
+                        @click="imgShow = true, imgSrc = '<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer)?>', imgTitle = 'Unggah bukti transfer'"
                     ></span>
                     <?php if(userinfo()->pembayaran_aktif) : ?>
                         <span class="verif-sukses">Terverifikasi</span>
