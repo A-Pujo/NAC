@@ -301,7 +301,7 @@ $now = date('Y-m-d H:i:s');
         <h2 class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
         <p class="col-span-12 text-16 mt-8">NAC Accounting Course adalah bagian dari rangkaian acara National Accounting Challenge 2021 berupa kelas pengenalan akuntansi yang dapat diikuti oleh seluruh siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia. Kelas singkat ini akan dipandu oleh dosen PKN STAN melalui beberapa rangkaian video serta diakhiri dengan mini quiz untuk mengukur pemahaman peserta terhadap materi yang disajikan. Peserta course yang berhasil menyelesaikan kelas tersebut akan mendapatkan sertifikat berlisensi dari kampus PKN STAN.</p>
         <!-- Course masih atau telah tutup -->
-        <?php if($now < '2021-09-04 00:00:00') : ?>
+        <?php if($now < '2021-09-24 00:00:00') : ?>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Coming Soon!
             </div>
