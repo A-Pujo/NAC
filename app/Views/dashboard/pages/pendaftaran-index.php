@@ -21,7 +21,19 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
     }
 }
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . (userinfo()->id + 1)  ;    
+
+$now = date('Y-m-d H:i:s');
+// var_dump($now);
+// if($now < '2021-09-24 23:59:59'){
+//     echo 'bisa';
+// } else {
+//     echo 'tutup';
+// }
+// die();
+
+
 ?>
+
     <div class="grid grid-cols-12 text-base-100 gap-x-24 p-32">
 
         <h2 class="col-span-12 text-36 font-extrabold">Lomba NAC </h2>
@@ -60,11 +72,18 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">NAC Call For Paper</h3>
                 <p class="mt-8 text-16">NAC Call For Paper merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat dalam penulisan karya tulis di bidang akuntansi. Tahun ini NAC 2021 mengusung tema “The Presence of Accountant in Digital Transformation of the Economy for Resilient, Sustainable, and Inclusive Recovery”.</p>
-                <a href="<?= base_url('dashboard/pendaftaran?lomba=CFP') ?>" class="btn btn-primary mt-16">Daftar</a>
-                <a href="<?= base_url('guide?halaman=cfp-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <?php if($now < '2021-09-24 23:59:59') : ?>
+                    <a href="<?= base_url('dashboard/pendaftaran?lomba=CFP') ?>" class="btn btn-primary mt-16">Daftar</a>
+                    <a href="<?= base_url('guide?halaman=cfp-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <?php else : ?>
+                    <div class="h-px w-full bg-primary-60"></div>
+                    <p class="mt-4 text-16">Pendaftaran Call for Paper telah ditutup.</p>
+                <?php endif ?>
+
+
             </div>
-            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-                Sebelum melakukan pendaftaran, silakan Anda mengunduh <a class="link link-neutral" href="<?= base_url('guide?halaman=twib') ?>">twibbon</a> dan <a class="link link-neutral" href="<?= base_url('guide?halaman=sp') ?>" >surat pernyataan</a> terlebih dahulu.
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24 leading-3">
+                Sebelum melakukan pendaftaran, silakan Anda mengunduh <a class="btn btn-primary btn-xs" href="<?= base_url('guide?halaman=twib') ?>">twibbon</a> dan <a class="btn btn-primary btn-xs" href="<?= base_url('guide?halaman=sp') ?>" >surat pernyataan</a> terlebih dahulu.
             </div>
         <?php elseif(!userinfo()->partisipan_aktif or !userinfo()->pembayaran_aktif) : ?>
         <!-- 3. USER SUDAH DAFTAR : TAMPILKAN BIODATA PENDAFTARAN -->
@@ -278,13 +297,26 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
             </div>
         <?php endif ?>
 
-        <h2 class="col-span-12 text-36 font-extrabold mt-32">Webinar NAC Digital Series </h2>
-        <p class="col-span-12 text-16 mt-8">Webinar NAC Digital Series adalah bagian dari rangkaian acara National Accounting Challenge 2021 yang akan menghadirkan narasumber-narasumber berkompeten di bidang akuntansi/audit. Brace yourself and #GetReadyToTransform with us!</p>
-        <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-            Coming Soon!
-        </div>
+        <!-- B. COURSE -->
         <h2 class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
         <p class="col-span-12 text-16 mt-8">NAC Accounting Course adalah bagian dari rangkaian acara National Accounting Challenge 2021 berupa kelas pengenalan akuntansi yang dapat diikuti oleh seluruh siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia. Kelas singkat ini akan dipandu oleh dosen PKN STAN melalui beberapa rangkaian video serta diakhiri dengan mini quiz untuk mengukur pemahaman peserta terhadap materi yang disajikan. Peserta course yang berhasil menyelesaikan kelas tersebut akan mendapatkan sertifikat berlisensi dari kampus PKN STAN.</p>
+        <!-- Course masih atau telah tutup -->
+        <?php if($now < '2021-09-04 00:00:00') : ?>
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
+                Coming Soon!
+            </div>
+        <?php elseif($now > '2021-09-30 23:59:59') : ?>
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
+                Pendaftaran Course telah di tutup!
+            </div>
+        <?php else : ?>
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
+                Daftar Course sekarang dengan mengunjungi <a href="#" class="btn btn-xs btn-primary">tautan ini</a>. Untuk informasi lebih lengkap, Anda dapat melihat booklet Course pada halaman panduan.
+            </div>
+        <?php endif ?>
+        <!-- C. WEBINAR -->
+        <h2 class="col-span-12 text-36 font-extrabold mt-32">Webinar NAC Digital Series </h2>
+        <p class="col-span-12 text-16 mt-8">Webinar NAC Digital Series adalah bagian dari rangkaian acara National Accounting Challenge 2021 yang akan menghadirkan narasumber-narasumber berkompeten di bidang akuntansi/audit. Brace yourself and #GetReadyToTransform with us!</p>
         <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
             Coming Soon!
         </div>

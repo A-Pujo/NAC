@@ -23,16 +23,26 @@
 
     // API provinsi
     $provincies = ["Nanggroe Aceh Darussalam", "Sumatera Utara", "Sumatera Selatan", "Sumatera Barat", "Bengkulu", "Riau", "Kepulauan Riau", "Jambi", "Lampung", "Bangka Belitung", "Kalimantan Barat", "Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Utara", "Banten", "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta", "Jawa timur", "Bali", "Nusa Tenggara Timur", "Nusa Tenggara Barat", "Gorontalo", "Sulawesi Barat", "Sulawesi Tengah", "Sulawesi Utara", "Sulawesi Tenggara", "Sulawesi Selatan", "Maluku Utara", "Maluku", "Papua Barat", "Papua"];
+
 ?>
 
     <div class="text-base-100 max-w-600 p-32">
+        <h1 class="font-bold text-24">
+            <?php if(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccSMA'):?>
+                Accounting for High School
+            <?php elseif(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccUniv'): ?>
+                Accounting for University
+            <?php else : ?>
+                Call for Paper
+            <?php endif?>
+        </h1>
         <div>
             <?php if(userinfo()->partisipan_aktif == 0 or userinfo()->pembayaran_aktif == 0) : ?>
                 <?= form_open_multipart(base_url('/dashboard/update-pendaftaran'), ['method' => 'post']) ?>
                     <?= csrf_field() ?>
 
                     <div class="form-input">
-                        <label>
+                        <label> Nama
                             <?php if(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccSMA'):?>
                                 Sekolah
                             <?php else: ?>
@@ -65,7 +75,7 @@
                         <label>Nama Tim</label>
                         <div>
                             <input 
-                                placeholder="contoh : Tim PKN STAN"
+                                placeholder="contoh : Elang"
                                 value="<?= $nama_tim ?>"
                                 type="text"
                                 name="nama_tim" />
@@ -209,6 +219,10 @@
                         <input type="file" id="file_abstrak" @change="files = $event.target.files" name="file_abstrak[]" multiple />
                         <input type="hidden" value="<?= userinfo()->file_abstrak ?>" name="old_file_abstrak">
                         <span><?= initValidation()->getError('file_abstrak') ?? '' ?></span>
+
+                        <small>Abstrak berupa berkas dengan format pdf, doc atau docx</small>
+                        <small>Ukuran maksimal untuk setiap file 5 Mb</small>
+                        <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu file</small>
                     </div>
                     <?php endif; ?>
                     
@@ -231,11 +245,15 @@
                         <input type="file" id="surat_pernyataan" @change="files = $event.target.files" name="surat_pernyataan" />
                         <input type="hidden" value="<?= userinfo()->surat_pernyataan ?>" name="old_surat_pernyataan">
                         <span><?= initValidation()->getError('surat_pernyataan') ?? '' ?></span>
+                        <small>Surat Pernyataan berupa berkas dengan format pdf, doc atau docx</small>
+                        <small>
+                            Ukuran maksimal file 500 Kb
+                        </small>
                     </div>
 
                     <!-- KTM -->
                     <div class="form-upload" x-data="{files : ''}">
-                        <label for="ktm">
+                        <label for="ktm">Foto
                             <?php if(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccSMA'):?>
                                 Kartu Pelajar
                             <?php else: ?>
@@ -258,11 +276,14 @@
                         <input type="file" id="ktm" @change="files = $event.target.files" name="ktm[]" multiple/>
                         <input type="hidden" value="<?= userinfo()->ktm ?>" name="old_ktm">
                         <span><?= initValidation()->getError('ktm') ?? '' ?></span>
+                        <small>Foto KTM berupa gambar dengan format jpg, jpeg atau png</small>
+                        <small>Ukuran maksimal untuk setiap file 500 Kb</small>
+                        <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu gambar</small>
                     </div>
 
                     <!-- Twibbon -->
                     <div class="form-upload" x-data="{files : ''}">
-                        <label for="twibbon">Foto twibbon</label>
+                        <label for="twibbon">Foto Twibbon</label>
                         <div x-show="files">
                             <!-- Loop the image -->
                             <template x-for="file in files" x-if="files">
@@ -279,6 +300,10 @@
                         <input type="file" id="twibbon" @change="files = $event.target.files" name="twibbon[]" multiple/>
                         <input type="hidden" value="<?= userinfo()->twibbon ?>" name="old_twibbon">
                         <span><?= initValidation()->getError('twibbon') ?? '' ?></span>
+
+                        <small>Foto Twibbon berupa gambar dengan format jpg, jpeg atau png</small>
+                        <small>Ukuran maksimal untuk setiap file 500 Kb</small>
+                        <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu gambar</small>
                     </div>
 
                     <button type="submit" class="btn btn-block btn-primary">submit</button>
