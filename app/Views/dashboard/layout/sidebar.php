@@ -47,12 +47,7 @@
             </svg>
             <span >Verifikasi Pendaftar</span>
         </a>
-        <a href="<?= base_url('/dashboard/peserta_index') ?>" class="<?= $halaman == 'kelola-peserta' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span >Data Pendaftaran</span>
-        </a>
+
 
     <!-- Tim Bendahara -->
     <?php elseif(isInRole('tim bendahara')) : ?>
@@ -63,14 +58,31 @@
 
     <!-- Tim Lomba -->
     <?php elseif(isInRole('tim lomba')) : ?>
-        <!-- <a href="<?= base_url('/dashboard/verifikasi-lomba') ?>" class="<?= $halaman == 'kelola-pembayaran' ? 'aktif' : 'nonaktif' ?>">
+        <!-- Verifikasi Abstrak -->
+        <a href="<?= base_url('/dashboard/verifikasi-lomba') ?>" class="<?= $halaman == 'kelola-pembayaran' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z"/></svg>
             <span >Verifikasi Abstrak</span>
-        </a> -->
+        </a>
+        <!-- Nilai -->
 
     <!-- Peserta Lomba -->
 
     <?php endif; ?>
+
+    <!-- Peserta Course -->
+    
+    <!-- All panitia -->
+    <?php if(isInRole('tim lomba') || isInRole('tim bendahara') || isInRole('tim registrasi')) : ?>
+        <a href="<?= base_url('/dashboard/peserta_index') ?>" class="<?= $halaman == 'kelola-peserta' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <span >Data Pendaftaran</span>
+        </a>
+    <?php endif; ?>
+    
+
+
     
     <!-- Logout -->
         <a href="<?= base_url('/auth/logout') ?>" class="nonaktif">
@@ -79,7 +91,8 @@
             </svg>
             <span >Logout</span>
         </a> 
-        
+    
+
         
 
         <!-- BUTTON -->

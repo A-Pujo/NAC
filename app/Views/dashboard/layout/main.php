@@ -44,11 +44,11 @@
         <div class="">
             <?= $this->include('dashboard/layout/topbar') ?> 
         </div>
-        <div class="p-32">
+        <div class="">
             <?= $this->renderSection('content')?>
         </div>
-        <div class="bg-gray-500">
-            <?= $this->include('dashboard/layout/footer') ?>
+        <div class="">
+            <?= $this->include('statis/layout/footer') ?>
         </div>
     </div>
 </body>

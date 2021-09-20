@@ -38,7 +38,7 @@
     }
     $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;
 ?>
-    <div class="text-base-100">
+    <div class="text-base-100 p-32">
         <div>
             <?php if(userinfo()->pembayaran_aktif == 0) : ?>
                 <!-- <b>Belum bayar</b>

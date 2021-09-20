@@ -1,6 +1,6 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
-    <div class="grid grid-cols-6 gap-x-8 gap-y-16">
+    <div class="grid grid-cols-6 gap-x-24 gap-y-32 p-32">
         
         <div class=" col-span-3 rounded-md bg-primary-300 flex items-center p-24 space-x-8">
             <div class="rounded-full flex justify-center items-center flex-shrink-0 w-48 h-48 font-extrabold text-24 bg-primary-200 text-neutral-100">
@@ -8,8 +8,16 @@
             </div>
             <div class="flex items-start flex-col text-base-200">
                 <span class="text-18 font-bold mt-0">Potensi Transfer Masuk</span>
-                <span class="text-24 font-black leading-none"><></span>
-                <small>Pendaftar yang telah mengunggah bukti transfer</small>
+                <span class="text-24 font-black leading-none">
+                    <?php
+
+                // use PhpParser\Node\Stmt\While_;
+
+                        $jumlah = \Config\Database::connect()->query('SELECT SUM(jumlah_transfer) FROM data_pembayaran WHERE nama_bank != ""')->getRowArray()['SUM(jumlah_transfer)']; 
+                        echo 'Rp.'. substr($jumlah,0, -3).'.'. substr($jumlah, -3);
+                    ?>
+                </span>
+                <small>Pendaftar yang telah mengunggah bukti transfer </small>
             </div>
         </div>
         <div class=" col-span-3 rounded-md bg-primary-300 flex items-center p-24 space-x-8">
@@ -18,12 +26,17 @@
             </div>
             <div class="flex items-start flex-col text-base-200">
                 <span class="text-18 font-bold mt-0">Potensi Transfer Masuk</span>
-                <span class="text-24 font-black leading-none">Rp.750.000</span>
-                <small>Pendaftar yang telah mengunggah bukti transfer</small>
+                <span class="text-24 font-black leading-none">
+                    <?php 
+                        $jumlah = \Config\Database::connect()->query('SELECT SUM(jumlah_transfer) FROM data_pembayaran WHERE pembayaran_aktif = 1 ')->getRowArray()['SUM(jumlah_transfer)']; 
+                        echo 'Rp.'. substr($jumlah,0, -3).'.'. substr($jumlah, -3);
+                    ?>
+                </span>
+                <small>Pendaftar yang telah diverifikasi</small>
             </div>
         </div>
 
-        <div class="col-span-6 mt-36">
+        <div class="col-span-6">
             <table id="tabel" class="tabel">
                 <thead>
                     <tr>

@@ -22,10 +22,10 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
 }
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . userinfo()->id;    
 ?>
-    <div class="grid grid-cols-12 text-base-100 gap-x-24 ">
+    <div class="grid grid-cols-12 text-base-100 gap-x-24 p-32">
 
-    <h2 class="col-span-12 text-36 font-extrabold">Lomba NAC </h2>
-    <p class="col-span-12 text-16 mt-8">National Accounting Challenge 2021 hadir kembali dengan berbagai rangkaian perlombaan yang sangat menarik! Siapkan tim terbaikmu dan daftar segera!</p>
+        <h2 class="col-span-12 text-36 font-extrabold">Lomba NAC </h2>
+        <p class="col-span-12 text-16 mt-8">National Accounting Challenge 2021 hadir kembali dengan berbagai rangkaian perlombaan yang sangat menarik! Siapkan tim terbaikmu dan daftar segera!</p>
         <!-- 1. ALERT -->
             <!-- User Ditolak -->
             <div class="alert alert-error col-span-12" x-data="{alert : '<?= userinfo()->alasan_ditolak ?>'}" x-show="alert">
@@ -173,10 +173,19 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
             </div>
 
             <!-- 4. UPLOAD PAPER FOR CFP -->
-            <?php if(userinfo()->partisipan_jenis == 'CFP') : ?>
+            <?php if(userinfo()->partisipan_jenis == 'CFP' ) : ?>
             <p class="col-span-12 mt-24">Formulir Unggah Full Paper</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
-                <span>Silakan Anda memantau perkembangan pendaftaran Anda. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
+                <?php if(!userinfo()->partisipan_aktif) : ?>
+                    <span>Silakan Anda memantau perkembangan pendaftaran Anda. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
+                <?php elseif(true) : ?> 
+                    <!-- Jika belom unggah paper -->
+                    <span>Silakan Anda mengunggah berkas full paper</span>
+                    <a class="btn btn-sm btn-primary">Button upload</a>
+                    <a class="btn btn-sm btn-primary">Button submit</a>
+                <?php else : ?>
+                    <span>Paper Anda telah berhasil diunggah, silakan Anda melakukan pembayaran agar Anda dapat melanjutkan ke tahap berikutnya</span>
+                <?php endif ?>
             </div>
             <?php endif ?>
 
@@ -221,12 +230,13 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                         </div>
                         a.n. Riza Intan Savitri.
                     </span>
-                    <a href="<?= base_url('dashboard/pembayaran') ?>" class="btn btn-sm btn-primary">Unggah bukti bayar</a>
+                    <a href="<?= base_url('dashboard/pembayaran') ?>" class="btn btn-sm btn-primary">Unggah bukti bayar</a><br>
+                    
                 <?php else : ?>
                     <span> <?= userinfo()->nama_bank ?> </span>
                     <span> <?= userinfo()->nama_nasabah ?> </span>
                     <span> <?= userinfo()->nomor_rekening ?> </span>
-                    <span> <?= userinfo()->jumlah_transfer ?> </span>
+                    <span> Rp.<?= substr(userinfo()->jumlah_transfer,0, -3).'.'. substr(userinfo()->jumlah_transfer, -3)?></span>
                     <span>
                         <img 
                         src="<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer) ?>" class="h-24 cursor-pointer" alt=""
@@ -258,11 +268,12 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
             <!-- Pesan -->
             
             <p class="col-span-12 mt-8 text-10">Pastikan formulir Pendaftaran dan Pembayaran telah terverifikasi sebelum mengikuti perlombaan</p>
+            <p class="col-span-12 mt-2 text-10">Jika terdapat kendala selama proses pendaftaran, silakan menghubungi CP yang tertera pada bagian bawah halaman ini</p>
         <?php else : ?>
-            <!-- 6. PENDAFTARAN SELESAI -->
-                <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
-                    <span>Selamat, pendaftaran Anda telah terverifikasi. Silakan menunggu informasi selanjutnya.</span>
-                </div>
+        <!-- 6. PENDAFTARAN SELESAI -->
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
+                <span>Selamat, pendaftaran Anda telah terverifikasi. Silakan menunggu informasi selanjutnya.</span>
+            </div>
         <?php endif ?>
 
         <h2 class="col-span-12 text-36 font-extrabold mt-32">Webinar NAC Digital Series </h2>

@@ -1,7 +1,7 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 
 <?= $this->section('content') ?>
-    <div class="grid grid-cols-12 gap-x-32">
+    <div class="grid grid-cols-12 gap-x-24 p-32">
         <!--  -->
         <h2 class="col-span-12 text-36 font-black text-base-100">Informasi</h2>
         <div class="col-span-12 lg:col-span-6 rounded-md p-32 bg-primary-40 mt-16">

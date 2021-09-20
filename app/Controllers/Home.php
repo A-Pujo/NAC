@@ -20,7 +20,12 @@ class Home extends BaseController
 		return view('statis/pages/guide');
 	}
 
-	public function tes(){
-		return view('dashboard/pages/home');
+	public function fr_pre_el(){
+		return view('test/fr-pre-el');
+	}
+	public function fr_course(){
+		$data['halaman'] = 'kursus';
+		$data['judul'] = 'Course NAC STAN 2021';
+		return view('test/fr-kursus-index', $data);
 	}
 }

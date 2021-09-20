@@ -632,7 +632,7 @@ class Dashboard extends BaseController
     }
 
     public function peserta_index(){
-        if(!isInRole('tim registrasi')){
+        if(!(isInRole('tim lomba') || isInRole('tim bendahara') || isInRole('tim registrasi'))){
             return redirect()->to(base_url('/dashboard'));
         }
         

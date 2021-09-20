@@ -25,8 +25,7 @@
     $provincies = ["Nanggroe Aceh Darussalam", "Sumatera Utara", "Sumatera Selatan", "Sumatera Barat", "Bengkulu", "Riau", "Kepulauan Riau", "Jambi", "Lampung", "Bangka Belitung", "Kalimantan Barat", "Kalimantan Timur", "Kalimantan Selatan", "Kalimantan Tengah", "Kalimantan Utara", "Banten", "DKI Jakarta", "Jawa Barat", "Jawa Tengah", "DI Yogyakarta", "Jawa timur", "Bali", "Nusa Tenggara Timur", "Nusa Tenggara Barat", "Gorontalo", "Sulawesi Barat", "Sulawesi Tengah", "Sulawesi Utara", "Sulawesi Tenggara", "Sulawesi Selatan", "Maluku Utara", "Maluku", "Papua Barat", "Papua"];
 ?>
 
-</div>
-    <div class="text-base-100 max-w-600">
+    <div class="text-base-100 max-w-600 p-32">
         <div>
             <?php if(userinfo()->partisipan_aktif == 0 or userinfo()->pembayaran_aktif == 0) : ?>
                 <?= form_open_multipart(base_url('/dashboard/update-pendaftaran'), ['method' => 'post']) ?>
@@ -176,13 +175,13 @@
                                 <?php endforeach; ?>
                             </ul>
                         </div>
-                        <div class="border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 mt-8">
+                        <!-- <div class="border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 mt-8">
                             <ul class="divide-y divide-primary-100 max-h-300 overflow-auto">
                                 <?php foreach($provincies as $p) : ?>
                                 <li @click="provinsi = '<?= $p ?>'" class="cursor-pointer p-8"><?= $p ?></li>
                                 <?php endforeach; ?>
                             </ul>
-                        </div>
+                        </div> -->
                         <span><?= initValidation()->getError('provinsi') ?? '' ?></span>
                         <!-- Input data -->
                         <select name="provinsi">
@@ -236,7 +235,13 @@
 
                     <!-- KTM -->
                     <div class="form-upload" x-data="{files : ''}">
-                        <label for="ktm">Foto KTM</label>
+                        <label for="ktm">
+                            <?php if(($_GET['lomba'] ?? userinfo()->partisipan_jenis) == 'AccSMA'):?>
+                                Kartu Pelajar
+                            <?php else: ?>
+                                KTM
+                            <?php endif?>
+                        </label>
                         <div x-show="files">
                             <!-- Loop the image -->
                             <template x-for="file in files" x-if="files">
