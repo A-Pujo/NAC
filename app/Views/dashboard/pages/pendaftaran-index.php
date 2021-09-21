@@ -301,7 +301,12 @@ $now = date('Y-m-d H:i:s');
         <h2 class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
         <p class="col-span-12 text-16 mt-8">NAC Accounting Course adalah bagian dari rangkaian acara National Accounting Challenge 2021 berupa kelas pengenalan akuntansi yang dapat diikuti oleh seluruh siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia. Kelas singkat ini akan dipandu oleh dosen PKN STAN melalui beberapa rangkaian video serta diakhiri dengan mini quiz untuk mengukur pemahaman peserta terhadap materi yang disajikan. Peserta course yang berhasil menyelesaikan kelas tersebut akan mendapatkan sertifikat berlisensi dari kampus PKN STAN.</p>
         <!-- Course masih atau telah tutup -->
-        <?php if(user_kursus() ?? false) : ?>
+        <?php if(user_kursus()->peserta_ditolak ?? false) : ?>
+            <!-- Udah daftar tapi ditolak -->
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24 flex flex-col md:flex-row justify-between">
+                Mohon maaf, pendaftaran Anda belum dapat kami terima.<?= user_kursus()->alasan_ditolak ?>
+            </div>
+        <?php elseif(user_kursus() ?? false) : ?>
             <!-- Udah daftar belom d verif -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24 flex flex-col md:flex-row justify-between">
                 <span><?= user_kursus()->nama_peserta?> </span>

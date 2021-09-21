@@ -10,6 +10,7 @@
                     <th>Nama Peserta</th>
                     <th>Nama Sekolah</th>
                     <th>Status Partisipan</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
