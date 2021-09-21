@@ -18,9 +18,10 @@ class Kursus extends BaseController{
         if(! $this->request->getPost()){
             $data = [
                 'peserta' => $this->PESERTA_K->where(['id_user' => userinfo()->id])->first(),
+                'judul' => 'Pendaftaran Kursus',
+                'halaman' => 'pendaftaran',
             ];
-
-            return view('kursus/regis', $data);
+            return view('dashboard/pages/kursus/regis', $data);
         } else {
             $data = [
                 'id_user' => userinfo()->id,
@@ -85,7 +86,7 @@ class Kursus extends BaseController{
                     $this->PESERTA_K->where(['id_user' => userinfo()->id])->update(null, $data);
                 }
             } else {
-                return redirect()->to('kursus/registrasi')->withInput();
+                return redirect()->to('dashboard/pendaftaran-index')->withInput();
             }
         }
     }
@@ -94,19 +95,23 @@ class Kursus extends BaseController{
         if($user_id == null){
             $data = [
                 'daftar_peserta' => $this->PESERTA_K->findAll(),
+                'judul' => 'Verifikasi Pendaftaran Kursus',
+                'halaman' => 'verifikasi-kursus',
             ];
 
-            return view('kursus/verifikasi', $data);
+            return view('dashboard/pages/kursus/verifikasi', $data);
         } else {
             $data = [
                 'peserta' => $this->PESERTA_K->where(['id_user' => $user_id])->first(),
+                'judul' => 'Verifikasi Pendaftaran Kursus',
+                'halaman' => 'verifikasi-kursus',
             ];
 
             if(empty($data['peserta'])){
                 return redirect()->to(base_url('kursus/verifikasi'));
             }
 
-            return view('kursus/verifikasi-single', $data);
+            return view('dashboard/pages/kursus/verifikasi-single', $data);
         }
     }
 

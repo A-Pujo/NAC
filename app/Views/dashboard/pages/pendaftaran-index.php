@@ -97,14 +97,14 @@ $now = date('Y-m-d H:i:s');
                 <span> <?= userinfo()->pt ?></span>
                 <?php if(userinfo()->partisipan_aktif) : ?>
                     <span class="verif-sukses">Terverifikasi</span>
-                    <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-right lg:tooltip-left">
+                    <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
                     </div>
                 <?php else :?>
                     <span class="verif-gagal">Belum terverifikasi</span>
-                    <a href="<?= base_url('/dashboard/pendaftaran') ?>" data-tip="Edit Pendaftaran" class="tooltip tooltip-right lg:tooltip-left">
+                    <a href="<?= base_url('/dashboard/pendaftaran') ?>" data-tip="Edit Pendaftaran" class="tooltip tooltip-left">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                         </svg>
@@ -301,17 +301,53 @@ $now = date('Y-m-d H:i:s');
         <h2 class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
         <p class="col-span-12 text-16 mt-8">NAC Accounting Course adalah bagian dari rangkaian acara National Accounting Challenge 2021 berupa kelas pengenalan akuntansi yang dapat diikuti oleh seluruh siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia. Kelas singkat ini akan dipandu oleh dosen PKN STAN melalui beberapa rangkaian video serta diakhiri dengan mini quiz untuk mengukur pemahaman peserta terhadap materi yang disajikan. Peserta course yang berhasil menyelesaikan kelas tersebut akan mendapatkan sertifikat berlisensi dari kampus PKN STAN.</p>
         <!-- Course masih atau telah tutup -->
-        <?php if($now < '2021-09-24 00:00:00') : ?>
+        <?php if(user_kursus() ?? false) : ?>
+            <!-- Udah daftar belom d verif -->
+            <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24 flex flex-col md:flex-row justify-between">
+                <span><?= user_kursus()->nama_peserta?> </span>
+                <span><?= user_kursus()->nama_sekolah?> </span>
+                <span>
+                    <img 
+                    src="<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer) ?>" class="h-24 cursor-pointer" alt=""
+                    @click="imgShow = true, imgSrc = '<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer)?>', imgTitle = 'Unggah bukti transfer'"
+                ></span>
+                <?php if(user_kursus()->verifikasi_peserta) : ?>
+                        <span class="verif-sukses">Terverifikasi</span>
+                        <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-right lg:tooltip-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </div>
+                    <?php else :?>
+                        <span class="verif-gagal">Belum terverifikasi</span>
+                        <a href="<?= base_url('/kursus/registrasi')  ?>" data-tip="Edit Pembayaran" class="tooltip tooltip-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                            </svg>
+                        </a>
+                <?php endif?>
+            </div>
+            <?php if(user_kursus()->verifikasi_peserta ?? false) : ?>
+                <!-- Udah d verif -->
+                <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
+                    Selamat, pendaftaran Anda telah selesai. Silakan Anda mengerjakan Course sesuai jadwal yang telah ditentukan.
+                </div>
+            <?php endif ?>
+
+        <?php elseif($now < '2021-09-04 00:00:00') : ?>
+            <!-- Belum d buka -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Coming Soon!
             </div>
         <?php elseif($now > '2021-09-30 23:59:59') : ?>
+            <!-- Udah d tutup -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Pendaftaran Course telah di tutup!
             </div>
         <?php else : ?>
+            <!-- Gas Daftar  -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-                Daftar Course sekarang dengan mengunjungi <a href="#" class="btn btn-xs btn-primary">tautan ini</a>. Untuk informasi lebih lengkap, Anda dapat melihat booklet Course pada halaman panduan.
+                Daftar Course sekarang dengan mengunjungi <a href="<?= base_url('/kursus/registrasi')  ?>" class="btn btn-xs btn-primary">tautan ini</a>. Untuk informasi lebih lengkap, Anda dapat melihat booklet Course pada halaman panduan.
             </div>
         <?php endif ?>
         <!-- C. WEBINAR -->

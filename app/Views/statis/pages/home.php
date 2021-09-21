@@ -1,5 +1,8 @@
 <?= $this->extend('statis/layout/main')  ?>
 <?= $this->section('content') ?>
+
+    
+
     <!-- Hero -->
     <div class="flex flex-col items-center pt-120 mx-auto  text-base-100
         px-32 w-full

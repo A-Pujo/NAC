@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\M_User;
+use App\Models\M_Peserta_Kursus;
 
 function getGoogleClient(){
         include_once APPPATH . '../vendor/autoload.php';
@@ -34,6 +35,15 @@ function getGoogleClient(){
 
         $USER = new \App\Models\M_User();
         return $USER->getFullUserInfo();
+    }
+
+    function user_kursus(){
+        if(! isLoggedIn()){
+            return redirect()->to(getGoogleClient()->createAuthUrl());
+        }
+
+        $user_kursus = new \App\Models\M_Peserta_Kursus();
+        return $user_kursus->getFullUserInfo();
     }
 
     function countPartisipan($kolom = null, $value = null){

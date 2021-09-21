@@ -15,6 +15,11 @@ class M_Peserta_Kursus extends Model{
     protected $useTimestamps = true;
     protected $createdField  = 'data_pk_dibuat';
     protected $updatedField  = 'data_pk_diperbarui';
+
+    function getFullUserInfo(){
+        return $this->where(['id_user' => userinfo()->id])->first();
+    }
+
 }
 
 ?>
