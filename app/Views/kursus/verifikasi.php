@@ -12,6 +12,7 @@
             <th>Nama</th>
             <th>Sekolah</th>
             <th>Verif</th>
+            <th>Ditolak</th>
             <th>Aksi</th>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                     <td><?= $peserta->nama_peserta ?></td>
                     <td><?= $peserta->nama_sekolah ?></td>
                     <td><?= ($peserta->verifikasi_peserta == 1) ? 'Iya' : 'Tidak' ?></td>
+                    <td><?= ($peserta->peserta_ditolak == 1) ? 'Iya' : 'Tidak' ?></td>
                     <td><a href="<?= base_url('kursus/verifikasi/'.$peserta->id_user) ?>">Cek</a></td>
                 </tr>
             <?php endforeach; ?>
