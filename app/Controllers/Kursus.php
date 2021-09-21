@@ -247,6 +247,30 @@ class Kursus extends BaseController{
         // dd([$nilai, 'nilai_'.$index]);
         $this->PESERTA_K->where(['id_peserta' => $peserta])->update(null, ['nilai_'.$index => $nilai]);
     }
+
+    public function peserta_index(){
+        if(!isInRole('tim registrasi')){
+            return redirect()->to(base_url('dashboard'));
+        }
+        $data = [
+            'daftar_peserta' => $this->PESERTA_K->join('users', 'users.id = peserta_kursus.id_user')->findAll(),
+            'judul' => 'Data Peserta Course',
+            'halaman' => 'data-peserta-course',
+        ];
+        return view('dashboard/pages/kursus/peserta-index', $data);
+    }
+
+    public function nilai_index(){
+        if(!isInRole('tim lomba')){
+            return redirect()->to(base_url('dashboard'));
+        }
+        $data = [
+            'daftar_peserta' => $this->PESERTA_K->join('users', 'users.id = peserta_kursus.id_user')->findAll(),
+            'judul' => 'Data Nilai Course',
+            'halaman' => 'data-nilai-kursus',
+        ];
+        return view('dashboard/pages/kursus/nilai-index', $data);
+    }
 }
 
 ?>

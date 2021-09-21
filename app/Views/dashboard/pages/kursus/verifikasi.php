@@ -6,8 +6,8 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama Tim</th>
-                    <th>Jenis Partisipasi</th>
+                    <th>Nama Peserta</th>
+                    <th>Nama Sekolah</th>
                     <th>Partisipan Aktif</th>
                     <th>Aksi</th>
                 </tr>
@@ -15,6 +15,7 @@
             <tbody>
                 <?php $no = 1 ?>
                 <?php foreach($daftar_peserta as $peserta) : ?>
+                    <?php if(!$peserta->peserta_ditolak ) : ?>
                             
                             <tr>
                                 <td><?= $no++ ?></td>
@@ -29,6 +30,7 @@
                                 </td>
                                 <td><a class="btn btn-sm btn-primary" href="<?= base_url('kursus/verifikasi/'.$peserta->id_user) ?>">Periksa</a></td>
                             </tr>
+                    <?php endif;?>
                 <?php endforeach; ?>
             </tbody>
         </table>

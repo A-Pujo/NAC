@@ -16,11 +16,13 @@
             <a href="<?= base_url('kursus/aktivasi-peserta/' . $peserta->id_user . '/0') ?>">Cabut</a>
         <?php else : ?>
             <a href="<?= base_url('kursus/aktivasi-peserta/' . $peserta->id_user . '/1') ?>">Aktivasi</a>
+
             <?php if($peserta->peserta_ditolak == 0) : ?>
-            <a href="<?= base_url('kursus/tolak-peserta/' . $peserta->id_user . '/1') ?>" id="uri-tolak">Tolak</a>
+                <a href="<?= base_url('kursus/tolak-peserta/' . $peserta->id_user . '/1') ?>" id="uri-tolak">Tolak</a>
             <?php else: ?>
-            <a href="<?= base_url('kursus/tolak-peserta/' . $peserta->id_user . '/0') ?>">Cabut Tolak</a>
+                <a href="<?= base_url('kursus/tolak-peserta/' . $peserta->id_user . '/0') ?>">Cabut Tolak</a>
             <?php endif; ?>
+            
         <?php endif; ?>
     </p>
 

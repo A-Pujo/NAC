@@ -59,6 +59,12 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
             </svg>
             <span >Verifikasi Kursus</span>
         </a>
+        <a href="<?= base_url('/kursus/peserta_index') ?>" class="<?= $halaman == 'data-peserta-kursus' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <span >Data Peserta Kursus</span>
+        </a>
 
 
     <!-- Tim Bendahara -->
@@ -74,14 +80,16 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z"/></svg>
             <span >Verifikasi Abstrak</span>
         </a>
+        <a href="<?= base_url('/kursus/nilai_index') ?>" class="<?= $halaman == 'data-nilai-kursus' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+            </svg>
+            <span>Data Nilai Kursus</span>
+        </a>
 
     <!-- Peserta Lomba -->
 
     <?php endif; ?>
-    <?php
-        // var_dump(user_kursus()->verifikasi_peserta);
-        // die();
-    ?>
 
     <!-- Peserta Course -->
     <?php if((user_kursus()->verifikasi_peserta) ?? false) : ?>
@@ -98,8 +106,9 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
-            <span >Data Pendaftaran</span>
+            <span >Data Peserta Lomba</span>
         </a>
+
     <?php endif; ?>
     
 

@@ -27,6 +27,8 @@
                     Tim Registrasi
                 <?php elseif(isInRole('tim bendahara')) :?>
                     Tim Bendahara
+                <?php elseif(isInRole('tim lomba')) :?>
+                    Tim Lomba
                 <?php elseif(isInRole('peserta lomba')) :?>
                     Peserta
                 <?php endif ?>
