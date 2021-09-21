@@ -23,14 +23,9 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . (userinfo()->id + 1)  ;    
 
 $now = date('Y-m-d H:i:s');
-// var_dump($now);
-// if($now < '2021-09-24 23:59:59'){
-//     echo 'bisa';
-// } else {
-//     echo 'tutup';
-// }
-// die();
-
+$close_abstrak = '2021-09-25 12:00:00';
+$open_course = '';
+$cloe_course = '';
 
 ?>
 
@@ -197,23 +192,18 @@ $now = date('Y-m-d H:i:s');
             <?php if(userinfo()->partisipan_jenis == 'CFP' ) : ?>
             <p class="col-span-12 mt-24">Formulir Unggah Full Paper</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
-                <?php if($now < '2021-09-24 00:00:00') : ?>
+                <?php if($now < $close_abstrak) : ?>
                     <!-- Belum pengumuman -->
-                <?php else : ?>
-                    <!-- Udah pengumuman -->
-                <?php endif ?>
-
-
-
-
-                <?php if(!userinfo()->partisipan_aktif) : ?>
-                    <span>Silakan Anda memantau perkembangan pendaftaran Anda. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
-                <?php elseif(true) : ?> 
-                <!-- Jika belom unggah paper -->
-                    
-                    <span>Selamat, Anda lolos seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a class="btn btn-xs btn-primary">berikut</a></span>
-                <?php else : ?>
-                    <span>Paper Anda telah berhasil diunggah, silakan Anda melakukan pembayaran agar Anda dapat melanjutkan ke tahap berikutnya</span>
+                    <span>Silakan Anda memantau perkembangan pendaftaran Anda. Pastikan pendaftaran Anda telah terverifikasi sebelum tenggat waktu pendaftaran selesai. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
+                <?php elseif(userinfo()->lolos_abstrak) : ?>
+                    <!-- Udah pengumuman dan lolos -->
+                    <span>Selamat, Anda lolos tahap seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a class="btn btn-xs btn-primary">berikut</a></span>
+                <?php elseif(!userinfo()->lolos_abstrak) : ?>
+                    <!-- Udah pengumuman dan tidak lolos :) -->
+                    <span>Mohon maaf, Anda tidak lolos tahap seleksi abstrak.
+                <?php elseif(userinfo()->file_paper) : ?>
+                <!-- Udah aplot full paper :) -->
+                <span>Paper Anda telah berhasil diunggah, silakan Anda melakukan pembayaran agar Anda dapat melanjutkan ke tahap berikutnya</span>
                 <?php endif ?>
             </div>
             <?php endif ?>
@@ -229,7 +219,7 @@ $now = date('Y-m-d H:i:s');
                     <span>Silakan Anda menunggu status pendaftaran Anda telah terverifikasi sebelum Anda melanjutkan pembayaran</span>
                 <!-- Peserta CFP belum upload full paper -->
                 <?php elseif(userinfo()->partisipan_jenis == 'CFP' and !userinfo()->file_paper)  :?> 
-                    <span>Proses seleksi abstrak sedang berlangsung. Anda dapat melakukan pembayaran setelah dinyatakan lolos abstrak dan telah mengunggah full paper.</span>
+                    <span>Anda dapat melakukan pembayaran setelah dinyatakan lolos abstrak dan telah mengunggah full paper.</span>
                 <?php elseif(userinfo()->nama_bank == '') : ?> 
                     <span>Jumlah yang harus Anda bayar sebesar Rp.<?= substr($jumlah_transfer,0, -3).'.'. substr($jumlah_transfer, -3)?>
                         <div 
