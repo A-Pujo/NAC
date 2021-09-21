@@ -337,12 +337,12 @@ $cloe_course = '';
                 </div>
             <?php endif ?>
 
-        <?php elseif($now < '2021-09-24 00:00:00') : ?>
+        <?php elseif($now < $open_course) : ?>
             <!-- Belum d buka -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Coming Soon!
             </div>
-        <?php elseif($now > '2021-09-30 23:59:59') : ?>
+        <?php elseif($now > $cloe_course) : ?>
             <!-- Udah d tutup -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Pendaftaran Course telah di tutup!
