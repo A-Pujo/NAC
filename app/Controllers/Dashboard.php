@@ -175,7 +175,7 @@ class Dashboard extends BaseController
         if($id == null){
             $data = [
                 'judul' => 'Data Peserta',
-                'halaman' => 'kelola-lomba',
+                'halaman' => 'kelola-abstrak',
                 'data_partisipan' => $this->PARTISIPAN->where(['partisipan_jenis' => 'CFP'])->getAll(),
             ];
     
@@ -183,7 +183,7 @@ class Dashboard extends BaseController
         } else {
             $data = [
                 'judul' => 'Verifikasi Peserta',
-                'halaman' => 'kelola-lomba',
+                'halaman' => 'kelola-abstrak',
                 'partisipan' => $this->PARTISIPAN->getSingle($id),
             ];
     

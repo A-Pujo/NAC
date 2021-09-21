@@ -197,13 +197,21 @@ $now = date('Y-m-d H:i:s');
             <?php if(userinfo()->partisipan_jenis == 'CFP' ) : ?>
             <p class="col-span-12 mt-24">Formulir Unggah Full Paper</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
+                <?php if($now < '2021-09-24 00:00:00') : ?>
+                    <!-- Belum pengumuman -->
+                <?php else : ?>
+                    <!-- Udah pengumuman -->
+                <?php endif ?>
+
+
+
+
                 <?php if(!userinfo()->partisipan_aktif) : ?>
                     <span>Silakan Anda memantau perkembangan pendaftaran Anda. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
                 <?php elseif(true) : ?> 
-                    <!-- Jika belom unggah paper -->
-                    <span>Silakan Anda mengunggah berkas full paper</span>
-                    <a class="btn btn-sm btn-primary">Button upload</a>
-                    <a class="btn btn-sm btn-primary">Button submit</a>
+                <!-- Jika belom unggah paper -->
+                    
+                    <span>Selamat, Anda lolos seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a class="btn btn-xs btn-primary">berikut</a></span>
                 <?php else : ?>
                     <span>Paper Anda telah berhasil diunggah, silakan Anda melakukan pembayaran agar Anda dapat melanjutkan ke tahap berikutnya</span>
                 <?php endif ?>
@@ -304,7 +312,7 @@ $now = date('Y-m-d H:i:s');
         <?php if(user_kursus()->peserta_ditolak ?? false) : ?>
             <!-- Udah daftar tapi ditolak -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24 flex flex-col md:flex-row justify-between">
-                Mohon maaf, pendaftaran Anda belum dapat kami terima.<?= user_kursus()->alasan_ditolak ?>
+                Mohon maaf, pendaftaran Anda belum dapat kami terima. <?= user_kursus()->alasan_ditolak ?>
             </div>
         <?php elseif(user_kursus() ?? false) : ?>
             <!-- Udah daftar belom d verif -->
@@ -313,8 +321,8 @@ $now = date('Y-m-d H:i:s');
                 <span><?= user_kursus()->nama_sekolah?> </span>
                 <span>
                     <img 
-                    src="<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer) ?>" class="h-24 cursor-pointer" alt=""
-                    @click="imgShow = true, imgSrc = '<?= base_url('/uploads/pembayaran/bukti/'.userinfo()->bukti_transfer)?>', imgTitle = 'Unggah bukti transfer'"
+                    src="<?= base_url('/uploads/kursus/kartu-pelajar/'.user_kursus()->kartu_pelajar) ?>" class="h-24 cursor-pointer" alt=""
+                    @click="imgShow = true, imgSrc = '<?= base_url('/uploads/kursus/kartu-pelajar/'.user_kursus()->kartu_pelajar)?>', imgTitle = 'Unggah Kartu Pelajar / Kartu NISN'"
                 ></span>
                 <?php if(user_kursus()->verifikasi_peserta) : ?>
                         <span class="verif-sukses">Terverifikasi</span>
@@ -335,11 +343,11 @@ $now = date('Y-m-d H:i:s');
             <?php if(user_kursus()->verifikasi_peserta ?? false) : ?>
                 <!-- Udah d verif -->
                 <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-                    Selamat, pendaftaran Anda telah selesai. Silakan Anda mengerjakan Course sesuai jadwal yang telah ditentukan.
+                Selamat, pendaftaran Anda telah kami terima.
                 </div>
             <?php endif ?>
 
-        <?php elseif($now < '2021-09-04 00:00:00') : ?>
+        <?php elseif($now < '2021-09-24 00:00:00') : ?>
             <!-- Belum d buka -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Coming Soon!

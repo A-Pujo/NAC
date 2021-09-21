@@ -182,17 +182,19 @@ class Kursus extends BaseController{
         ];
 
         if(! array_key_exists($index_video, $video)){
-            return redirect()->to(base_url('kursus/video'));
+            return redirect()->to(base_url('dashboard/pages/kursus'));
         }
 
         $data = [
             'video' => $video[$index_video],
-            'index' => $index_video,
+            'index' => explode('_',$index_video)[2],
+            'judul' => 'Course NAC 2021',
+            'halaman' => 'kursus',
         ];
 
         $this->PESERTA_K->where(['id_user' => userinfo()->id])->update(null, [$index_video => 1]);
 
-        return view('kursus/video-single', $data);
+        return view('dashboard/pages/kursus/video-show', $data);
     }
 
     public function kuis($index = null){
@@ -205,8 +207,10 @@ class Kursus extends BaseController{
         $data['kuis'] = $index;
         $data['soal'] = $this->SOAL->where(['kode_lomba' => $index])->orderBy('RAND()')->findAll();
         $data['pilihan'] =  $this->PILIHAN->findAll();
+        $data['judul'] = 'Course NAC 2021';
+        $data['halaman'] = 'kursus';
 
-        return view('kursus/kuis', $data);
+        return view('dashboard/pages/kursus/kuis-show', $data);
     }
 
     public function submit_jawaban($index){
@@ -214,7 +218,10 @@ class Kursus extends BaseController{
             $soal = $this->request->getVar('soal');
             $pilihan = $this->request->getVar('jawaban');
             $peserta = $this->PESERTA_K->where(['id_user' => userinfo()->id])->first();
-            $pilihan_peserta = $this->JPK->join('soal', 'soal.soal_id = jawaban_peserta_kursus.soal_id')->where(['kode_lomba' => $index, 'peserta_kursus_id' => $peserta])->findAll();
+            // var_dump($peserta); die();
+        
+            $pilihan_peserta = $this->JPK->join('soal', 'soal.soal_id = jawaban_peserta_kursus.soal_id')
+            ->where(['kode_lomba' => $index, 'peserta_kursus_id' => $peserta->id_peserta])->findAll();
 
             if(count($pilihan_peserta) > 0){
                 return redirect()->to(base_url('kursus/video'));

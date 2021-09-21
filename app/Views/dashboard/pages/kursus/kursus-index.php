@@ -2,19 +2,6 @@
 
 <?= $this->section('content') ?>
 <?php
-
-    $video = [
-        'https://www.youtube.com/embed/QtXby3twMmI',
-        'https://www.youtube.com/embed/QtXby3twMmI',
-        'https://www.youtube.com/embed/QtXby3twMmI',
-        'https://www.youtube.com/embed/QtXby3twMmI',
-        'https://www.youtube.com/embed/QtXby3twMmI',
-        'https://www.youtube.com/embed/QtXby3twMmI',
-        'https://www.youtube.com/embed/QtXby3twMmI',
-    ];
-    $kuis = [
-        
-    ];
     $judul = [
         '1. Intro (pa agung + pa kodirin)',
         '2. Akuntansi jasa vs dagang (pa kodirin)',
@@ -65,7 +52,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php for($i= 0 ; $i< count($video); $i++ ) : ?>
+                <?php for($i= 0 ; $i< count($judul); $i++ ) : ?>
                     <tr>
                         <td><?= $i + 1 ?></td>
                         <td><?= $judul[$i] ?></td>
@@ -75,7 +62,7 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             <?php else : ?>
-                                <a href="<?= base_url($video[$i]) ?>" class="btn btn-primary btn-xs">Tonton</a>
+                                <a href="<?= base_url('kursus/video-attempt/video_kursus_'.$i) ?>" class="btn btn-primary btn-xs">Tonton</a>
                             <?php endif ?>
                         </td>
                         <td>

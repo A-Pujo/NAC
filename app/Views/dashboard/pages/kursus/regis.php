@@ -27,7 +27,7 @@
                         <label>Nama Sekolah</label>
                         <div>
                             <input 
-                            placeholder="contoh : SMAN 2 Kebon Mangga"
+                            placeholder="contoh : MAN 1 Samudra"
                                 value="<?= old('nama_sekolah') ?? $peserta->nama_sekolah ?? '' ?>"
                                 type="text"
                                 name="nama_sekolah" />
@@ -64,7 +64,7 @@
 
                         <small>Foto Kartu Pelajar / Kartu NISN berupa gambar dengan format jpg, jpeg atau png</small>
                         <small>Ukuran maksimal file sebesar 500 Kb</small>
-                        <small>Anda diperkenankan untun memilih antara Kartu Pelajar atau Kartu NISN</small>
+                        <small>Anda diperkenankan untuk memilih antara Kartu Pelajar atau Kartu NISN</small>
                     </div>
 
                     
