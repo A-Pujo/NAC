@@ -141,6 +141,31 @@ class Kursus extends BaseController{
         return redirect()->to(base_url('kursus/verifikasi'));
     }
 
+    public function tolak_peserta($id_user = null, $value = 0){
+        if($id_user==null or empty($this->PESERTA_K->where(['id_user' => $id_user])->first())){
+            return redirect()->to(base_url('kursus/verifikasi'));
+        }
+
+        $alasan = ($this->request->getGet('alasan_ditolak')) ? $this->request->getGet('alasan_ditolak') : '';
+
+        $peserta = $this->PESERTA_K->where(['id_user' => $id_user])->first();
+
+        if(! empty($peserta->kartu_pelajar)){
+            unlink(APPPATH.'../public/uploads/kursus/kartu-pelajar/' . $peserta->kartu_pelajar);
+        }
+
+        $this->PESERTA_K->where(['id_user' => $id_user])->update(null, [
+            'nama_peserta' => '',
+            'nama_sekolah' => '',
+            'kartu_pelajar' => '',
+            'verifikasi_peserta' => 0,
+            'alasan_ditolak' => $alasan,
+            'peserta_ditolak' => $value,
+        ]);
+
+        return redirect()->to(base_url('kursus/verifikasi'));
+    }
+
     public function video(){
         return view('kursus/video');
     }
