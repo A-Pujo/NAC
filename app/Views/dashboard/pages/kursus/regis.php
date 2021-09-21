@@ -4,8 +4,6 @@
     <!-- <?php print_r(initValidation()->getErrors()) ?> -->
 
     <?= form_open_multipart(base_url('kursus/registrasi'), ['method' => 'post']) ?>
-    <!-- <label>Nama Peserta</label>
-    <input type="text" name="nama_peserta" value="<?=(! empty($peserta->nama_peserta)) ? $peserta->nama_peserta : '' ?>"/> -->
     
                     <!-- Nama Peserta -->
                     <div class="form-input">
@@ -13,7 +11,7 @@
                         <div>
                             <input 
                             placeholder="contoh : Fulan"
-                            value="<?=(! empty($peserta->nama_peserta)) ? $peserta->nama_peserta : '' ?>"
+                            value="<?= old('nama_peserta') ?? $peserta->nama_peserta ?? '' ?>"
                                 type="text"
                                 name="nama_peserta" />
                             <i>
@@ -30,7 +28,7 @@
                         <div>
                             <input 
                             placeholder="contoh : SMAN 2 Kebon Mangga"
-                                value="<?=(! empty($peserta->nama_sekolah)) ? $peserta->nama_sekolah : '' ?>"
+                                value="<?= old('nama_sekolah') ?? $peserta->nama_sekolah ?? '' ?>"
                                 type="text"
                                 name="nama_sekolah" />
                             <i>
@@ -58,16 +56,13 @@
                             </template>
                         </div>
                         <label for="kp">Upload Data</label>
-                        <!-- <input type="file" id="twibbon" @change="files = $event.target.files" name="twibbon[]" multiple/>
-                        <input type="hidden" value="<?= userinfo()->twibbon ?>" name="old_twibbon"> -->
 
                         <input type="file" id="kp" name="kartu_pelajar" @change="files = $event.target.files">
-                        <input type="hidden" name="kartu_pelajar" value="<?=(! empty($peserta->kartu_pelajar)) ? $peserta->kartu_pelajar : '' ?>">
-                        
+                        <input type="hidden" name="old_kartu_pelajar" value="<?=(! empty($peserta->kartu_pelajar)) ? $peserta->kartu_pelajar : '' ?>">
 
                         <span><?= initValidation()->getError('kartu_pelajar') ?? '' ?></span>
 
-                        <small>Foto Twibbon berupa gambar dengan format jpg, jpeg atau png</small>
+                        <small>Foto Kartu Pelajar / Kartu NISN berupa gambar dengan format jpg, jpeg atau png</small>
                         <small>Ukuran maksimal file sebesar 500 Kb</small>
                         <small>Anda diperkenankan untun memilih antara Kartu Pelajar atau Kartu NISN</small>
                     </div>
@@ -78,7 +73,9 @@
 
                     
 
-                    <!-- <label>Nama Sekolah</label>
+        <!-- <label>Nama Peserta</label>
+        <input type="text" name="nama_peserta" value="<?=(! empty($peserta->nama_peserta)) ? $peserta->nama_peserta : '' ?>"/> -->
+        <!-- <label>Nama Sekolah</label>
         <input type="text" name="nama_sekolah" value="<?=(! empty($peserta->nama_sekolah)) ? $peserta->nama_sekolah : '' ?>"> -->
         <!-- <label>Bukti Kartu Pelajar</label>
         <input type="file" name="kartu_pelajar">

@@ -14,7 +14,22 @@ class Kursus extends BaseController{
         $this->PILIHAN = new \App\Models\M_Jawaban();
     }
 
+    public function index(){
+        if(!user_kursus()->verifikasi_peserta ?? false ){
+            return redirect()->to('dashboard/pendaftaran-index');
+        }
+        $data = [
+            'judul' => 'Course NAC 2021',
+            'halaman' => 'kursus',
+        ];
+
+        return view('dashboard/pages/kursus/kursus-index', $data);
+    }
+
     public function registrasi(){
+        if(user_kursus()->verifikasi_peserta ?? false){
+            return redirect()->to('dashboard/pendaftaran-index');
+        }
         if(! $this->request->getPost()){
             $data = [
                 'peserta' => $this->PESERTA_K->where(['id_user' => userinfo()->id])->first(),
@@ -86,8 +101,9 @@ class Kursus extends BaseController{
                     $this->PESERTA_K->where(['id_user' => userinfo()->id])->update(null, $data);
                 }
             } else {
-                return redirect()->to('dashboard/pendaftaran-index')->withInput();
+                return redirect()->to('kursus/registrasi')->withInput();
             }
+            return redirect()->to('dashboard/pendaftaran-index');
         }
     }
 
