@@ -18,13 +18,13 @@
     
     $jumlah_transfer = 0;
     if(userinfo()->partisipan_jenis == 'AccUniv'){
-        if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
+        if(date(userinfo()->pertama_input) <= date('2021-09-24 23:59:59')){
             $jumlah_transfer = '110000';
         } else {
             $jumlah_transfer = '120000';
         }
     } elseif(userinfo()->partisipan_jenis == 'AccSMA'){
-        if(date(userinfo()->pertama_input) <= date('2021-09-04 23:59:59')){
+        if(date(userinfo()->pertama_input) <= date('2021-09-24 23:59:59')){
             $jumlah_transfer = '80000';
         } else {
             $jumlah_transfer = '90000';
