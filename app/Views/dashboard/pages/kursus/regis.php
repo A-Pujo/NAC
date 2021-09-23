@@ -82,6 +82,31 @@
                         <small>Ukuran maksimal file sebesar 500 Kb</small>
                         <small>Anda diperkenankan untuk memilih antara Kartu Pelajar atau Kartu NISN</small>
                     </div>
+                    <!-- Twibbon -->
+                    <div class="form-upload" x-data="{files : ''}">
+                        <label for="kt">Foto Twibbon</label>
+                        <div x-show="files">
+                            <!-- Loop the image -->
+                            <template x-for="file in files" x-if="files">
+                                <div>
+                                    <img :src="URL.createObjectURL(file)">
+                                    <div>
+                                        <span x-text="file.name"></span>
+                                        <span x-text="file.size / 1000 + ' Kb'"></span>
+                                    </div> 
+                                </div>
+                            </template>
+                        </div>
+                        <label for="kt">Upload Data</label>
+
+                        <input type="file" id="kt" name="twibbon_kursus" @change="files = $event.target.files">
+                        <input type="hidden" name="old_twibbon_kursus" value="<?=(! empty($peserta->twibbon_kursus)) ? $peserta->twibbon_kursus : '' ?>">
+
+                        <span><?= initValidation()->getError('twibbon_kursus') ?? '' ?></span>
+
+                        <small>Foto twibbon berupa gambar dengan format jpg, jpeg atau png</small>
+                        <small>Ukuran maksimal file sebesar 500 Kb</small>
+                    </div>
         <input type="submit" value="submit" class="btn btn-block btn-primary">
     </form>
 </div>

@@ -15,8 +15,8 @@ class Kursus extends BaseController{
     }
 
     public function index(){
-        if(!user_kursus()->verifikasi_peserta ?? false ){
-            return redirect()->to('dashboard/pendaftaran-index');
+        if(empty(user_kursus()) or !user_kursus()->verifikasi_peserta ?? false ){
+            return redirect()->to('kursus/registrasi');
         }
         $data = [
             'judul' => 'Course NAC 2021',
@@ -48,6 +48,7 @@ class Kursus extends BaseController{
                 'nama_sekolah' => $this->request->getVar('nama_sekolah'),
                 'wa' => $this->request->getVar('wa'),
                 'old_kartu_pelajar' => $this->request->getVar('old_kartu_pelajar'),
+                'old_twibbon_kursus' => $this->request->getVar('old_twibbon_kursus'),
             ];
 
             $validasi = [
@@ -90,6 +91,25 @@ class Kursus extends BaseController{
                 ];
             }
 
+            if($data['old_twibbon_kursus'] == null){
+                $validasi['twibbon_kursus'] = [
+                    'rules' => 'uploaded[twibbon_kursus]|max_size[twibbon_kursus,600]|ext_in[twibbon_kursus,jpg,png,jpeg]',
+                    'errors' => [
+                        'uploaded' => lang('Validasi.required'),
+                        'max_size' => lang('Validasi.max_size', ['Kartu Pelajar', '500 KB']),
+                        'ext_in' => lang('Validasi.ext_in', ['Kartu Pelajar', 'jpg, jpeg, atau png']),
+                    ],
+                ];
+            } else {
+                $validasi['twibbon_kursus'] = [
+                    'rules' => 'max_size[twibbon_kursus,600]|ext_in[twibbon_kursus,jpg,png,jpeg]',
+                    'errors' => [
+                        'max_size' => lang('Validasi.max_size', ['Kartu Pelajar', '500 KB']),
+                        'ext_in' => lang('Validasi.ext_in', ['Kartu Pelajar', 'jpg, jpeg, atau png']),
+                    ],
+                ];
+            }
+
             if($this->validate($validasi)){
                 if($kp = $this->request->getFile('kartu_pelajar')){
                     if($kp->isValid() && ! $kp->hasMoved()){
@@ -102,7 +122,19 @@ class Kursus extends BaseController{
                     }
                 }
 
+                if($kp = $this->request->getFile('twibbon_kursus')){
+                    if($kp->isValid() && ! $kp->hasMoved()){
+                        $data['twibbon_kursus'] = $kp->getRandomName();
+                        $kp->move(APPPATH . '../public/uploads/kursus/twibbon/', $data['twibbon_kursus']);
+
+                        if($data['old_twibbon_kursus'] != null and $data['twibbon_kursus'] != $data['old_twibbon_kursus']){
+                            unlink(APPPATH.'../public/uploads/kursus/twibbon/' . $data['old_twibbon_kursus']);
+                        }
+                    }
+                }
+
                 unset($data['old_kartu_pelajar']);
+                unset($data['old_twibbon_kursus']);
 
                 $_exist = $this->PESERTA_K->where(['id_user' => userinfo()->id])->first();
                 if(empty($_exist)){
@@ -229,7 +261,7 @@ class Kursus extends BaseController{
         $kuis = ['video-1', 'video-2', 'video-3', 'video-4', 'video-5', 'video-6', 'video-7'];
 
         if(! in_array($index, $kuis)){
-            return redirect()->to(base_url('kursus/video'));
+            return redirect()->to(base_url('kursus'));
         }
         
         $data['kuis'] = $index;
@@ -284,6 +316,8 @@ class Kursus extends BaseController{
         $nilai = $nilai/$jumlah_soal * 100;
         // dd([$nilai, 'nilai_'.$index]);
         $this->PESERTA_K->where(['id_peserta' => $peserta])->update(null, ['nilai_'.$index => $nilai]);
+
+        return redirect()->to(base_url('kursus'));
     }
 
     public function peserta_index(){

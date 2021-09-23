@@ -85,7 +85,7 @@ class Lomba extends BaseController
 			'AccUniv' => 'Lomba Akuntansi Universitas',
 			'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
 		];
-		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 2);
+		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
 		$data['daftar_pilihan'] = $this->JAWABAN->findAll();
 		
 		return view('/test/percobaan-lomba', $data);
