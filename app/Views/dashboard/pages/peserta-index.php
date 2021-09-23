@@ -6,6 +6,7 @@
                 <tr>
                     <th>Nama Tim</th>
                     <th>Nama Perguruan Tinggi</th>
+                    <th>Provinsi</th>
                     <th>Nama Ketua</th>
                     <th>Nama Anggota 1</th>
                     <th>Nama Anggota 2</th>
@@ -35,6 +36,7 @@
                 <tr>
                     <td><?= $peserta->nama_tim ?></td>
                     <td><?= $peserta->pt ?></td>
+                    <td><?= $peserta->provinsi ?></td>
                     <td><?= $peserta->nama_ketua ?></td>
                     <td><?= $peserta->nama_1 ?></td>
                     <td><?= $peserta->nama_2 ?></td>

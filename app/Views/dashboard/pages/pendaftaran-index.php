@@ -22,11 +22,6 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
 }
 $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . (userinfo()->id + 1)  ;    
 
-$now = date('Y-m-d H:i:s');
-$close_abstrak = '2021-09-25 12:00:00';
-$open_course = '';
-$cloe_course = '';
-
 ?>
 
     <div class="grid grid-cols-12 text-base-100 gap-x-24 p-32">
@@ -67,7 +62,7 @@ $cloe_course = '';
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">NAC Call For Paper</h3>
                 <p class="mt-8 text-16">NAC Call For Paper merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat dalam penulisan karya tulis di bidang akuntansi. Tahun ini NAC 2021 mengusung tema “The Presence of Accountant in Digital Transformation of the Economy for Resilient, Sustainable, and Inclusive Recovery”.</p>
-                <?php if($now < '2021-09-24 23:59:59') : ?>
+                <?php if(sekarang() < tanggal('close_abstrak')) : ?>
                     <a href="<?= base_url('dashboard/pendaftaran?lomba=CFP') ?>" class="btn btn-primary mt-16">Daftar</a>
                     <a href="<?= base_url('guide?halaman=cfp-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
                 <?php else : ?>
@@ -192,7 +187,7 @@ $cloe_course = '';
             <?php if(userinfo()->partisipan_jenis == 'CFP' ) : ?>
             <p class="col-span-12 mt-24">Formulir Unggah Full Paper</p>
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-8 flex flex-col lg:flex-row justify-between items-start lg:items-center space-y-4">
-                <?php if($now < $close_abstrak) : ?>
+                <?php if(sekarang() < tanggal('close_abstrak') ) : ?>
                     <!-- Belum pengumuman -->
                     <span>Silakan Anda memantau perkembangan pendaftaran Anda. Pastikan pendaftaran Anda telah terverifikasi sebelum tenggat waktu pendaftaran selesai. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
                 <?php elseif(userinfo()->lolos_abstrak) : ?>
@@ -337,12 +332,12 @@ $cloe_course = '';
                 </div>
             <?php endif ?>
 
-        <?php elseif($now < $open_course) : ?>
+        <?php elseif(sekarang()< tanggal('open_course')) : ?>
             <!-- Belum d buka -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Coming Soon!
             </div>
-        <?php elseif($now > $cloe_course) : ?>
+        <?php elseif(sekarang()> tanggal('close_course')) : ?>
             <!-- Udah d tutup -->
             <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
                 Pendaftaran Course telah di tutup!

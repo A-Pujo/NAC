@@ -61,4 +61,45 @@ function getGoogleClient(){
         return empty($partisipan) ? 0 : count($partisipan);
     }
 
+
+    function tanggal($aksi){
+        $data = [
+            // pendaftaran
+            'close_abstrak' => '2021-09-24 23:59', //batas waktu pengumpulan abstrak
+            // course
+            'open_course' => '2021-09-04 12:00', // buka daftar
+            'close_course' => '2021-09-30 12:00', // tutup daftar
+            'start_course' => '2021-09-24 00:00', // mulai masa mengerjakan
+            'finish_course' => '2021-10-10 12:00', // akhir masa mengerjakan
+            // pengumuman
+            'acc-sma-pre' => '2021-10-10 12:00', // kelulusan pre el
+            'acc-univ-pre' => '2021-10-10 12:00', // kelulusan pre el
+            'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
+
+            '' => '2021-01-01 00:00',
+        ];
+        if($aksi == 'all'){
+            return $data;
+        } else {
+            return $data[$aksi];
+        }
+    }
+
+    function sekarang(){
+        return date('Y-m-d H:i:s');
+    }
+    
+
+    function db(){
+        return \Config\Database::connect();
+    }
+
+    function kuota($aksi){
+        $data = [
+            // pendaftaran
+            'course' => 150, //batas waktu pengumpulan abstrak
+        ];
+        return $data[$aksi];
+    }
+
 ?>

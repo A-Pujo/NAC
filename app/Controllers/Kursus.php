@@ -31,6 +31,10 @@ class Kursus extends BaseController{
             return redirect()->to('dashboard/pendaftaran-index');
         }
         if(! $this->request->getPost()){
+            $pendaftar = kuota('course') - db()->table('peserta_kursus')->countAllResults();
+            if ($pendaftar <= 0){
+                return redirect()->to('dashboard/pendaftaran-index');
+            }
             $data = [
                 'peserta' => $this->PESERTA_K->where(['id_user' => userinfo()->id])->first(),
                 'judul' => 'Pendaftaran Kursus',
@@ -42,6 +46,7 @@ class Kursus extends BaseController{
                 'id_user' => userinfo()->id,
                 'nama_peserta' => $this->request->getVar('nama_peserta'),
                 'nama_sekolah' => $this->request->getVar('nama_sekolah'),
+                'wa' => $this->request->getVar('wa'),
                 'old_kartu_pelajar' => $this->request->getVar('old_kartu_pelajar'),
             ];
 
@@ -53,6 +58,12 @@ class Kursus extends BaseController{
                     ],
                 ],
                 'nama_sekolah' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => lang('Validasi.required'),
+                    ],
+                ],
+                'wa' => [
                     'rules' => 'required',
                     'errors' => [
                         'required' => lang('Validasi.required'),
@@ -108,6 +119,9 @@ class Kursus extends BaseController{
     }
 
     public function verifikasi($user_id = null){
+        if(! isInRole('tim lomba')){
+            return redirect()->to(base_url('/dashboard'));
+        }
         if($user_id == null){
             $data = [
                 'daftar_peserta' => $this->PESERTA_K->findAll(),
@@ -132,6 +146,9 @@ class Kursus extends BaseController{
     }
 
     public function aktivasi_peserta($id_user = null, $value = 0){
+        if(! isInRole('tim lomba')){
+            return redirect()->to(base_url('/dashboard'));
+        }
         if($id_user==null or empty($this->PESERTA_K->where(['id_user' => $id_user])->first())){
             return redirect()->to(base_url('kursus/verifikasi'));
         }
@@ -142,6 +159,9 @@ class Kursus extends BaseController{
     }
 
     public function tolak_peserta($id_user = null, $value = 0){
+        if(! isInRole('tim lomba')){
+            return redirect()->to(base_url('/dashboard'));
+        }
         if($id_user==null or empty($this->PESERTA_K->where(['id_user' => $id_user])->first())){
             return redirect()->to(base_url('kursus/verifikasi'));
         }
@@ -158,6 +178,7 @@ class Kursus extends BaseController{
             'nama_peserta' => '',
             'nama_sekolah' => '',
             'kartu_pelajar' => '',
+            'wa' => '',
             'verifikasi_peserta' => 0,
             'alasan_ditolak' => $alasan,
             'peserta_ditolak' => $value,
@@ -166,11 +187,15 @@ class Kursus extends BaseController{
         return redirect()->to(base_url('kursus/verifikasi'));
     }
 
-    public function video(){
-        return view('kursus/video');
-    }
+    // public function video(){
+
+    //     return view('kursus/video');
+    // }
 
     public function video_attempt($index_video = null){
+        if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
+            return redirect()->to('kursus');
+        }
         $video = [
             'video_kursus_1' => 'https://www.youtube.com/embed/QtXby3twMmI',
             'video_kursus_2' => 'https://www.youtube.com/embed/QtXby3twMmI',
@@ -198,6 +223,9 @@ class Kursus extends BaseController{
     }
 
     public function kuis($index = null){
+        if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
+            return redirect()->to('kursus');
+        }
         $kuis = ['video-1', 'video-2', 'video-3', 'video-4', 'video-5', 'video-6', 'video-7'];
 
         if(! in_array($index, $kuis)){
@@ -214,6 +242,9 @@ class Kursus extends BaseController{
     }
 
     public function submit_jawaban($index){
+        if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
+            return redirect()->to('kursus');
+        }
         if($this->request->getPost()){
             $soal = $this->request->getVar('soal');
             $pilihan = $this->request->getVar('jawaban');

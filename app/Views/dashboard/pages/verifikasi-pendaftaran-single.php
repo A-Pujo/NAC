@@ -14,6 +14,11 @@
                     <td><?= $partisipan->pt ?></td>
                 </tr>
                 <tr>
+                    <td>Provinsi</td>
+                    <td>:</td>
+                    <td><?= $partisipan->provinsi ?></td>
+                </tr>
+                <tr>
                     <td>Nama Ketua Tim</td>
                     <td>:</td>
                     <td><?= $partisipan->nama_ketua ?></td>

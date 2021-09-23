@@ -19,6 +19,10 @@ class Home extends BaseController
 	{
 		return view('statis/pages/guide');
 	}
+	public function pengumuman()
+	{
+		return view('statis/pages/pengumuman');
+	}
 
 	public function fr_pre_el(){
 		return view('test/fr-pre-el');

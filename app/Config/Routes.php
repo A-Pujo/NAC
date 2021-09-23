@@ -35,6 +35,7 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index');
 $routes->get('/', 'Home::index');
 $routes->get('/guide', 'Home::guide');
+$routes->get('/pengumuman', 'Home::pengumuman');
 
 /*
  * --------------------------------------------------------------------

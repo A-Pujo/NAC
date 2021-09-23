@@ -1,7 +1,7 @@
 <div>
     <h1 class="text-24 font-bold mb-16">Panduan Twibbon dan Surat Pernyataan</h1>
     <span class="text-18">
-        Download Twibbon <a href="<?= base_url('file/Booklet Accounting for High School.pdf') ?>" class="btn btn-xs btn-primary" download>disini<a> dan unggah ke media sosial instagram serta gunakan caption dibawah ini. Anda juga dapat menyalin caption dengan menekan <div 
+        Download Twibbon <a href="<?= base_url('file/Twibbon NAC 2021.png') ?>" class="btn btn-xs btn-primary" download>disini<a> dan unggah ke media sosial instagram serta gunakan caption dibawah ini. Anda juga dapat menyalin caption dengan menekan <div 
                         data-tip="Salin caption twibbon"
                         class="inline tooltip tooltip-primary"
                     >

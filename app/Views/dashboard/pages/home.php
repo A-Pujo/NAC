@@ -38,4 +38,14 @@
         </h1>
     <div>
 
+    <!-- ADMIN ONLY -->
+    <?php if(isInRole('admin')) : ?>
+        <div class="card bg-primary-100 p-24 m-24">
+        <p>Data tanggal</p>
+        <?php array_map(function($e){
+            echo array_search($e, tanggal('all')) ." - ". $e ."<br>";
+        } ,tanggal('all')) ?>
+        </div>
+    <?php endif ?>
+
 <?= $this->endSection() ?>

@@ -40,6 +40,16 @@
     <div class="card col-span-12 bg-primary-300 p-24 ">
         <?= user_kursus()->nama_peserta .' - '. user_kursus()->nama_sekolah ?>
     </div>
+    <div class="card col-span-12 bg-primary-300 p-24 flex flex-row items-center space-x-8">
+        <?php if(sekarang() < tanggal('start_course')) : ?>
+            <span>Masa pengerjaan Course akan dimulai dalam </span> 
+        <?php elseif(sekarang() < tanggal('finish_course')) : ?>
+            <span>Masa pengerjaan Course akan ditutup dalam </span> 
+        <?php else: ?>
+            <span>Masa pengerjaan Course telah selesai </span> 
+        <?php endif ?>
+        <span id="time" class="btn btn-secondary btn-xs"></span>
+    </div>
 
     <div class="card col-span-12 p-24">
         <table class="tabel">
@@ -62,7 +72,7 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             <?php else : ?>
-                                <a href="<?= base_url('kursus/video-attempt/video_kursus_'.$i) ?>" class="btn btn-primary btn-xs">Tonton</a>
+                                <a href="<?= base_url('kursus/video-attempt/video_kursus_'.$i + 1) ?>" class="btn btn-primary btn-xs">Tonton</a>
                             <?php endif ?>
                         </td>
                         <td>
@@ -71,7 +81,7 @@
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
                             <?php else : ?>
-                                <a href="<?= base_url('') ?>" class="btn btn-primary btn-xs">Kerjakan</a>
+                                <a href="<?= base_url('kursus/video-attempt/video_kursus_'.$i + 1) ?>" class="btn btn-primary btn-xs">Kerjakan</a>
                             <?php endif ?>
                         </td>
                     </tr>
@@ -82,6 +92,46 @@
     </div>
 
 </div>
+<script>
+        // Set target : bulan 0-11
+<?php if(sekarang() < tanggal('start_course')) : ?>
+    let countDownDate = new Date('<?= tanggal('start_course') ?>').getTime();
+<?php else :?>
+    let countDownDate = new Date('<?= tanggal('finish_course') ?>').getTime();
+<?php endif?>
+// Adjustment time
+let serverTime = <?= time()*1000 ?>;
+let now = new Date().getTime();
+let diff = serverTime - now;
+
+
+// Update the count down every 1 second
+let x = setInterval(function() {
+
+  // Get today's date and time
+  let now = new Date().getTime() + diff;
+  
+    
+  // Find the distance between now and the count down date
+  let distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="time"
+  document.getElementById("time").innerHTML = days + "hari " + hours + "jam "
+  + minutes + "menit " + seconds + "detik ";
+    
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("time").innerHTML = "Waktu habis";
+  }
+}, 1000);
+    </script>
 
 
 <?= $this->endSection() ?>

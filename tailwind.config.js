@@ -149,7 +149,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      margin: ['hover', 'group-hover'],
+    },
   },
   plugins: [
     require('daisyui'),
