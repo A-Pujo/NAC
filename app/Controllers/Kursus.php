@@ -119,7 +119,7 @@ class Kursus extends BaseController{
     }
 
     public function verifikasi($user_id = null){
-        if(! isInRole('tim lomba')){
+        if(! isInRole('tim registrasi')){
             return redirect()->to(base_url('/dashboard'));
         }
         if($user_id == null){
@@ -146,7 +146,7 @@ class Kursus extends BaseController{
     }
 
     public function aktivasi_peserta($id_user = null, $value = 0){
-        if(! isInRole('tim lomba')){
+        if(! isInRole('tim registrasi')){
             return redirect()->to(base_url('/dashboard'));
         }
         if($id_user==null or empty($this->PESERTA_K->where(['id_user' => $id_user])->first())){
@@ -159,7 +159,7 @@ class Kursus extends BaseController{
     }
 
     public function tolak_peserta($id_user = null, $value = 0){
-        if(! isInRole('tim lomba')){
+        if(! isInRole('tim registrasi')){
             return redirect()->to(base_url('/dashboard'));
         }
         if($id_user==null or empty($this->PESERTA_K->where(['id_user' => $id_user])->first())){

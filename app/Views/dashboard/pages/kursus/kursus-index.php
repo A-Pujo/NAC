@@ -88,7 +88,8 @@
                 <?php endfor ?>
             </tbody>
         </table>
-        <small class="text-base-100">Sertifikat akan diterbitkan jika Anda telah menonton seluruh video dan mengerjakan seluruh kuis dengan nilai minimum XX per materi. </small>
+        <small class="text-base-100">Sertifikat peserta akan diterbitkan jika Anda telah menonton seluruh video dan mengerjakan seluruh kuis. </small>
+        <small class="text-base-100">Sertifikat kelulusan akan diterbitkan jika Anda telah mengerjakan seluruh kuis dengan nilai minimal 75%. </small>
     </div>
 
 </div>

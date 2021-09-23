@@ -13,6 +13,11 @@
                 <td>:</td>
                 <td><?= $peserta->nama_sekolah ?></td>
             </tr>
+            <tr>
+                <td>WA</td>
+                <td>:</td>
+                <td><?= $peserta->wa ?></td>
+            </tr>
         </table>
     </div>
     <div class="bg-neutral-100 p-24 rounded-md flex flex-row space-x-24">
