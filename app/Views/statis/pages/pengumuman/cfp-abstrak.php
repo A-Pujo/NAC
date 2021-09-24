@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <h1 class="text-24 font-bold">Pengumuman Kelulusan Seleksi Abstrak Call for Paper</h1>
   <small><?= tanggal($_GET['halaman']) ?></small>
   <table class="tabel mt-24">
@@ -20,4 +20,4 @@
       <?php endforeach ?>
     </tbody>
   </table>
-</div>
+</div> -->

@@ -36,7 +36,7 @@
                 [
                     'CFP',
                     [
-                        ['Abstrak', 'cfp-abstrak'],
+
                     ]
                 ],
             ];
@@ -48,7 +48,7 @@
                         echo 1;
                     } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-pre'])) {
                         echo 2;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-abstrak', 'cfp-paper'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-paper'])) {
                         echo 3;
                         
                     } else {

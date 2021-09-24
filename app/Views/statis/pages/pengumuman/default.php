@@ -2,7 +2,6 @@
     <?php
     
     $data = [
-        ['cfp-abstrak','Peserta lolos seleksi abstrak Call for Paper.'],
         ['acc-sma-pre','Peserta lolos seleksi Preliminary Raound Accounting High Scholl.'],
         ['acc-univ-pre','Peserta lolos seleksi Preliminary Raound Accounting University.'],
     ]
