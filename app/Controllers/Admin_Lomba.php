@@ -52,7 +52,7 @@ class Admin_Lomba extends BaseController
 		foreach($daftar_nilai as $nilai){
 			$dummy_nilai = 0;
 			$jawaban_benar = 0;
-			$counter = 0;
+			$counter = 50;
 			foreach($daftar_jawaban_partisipan as $jawaban_partisipan){
 				if($jawaban_partisipan->partisipan_kode_voucher == $nilai->kode_voucher){
 					$counter++;

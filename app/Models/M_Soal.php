@@ -13,7 +13,7 @@ class M_Soal extends Model
     protected $allowedFields = ['soal_teks', 'kode_lomba'];
 
     function getSoal($kode_lomba, $offset = 0){
-        return $this->where(['kode_lomba' => $kode_lomba])->findAll(2, $offset);
+        return $this->where(['kode_lomba' => $kode_lomba])->findAll(50, $offset);
     }
 }
 
