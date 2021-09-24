@@ -90,7 +90,7 @@ function getGoogleClient(){
     function sekarang(){
         return date('Y-m-d H:i:s');
     }
-    
+
 
     function db(){
         return \Config\Database::connect();

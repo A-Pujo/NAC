@@ -28,6 +28,14 @@
             <img class="bg-base-100 object-cover h-full" src="<?= base_url('uploads/kursus/kartu-pelajar/'.$peserta->kartu_pelajar) ?>" alt="" />
         </div>
     </div>
+    <div class="bg-neutral-100 p-24 rounded-md flex flex-row space-x-24">
+        <div 
+            class="rounded-md overflow-hidden cursor-pointer" 
+            @click="imgShow = true, imgSrc = '<?= base_url('uploads/kursus/twibbon/'.$peserta->twibbon_kursus) ?>', imgTitle = 'Bukti Twibbon'"
+        >
+            <img class="bg-base-100 object-cover h-full" src="<?= base_url('uploads/kursus/twibbon/'.$peserta->twibbon_kursus) ?>" alt="" />
+        </div>
+    </div>
 
     <?php if($peserta->verifikasi_peserta == 1) : ?>
             <a class="btn btn-primary btn-block" href="<?= base_url('kursus/aktivasi-peserta/' . $peserta->id_user . '/0') ?>">Cabut Verifikasi</a>

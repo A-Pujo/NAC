@@ -311,6 +311,11 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                     src="<?= base_url('/uploads/kursus/kartu-pelajar/'.user_kursus()->kartu_pelajar) ?>" class="h-24 cursor-pointer" alt=""
                     @click="imgShow = true, imgSrc = '<?= base_url('/uploads/kursus/kartu-pelajar/'.user_kursus()->kartu_pelajar)?>', imgTitle = 'Unggah Kartu Pelajar / Kartu NISN'"
                 ></span>
+                <span>
+                    <img 
+                    src="<?= base_url('/uploads/kursus/twibbon/'.user_kursus()->twibbon_kursus) ?>" class="h-24 cursor-pointer" alt=""
+                    @click="imgShow = true, imgSrc = '<?= base_url('/uploads/kursus/twibbon/'.user_kursus()->twibbon_kursus)?>', imgTitle = 'Unggah twibbon'"
+                ></span>
                 <?php if(user_kursus()->verifikasi_peserta) : ?>
                         <span class="verif-sukses">Terverifikasi</span>
                         <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-right lg:tooltip-left">
