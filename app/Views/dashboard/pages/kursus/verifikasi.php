@@ -53,6 +53,7 @@
                         <th>No</th>
                         <th>Nama Peserta</th>
                         <th>Nama Sekolah</th>
+                        <th>WA</th>
                         <th>Partisipan Aktif</th>
                         <th>Tanggal Pendaftaran</th>
                         <th>Aksi</th>
@@ -67,6 +68,7 @@
                                     <td><?= $no++ ?></td>
                                     <td><?= $peserta->nama_peserta ?></td>
                                     <td><?= $peserta->nama_sekolah ?></td>
+                                    <td><?= $peserta->wa ?></td>
                                     <td>
                                         <?php if($peserta->verifikasi_peserta == 1) : ?>
                                             <span class="verif-sukses"> Terverifikasi <span>
