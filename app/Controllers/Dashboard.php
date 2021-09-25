@@ -665,6 +665,14 @@ class Dashboard extends BaseController
         return view('dashboard/pages/peserta-index', $data);
     }
 
+    public function upload_paper_show(){
+        $data = [
+            'halaman' => 'pendaftaran',
+            'judul'=> 'Unggah Full Paper',
+        ];
+        return view('dashboard/pages/pendaftaran-cfp-upload-paper', $data);
+    }
+
     public function upload_paper(){
         $validasi['file_paper'] = [
             'rules' => 'uploaded[file_paper]|max_size[file_paper,10000]|ext_in[file_paper,pdf,doc,docx]',
@@ -685,7 +693,7 @@ class Dashboard extends BaseController
 
             return redirect()->to(base_url('dashboard/pendaftaran_index'));
         } else {
-            return redirect()->to(base_url('dashboard'));
+            return redirect()->to(base_url('dashboard/upload-paper-show'))->withInput();
         }
     }
 

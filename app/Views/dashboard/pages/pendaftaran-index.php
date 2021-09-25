@@ -191,15 +191,31 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                     <!-- Belum pengumuman -->
                     <span>Silakan Anda memantau perkembangan pendaftaran Anda. Pastikan pendaftaran Anda telah terverifikasi sebelum tenggat waktu pendaftaran selesai. Apabila lolos dalam seleksi Abstrak, Anda dapat melanjutkan ke tahap pengumpulan Full Paper</span>
                 <?php elseif(sekarang() > tanggal('cfp-abstrak') ) : ?>
-                    <?php if(userinfo()->lolos_abstrak) : ?>
+                    <?php if(userinfo()->file_paper) : ?>
+                        <!-- Udah aplot full paper :) -->
+                        <span>Paper Anda telah berhasil diunggah, silakan Anda melakukan pembayaran agar Anda dapat melanjutkan ke tahap berikutnya</span>
+                        <?php foreach(explode('|', userinfo()->file_paper) as $file) : ?>
+                            <a class="btn btn-primary btn-xs" href="<?= base_url('/uploads/partisipan/lomba/paper/'.$file) ?>" target="_blank">Dokumen Paper</a> &nbsp;
+                        <?php endforeach; ?>
+                        <?php if(userinfo()->nama_bank) : ?>
+                            <div data-tip="Anda Tidak dapat mengedit" class="tooltip tooltip-left">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </div>
+                        <?php else :?>
+                            <a href="<?= base_url('/dashboard/upload-paper-show')  ?>" data-tip="Edit Paper" class="tooltip tooltip-left">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                </svg>
+                            </a>
+                        <?php endif?>
+                    <?php elseif(userinfo()->lolos_abstrak) : ?>
                         <!-- Udah pengumuman dan lolos -->
-                        <span>Selamat, Anda lolos tahap seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a class="btn btn-xs btn-primary">berikut</a></span>
+                        <span>Selamat, Anda lolos tahap seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a href="<?= base_url('dashboard/upload-paper-show') ?>" class="btn btn-xs btn-primary">berikut</a></span>
                     <?php elseif(!userinfo()->lolos_abstrak) : ?>
                         <!-- Udah pengumuman dan tidak lolos :) -->
                         <span>Mohon maaf, Anda tidak lolos tahap seleksi abstrak.
-                    <?php elseif(userinfo()->file_paper) : ?>
-                        <!-- Udah aplot full paper :) -->
-                        <span>Paper Anda telah berhasil diunggah, silakan Anda melakukan pembayaran agar Anda dapat melanjutkan ke tahap berikutnya</span>
                     <?php endif ?>
                 <?php endif ?>
             </div>
