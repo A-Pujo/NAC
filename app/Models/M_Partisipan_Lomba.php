@@ -10,7 +10,7 @@ class M_Partisipan_Lomba extends Model
 
     protected $returnType     = 'object';
 
-    protected $allowedFields = ['partisipan_id', 'kode_lomba', 'partisipan_lomba', 'kode_voucher', 'percobaan'];
+    protected $allowedFields = ['partisipan_id', 'kode_lomba', 'partisipan_lomba', 'kode_voucher', 'kuota_1', 'kuota_2', 'kuota_3'];
     
     function setPartisipanLomba($partisipan_id, $kode_lomba){
         if(!$this->isSelectedFully($partisipan_id)){
@@ -19,7 +19,6 @@ class M_Partisipan_Lomba extends Model
                     'partisipan_id' => $partisipan_id,
                     'kode_lomba' => $kode_lomba,
                     'kode_voucher' => hash('crc32b', $partisipan_id . '--' . $kode_lomba . '--' . date('d/m/Y')),
-                    'percobaan' => $kode_lomba == 'AuditUniv' ? 1 : 3,
                 ]);
             }
         }
@@ -49,9 +48,14 @@ class M_Partisipan_Lomba extends Model
             ->findAll();
     }
 
-    function isPercobaanHabis($kode_voucher){
+    function isPercobaanHabis($kode_voucher, $segmen){
         $query = $this->where(['kode_voucher' => $kode_voucher])->first();
-        return $query->percobaan <= 0 ? true : false;
+        $kuota = [
+            1 => $query->kuota_1,
+            2 => $query->kuota_2,
+            3 => $query->kuota_3
+        ];
+        return $kuota[$segmen] <= 0 ? true : false;
     }
 }
 

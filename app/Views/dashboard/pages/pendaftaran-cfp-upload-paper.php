@@ -5,7 +5,7 @@
             Unggah Full Paper
         </h1>
         <div>
-                <?= form_open_multipart(base_url('/dashboard/upload_paper'), ['method' => 'post']) ?>
+                <?= form_open_multipart(base_url('/dashboard/upload-paper'), ['method' => 'post']) ?>
                     <?= csrf_field() ?>
 
                     <!-- SP -->
@@ -24,7 +24,8 @@
                             </template>
                         </div>
                         <label for="file_paper">Upload Data</label>
-                        <input type="file" id="file_paper" @change="files = $event.target.files" name="file_paper" multiple/>
+                        <input type="file" id="file_paper" @change="files = $event.target.files" name="file_paper[]" multiple/>
+                        <input type="hidden" name="old_file_paper" value="<?= userinfo()->file_paper ?>">
                         <span><?= initValidation()->getError('file_paper') ?? '' ?></span>
                         <small>Full paper berupa berkas dengan format pdf, doc atau docx</small>
                         <small>
