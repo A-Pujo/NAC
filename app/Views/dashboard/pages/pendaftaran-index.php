@@ -309,7 +309,7 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
         <?php endif ?>
 
         <!-- B. COURSE -->
-        <h2 class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
+        <h2 id="course" class="col-span-12 text-36 font-extrabold mt-32">NAC Accounting Course</h2>
         <p class="col-span-12 text-16 mt-8">NAC Accounting Course adalah bagian dari rangkaian acara National Accounting Challenge 2021 berupa kelas pengenalan akuntansi yang dapat diikuti oleh seluruh siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia. Kelas singkat ini akan dipandu oleh dosen PKN STAN melalui beberapa rangkaian video serta diakhiri dengan mini quiz untuk mengukur pemahaman peserta terhadap materi yang disajikan. Peserta course yang berhasil menyelesaikan kelas tersebut akan mendapatkan sertifikat berlisensi dari kampus PKN STAN.</p>
         <!-- Course masih atau telah tutup -->
         <?php if(user_kursus()->peserta_ditolak ?? false) : ?>

@@ -48,7 +48,7 @@
                 [
                     'Course',
                     [
-                        
+                        ['Pendaftaran', 'course-pendaftaran']
                     ]
                 ],
                 [
