@@ -12,7 +12,7 @@
     Lagi lomba <b><?= $daftar_lomba[$partisipan_info->kode_lomba] ?></b>
     <br>
 
-    <?= form_open_multipart(base_url('/lomba/submit-jawaban/'.$partisipan_info->kode_voucher)) ?>
+    <?= form_open_multipart(base_url('/lomba/submit-jawaban/'.$partisipan_info->kode_voucher . '/' . $segmen)) ?>
 
     <?php foreach($daftar_soal as $soal) : ?>
 

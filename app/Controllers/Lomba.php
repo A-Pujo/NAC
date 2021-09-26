@@ -48,7 +48,7 @@ class Lomba extends BaseController
 				$this->NILAI->insert(['kode_voucher' => hash('crc32b', userinfo()->partisipan_id . '--' . $kode_lomba . '--' . date('d/m/Y'))]);
 			}
 		}
-		return redirect()->to(base_url('/lomba/pengajuan-lomba'));
+		return redirect()->to(base_url('/lomba/starting-page'));
 	}
 
 	public function starting_page($kode_voucher = null){
@@ -71,14 +71,14 @@ class Lomba extends BaseController
 	}
 
 	public function percobaan_lomba($kode_voucher, $segmen = 1){
-		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher)){
-			return redirect()->to(base_url('/lomba'));
-		}
-
 		if(! in_array($segmen, [1,2,3])){
-			return redirect()->to(base_url('/lomba'));
+			return redirect()->to(base_url('lomba'));
 		}
-
+		
+		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $segmen)){
+			return redirect()->to(base_url('dashboard'));
+		}
+		
 		$data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
 		$data['daftar_lomba'] =  [
 			'AuditUniv' => 'Lomba Audit Universitas',
@@ -87,11 +87,12 @@ class Lomba extends BaseController
 		];
 		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
 		$data['daftar_pilihan'] = $this->JAWABAN->findAll();
+		$data['segmen'] = $segmen;
 		
 		return view('/test/percobaan-lomba', $data);
 	}
 
-	public function submit_jawaban($kode_voucher){
+	public function submit_jawaban($kode_voucher, $segmen){
 		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
 			return redirect()->to(base_url('/lomba/pengajuan-lomba'));
 		}
@@ -169,7 +170,7 @@ class Lomba extends BaseController
 			return 'asu';
 		}
 
-		$this->PARTISIPAN_LOMBA->where(['kode_voucher' => $kode_voucher])->update(null, ['percobaan' => $data['partisipan_info']->percobaan - 1]);
+		$this->PARTISIPAN_LOMBA->where(['kode_voucher' => $kode_voucher])->update(null, ['kuota_' . $segmen => 0]);
 		return redirect()->to(base_url('/lomba'));
 	}
 }
