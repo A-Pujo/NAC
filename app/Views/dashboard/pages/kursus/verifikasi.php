@@ -52,6 +52,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Peserta</th>
+                        <th>Email</th>
                         <th>Nama Sekolah</th>
                         <th>WA</th>
                         <th>Partisipan Aktif</th>
@@ -67,6 +68,7 @@
                                 <tr>
                                     <td><?= $no++ ?></td>
                                     <td><?= $peserta->nama_peserta ?></td>
+                                    <td><?= $peserta->email ?></td>
                                     <td><?= $peserta->nama_sekolah ?></td>
                                     <td><?= $peserta->wa ?></td>
                                     <td>

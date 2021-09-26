@@ -7,6 +7,7 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Tim</th>
+                    <th>Email</th>
                     <th>Jenis Partisipasi</th>
                     <th>Partisipan Aktif</th>
                     <th>Aksi</th>
@@ -20,6 +21,7 @@
                             <tr>
                                 <td><?= $no++ ?></td>
                                 <td><?= $partisipan->nama_tim ?></td>
+                                <td><?= $partisipan->email ?></td>
                                 <td>
                                     <?= $partisipan->partisipan_jenis == 'AccSMA' ? 'Accounting for High School' : ($partisipan->partisipan_jenis == 'AccUniv' ? 'Accounting for Universitas' : 'Call for Paper') ?>
                                 </td>

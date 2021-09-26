@@ -154,9 +154,13 @@ class Kursus extends BaseController{
         if(! isInRole('tim registrasi')){
             return redirect()->to(base_url('/dashboard'));
         }
+        $builder = db()->table('peserta_kursus');
+        $builder->select('*');
+        $builder->join('users', 'users.id = peserta_kursus.id_user');
+        $daftar_peserta = $builder->get()->getResult();
         if($user_id == null){
             $data = [
-                'daftar_peserta' => $this->PESERTA_K->findAll(),
+                'daftar_peserta' => $daftar_peserta,
                 'judul' => 'Verifikasi Pendaftaran Kursus',
                 'halaman' => 'verifikasi-kursus',
             ];
