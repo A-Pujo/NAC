@@ -27,7 +27,7 @@
             </figure>
         </li>
         <li>
-            Silakan isi identitas diri sesuai dengan ketentuan dan unggah foto KARTU PELAJAR atau NISN dalam format JPEG,JPG, atau PNG. Selain itu, Anda wajib melampirkan bukti Twibbon yang telah diunggah sesuai ketentuan. Penjelasan lebih lanjut mengenai Twibbon, dapat Anda temukan pada halaman <a href="<?= base_url('guide?halaman=twib') ?>" class="btn btn-primary btn-xs">panduan</a>
+            Silakan isi identitas diri sesuai dengan ketentuan dan unggah foto KARTU PELAJAR atau NISN dalam format JPEG,JPG, atau PNG. Selain itu, Anda wajib melampirkan bukti share Twibbon yang telah diunggah sesuai ketentuan. Penjelasan lebih lanjut mengenai Twibbon dapat Anda temukan pada halaman <a href="<?= base_url('guide?halaman=twib') ?>" class="btn btn-primary btn-xs">panduan</a>
             <figure>
                 <img src="<?= base_url('img/panduan-course-pendaftaran/4.png') ?>" alt="" class="w-max">
                 <figcaption>Gambar 4 : Formulir Pendaftaran</figcaption>
@@ -76,7 +76,7 @@
                         <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
                 </svg>
             </div>
-            . Dimohon peserta tidak menghubungi lebih dari satu CP.
+            . Dimohon Anda tidak menghubungi lebih dari satu CP.
         </li>
         
     </ul>
