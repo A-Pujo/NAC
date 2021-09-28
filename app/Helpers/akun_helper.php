@@ -78,6 +78,10 @@ function getGoogleClient(){
             'acc-univ-pre' => '2021-10-10 12:00', // kelulusan pre el
             'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
 
+            // tahap prelim
+            'start-pre' => '2021-09-10 09:00', // start pengerjaan soal
+            'finish-pre' => '2021-10-10 10:00', // start pengerjaan soal
+
             '' => '2021-01-01 00:00',
         ];
         if($aksi == 'all'){

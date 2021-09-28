@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use function PHPUnit\Framework\isNull;
+
 class Lomba extends BaseController
 {
 	protected $PARTISIPAN, $PARTISIPAN_LOMBA, $SOAL, $JAWABAN, $JAWABAN_PARTISIPAN, $NILAI;
@@ -15,9 +17,19 @@ class Lomba extends BaseController
 		$this->NILAI = new \App\Models\M_Nilai();
 	}
 
+	// Form input voucher prelim
 	public function index()
 	{
-		return view('/test/lomba-landing-page');
+		return view('statis/pages/prelim-input-voucher');
+	}
+
+	// dashboard perlombaan
+	public function dashboard(){
+		$data=[
+			'judul' => 'Perlombaan NAC 2021',
+            'halaman' => 'lomba',
+		];
+		return view('dashboard/pages/lomba/index', $data);
 	}
 
 	public function pengajuan_lomba(){
@@ -35,6 +47,7 @@ class Lomba extends BaseController
 		return view('/test/ajukan-lomba.php', $data);
 	}
 
+	// Generate kode voucher masing-masing tim
 	public function generate_voucher(){
 		if(!isInRole('peserta lomba')){
 			return redirect()->to(base_url('/dashboard'));
@@ -48,50 +61,93 @@ class Lomba extends BaseController
 				$this->NILAI->insert(['kode_voucher' => hash('crc32b', userinfo()->partisipan_id . '--' . $kode_lomba . '--' . date('d/m/Y'))]);
 			}
 		}
-		return redirect()->to(base_url('/lomba/starting-page'));
+		return redirect()->to(base_url('/lomba/dashboard'));
 	}
 
-	public function starting_page($kode_voucher = null){
+	// Cek kode voucher
+	// public function starting_page($kode_voucher = null){
 
-		$kode_voucher = $this->request->getGet('kode_voucher') ? $this->request->getGet('kode_voucher') : $kode_voucher;
+	// 	$kode_voucher = $this->request->getGet('kode_voucher') ? $this->request->getGet('kode_voucher') : $kode_voucher;
 
-		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $kode_voucher == null){
-			return redirect()->to(base_url('/lomba'));
-		}
-		$data = [
-			'partisipan_info' => $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher),
-			'kode_voucher' => $kode_voucher,
-			'daftar_lomba' => [
-				'AuditUniv' => 'Lomba Audit Universitas',
-				'AccUniv' => 'Lomba Akuntansi Universitas',
-				'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
-			],
-		];
-		return view('/test/lomba-partisipan-info', $data);
-	}
+	// 	if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $kode_voucher == null){
+	// 		return redirect()->to(base_url('/lomba'));
+	// 	}
+	// 	$data = [
+	// 		'partisipan_info' => $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher),
+	// 		'kode_voucher' => $kode_voucher,
+	// 		'daftar_lomba' => [
+	// 			'AuditUniv' => 'Lomba Audit Universitas',
+	// 			'AccUniv' => 'Lomba Akuntansi Universitas',
+	// 			'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
+	// 		],
+	// 	];
+	// 	return view('/test/lomba-partisipan-info', $data);
+	// }
 
-	public function percobaan_lomba($kode_voucher, $segmen = 1){
-		if(! in_array($segmen, [1,2,3])){
+	// Prelim
+	// public function percobaan_lomba($kode_voucher, $segmen = 1){
+	// 	if(! in_array($segmen, [1,2,3])){
+	// 		return redirect()->to(base_url('lomba'));
+	// 	}
+		
+	// 	if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $segmen)){
+	// 		return redirect()->to(base_url('dashboard'));
+	// 	}
+		
+	// 	$data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
+	// 	$data['daftar_lomba'] =  [
+	// 		'AuditUniv' => 'Lomba Audit Universitas',
+	// 		'AccUniv' => 'Lomba Akuntansi Universitas',
+	// 		'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
+	// 	];
+	// 	$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
+	// 	$data['daftar_pilihan'] = $this->JAWABAN->findAll();
+	// 	$data['segmen'] = $segmen;
+		
+	// 	return view('statis/pages/prelim', $data);
+	// }
+
+	public function prelim(){
+		$voucher = $this->request->getVar('voucher');
+		if(strlen($voucher) != 10){
+			//jumlah karakter voucher salah
 			return redirect()->to(base_url('lomba'));
 		}
-		
-		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $segmen)){
-			return redirect()->to(base_url('dashboard'));
+		// kode voucher : string
+		$kode_voucher = str_split($voucher, 8)[0];
+		// segmen : int
+		$segmen = str_split($voucher, 8)[1];
+		$kode_segmen = [
+			'qw' => 1,
+			'as' => 2,
+			'zx' => 3,
+		];
+		if(!array_key_exists($segmen, $kode_segmen)){
+			// kode segmen salah
+			return redirect()->to(base_url('lomba'));
 		}
-		
+		$segmen = $kode_segmen[$segmen];
+
+		// Get data partisipan
 		$data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
+		if(!$data['partisipan_info']){
+			// kode_voucher tidak ada di db
+			return redirect()->to(base_url('lomba'));
+		}
+
+		// Siap Lomba
 		$data['daftar_lomba'] =  [
-			'AuditUniv' => 'Lomba Audit Universitas',
-			'AccUniv' => 'Lomba Akuntansi Universitas',
-			'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
+			'AccUniv' => 'Accounting for High School',
+			'AccSMA' => 'Accounting for University',
 		];
 		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
 		$data['daftar_pilihan'] = $this->JAWABAN->findAll();
 		$data['segmen'] = $segmen;
 		
-		return view('/test/percobaan-lomba', $data);
+		return view('statis/pages/prelim', $data);
 	}
 
+	// Jawaban prelim
 	public function submit_jawaban($kode_voucher, $segmen){
 		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
 			return redirect()->to(base_url('/lomba/pengajuan-lomba'));
