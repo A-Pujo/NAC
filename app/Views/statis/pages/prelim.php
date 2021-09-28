@@ -18,55 +18,50 @@
             </div>
         </div>
     </div>
-    <div class="text-base-100 px-64 py-16 flex flex-col space-y-16 max-w-1000">
-        <!-- Start Pilgan -->
-        <div class="card bg-accent p-16 space-y-8 font-bold">
-            Bagian I : Pilihan Ganda
-        </div>
-        <?php $no_pilgan = 1 ?>
-        <?php for($i=0 ; $i < 20; $i++) : ?>
+    <?= form_open(base_url('/lomba/submit-jawaban/'.$partisipan_info->kode_voucher . '/' . $segmen)) ?>
+        <div class="text-base-100 px-64 py-16 flex flex-col space-y-16 max-w-1000">
+            <!-- Start Pilgan -->
+            <div class="card bg-accent p-16 space-y-8 font-bold">
+                Bagian I : Pilihan Ganda
+            </div>
+            <?php $no_pilgan = 1 ?>
+            <?php for($i=0 ; $i < 3; $i++) : ?>
 
-            <div class="card bg-neutral-100 p-16 space-y-8">
-                <p><strong class="text-24"><?= $no_pilgan++ ?></strong> Ada berapa hukum fundamental dasar dalam ilmu Fisika?</p>
-                <label class="ml-8 flex flex-row space-x-8 items-center">
-                    <input type="radio" name="opt" class="radio radio-primary flex-shrink-0" value="">
-                    <span class="">1</span> 
-                </label>
-                <label class="ml-8 flex flex-row space-x-8 items-center">
-                    <input type="radio" name="opt" class="radio radio-primary flex-shrink-0" value="">
-                    <span class="">2</span> 
-                </label>
-                <label class="ml-8 flex flex-row space-x-8 items-center">
-                    <input type="radio" name="opt" class="radio radio-primary flex-shrink-0" value="">
-                    <span class="">3</span> 
-                </label>
-                <label class="ml-8 flex flex-row space-x-8 items-center">
-                    <input type="radio" name="opt" class="radio radio-primary flex-shrink-0" value="">
-                    <span class="">4</span> 
-                </label>
+                <div class="card bg-neutral-100 p-16 space-y-8">
+                    <p><strong class="text-24"><?= $no_pilgan++ ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p><input type="hidden" name="soal[]" value="<?= $daftar_soal[$i]->soal_id ?>">
+                    <?php foreach($daftar_pilihan as $pilihan) : ?>
+                        <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
+                            <label class="ml-8 flex flex-row space-x-8 items-center">
+                                <input type="radio" name="jawaban[<?=$daftar_soal[$i]->soal_id?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_kode == null ? 'checked' : '' ?>>
+                                <span class=""><?= $pilihan->jawaban_teks ?></span>
+                            </label>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endfor;?>
+            <!-- End Pilgan -->
+            <!-- Start B/S -->
+            <div class="card bg-accent p-16 space-y-8 font-bold">
+                Bagian II : Benar Salah
             </div>
-        <?php endfor;?>
-        <!-- End Pilgan -->
-        <!-- Start B/S -->
-        <div class="card bg-accent p-16 space-y-8 font-bold">
-            Bagian II : Benar Salah
+            <?php $no_bs = 1?>
+            <?php for($i=$i; $i < 5; $i++) : ?>
+                <div class="card bg-neutral-100 p-16 space-y-8">
+                    <p><strong class="text-24"><?= $no_pilgan++ ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p><input type="hidden" name="soal[]" value="<?= $daftar_soal[$i]->soal_id ?>">
+                    <?php foreach($daftar_pilihan as $pilihan) : ?>
+                        <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
+                            <label class="ml-8 flex flex-row space-x-8 items-center">
+                                <input type="radio" name="jawaban[<?=$daftar_soal[$i]->soal_id?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_kode == null ? 'checked' : '' ?>>
+                                <span class=""><?= $pilihan->jawaban_teks ?></span>
+                            </label>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endfor ?>
+            <!-- End B/S -->
         </div>
-        <?php $no_bs = 1?>
-        <?php for($i=0 ; $i < 10; $i++) : ?>
-            <div class="card bg-neutral-100 p-16 space-y-8">
-                <p><strong class="text-24"><?= $no_bs++ ?></strong> Bumi berbentuk bulat </p>
-                <label class="ml-8 flex flex-row space-x-8 items-center">
-                    <input type="radio" name="soal_2" class="radio radio-primary flex-shrink-0" value="">
-                    <span class="">Benar</span> 
-                </label>
-                <label class="ml-8 flex flex-row space-x-8 items-center">
-                    <input type="radio" name="soal_2" class="radio radio-primary flex-shrink-0 flex-shrink-0" value="">
-                    <span class="">Salah</span> 
-                </label>
-            </div>
-        <?php endfor ?>
-        <!-- End B/S -->
-    </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
     <script>
 // Set target : bulan 0-11
 let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();

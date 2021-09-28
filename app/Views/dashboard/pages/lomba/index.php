@@ -51,10 +51,10 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
     <div class="card col-span-12 p-24 bg-neutral-100">
         <?php 
             $data = db()->table('partisipan_lomba')
-                        ->where('partisipan_id', 25)
-                        ->join('users', 'partisipan_lomba.partisipan_id = users.id')
-                        ->get()->getResult();
-            $voucher = $data ?  $data[0]->kode_voucher : false;
+                        ->join('data_partisipan', 'data_partisipan.partisipan_id=partisipan_lomba.partisipan_id ')
+                        ->where('user_id', userinfo()->id)
+                        ->get()->getRow();
+            $voucher = ! empty($data) ?  $data->kode_voucher : false;
             $kode_segmen = ['qw', 'as', 'zx'];
             if($voucher) :
         ?>
