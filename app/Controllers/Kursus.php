@@ -230,16 +230,17 @@ class Kursus extends BaseController{
 
     public function video_attempt($index_video = null){
         if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
+            session()->setFlashdata('alert', 'Course hanya bisa dikerjakan pada tanggal 1-8 Oktober 2021');
             return redirect()->to('kursus');
         }
         $video = [
-            'video_kursus_1' => 'https://www.youtube.com/embed/QtXby3twMmI',
-            'video_kursus_2' => 'https://www.youtube.com/embed/QtXby3twMmI',
-            'video_kursus_3' => 'https://www.youtube.com/embed/QtXby3twMmI',
-            'video_kursus_4' => 'https://www.youtube.com/embed/QtXby3twMmI',
-            'video_kursus_5' => 'https://www.youtube.com/embed/QtXby3twMmI',
-            'video_kursus_6' => 'https://www.youtube.com/embed/QtXby3twMmI',
-            'video_kursus_7' => 'https://www.youtube.com/embed/QtXby3twMmI',
+            'video_kursus_1' => 'https://www.youtube.com/embed/iShJI5MXqAo',
+            'video_kursus_2' => 'https://www.youtube.com/embed/jcRe4x7StvA',
+            'video_kursus_3' => 'https://www.youtube.com/embed/EiClmfPBf9Q',
+            'video_kursus_4' => 'https://www.youtube.com/embed/d8-GHGd-CN0',
+            'video_kursus_5' => 'https://www.youtube.com/embed/xLzEP3acMe0',
+            'video_kursus_6' => 'https://www.youtube.com/embed/xCcs_cX7Duo',
+            'video_kursus_7' => 'https://www.youtube.com/embed/6gqvqzPUnXs',
         ];
 
         if(! array_key_exists($index_video, $video)){
