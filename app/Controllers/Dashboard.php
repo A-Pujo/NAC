@@ -525,6 +525,12 @@ class Dashboard extends BaseController
                     'required' => lang('Validasi.required'),
                 ],
             ],
+            'nomor_rekening' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => lang('Validasi.required'),
+                ],
+            ],
             'jumlah_transfer' => [
                 'rules' => 'required',
                 'errors' => [
