@@ -35,7 +35,7 @@
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
 
     <div class="card col-span-12 bg-primary-300 p-24 ">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/yHha7DVndZw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/ACmbZe0j0sk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
     <div class="card col-span-12 bg-primary-300 p-24 ">
         <?= user_kursus()->nama_peserta .' - '. user_kursus()->nama_sekolah ?>
@@ -68,7 +68,7 @@
                         <td><?= $i + 1 ?></td>
                         <td><?= $judul[$i] ?></td>
                         <td>
-                            <?php if($video_kursus[$i]) : ?>
+                            <?php if($video_kursus[$i] == 1) : ?>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-success" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>

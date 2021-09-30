@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
     
-<div class="grid gri    d-cols-12 gap-24 p-32 text-base-100">
+<div class="grid grid-cols-12 gap-24 p-32 text-base-100">
 
     <div class="card col-span-12 p-24 bg-neutral-100">
         <table class="tabel-card text-12 lg:text-16">
