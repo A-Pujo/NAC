@@ -526,17 +526,15 @@ class Dashboard extends BaseController
                 ],
             ],
             'nomor_rekening' => [
-                'rules' => 'required|numeric',
+                'rules' => 'required',
                 'errors' => [
                     'required' => lang('Validasi.required'),
-                    'numeric' => 'Harus dalam bentuk angka',
                 ],
             ],
             'jumlah_transfer' => [
-                'rules' => 'required|numeric',
+                'rules' => 'required',
                 'errors' => [
                     'required' => lang('Validasi.required'),
-                    'numeric' => 'Harus dalam bentuk angka',
                 ],
             ],
         ];
