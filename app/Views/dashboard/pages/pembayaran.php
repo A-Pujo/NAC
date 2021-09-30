@@ -36,6 +36,9 @@
             $jumlah_transfer = '70000';
         }
     }
+    if((userinfo()->id+1) > 999){
+        userinfo()->id = (userinfo()->id+1)-1000;
+    }
     $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strlen(userinfo()->id + 1))) . (userinfo()->id + 1);
 ?>
     <div class="text-base-100 p-32">
