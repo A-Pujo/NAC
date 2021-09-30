@@ -48,7 +48,9 @@
                 [
                     'Course',
                     [
-                        ['Pendaftaran', 'course-pendaftaran']
+                        ['Pendaftaran', 'course-pendaftaran'],
+                        ['Pelaksanaan', 'course-pelaksanaan'],
+                        ['Timeline', 'course-timeline'],
                     ]
                 ],
                 [
@@ -76,7 +78,7 @@
                         echo 2;
                     } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-booklet','cfp-pendaftaran','cfp-timeline'])) {
                         echo 3;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['course-pendaftaran'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['course-pendaftaran', 'course-pelaksanaan', 'course-timeline'])) {
                         echo 4;
                     } elseif(in_array(($_GET['halaman'] ?? ''), ['twib','sp'])) {
                         echo 5;

@@ -13,10 +13,12 @@
                 
                 <?php foreach($pilihan as $p) : ?>
                     <?php if($p->soal_id == $s->soal_id) : ?>
-                        <label class="ml-8 flex flex-row space-x-8 items-center">
+                        <label class="ml-8 flex flex-row space-x-8 items-center <?= $p->jawaban_teks == ''? 'hidden': '' ?>">
                             <input class="radio radio-primary flex-shrink-0" type="radio"
                                 name="jawaban[<?= $s->soal_id ?>]"
-                                value="<?= $p->jawaban_id ?>" />
+                                value="<?= $p->jawaban_id ?>"
+                                <?= $p->jawaban_teks == ''? 'checked': '' ?>
+                                />
                             <span class=""><?= $p->jawaban_teks ?></span> 
                         </label>
                     <?php endif; ?>

@@ -290,15 +290,15 @@ class Kursus extends BaseController{
         
             $pilihan_peserta = $this->JPK->join('soal', 'soal.soal_id = jawaban_peserta_kursus.soal_id')
             ->where(['kode_lomba' => $index, 'peserta_kursus_id' => $peserta->id_peserta])->findAll();
-
+            
             if(count($pilihan_peserta) > 0){
-                return redirect()->to(base_url('kursus/video'));
+                return redirect()->to(base_url('kursus'));
             }
             
             foreach($soal as $s){
                 $this->JPK->insert(['peserta_kursus_id' => $peserta->id_peserta, 'soal_id' => $s, 'jawaban_id' => $pilihan[$s]]);
             }
-
+            
             return redirect()->to('kursus/kalkulasi/' . $peserta->id_peserta . '/' . $index);
         }
 
@@ -306,6 +306,8 @@ class Kursus extends BaseController{
     }
 
     public function kalkulasi($peserta, $index){
+
+        
         $nilai = 0;
         $pilihan_peserta = $this->JPK->join('soal', 'soal.soal_id = jawaban_peserta_kursus.soal_id')->join('pilihan_jawaban', 'pilihan_jawaban.jawaban_id = jawaban_peserta_kursus.jawaban_id')->where(['kode_lomba' => $index, 'peserta_kursus_id' => $peserta])->findAll();
         $index = str_replace('-', '_', $index);
@@ -317,8 +319,9 @@ class Kursus extends BaseController{
                 $nilai++;
             }
         }
-
+        
         $nilai = $nilai/$jumlah_soal * 100;
+        // dd($nilai);
         // dd([$nilai, 'nilai_'.$index]);
         $this->PESERTA_K->where(['id_peserta' => $peserta])->update(null, ['nilai_'.$index => $nilai]);
 

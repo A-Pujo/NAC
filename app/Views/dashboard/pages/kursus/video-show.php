@@ -7,7 +7,7 @@
         </div>
     </div>
     <div>
-        <a class="btn btn-primary mt-24" target="_blank" href="<?= base_url('kursus/kuis/video-'.$index + 1) ?>">Kerjakan Kuis</a>
+        <a class="btn btn-primary mt-24" target="_blank" href="<?= base_url('kursus/kuis/video-'.$index) ?>">Kerjakan Kuis</a>
     </div>
 </div>
 <?= $this->endSection() ?>  

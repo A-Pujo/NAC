@@ -73,7 +73,7 @@
                     <th>#</th>
                     <th>Materi</th>
                     <th>Akses Video</th>
-                    <th>Nilai Course</th>
+                    <th>Kerjakan Kuis</th>
                 </tr>
             </thead>
             <tbody>
