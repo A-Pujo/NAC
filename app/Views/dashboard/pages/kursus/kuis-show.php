@@ -1,8 +1,25 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 
 <?= $this->section('content') ?>
+<?php
+
+$judul = [
+    'Garis Besar Akuntansi dan Jenis-jenis Akuntansi',
+    'Persamaan Dasar Akuntansi',
+    'Saldo Normal, Transaksi, dan Jurnal Umum Bag. 1',
+    'Transaksi dan Jurnal Umum Bag. 2',
+    'Jurnal Penyesuaian',
+    'Laporan Keuangan',
+    'Pengenalan akuntansi Perusahaan Dagang'
+];
+
+?>
+
 <?= form_open('kursus/submit-jawaban/'.$kuis, ['method' => 'post']) ?>
     <div class="p-32  flex flex-col space-y-16 text-base-100 max-w-1000">
+    <div class="card bg-accent p-8 text-base-100">
+    <span><b><?= $index ?></b> <?= $judul[$index-1] ?></span>
+    </div>
     
             <?php $no_pilgan = 1 ?>
             <?php foreach($soal as $s) : ?>

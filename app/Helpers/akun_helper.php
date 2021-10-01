@@ -69,7 +69,7 @@ function getGoogleClient(){
             // course
             'open_course' => '2021-09-24 08:00', // buka daftar
             'close_course' => '2021-09-30 23:59', // tutup daftar
-            'start_course' => '2021-10-01 08:00', // mulai masa mengerjakan
+            'start_course' => '2021-01-01 08:00', // mulai masa mengerjakan
             'finish_course' => '2021-10-08 23:59', // akhir masa mengerjakan
             'pengumuman_course' => '2021-10-09 08:00', //pengumuman kelulusan course
 

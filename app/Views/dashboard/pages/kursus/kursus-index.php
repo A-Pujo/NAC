@@ -47,7 +47,7 @@
             </div>
         </div>
     <?php endif ?>
-    <?php if(sekarang()>tanggal('start_course') && sekarang() < tanggal('close_course')) : ?>
+    <?php if(sekarang()>tanggal('start_course') && sekarang() < tanggal('finish_course')) : ?>
     <div class="card col-span-12 bg-primary-300 p-24 ">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/ACmbZe0j0sk" title="YouTube video player" allowfullscreen></iframe>
     </div>  
@@ -66,7 +66,6 @@
         <span id="time" class="btn btn-secondary btn-xs"></span>
     </div>
 
-    <?php if(date('Y-m-i H:i:s') >= '2021-10-01 00:00:00'): ?>
     <div class="card col-span-12 p-24">
         <table class="tabel">
             <thead>
@@ -108,7 +107,6 @@
         <small class="text-base-100">Sertifikat peserta akan diterbitkan jika Anda telah menonton seluruh video dan mengerjakan seluruh kuis. </small>
         <small class="text-base-100">Sertifikat kelulusan akan diterbitkan jika Anda telah mengerjakan seluruh kuis dengan nilai minimal 75%. </small>
     </div>
-    <?php endif; ?>
 
 </div>
 <script>

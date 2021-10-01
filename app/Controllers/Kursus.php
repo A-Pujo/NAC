@@ -268,7 +268,17 @@ class Kursus extends BaseController{
         if(! in_array($index, $kuis)){
             return redirect()->to(base_url('kursus'));
         }
+        // jika sebelumnya peserta udah ngerjakan kuis
+        $kolom = 'nilai_video_' . explode('-', $index)[1];
+        $pesertaArray = db()->table('peserta_kursus')
+                ->where('id_user', userinfo()->id)
+                ->get()->getResultArray()[0];
+        if($pesertaArray[$kolom] == 1){
+            return redirect()->to(base_url('kursus'));
+        }
         
+        
+        $data['index'] = explode('-', $index)[1];
         $data['kuis'] = $index;
         $data['soal'] = $this->SOAL->where(['kode_lomba' => $index])->orderBy('RAND()')->findAll();
         $data['pilihan'] =  $this->PILIHAN->findAll();
@@ -286,23 +296,34 @@ class Kursus extends BaseController{
             $soal = $this->request->getVar('soal');
             $pilihan = $this->request->getVar('jawaban');
             $peserta = $this->PESERTA_K->where(['id_user' => userinfo()->id])->first();
-            // var_dump($peserta); die();
+
+
+            // jika sebelumnya peserta udah ngerjakan kuis
+            $kolom = 'nilai_video_' . explode('-', $index)[1];
+            $pesertaArray = db()->table('peserta_kursus')
+                ->where('id_user', userinfo()->id)
+                ->get()->getResultArray()[0];
+            if($pesertaArray[$kolom] == 1){
+                return redirect()->to(base_url('kursus'));
+            }
         
             $pilihan_peserta = $this->JPK->join('soal', 'soal.soal_id = jawaban_peserta_kursus.soal_id')
             ->where(['kode_lomba' => $index, 'peserta_kursus_id' => $peserta->id_peserta])->findAll();
             
-            if(count($pilihan_peserta) > 0){
-                return redirect()->to(base_url('kursus'));
-            }
+            // if(count($pilihan_peserta) > 0){
+            //     return redirect()->to(base_url('kursus'));
+            // }
             
             foreach($soal as $s){
                 $this->JPK->insert(['peserta_kursus_id' => $peserta->id_peserta, 'soal_id' => $s, 'jawaban_id' => $pilihan[$s]]);
             }
             
-            return redirect()->to('kursus/kalkulasi/' . $peserta->id_peserta . '/' . $index);
+            db()->table('peserta_kursus')
+                ->where('id_user', userinfo()->id)
+                ->update([$kolom => 1]);
         }
 
-        return redirect()->to(base_url('kursus/video'));
+        return redirect()->to(base_url('kursus'));
     }
 
     public function kalkulasi($peserta, $index){
