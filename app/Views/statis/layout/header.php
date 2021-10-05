@@ -7,7 +7,7 @@
             <li><a href="<?= base_url() ?>"class="btn btn-ghost">Home</a></li>
             <li><a href="<?= base_url('guide') ?>" class="btn btn-ghost">Panduan</a></li>
             <li><a href="<?= base_url('pengumuman') ?>" class="btn btn-ghost">Pengumuman</a></li>
-            <li><a href="#" class="btn btn-ghost">Preliminary Round</a></li>
+            <li><a href="<?= base_url('lomba') ?>" class="btn btn-ghost">Preliminary Round</a></li>
             <li><a href="<?= base_url('dashboard') ?>" class="btn btn-primary">Dashboard</a></li>
         </ul>
     </div>
