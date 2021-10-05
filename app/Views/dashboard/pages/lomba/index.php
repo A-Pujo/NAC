@@ -55,6 +55,13 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
                         ->where('user_id', userinfo()->id)
                         ->get()->getRow();
             $voucher = ! empty($data) ?  $data->kode_voucher : false;
+            $data_nilai;
+            if($data->partisipan_jenis == 'AccSMA'){
+                $data_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', $data->partisipan_id)->get()->getResult();
+                if($data_nilai){ $data_nilai = $data_nilai[0]; }
+            } else {
+
+            }
             $kode_segmen = ['qw', 'as', 'zx'];
             if($voucher) :
         ?>
@@ -101,7 +108,7 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
                     <td>1</td>
                     <td>Preliminary Round</td>
                     <td><?= tanggal('start-pre') ?></td>
-                    <td>Kerjakan</td>
+                    <td><?= $data_nilai ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
                 </tr>
             </tbody>
         </table>
