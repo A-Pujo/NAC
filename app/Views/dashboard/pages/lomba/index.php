@@ -1,6 +1,7 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 
 <?= $this->section('content') ?>
+<?php $data_nilai = null?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
 
@@ -55,16 +56,20 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
                         ->where('user_id', userinfo()->id)
                         ->get()->getRow();
             $voucher = ! empty($data) ?  $data->kode_voucher : false;
-            $data_nilai;
+            
+            $kode_segmen = ['qw', 'as', 'zx'];
+            if($voucher) :
+        ?>
+            <?php 
+            
             if($data->partisipan_jenis == 'AccSMA'){
                 $data_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', $data->partisipan_id)->get()->getResult();
                 if($data_nilai){ $data_nilai = $data_nilai[0]; }
             } else {
 
             }
-            $kode_segmen = ['qw', 'as', 'zx'];
-            if($voucher) :
-        ?>
+            
+            ?>
             <span>Voucher untuk pengerjaan soal Preliminary Round tim Anda adalah 
                     <?php foreach($kode_segmen as $segmen) : ?>
                     <?= $voucher.$segmen ?>
@@ -108,7 +113,7 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
                     <td>1</td>
                     <td>Preliminary Round</td>
                     <td><?= tanggal('start-pre') ?></td>
-                    <td><?= $data_nilai ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
+                    <td><?= $data_nilai != null ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
                 </tr>
             </tbody>
         </table>
