@@ -8,6 +8,8 @@ class M_Jawaban_Partisipan extends Model
 {
     protected $table      = 'jawaban_partisipan';
 
+    protected $primaryKey = 'jawaban_partisipan_id';
+
     protected $returnType     = 'object';
 
     protected $allowedFields = ['soal_id', 'jawaban_id', 'partisipan_kode_voucher'];

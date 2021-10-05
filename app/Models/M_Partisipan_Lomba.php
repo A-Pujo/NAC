@@ -8,6 +8,8 @@ class M_Partisipan_Lomba extends Model
 {
     protected $table      = 'partisipan_lomba';
 
+    protected $primaryKey = 'id';
+
     protected $returnType     = 'object';
 
     protected $allowedFields = ['partisipan_id', 'kode_lomba', 'partisipan_lomba', 'kode_voucher', 'kuota_1', 'kuota_2', 'kuota_3'];

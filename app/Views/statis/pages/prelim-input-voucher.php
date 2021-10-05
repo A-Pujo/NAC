@@ -2,7 +2,7 @@
 <?= $this->section('content') ?>
 
     <div class="p-24 text-base-100">
-        <form action="<?= base_url('/lomba/prelim') ?>" method="get">
+        <form action="<?= base_url('/lomba/get-soal-all') ?>" method="get">
             <!-- <input type="text" name="kode_voucher">
             <button type="submit">join</button> -->
 

@@ -7,6 +7,8 @@ use function PHPUnit\Framework\isNull;
 class Lomba extends BaseController
 {
 	protected $PARTISIPAN, $PARTISIPAN_LOMBA, $SOAL, $JAWABAN, $JAWABAN_PARTISIPAN, $NILAI;
+	// Data Soal
+	protected $soal, $jawaban;
 
 	function __construct(){
 		$this->PARTISIPAN = new \App\Models\M_Partisipan();
@@ -107,7 +109,7 @@ class Lomba extends BaseController
 	// 	return view('statis/pages/prelim', $data);
 	// }
 
-	public function prelim(){
+	public function get_soal_all(){
 		$voucher = $this->request->getVar('voucher');
 		if(strlen($voucher) != 10){
 			//jumlah karakter voucher salah
@@ -129,22 +131,81 @@ class Lomba extends BaseController
 		$segmen = $kode_segmen[$segmen];
 
 		// Get data partisipan
-		$data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
-		if(!$data['partisipan_info']){
+		$data_partisipan = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
+		if(!$data_partisipan){
 			// kode_voucher tidak ada di db
 			return redirect()->to(base_url('lomba'));
 		}
 
-		// Siap Lomba
-		$data['daftar_lomba'] =  [
-			'AccUniv' => 'Accounting for High School',
-			'AccSMA' => 'Accounting for University',
-		];
-		$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
-		$data['daftar_pilihan'] = $this->JAWABAN->findAll();
-		$data['segmen'] = $segmen;
+		// Data Soal dan Pilihan Jawaban
+		$soal = $this->SOAL->getSoal($data_partisipan->kode_lomba, ($segmen - 1) * 50);
+		$soal_id = array_map(function($e){ return $e->soal_id; }, $soal);
+		$pilihan_jawaban = $this->JAWABAN->whereIn('soal_id', $soal_id)->get()->getResult();
+
+		// Jawaban User
+		$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
 		
-		return view('statis/pages/prelim', $data);
+		//=== USER PERTAMA AKSES SOAL : Isi db dengan data 'kosong' atau 'tidak menjawab' ===//
+			if(!$jawaban_user) {
+				// Jawaban kosong yang akan di input ke db
+				$jawaban_kosong = array_filter(
+					$pilihan_jawaban,
+					function($e){
+						return ($e->jawaban_kode == '');
+					});
+				$jawaban_kosong_id = array_values(array_map(function($e){ return $e->jawaban_id; }, $jawaban_kosong));
+				// var_dump($pilihan_jawaban); die();
+	
+				// Isi database jawaban dengan jawaban 'kosong' atau 'tidak menjawab'
+				for($i=0; $i<50; $i++){
+					db()->table('jawaban_partisipan')->insert([
+						'soal_id' => $soal_id[$i],
+						'jawaban_id' => $jawaban_kosong_id[$i],
+						'partisipan_kode_voucher' => $kode_voucher,
+						'segmen' => $segmen,
+					]);
+				}
+				// Ambil jawaban user yang barusan diinput
+				$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+			}
+		//=== END USER PERTAMA AKSES SOAL ===//
+
+		// === OLD === //
+			// $data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
+			// $data['daftar_pilihan'] = $this->JAWABAN->findAll();
+			// $data['segmen'] = $segmen;
+			// return view('statis/pages/prelim', $data);
+		// === OLD === //
+
+		session()->set([
+			'soal' => $soal,
+			'jawaban' => $pilihan_jawaban,
+			'segmen' => $segmen,
+			'data_partisipan' => $data_partisipan,
+			'jawaban_user' => $jawaban_user,
+		]);
+		return redirect()->to(base_url('/lomba/prelim?step=1'));
+	}
+
+	public function prelim(){
+		$step = $_GET['step']; // paginasi
+		// $soal_all = session()->get('soal'); // data seluruh soal sesuai segmen
+		// $soal_show = array_chunk($soal_all, 5)[$step - 1]; // soal per page
+		$data = [
+			'partisipan_info' => session()->get('data_partisipan'), // data tim user
+			// 'daftar_soal' => $soal_show,
+			'daftar_soal' => session()->get('soal'),
+			'daftar_pilihan' => session()->get('jawaban'), // data seluruh jawaban
+			'segmen' => session()->get('segmen'), // segmen
+			'daftar_lomba' => 	[ 	// konversi nama lomba
+									'AccSMA' => 'Accounting for High School',
+									'AccUniv' => 'Accounting for University',
+			],
+			'jawaban_user' => session()->get('jawaban_user'),
+		];
+		// var_dump($data['partisipan_info']); die();
+		// var_dump($data['daftar_soal']); die();
+		return view('/statis/pages/prelim', $data);
 	}
 
 	// Jawaban prelim
@@ -152,81 +213,142 @@ class Lomba extends BaseController
 		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
 			return redirect()->to(base_url('/lomba/pengajuan-lomba'));
 		}
+		
 
 		// dd($this->request->getPost());
-		$data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
-		if($data['partisipan_info']->kode_lomba == 'AuditUniv'){
-			if(! $this->validate([
-				'jawaban_1' => [
-					'rules' => 'uploaded[jawaban_1]|max_size[jawaban_1,10000]|ext_in[jawaban_1,pdf]',
-					'errors' => [
-						'uploaded' => lang('Validasi.required'),
-						'max_size' => lang('Validasi.max_size', ['file jawaban', '10MB']),
-						'ext_in' => lang('Validasi.ext_in', ['file jawaban', 'berupa pdf']),
-					]
-				],
-				'jawaban_2' => [
-					'rules' => 'max_size[jawaban_2,10000]|ext_in[jawaban_2,pdf]',
-					'errors' => [
-						'max_size' => lang('Validasi.max_size', ['file jawaban 1', '10MB']),
-						'ext_in' => lang('Validasi.ext_in', ['file jawaban 2', 'berupa pdf']),
-					]
-				]
-			])){
-				return redirect()->to(base_url('/lomba/percobaan-lomba/'.$kode_voucher))->withInput();	
-			} else {
-				$img = $this->request->getFile('jawaban_1');
-				if($img->isValid() and ! $img->hasMoved()){
-					$jawabanFile = $img->getRandomName();
-					$img->move(APPPATH . '../public/uploads/partisipan/lomba/audit/', $jawabanFile);
+		// $data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
+		// if($data['partisipan_info']->kode_lomba == 'AuditUniv'){
+		// 	if(! $this->validate([
+		// 		'jawaban_1' => [
+		// 			'rules' => 'uploaded[jawaban_1]|max_size[jawaban_1,10000]|ext_in[jawaban_1,pdf]',
+		// 			'errors' => [
+		// 				'uploaded' => lang('Validasi.required'),
+		// 				'max_size' => lang('Validasi.max_size', ['file jawaban', '10MB']),
+		// 				'ext_in' => lang('Validasi.ext_in', ['file jawaban', 'berupa pdf']),
+		// 			]
+		// 		],
+		// 		'jawaban_2' => [
+		// 			'rules' => 'max_size[jawaban_2,10000]|ext_in[jawaban_2,pdf]',
+		// 			'errors' => [
+		// 				'max_size' => lang('Validasi.max_size', ['file jawaban 1', '10MB']),
+		// 				'ext_in' => lang('Validasi.ext_in', ['file jawaban 2', 'berupa pdf']),
+		// 			]
+		// 		]
+		// 	])){
+		// 		return redirect()->to(base_url('/lomba/percobaan-lomba/'.$kode_voucher))->withInput();	
+		// 	} else {
+		// 		$img = $this->request->getFile('jawaban_1');
+		// 		if($img->isValid() and ! $img->hasMoved()){
+		// 			$jawabanFile = $img->getRandomName();
+		// 			$img->move(APPPATH . '../public/uploads/partisipan/lomba/audit/', $jawabanFile);
 	
-					$daftar_soal = $this->request->getVar('soal');
+		// 			$daftar_soal = $this->request->getVar('soal');
 	
-					foreach ($daftar_soal as $soal) {
-						$jawaban = $this->JAWABAN->ifJawabanIsFile($soal, $jawabanFile);
+		// 			foreach ($daftar_soal as $soal) {
+		// 				$jawaban = $this->JAWABAN->ifJawabanIsFile($soal, $jawabanFile);
 	
-						$this->JAWABAN_PARTISIPAN->insert([
-							'soal_id' => $soal,
-							'jawaban_id' => $jawaban->jawaban_id,
-							'partisipan_kode_voucher' => $kode_voucher,
-						]);
-					}
-				}
+		// 				$this->JAWABAN_PARTISIPAN->insert([
+		// 					'soal_id' => $soal,
+		// 					'jawaban_id' => $jawaban->jawaban_id,
+		// 					'partisipan_kode_voucher' => $kode_voucher,
+		// 				]);
+		// 			}
+		// 		}
 	
-				$img = $this->request->getFile('jawaban_2');
-				if($img->isValid() and ! $img->hasMoved()){
-					$jawabanFile = $img->getRandomName();
-					$img->move(APPPATH . '../public/uploads/partisipan/lomba/audit/', $jawabanFile);
+		// 		$img = $this->request->getFile('jawaban_2');
+		// 		if($img->isValid() and ! $img->hasMoved()){
+		// 			$jawabanFile = $img->getRandomName();
+		// 			$img->move(APPPATH . '../public/uploads/partisipan/lomba/audit/', $jawabanFile);
 	
-					$daftar_soal = $this->request->getVar('soal');
+		// 			$daftar_soal = $this->request->getVar('soal');
 	
-					foreach ($daftar_soal as $soal) {
-						$jawaban = $this->JAWABAN->ifJawabanIsFile($soal, $jawabanFile);
+		// 			foreach ($daftar_soal as $soal) {
+		// 				$jawaban = $this->JAWABAN->ifJawabanIsFile($soal, $jawabanFile);
 	
-						$this->JAWABAN_PARTISIPAN->insert([
-							'soal_id' => $soal,
-							'jawaban_id' => $jawaban->jawaban_id,
-							'partisipan_kode_voucher' => $kode_voucher,
-						]);
-					}
-				}
-			}
-		} elseif($data['partisipan_info']->kode_lomba == 'AccUniv' or $data['partisipan_info']->kode_lomba == 'AccSMA'){
-			$daftar_soal = $this->request->getVar('soal'); 
-			$jawaban = $this->request->getVar('jawaban');
+		// 				$this->JAWABAN_PARTISIPAN->insert([
+		// 					'soal_id' => $soal,
+		// 					'jawaban_id' => $jawaban->jawaban_id,
+		// 					'partisipan_kode_voucher' => $kode_voucher,
+		// 				]);
+		// 			}
+		// 		}
+		// 	}
+		// } elseif($data['partisipan_info']->kode_lomba == 'AccUniv' or $data['partisipan_info']->kode_lomba == 'AccSMA'){
+			// $daftar_soal = $this->request->getVar('soal'); 
+			// $jawaban = $this->request->getVar('jawaban');
 
-			foreach($daftar_soal as $soal){
-				$this->JAWABAN_PARTISIPAN->insert([
-					'soal_id' => $soal,
-					'jawaban_id' => $jawaban[$soal],
-					'partisipan_kode_voucher' => $kode_voucher,
-				]);
+			// foreach($daftar_soal as $soal){
+			// 	$this->JAWABAN_PARTISIPAN->insert([
+			// 		'soal_id' => $soal,
+			// 		'jawaban_id' => $jawaban[$soal],
+			// 		'partisipan_kode_voucher' => $kode_voucher,
+			// 	]);
+			// }
+		// } else {
+		// 	return 'asu';
+		// }
+
+		//=== UPDATE DATA JAWABAN ===//
+			$jawaban = $this->request->getVar('jawaban');
+			$jawaban_user_id = $this->request->getVar('jawaban_user_id');
+			foreach($jawaban_user_id as $id){
+				$this->JAWABAN_PARTISIPAN->update($id,['jawaban_id' => $jawaban[$id]]);
 			}
-		} else {
-			return 'asu';
-		}
+		//=== END UPDATE DATA JAWABAN ===//
+
+		//=== RESET JAWABAN USER ===//
+			$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+			session()->set(['jawaban_user' => $jawaban_user]);
+		//=== END RESET JAWABAN USER ===/
 
 		$this->PARTISIPAN_LOMBA->where(['kode_voucher' => $kode_voucher])->update(null, ['kuota_' . $segmen => 0]);
-		return redirect()->to(base_url('/lomba'));
+		//=== NAVIGASI ===//
+			$nav = $this->request->getVar('nav');
+			$step = $this->request->getVar('step');
+			if($nav == 'next'){
+				return redirect()->to(base_url('/lomba/prelim?step='.$step + 1));
+			} elseif($nav == 'prev') {
+				return redirect()->to(base_url('/lomba/prelim?step='.$step - 1));
+			} else {
+				return redirect()->to(base_url());
+			}
+		//=== END NAVIGASI ===//
 	}
+
+	public function kalkulasi(){
+		// Get Data User 
+		db()->table('nilai_acc_sma')->truncate();
+		$voucher_peserta = db()->query('SELECT DISTINCT partisipan_kode_voucher FROM jawaban_partisipan')->getResult();
+		foreach($voucher_peserta as $voucher){
+			// Init Nilai per user
+			$nilai = 0;
+			// Get id jawaban per user
+			$jawaban_peserta_id = db()->table('jawaban_partisipan')->select('jawaban_id')->where('partisipan_kode_voucher', $voucher->partisipan_kode_voucher)->get()->getResult();
+			$jawaban_peserta_id = array_map(function($e){ return $e->jawaban_id; }, $jawaban_peserta_id);
+			// Get Jawaban per user
+			$jawaban_peserta = db()->table('pilihan_jawaban')->whereIn('jawaban_id', $jawaban_peserta_id)->get()->getResult();
+			// Cek jawaban
+			foreach($jawaban_peserta as $jawaban){
+				if($jawaban->jawaban_kode == $jawaban->jawaban_kode_benar){
+					$nilai = $nilai + 2;
+				} elseif($jawaban->jawaban_kode == ''){
+					$nilai = $nilai + 0;
+				} else{
+					$nilai = $nilai -1;
+				}
+			}
+			// Insert jawaban
+			$partisipan = db()->table('partisipan_lomba')->where('kode_voucher', $voucher->partisipan_kode_voucher)->get()->getResult()[0];
+			$partisipan_id = $partisipan->partisipan_id;
+			$kode_lomba = $partisipan->kode_lomba;
+			// dd($partisipan_id);
+			if($kode_lomba == 'AccSMA') {
+				db()->table('nilai_acc_sma')->insert([
+					'partisipan_id' => $partisipan_id,
+					'prelim' => $nilai,
+				]);
+			}
+		}
+	}
+
 }

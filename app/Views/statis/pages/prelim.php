@@ -1,5 +1,7 @@
 <?= $this->extend('statis/layout/main')  ?>
 <?= $this->section('content') ?>
+
+    <?= form_open(base_url('/lomba/submit-jawaban/'.$partisipan_info->kode_voucher . '/' . $segmen)) ?>
     <div class="px-64 pt-16 sticky top-0 z-50">
         <div class="card font-bold bg-accent text-base-100 p-16 flex space-x-16 flex-row justify-between items-center">
             <div class="mr-auto">
@@ -18,58 +20,56 @@
             </div>
         </div>
     </div>
-    <?= form_open(base_url('/lomba/submit-jawaban/'.$partisipan_info->kode_voucher . '/' . $segmen)) ?>
-        <div class="text-base-100 px-64 py-16 flex flex-col space-y-16 max-w-1000">
-            <!-- Start Pilgan -->
-            <div class="card bg-accent p-16 space-y-8 font-bold">
-                Bagian I : Pilihan Ganda
-            </div>
-            <?php $no_pilgan = 1 ?>
-            <?php for($i=0 ; $i < 3; $i++) : ?>
 
-                <div class="card bg-neutral-100 p-16 space-y-8">
-                    <p><strong class="text-24"><?= $no_pilgan++ ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p><input type="hidden" name="soal[]" value="<?= $daftar_soal[$i]->soal_id ?>">
-                    <?php foreach($daftar_pilihan as $pilihan) : ?>
-                        <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
-                            <label class="ml-8 flex flex-row space-x-8 items-center">
-                                <input type="radio" name="jawaban[<?=$daftar_soal[$i]->soal_id?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_kode == null ? 'checked' : '' ?>>
-                                <span class=""><?= $pilihan->jawaban_teks ?></span>
-                            </label>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-            <?php endfor;?>
-            <!-- End Pilgan -->
-            <!-- Start B/S -->
-            <div class="card bg-accent p-16 space-y-8 font-bold">
-                Bagian II : Benar Salah
-            </div>
-            <?php $no_bs = 1?>
-            <?php for($i=$i; $i < 5; $i++) : ?>
-                <div class="card bg-neutral-100 p-16 space-y-8">
-                    <p><strong class="text-24"><?= $no_pilgan++ ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p><input type="hidden" name="soal[]" value="<?= $daftar_soal[$i]->soal_id ?>">
-                    <?php foreach($daftar_pilihan as $pilihan) : ?>
-                        <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
-                            <label class="ml-8 flex flex-row space-x-8 items-center">
-                                <input type="radio" name="jawaban[<?=$daftar_soal[$i]->soal_id?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_kode == null ? 'checked' : '' ?>>
-                                <span class=""><?= $pilihan->jawaban_teks ?></span>
-                            </label>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-            <?php endfor ?>
-            <!-- End B/S -->
+    <div class="text-base-100 px-64 py-16 flex flex-col space-y-16 max-w-1000">
+        <!-- Start Soal -->
+        <div class="card bg-accent p-16 space-y-8 font-bold">
+            <?php if($_GET['step'] == 9 || $_GET['step'] == 10 ) : ?>
+                Bagian II : Benar / Salah
+            <?php else :?>
+                Bagian I : Pilihan Ganda
+            <?php endif ?>
+            
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <?php $i = $_GET['step'] * 5 - 5; $max_i = $i + 5 ?>
+        <?php for($i ; $i < $max_i; $i++) : ?>
+
+            <div class="card bg-neutral-100 p-16 space-y-8">
+                <p><strong class="text-24"><?= $i + 1 ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p>
+                <?php foreach($daftar_pilihan as $pilihan) : ?>
+                    <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
+                        <label class="ml-8 flex flex-row space-x-8 items-center <?= $pilihan->jawaban_kode == '' ? 'hidden' : '' ?>">
+                            <input type="radio" name="jawaban[<?= $jawaban_user[$i]->jawaban_partisipan_id ?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_id == $jawaban_user[$i]->jawaban_id ? 'checked' : '' ?>>
+                            <span class=""><?= $pilihan->jawaban_teks ?></span>
+                        </label>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+            <input type="hidden" value="<?= $jawaban_user[$i]->jawaban_partisipan_id ?>" name="jawaban_user_id[]">
+        <?php endfor;?>
+        <!-- End Soal -->
+
+        <!-- Navigasi -->
+        <input type="hidden" value="<?= $_GET['step'] ?>" name="step">
+        <div class="flex justify-between">
+            <?php if($_GET['step'] != 1) : ?>
+                <input class="btn btn-accent" type="submit" value="prev" name="nav">
+            <?php endif ?>
+            <?php if($_GET['step'] != 10) : ?>
+                <input class="btn btn-accent" type="submit" value="next" name="nav">
+            <?php endif ?>
+        </div>
+    </div>
     </form>
     <script>
-// Set target : bulan 0-11
-let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();
+// === COUNT DOWN === //
+
+// let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();
+let countDownDate = new Date('<?= tanggal('finish-pre') ?>').getTime();
 // Adjustment time
 let serverTime = <?= time()*1000 ?>;
 let now = new Date().getTime();
 let diff = serverTime - now;
-
 
 // Update the count down every 1 second
 let x = setInterval(function() {
@@ -88,8 +88,7 @@ let x = setInterval(function() {
   let seconds = Math.floor((distance % (1000 * 60)) / 1000);
     
   // Output the result in an element with id="time"
-  document.getElementById("time").innerHTML = hours + "h "
-  + minutes + "m " + seconds + "s ";
+  document.getElementById("time").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
     
   // If the count down is over, write some text 
   if (distance < 0) {

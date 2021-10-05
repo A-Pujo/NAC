@@ -138,7 +138,7 @@
                         <label for="bukti_transfer">Upload Data</label>
                         <input type="file" id="bukti_transfer" @change="files = $event.target.files" name="bukti_transfer" />
                         <input type="hidden" value="<?= userinfo()->bukti_transfer ?>" name="old_bukti_transfer" />
-                        <span><?= initValidation()->getError('surat_pernyataan') ?? '' ?></span>
+                        <span><?= initValidation()->getError('bukti_transfer') ?? '' ?></span>
                     </div>
 
                     <button type="submit" class="btn btn-sm btn-primary">submit</button>
