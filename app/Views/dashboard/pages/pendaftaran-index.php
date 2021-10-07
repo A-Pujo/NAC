@@ -14,7 +14,7 @@ if(userinfo()->partisipan_jenis == 'AccUniv'){
         $jumlah_transfer = '90000';
     }
 } else{
-    if(date(userinfo()->partisipan_diupdate) <= date('2021-10-09 23:59:59')){
+    if(date(userinfo()->partisipan_diupdate) <= date('2021-10-06 23:59:59')){
         $jumlah_transfer = '50000';
     } else {
         $jumlah_transfer = '70000';

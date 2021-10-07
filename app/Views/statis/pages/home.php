@@ -185,4 +185,11 @@
         <img src="<?= base_url('img/pattern-1.png') ?>" alt="" srcset="" class="hidden lg:inline-block">
     </div>
 </div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    <?php if(session()->has('sudah_akses')) : ?>
+        swal("Ups!", "<?= session()->get('sudah_akses') ?>", "error");
+    <?php endif; ?>
+</script>
 <?= $this->endSection() ?>
