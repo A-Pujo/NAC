@@ -16,7 +16,7 @@
         </form>
     </div>
 
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
 // Set target : bulan 0-11
 let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();
@@ -54,5 +54,8 @@ let x = setInterval(function() {
   }
 }, 1000);
 
+<?php if(session()->has('error')) : ?>
+    swal("Halo!", "<?= session()->get('error') ?>", "info");
+<?php endif; ?>
 </script>
 <?= $this->endSection() ?>
