@@ -144,6 +144,12 @@ class Lomba extends BaseController
 			// kode segmen salah
 			return redirect()->to(base_url('lomba'));
 		}
+		
+		if($this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $kode_segmen[$segmen])){
+			session()->setFlashdata('error', 'Jawabanmu untuk segmen tersebut sudah terekam, silahkan tunggu kalkulasi nilai ya sobat.');
+			return redirect()->to(base_url('lomba'));
+		}
+
 		$segmen = $kode_segmen[$segmen];
 
 		// Get data partisipan
@@ -194,6 +200,24 @@ class Lomba extends BaseController
 			'data_partisipan' => $data_partisipan,
 			'jawaban_user' => $jawaban_user,
 		]);
+
+		// cookie ip address
+		if(!isset($_COOKIE['device_token'])){
+			$klaim_akses = db()->table('data_device_prelim')->where(['kode_voucher' => $voucher, 'segmen' => $segmen])
+							->get()->getResult();
+			if(empty($klaim_akses)){
+				db()->table('data_device_prelim')->insert(['kode_voucher' => $voucher, 'segmen' => $segmen, 'alamat_ip' => $_SERVER['REMOTE_ADDR']]);
+				setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
+			} else {
+				if($_SERVER['REMOTE_ADDR'] != $klaim_akses[0]->alamat_ip){
+					session()->setFlashdata('sudah_akses', 'Soal sedang diakses lewat device dengan alamat IP: ' . $_COOKIE['user_ip'] .'.');
+					return redirect()->to(base_url());
+				} else {
+					setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
+				}
+			}
+		}
+
 		return redirect()->to(base_url('/lomba/prelim?step=1'));
 	}
 
@@ -310,7 +334,6 @@ class Lomba extends BaseController
 			session()->set(['jawaban_user' => $jawaban_user]);
 		//=== END RESET JAWABAN USER ===/
 
-		$this->PARTISIPAN_LOMBA->where(['kode_voucher' => $kode_voucher])->update(null, ['kuota_' . $segmen => 0]);
 		//=== NAVIGASI ===//
 			$nav = $this->request->getVar('nav');
 			$step = $this->request->getVar('step');
@@ -319,6 +342,7 @@ class Lomba extends BaseController
 			} elseif($nav == 'prev') {
 				return redirect()->to(base_url('/lomba/prelim?step='.$step - 1));
 			} elseif($nav == 'finish') {
+				$this->PARTISIPAN_LOMBA->where(['kode_voucher' => $kode_voucher])->update(null, ['kuota_' . $segmen => 0]);
 				return redirect()->to(base_url());
 			} else {
 				return redirect()->to(base_url('/lomba/prelim?step='.ceil($nav/5)));
@@ -329,6 +353,7 @@ class Lomba extends BaseController
 	public function kalkulasi(){
 		// Get Data User 
 		db()->table('nilai_acc_sma')->truncate();
+		db()->table('nilai_acc_univ')->truncate();
 		$voucher_peserta = db()->query('SELECT DISTINCT partisipan_kode_voucher FROM jawaban_partisipan')->getResult();
 		foreach($voucher_peserta as $voucher){
 			// Init Nilai per user
@@ -358,8 +383,23 @@ class Lomba extends BaseController
 					'partisipan_id' => $partisipan_id,
 					'prelim' => $nilai,
 				]);
+			} else if($kode_lomba == 'AccUniv') {
+				db()->table('nilai_acc_univ')->insert([
+					'partisipan_id' => $partisipan_id,
+					'prelim' => $nilai,
+				]);
 			}
 		}
 	}
 
+	public function reviu_lju($kode_voucher = null){
+		if($kode_voucher == null or !$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
+			return redirect()->to('lomba');
+		}
+		
+		$data['voucher'] = $kode_voucher;
+		$data['record_jawaban'] = $this->JAWABAN_PARTISIPAN->getSingleJawabanPartisipan($kode_voucher);
+
+		return view('dashboard/pages/lomba/reviu-lju', $data);
+	}
 }
