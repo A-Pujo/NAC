@@ -27,6 +27,7 @@
                         ['Booklet', 'acc-sma-booklet'],
                         ['Pendaftaran', 'acc-sma-pendaftaran'],
                         ['Timeline', 'acc-sma-timeline'],
+                        ['Prelim', 'acc-sma-prelim'],
                     ]
                 ],
                 [
@@ -35,6 +36,7 @@
                         ['Booklet', 'acc-univ-booklet'],
                         ['Pendaftaran', 'acc-univ-pendaftaran'],
                         ['Timeline', 'acc-univ-timeline'],
+                        ['Prelim', 'acc-univ-prelim'],
                     ]
                 ],
                 [
@@ -72,9 +74,9 @@
             <ul x-data="{show : 
 
                 <?php 
-                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-booklet','acc-sma-pendaftaran','acc-sma-timeline'])){
+                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-booklet','acc-sma-pendaftaran','acc-sma-timeline', 'acc-sma-prelim'])){
                         echo 1;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-booklet','acc-univ-pendaftaran','acc-univ-timeline'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-booklet','acc-univ-pendaftaran','acc-univ-timeline', 'acc-univ-prelim'])) {
                         echo 2;
                     } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-booklet','cfp-pendaftaran','cfp-timeline'])) {
                         echo 3;

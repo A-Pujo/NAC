@@ -29,7 +29,7 @@ $nilai_video = [
     </div>
     <div class="card bg-neutral-100 w-min p-32 mt-24">
         <div class="card">
-            <iframe src="<?= $video ?>" frameborder="0" width="400px" height="300px" allowfullscreen></iframe><br>
+            <iframe src="<?= $video ?>" frameborder="0" width="400px" height="300px" allowfullscreen></iframe>
         </div>
     </div>
     <?php if($nilai_video[$index-1] == 0) : ?>

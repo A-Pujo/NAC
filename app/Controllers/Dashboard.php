@@ -49,10 +49,18 @@ class Dashboard extends BaseController
             $jenis_lomba = $this->request->getGet('lomba');
         }
 
+
         if($jenis_lomba == null or !in_array($jenis_lomba, ['AccUniv', 'AccSMA', 'CFP'])) {
             return redirect()->to(base_url('/dashboard'));
         } else {
             $data['jenis_lomba'] = $jenis_lomba;
+        }
+        if($jenis_lomba == 'AccUniv' && !(sekarang() < tanggal('close_acc_univ'))){
+            return redirect()->to(base_url('dashboard'));
+        } elseif($jenis_lomba == 'AccSMA' && !(sekarang() < tanggal('close_acc_sma'))){
+            return redirect()->to(base_url('dashboard'));
+        } elseif($jenis_lomba == 'CFP' && !(sekarang() < tanggal('close_abstrak'))){
+            return redirect()->to(base_url('dashboard'));
         }
         return view('dashboard/pages/pendaftaran', $data);
 	}

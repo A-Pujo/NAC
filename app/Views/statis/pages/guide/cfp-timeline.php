@@ -29,14 +29,14 @@
                 {
                     judul : 'Pengumpulan Full Paper gel 1',
                     jam : '',
-                    tanggal : '26-9',
+                    tanggal : '26-6',
                     bulan : 'Sept - Okt',
                     pos : 3,
                 }, 
                 {
                     judul : 'Pengumpulan Full Paper gel 2',
                     jam : '',
-                    tanggal : '10-16',
+                    tanggal : '7-16',
                     bulan : 'Okt',
                     pos : 4,
                 }, 

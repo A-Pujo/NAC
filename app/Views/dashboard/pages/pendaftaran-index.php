@@ -53,14 +53,24 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">Accounting Challenge for High School</h3>
                 <p class="mt-8 text-16">Accounting Challenge for High School merupakan kompetisi yang ditujukan kepada siswa/i SMA/SMK/MA/sederajat di seluruh Indonesia yang memiliki minat di bidang akuntansi. Dalam kompetisi ini peserta dapat mengembangkan serta mengimplementasikan ilmu dan pengetahuan yang mereka miliki di bidang akuntasi.</p>
-                <a href="<?= base_url('dashboard/pendaftaran?lomba=AccSMA') ?>" class="btn btn-primary mt-16">Daftar</a>
-                <a href="<?= base_url('guide?halaman=acc-sma-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <?php if(sekarang() < tanggal('close_acc_sma')) : ?>
+                    <a href="<?= base_url('dashboard/pendaftaran?lomba=AccSMA') ?>" class="btn btn-primary mt-16">Daftar</a>
+                    <a href="<?= base_url('guide?halaman=acc-sma-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <?php else : ?>
+                    <div class="h-px w-full bg-primary-60"></div>
+                    <p class="mt-4 text-16">Pendaftaran Accounting for High School telah ditutup.</p>
+                <?php endif ?>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">Accounting Challenge for University</h3>
                 <p class="mt-8 text-16">Accounting Challenge for University merupakan kompetisi yang ditujukan kepada mahasiswa/i perguruan tinggi di seluruh Indonesia yang memiliki minat di bidang akuntansi. Dalam kompetisi ini peserta dapat mengembangkan serta mengimplementasikan ilmu dan pengetahuan yang mereka miliki di bidang akuntansi.</p>
-                <a href="<?= base_url('dashboard/pendaftaran?lomba=AccUniv') ?>" class="btn btn-primary mt-16">Daftar</a>
-                <a href="<?= base_url('guide?halaman=acc-univ-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <?php if(sekarang() < tanggal('close_acc_univ')) : ?>
+                    <a href="<?= base_url('dashboard/pendaftaran?lomba=AccUniv') ?>" class="btn btn-primary mt-16">Daftar</a>
+                    <a href="<?= base_url('guide?halaman=acc-univ-booklet') ?>" class="btn btn-primary btn-outline mt-16 ml-16">Informasi</a>
+                <?php else : ?>
+                    <div class="h-px w-full bg-primary-60"></div>
+                    <p class="mt-4 text-16">Pendaftaran Accounting for University telah ditutup.</p>
+                <?php endif ?>
             </div>
             <div class="col-span-12 lg:col-span-4 rounded-md bg-neutral-100 p-24 mt-24">
                 <h3 class="font-bold text-16">NAC Call For Paper</h3>

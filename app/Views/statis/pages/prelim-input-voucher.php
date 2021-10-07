@@ -1,25 +1,26 @@
 <?= $this->extend('statis/layout/main')  ?>
 <?= $this->section('content') ?>
-
+<div class="p-24">
+    <div id="info" class="text-base-100 my-8 card border border-4 border-neutral-60 p-16 flex items-center justify-start flex-row space-x-4">
+        <span>Waktu pengerjaan soal akan dimulai dalam</span> <span id="time"></span>
+    </div>
     <div class="p-24 text-base-100">
         <form action="<?= base_url('/lomba/get-soal-all') ?>" method="get">
-            <!-- <input type="text" name="kode_voucher">
-            <button type="submit">join</button> -->
-
             <div class="form-control">
                 <label class="label">
-                    <span class="label-text">Kode Voucher</span>
+                    <span class="label-text  text-base-100">Kode Voucher</span>
                 </label> 
                 <input name="voucher" type="text" placeholder="contoh : coifhuy" class="bg-neutral-200 border border-neutral-60 focus:border-primary-100 rounded-md p-8 text-base-100 text-12">
             </div>
             <button class="btn btn-primary btn-sm mt-8">Mulai</button>
         </form>
     </div>
+</div>
 
 
     <script>
 // Set target : bulan 0-11
-let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();
+let countDownDate = new Date('<?= tanggal('start-pre') ?>').getTime();
 // Adjustment time
 let serverTime = <?= time()*1000 ?>;
 let now = new Date().getTime();
@@ -50,7 +51,7 @@ let x = setInterval(function() {
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("time").innerHTML = "WAKTU HABIS";
-    document.getElementById("submit").innerHTML = "";
+    document.getElementById("info-time").innerHTML = "";
   }
 }, 1000);
 

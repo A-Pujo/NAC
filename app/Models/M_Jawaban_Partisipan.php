@@ -21,6 +21,10 @@ class M_Jawaban_Partisipan extends Model
     function getSingleJawabanPartisipan($kode_voucher){
         return $this->join('soal', 'soal.soal_id = jawaban_partisipan.soal_id')->join('pilihan_jawaban', 'pilihan_jawaban.jawaban_id = jawaban_partisipan.jawaban_id')->where(['partisipan_kode_voucher' => $kode_voucher])->findAll();
     }
+
+    function getJawabanUser($kode_voucher, $segmen){
+        return $this->join('pilihan_jawaban', 'pilihan_jawaban.jawaban_id = jawaban_partisipan.jawaban_id')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+    }
 }
 
 ?>

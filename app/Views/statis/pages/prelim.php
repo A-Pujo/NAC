@@ -16,48 +16,71 @@
                 <span id="time"></span>
             </div>
             <div id="submit">
-                <button class="btn btn-primary">Submit</button>
+                <input type="submit" name="nav" value="finish" class="btn btn-primary btn-sm">
             </div>
         </div>
     </div>
 
-    <div class="text-base-100 px-64 py-16 flex flex-col space-y-16 max-w-1000">
+    <div class="text-base-100 px-64 pt-16 pb-96 flex flex-row items-start space-x-16">
         <!-- Start Soal -->
-        <div class="card bg-accent p-16 space-y-8 font-bold">
-            <?php if($_GET['step'] == 9 || $_GET['step'] == 10 ) : ?>
-                Bagian II : Benar / Salah
-            <?php else :?>
-                Bagian I : Pilihan Ganda
-            <?php endif ?>
-            
-        </div>
-        <?php $i = $_GET['step'] * 5 - 5; $max_i = $i + 5 ?>
-        <?php for($i ; $i < $max_i; $i++) : ?>
-
-            <div class="card bg-neutral-100 p-16 space-y-8">
-                <p><strong class="text-24"><?= $i + 1 ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p>
-                <?php foreach($daftar_pilihan as $pilihan) : ?>
-                    <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
-                        <label class="ml-8 flex flex-row space-x-8 items-center <?= $pilihan->jawaban_kode == '' ? 'hidden' : '' ?>">
-                            <input type="radio" name="jawaban[<?= $jawaban_user[$i]->jawaban_partisipan_id ?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_id == $jawaban_user[$i]->jawaban_id ? 'checked' : '' ?>>
-                            <span class=""><?= $pilihan->jawaban_teks ?></span>
-                        </label>
-                    <?php endif; ?>
-                <?php endforeach; ?>
+        <div class=" flex flex-col space-y-16 flex-grow">
+            <div class="card bg-accent p-16 space-y-8 font-bold">
+                <?php if($_GET['step'] == 9 || $_GET['step'] == 10 ) : ?>
+                    Bagian II : Benar / Salah
+                <?php else :?>
+                    Bagian I : Pilihan Ganda
+                <?php endif ?>
+                
             </div>
-            <input type="hidden" value="<?= $jawaban_user[$i]->jawaban_partisipan_id ?>" name="jawaban_user_id[]">
-        <?php endfor;?>
-        <!-- End Soal -->
-
-        <!-- Navigasi -->
-        <input type="hidden" value="<?= $_GET['step'] ?>" name="step">
-        <div class="flex justify-between">
-            <?php if($_GET['step'] != 1) : ?>
-                <input class="btn btn-accent" type="submit" value="prev" name="nav">
-            <?php endif ?>
-            <?php if($_GET['step'] != 10) : ?>
-                <input class="btn btn-accent" type="submit" value="next" name="nav">
-            <?php endif ?>
+            <?php $i = $_GET['step'] * 5 - 5; $max_i = $i + 5 ?>
+            <?php for($i ; $i < $max_i; $i++) : ?>
+    
+                <div class="card bg-neutral-100 p-16 space-y-8">
+                    <p><strong class="text-24"><?= $i + 1 ?></strong> <?= $daftar_soal[$i]->soal_teks ?>?</p>
+                    <?php foreach($daftar_pilihan as $pilihan) : ?>
+                        <?php if($pilihan->soal_id == $daftar_soal[$i]->soal_id) : ?>
+                            <label class="ml-8 flex flex-row space-x-8 items-center <?= $pilihan->jawaban_kode == '' ? 'hidden' : '' ?>">
+                                <input type="radio" name="jawaban[<?= $jawaban_user[$i]->jawaban_partisipan_id ?>]" class="radio radio-primary flex-shrink-0" value="<?= $pilihan->jawaban_id ?>" <?= $pilihan->jawaban_id == $jawaban_user[$i]->jawaban_id ? 'checked' : '' ?>>
+                                <span class=""><?= $pilihan->jawaban_teks ?></span>
+                            </label>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+                <input type="hidden" value="<?= $jawaban_user[$i]->jawaban_partisipan_id ?>" name="jawaban_user_id[]">
+            <?php endfor;?>
+            <!-- End Soal -->
+    
+            <!-- Navigasi -->
+            <input type="hidden" value="<?= $_GET['step'] ?>" name="step">
+            <div class="flex justify-between">
+                <?php if($_GET['step'] != 1) : ?>
+                    <input class="btn btn-accent" type="submit" value="prev" name="nav">
+                <?php endif ?>
+                <?php if($_GET['step'] != 10) : ?>
+                    <input class="btn btn-accent" type="submit" value="next" name="nav">
+                <?php endif ?>
+            </div>
+        </div>
+        <div class="card bg-accent p-16  sticky top-96 z-40 hidden md:block">
+            <div class="grid grid-cols-5 grid-flow-row gap-8">
+                <?php for($j=0; $j<50; $j++): ?>
+                <input 
+                    class="btn btn-primary btn-xs h-32 w-32 <?= !$jawaban_user[$j]->jawaban_kode ? 'btn-outline' : '' ?>"
+                    type="submit"
+                    name="nav"
+                    value="<?= $j + 1?>"
+                >
+                    
+                <?php endfor ?>
+            </div>
+            <div class="mt-8 space-y-4">
+                <div>
+                    <span class="btn btn-primary btn-xs h-32 w-32">#</span> : Jawaban terisi
+                </div>
+                <div>
+                    <span class="btn btn-primary btn-xs h-32 w-32 btn-outline">#</span> : Jawaban kosong
+                </div>
+            </div>
         </div>
     </div>
     </form>

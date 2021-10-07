@@ -31,7 +31,7 @@ class Lomba extends BaseController
 			'judul' => 'Perlombaan NAC 2021',
             'halaman' => 'lomba',
 		];
-		return view('dashboard/pages/lomba/index', $data);
+		return view('dashboard/pages/lomba/index-sma', $data);
 	}
 
 	public function pengajuan_lomba(){
@@ -110,6 +110,22 @@ class Lomba extends BaseController
 	// }
 
 	public function get_soal_all(){
+		if(sekarang() < tanggal('start-pre') || sekarang() > tanggal('finish-pre')){
+			return redirect()->to(base_url('lomba'));
+		}
+
+		// if(!isset($_COOKIE('rahasia'))){ // cek apakah device A punya cokies rahasia
+		// 	// tidak punya cokies (belum pernah akses sebelumnya)
+		// 	$soal_pernah_diakses = db()->table ..... // kembalikan udah ada device yang pernah atau belum
+		// 	if($soal_pernah_diakses == true){ // db : udah pernah diakses
+		// 		// udah ada yang akses, tolak device ini
+		// 		return redirect()
+		// 	} else {
+		// 		// belum ada yang akses samsek
+		// 		db()->table()->insert ... // simpan data klo device A yang akses
+		// 		setcokies() // set cokies user A, biar dia biar dia bisa akses soal
+		// 	}
+		// }
 		$voucher = $this->request->getVar('voucher');
 		if(strlen($voucher) != 10){
 			//jumlah karakter voucher salah
@@ -143,7 +159,8 @@ class Lomba extends BaseController
 		$pilihan_jawaban = $this->JAWABAN->whereIn('soal_id', $soal_id)->get()->getResult();
 
 		// Jawaban User
-		$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+		// $jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+		$jawaban_user = $this->JAWABAN_PARTISIPAN->getJawabanUser($kode_voucher, $segmen);
 		
 		//=== USER PERTAMA AKSES SOAL : Isi db dengan data 'kosong' atau 'tidak menjawab' ===//
 			if(!$jawaban_user) {
@@ -170,13 +187,6 @@ class Lomba extends BaseController
 			}
 		//=== END USER PERTAMA AKSES SOAL ===//
 
-		// === OLD === //
-			// $data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
-			// $data['daftar_pilihan'] = $this->JAWABAN->findAll();
-			// $data['segmen'] = $segmen;
-			// return view('statis/pages/prelim', $data);
-		// === OLD === //
-
 		session()->set([
 			'soal' => $soal,
 			'jawaban' => $pilihan_jawaban,
@@ -188,9 +198,10 @@ class Lomba extends BaseController
 	}
 
 	public function prelim(){
+		if(sekarang() < tanggal('start-pre') || sekarang() > tanggal('finish-pre')){
+			return redirect()->to(base_url('lomba'));
+		}
 		$step = $_GET['step']; // paginasi
-		// $soal_all = session()->get('soal'); // data seluruh soal sesuai segmen
-		// $soal_show = array_chunk($soal_all, 5)[$step - 1]; // soal per page
 		$data = [
 			'partisipan_info' => session()->get('data_partisipan'), // data tim user
 			// 'daftar_soal' => $soal_show,
@@ -203,8 +214,6 @@ class Lomba extends BaseController
 			],
 			'jawaban_user' => session()->get('jawaban_user'),
 		];
-		// var_dump($data['partisipan_info']); die();
-		// var_dump($data['daftar_soal']); die();
 		return view('/statis/pages/prelim', $data);
 	}
 
@@ -297,7 +306,7 @@ class Lomba extends BaseController
 		//=== END UPDATE DATA JAWABAN ===//
 
 		//=== RESET JAWABAN USER ===//
-			$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+			$jawaban_user = $this->JAWABAN_PARTISIPAN->getJawabanUser($kode_voucher, $segmen);
 			session()->set(['jawaban_user' => $jawaban_user]);
 		//=== END RESET JAWABAN USER ===/
 
@@ -309,8 +318,10 @@ class Lomba extends BaseController
 				return redirect()->to(base_url('/lomba/prelim?step='.$step + 1));
 			} elseif($nav == 'prev') {
 				return redirect()->to(base_url('/lomba/prelim?step='.$step - 1));
-			} else {
+			} elseif($nav == 'finish') {
 				return redirect()->to(base_url());
+			} else {
+				return redirect()->to(base_url('/lomba/prelim?step='.ceil($nav/5)));
 			}
 		//=== END NAVIGASI ===//
 	}
