@@ -31,7 +31,12 @@ class Lomba extends BaseController
 			'judul' => 'Perlombaan NAC 2021',
             'halaman' => 'lomba',
 		];
-		return view('dashboard/pages/lomba/index-sma', $data);
+		$lomba = userinfo()->partisipan_jenis;
+		if($lomba == 'AccSMA'){
+			return view('dashboard/pages/lomba/lomba-index-sma', $data);
+		} elseif($lomba == 'AccUniv') {
+			return view('dashboard/pages/lomba/lomba-index-univ', $data);
+		}
 	}
 
 	public function pengajuan_lomba(){
@@ -66,70 +71,16 @@ class Lomba extends BaseController
 		return redirect()->to(base_url('/lomba/dashboard'));
 	}
 
-	// Cek kode voucher
-	// public function starting_page($kode_voucher = null){
-
-	// 	$kode_voucher = $this->request->getGet('kode_voucher') ? $this->request->getGet('kode_voucher') : $kode_voucher;
-
-	// 	if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $kode_voucher == null){
-	// 		return redirect()->to(base_url('/lomba'));
-	// 	}
-	// 	$data = [
-	// 		'partisipan_info' => $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher),
-	// 		'kode_voucher' => $kode_voucher,
-	// 		'daftar_lomba' => [
-	// 			'AuditUniv' => 'Lomba Audit Universitas',
-	// 			'AccUniv' => 'Lomba Akuntansi Universitas',
-	// 			'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
-	// 		],
-	// 	];
-	// 	return view('/test/lomba-partisipan-info', $data);
-	// }
-
-	// Prelim
-	// public function percobaan_lomba($kode_voucher, $segmen = 1){
-	// 	if(! in_array($segmen, [1,2,3])){
-	// 		return redirect()->to(base_url('lomba'));
-	// 	}
-		
-	// 	if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher) or $this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $segmen)){
-	// 		return redirect()->to(base_url('dashboard'));
-	// 	}
-		
-	// 	$data['partisipan_info'] = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
-	// 	$data['daftar_lomba'] =  [
-	// 		'AuditUniv' => 'Lomba Audit Universitas',
-	// 		'AccUniv' => 'Lomba Akuntansi Universitas',
-	// 		'AccSMA' => 'Lomba Akuntansi Tingkat SMA',
-	// 	];
-	// 	$data['daftar_soal' ] = $this->SOAL->getSoal($data['partisipan_info']->kode_lomba, ($segmen - 1) * 50);
-	// 	$data['daftar_pilihan'] = $this->JAWABAN->findAll();
-	// 	$data['segmen'] = $segmen;
-		
-	// 	return view('statis/pages/prelim', $data);
-	// }
-
 	public function get_soal_all(){
-		if(sekarang() < tanggal('start-pre') || sekarang() > tanggal('finish-pre')){
-			session()->setFlashdata('pesan', 'Preliminary Round dapat diakses pada '.tanggal('start-pre')." hingga ".tanggal('finish-pre'));
+		if(sekarang() < tanggal('start_pre') || sekarang() > tanggal('finish_pre')){
+			session()->setFlashdata('pesan', 'Preliminary Round dapat diakses pada '.tanggal('start_pre')." hingga ".tanggal('finish_pre'));
 			return redirect()->to(base_url('lomba'));
 		}
 
-		// if(!isset($_COOKIE('rahasia'))){ // cek apakah device A punya cokies rahasia
-		// 	// tidak punya cokies (belum pernah akses sebelumnya)
-		// 	$soal_pernah_diakses = db()->table ..... // kembalikan udah ada device yang pernah atau belum
-		// 	if($soal_pernah_diakses == true){ // db : udah pernah diakses
-		// 		// udah ada yang akses, tolak device ini
-		// 		return redirect()
-		// 	} else {
-		// 		// belum ada yang akses samsek
-		// 		db()->table()->insert ... // simpan data klo device A yang akses
-		// 		setcokies() // set cokies user A, biar dia biar dia bisa akses soal
-		// 	}
-		// }
 		$voucher = $this->request->getVar('voucher');
 		if(strlen($voucher) != 10){
 			//jumlah karakter voucher salah
+			session()->setFlashdata('pesan', 'Voucher tidak valid');
 			return redirect()->to(base_url('lomba'));
 		}
 		// kode voucher : string
@@ -143,20 +94,40 @@ class Lomba extends BaseController
 		];
 		if(!array_key_exists($segmen, $kode_segmen)){
 			// kode segmen salah
+			session()->setFlashdata('pesan', 'Voucher tidak valid');
 			return redirect()->to(base_url('lomba'));
 		}
-		
-		if($this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $kode_segmen[$segmen])){
-			session()->setFlashdata('error', 'Jawabanmu untuk segmen tersebut sudah terekam, silahkan tunggu kalkulasi nilai ya sobat.');
-			return redirect()->to(base_url('lomba'));
+
+		// Cek apakah soal telah diakses oleh device tertentu
+		if(!isset($_COOKIE['device_token'])){
+			$klaim_akses = db()->table('data_device_prelim')->where(['kode_voucher' => $voucher, 'segmen' => $segmen])
+							->get()->getResult();
+			if(empty($klaim_akses)){
+				db()->table('data_device_prelim')->insert(['kode_voucher' => $voucher, 'segmen' => $segmen, 'alamat_ip' => $_SERVER['REMOTE_ADDR']]);
+				setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
+			} else {
+				if($_SERVER['REMOTE_ADDR'] != $klaim_akses[0]->alamat_ip){
+					session()->setFlashdata('sudah_akses', 'Soal sedang diakses lewat device dengan alamat IP: ' . $_COOKIE['user_ip'] .'.');
+					return redirect()->to(base_url());
+				} else {
+					setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
+				}
+			}
 		}
+
+
 
 		$segmen = $kode_segmen[$segmen];
-
 		// Get data partisipan
 		$data_partisipan = $this->PARTISIPAN_LOMBA->getPartisipanInfo($kode_voucher);
 		if(!$data_partisipan){
 			// kode_voucher tidak ada di db
+			session()->setFlashdata('pesan', 'Voucher tidak valid');
+			return redirect()->to(base_url('lomba'));
+		}
+		// Udah submit
+		if($this->PARTISIPAN_LOMBA->isPercobaanHabis($kode_voucher, $segmen)){
+			session()->setFlashdata('pesan', 'Jawaban Anda telah tersimpan, silahkan tunggu pengumuman nilai ya sobat.');
 			return redirect()->to(base_url('lomba'));
 		}
 
@@ -193,7 +164,7 @@ class Lomba extends BaseController
 				$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
 			}
 		//=== END USER PERTAMA AKSES SOAL ===//
-
+			// dd($jawaban_user);
 		session()->set([
 			'soal' => $soal,
 			'jawaban' => $pilihan_jawaban,
@@ -202,28 +173,12 @@ class Lomba extends BaseController
 			'jawaban_user' => $jawaban_user,
 		]);
 
-		// cookie ip address
-		if(!isset($_COOKIE['device_token'])){
-			$klaim_akses = db()->table('data_device_prelim')->where(['kode_voucher' => $voucher, 'segmen' => $segmen])
-							->get()->getResult();
-			if(empty($klaim_akses)){
-				db()->table('data_device_prelim')->insert(['kode_voucher' => $voucher, 'segmen' => $segmen, 'alamat_ip' => $_SERVER['REMOTE_ADDR']]);
-				setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
-			} else {
-				if($_SERVER['REMOTE_ADDR'] != $klaim_akses[0]->alamat_ip){
-					session()->setFlashdata('sudah_akses', 'Soal sedang diakses lewat device dengan alamat IP: ' . $_COOKIE['user_ip'] .'.');
-					return redirect()->to(base_url());
-				} else {
-					setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
-				}
-			}
-		}
-
 		return redirect()->to(base_url('/lomba/prelim?step=1'));
 	}
 
 	public function prelim(){
-		if(sekarang() < tanggal('start-pre') || sekarang() > tanggal('finish-pre')){
+		if(sekarang() < tanggal('start_pre') || sekarang() > tanggal('finish_pre')){
+			session()->setFlashdata('pesan', 'Waktu pengerjaan Preliminary Round telah habis');
 			return redirect()->to(base_url('lomba'));
 		}
 		$step = $_GET['step']; // paginasi
@@ -244,6 +199,9 @@ class Lomba extends BaseController
 
 	// Jawaban prelim
 	public function submit_jawaban($kode_voucher, $segmen){
+		if(sekarang() < tanggal('start_pre') || sekarang() > tanggal('finish_pre')){
+			return redirect()->to(base_url('lomba'));
+		}
 		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
 			return redirect()->to(base_url('/lomba/pengajuan-lomba'));
 		}

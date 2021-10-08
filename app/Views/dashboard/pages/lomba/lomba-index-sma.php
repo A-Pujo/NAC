@@ -2,18 +2,6 @@
 
 <?= $this->section('content') ?>
 <?php $data_nilai = null?>
-
-<!-- cek kondisi semua kuota == 0 -->
-<?php 
-    $user_lomba = db()->table('partisipan_lomba')
-                ->where('partisipan_id', userinfo()->partisipan_id)->get()->getRow();
-    // dd($user_lomba);
-
-    $kuota_habis_semua = false;
-    if($user_lomba->kuota_1 == 0 and $user_lomba->kuota_2 == 0 and $user_lomba->kuota_3 == 0){
-        $kuota_habis_semua = true;
-    }
-?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
 
@@ -57,11 +45,6 @@
             </tr>
         </table>
     </div>
-    <?php
-
-                    use function PHPUnit\Framework\isNull;
-
-if(userinfo()->partisipan_jenis != 'CFP') : ?>
     <div class="card col-span-12 p-24 bg-neutral-100">
         <?php 
             $data = db()->table('partisipan_lomba')
@@ -73,17 +56,6 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
             $kode_segmen = ['qw', 'as', 'zx'];
             if($voucher) :
         ?>
-            <?php 
-            
-            if($data->partisipan_jenis == 'AccSMA'){
-                $data_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', $data->partisipan_id)->get()->getResult();
-                if($data_nilai){ $data_nilai = $data_nilai[0]; }
-            } else {
-                $data_nilai = db()->table('nilai_acc_univ')->where('partisipan_id', $data->partisipan_id)->get()->getResult();
-                if($data_nilai){ $data_nilai = $data_nilai[0]; }
-            }
-            
-            ?>
             <span>Voucher untuk pengerjaan soal Preliminary Round tim Anda adalah 
                     <?php foreach($kode_segmen as $segmen) : ?>
                     <?= $voucher.$segmen ?>
@@ -111,7 +83,6 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
         <?php endif?>
 
     </div>
-    <?php endif?>
     <div class="col-span-12 ">
         <table class="tabel">
             <thead>
@@ -119,9 +90,6 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
                     <th>#</th>
                     <th>Tahap</th>
                     <th>Tanggal Pelaksanaan</th>
-                    <?php if($kuota_habis_semua) : ?>
-                    <th>Rekap Jawaban</th>
-                    <?php endif; ?>
                     <th>Nilai</th>
                 </tr>
             </thead>
@@ -129,10 +97,7 @@ if(userinfo()->partisipan_jenis != 'CFP') : ?>
                 <tr>
                     <td>1</td>
                     <td>Simulasi Preliminary Round</td>
-                    <td><?= tanggal('start-pre') ?></td>
-                    <?php if($kuota_habis_semua) : ?>
-                    <td><a href="<?= base_url('lomba/reviu-lju/' . $voucher) ?>" target="_blank">cek di sini</a></td>
-                    <?php endif; ?>
+                    <td><?= tanggal('start_pre') ?></td>
                     <td><?= $data_nilai != null ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
                 </tr>
             </tbody>

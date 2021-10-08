@@ -13,7 +13,7 @@
                 <td><?= userinfo()->nama_tim ?></td>
             </tr>
             <tr>
-                <td>Nama Sekolah</td>
+                <td>Nama Perguruan Tinggi</td>
                 <td>:</td>
                 <td><?= userinfo()->pt ?></td>
             </tr>
@@ -35,8 +35,7 @@
             <tr>
                 <td>Jenis Lomba</td>
                 <td>:</td>
-                <td>Accounting for High School</td>
-                <!-- <td><?= userinfo()->partisipan_jenis == 'AccSMA' ? 'Accounting for High School' : (userinfo()->partisipan_jenis == 'AccUniv'  ? 'Accounting for University' : 'Call for Paper') ?></td> -->
+                <td>Accounting for University</td>
             </tr>
             <tr>
                 <td>Nomor Whatsapp</td>
@@ -46,7 +45,7 @@
         </table>
     </div>
     <div class="card col-span-12 p-24 bg-neutral-100">
-        <?php 
+    <?php 
             $data = db()->table('partisipan_lomba')
                         ->join('data_partisipan', 'data_partisipan.partisipan_id=partisipan_lomba.partisipan_id ')
                         ->where('user_id', userinfo()->id)
@@ -56,16 +55,6 @@
             $kode_segmen = ['qw', 'as', 'zx'];
             if($voucher) :
         ?>
-            <?php 
-            
-            // if($data->partisipan_jenis == 'AccSMA'){
-            //     $data_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', $data->partisipan_id)->get()->getResult();
-            //     if($data_nilai){ $data_nilai = $data_nilai[0]; }
-            // } else {
-
-            // }
-            
-            ?>
             <span>Voucher untuk pengerjaan soal Preliminary Round tim Anda adalah 
                     <?php foreach($kode_segmen as $segmen) : ?>
                     <?= $voucher.$segmen ?>
@@ -107,7 +96,7 @@
                 <tr>
                     <td>1</td>
                     <td>Simulasi Preliminary Round</td>
-                    <td><?= tanggal('start-pre') ?></td>
+                    <td><?= tanggal('start_pre') ?></td>
                     <td><?= $data_nilai != null ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
                 </tr>
             </tbody>

@@ -7,8 +7,12 @@
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
-                    </svg> 
-                    <label>Waktu pengerjaan soal akan dimulai dalam</span> <span id="time" class="btn btn-xs btn-primary"></label>
+                    </svg>
+                    <?php if(sekarang() < tanggal('start_pre')) : ?>
+                        <label>Waktu pengerjaan soal akan dimulai dalam</span> <span id="time" class="btn btn-xs btn-primary"></label>
+                        <?php else :?>
+                        <label>Waktu pengerjaan soal akan tesisa</span> <span id="time" class="btn btn-xs btn-primary"></label>
+                    <?php endif?>
                 </div>
                 <svg
                     @click="active = false"
@@ -16,20 +20,21 @@
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
         </div>
+        <!-- FLash Data -->
         <?php if(session()->getFlashData('pesan')): ?>
-        <div class="alert alert-info" x-data="{active: true}" x-show="active">
-            <div class="flex-1">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
-                </svg> 
-                <label><?= session()->getFlashData('pesan') ?></label>
+            <div class="alert alert-error" x-data="{active: true}" x-show="active">
+                <div class="flex-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">    
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>                      
+                    </svg> 
+                    <label><?= session()->getFlashData('pesan') ?></label>
+                </div>
+                <svg
+                    @click="active = false"
+                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
             </div>
-            <svg
-                @click="active = false"
-                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-        </div>
         <?php endif ?>
     </div>
     <div class="p-24 text-base-100">
@@ -45,10 +50,12 @@
     </div>
 </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-// Set target : bulan 0-11
-let countDownDate = new Date('<?= tanggal('start-pre') ?>').getTime();
+<?php if(sekarang() < tanggal('start_pre')) : ?>
+    let countDownDate = new Date('<?= tanggal('start_pre') ?>').getTime();
+<?php else :?>
+    let countDownDate = new Date('<?= tanggal('finish_pre') ?>').getTime();
+<?php endif?>
 // Adjustment time
 let serverTime = <?= time()*1000 ?>;
 let now = new Date().getTime();
@@ -82,9 +89,5 @@ let x = setInterval(function() {
     document.getElementById("info-time").innerHTML = "";
   }
 }, 1000);
-
-<?php if(session()->has('error')) : ?>
-    swal("Halo!", "<?= session()->get('error') ?>", "info");
-<?php endif; ?>
 </script>
 <?= $this->endSection() ?>

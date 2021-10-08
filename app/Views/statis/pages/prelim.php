@@ -88,7 +88,7 @@
 // === COUNT DOWN === //
 
 // let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();
-let countDownDate = new Date('<?= tanggal('finish-pre') ?>').getTime();
+let countDownDate = new Date('<?= tanggal('finish_pre') ?>').getTime();
 // Adjustment time
 let serverTime = <?= time()*1000 ?>;
 let now = new Date().getTime();
