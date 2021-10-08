@@ -28,8 +28,8 @@
                 <ul class="text-base-100 text-16 space-y-16 flex flex-col items-center">
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/guide') ?>">Panduan</a></li>
-                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="">Pengumuman</a></li>
-                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="">Preliminary Round</a></li>
+                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/pengumuman') ?>">Pengumuman</a></li>
+                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/lomba') ?>">Preliminary Round</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/dashboard') ?>">Dashboard</a></li>
                 </ul>
             </div>

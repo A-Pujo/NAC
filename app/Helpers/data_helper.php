@@ -14,13 +14,13 @@ function tanggal($aksi){
         'pengumuman_course' => '2021-10-09 08:00', //pengumuman kelulusan course
 
         // pengumuman
-        'acc-sma-pre' => '2021-10-10 12:00', // kelulusan pre el
-        'acc-univ-pre' => '2021-10-10 12:00', // kelulusan pre el
+        'acc-sma-pre' => '2021-10-12 10:00', // kelulusan pre el
+        'acc-univ-pre' => '2021-10-12 10:00', // kelulusan pre el
         'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
 
         // tahap prelim
-        'start_pre' => '2021-10-07 14:00', // start pengerjaan soal
-        'finish_pre' => '2021-10-10 17:00', // start pengerjaan soal
+        'start_pre' => '2021-10-10 09:30', // start pengerjaan soal
+        'finish_pre' => '2021-10-10 10:30', // finish pengerjaan soal
 
         '' => '2021-01-01 00:00',
     ];
