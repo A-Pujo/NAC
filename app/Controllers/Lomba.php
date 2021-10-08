@@ -27,6 +27,10 @@ class Lomba extends BaseController
 
 	// dashboard perlombaan
 	public function dashboard(){
+		if(!isLoggedIn()){
+			return redirect()->to(base_url('dashboard'));
+		}
+
 		$data=[
 			'judul' => 'Perlombaan NAC 2021',
             'halaman' => 'lomba',
