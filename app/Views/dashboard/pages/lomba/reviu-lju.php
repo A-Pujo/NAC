@@ -10,6 +10,20 @@
 <body>
     <div class="container py-5">
         <h4 class="text-center">Lembar Reviu LJU - Kode Voucher: <b><?= $voucher ?></b></h4>
+        <div class="container my-3">
+            <div class="row my-3">
+                <div class="col-3 text-center"><b>Nilai Total</b></div>
+                <div class="col-3 text-center">Nilai segmen 1</div>
+                <div class="col-3 text-center">Nilai segmen 2</div>
+                <div class="col-3 text-center">Nilai segmen 3</div>
+            </div>
+            <div class="row my-3">
+                <div class="col-3 text-center"><?= $nilai->segmen_1 + $nilai->segmen_2 + $nilai->segmen_3 ?></div>
+                <div class="col-3 text-center"><?= $nilai->segmen_1 ?></div>
+                <div class="col-3 text-center"><?= $nilai->segmen_2 ?></div>
+                <div class="col-3 text-center"><?= $nilai->segmen_3 ?></div>
+            </div>
+        </div>
         <div class="container p-4">
             <?php if(empty($record_jawaban)) : ?>
                 <div class="container mx-auto text-center">

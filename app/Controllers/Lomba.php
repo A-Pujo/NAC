@@ -355,7 +355,70 @@ class Lomba extends BaseController
 		if($kode_voucher == null or !$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
 			return redirect()->to('lomba');
 		}
+
+		$record_nilai = null;
+		// cek jenis lomba sudah ada
+		if(userinfo()->partisipan_jenis == 'AccUniv'){
+			$record_nilai = db()->table('nilai_acc_univ')->where('partisipan_id', userinfo()->partisipan_id)->get()->getResult();
+		} else if(userinfo()->partisipan_jenis == 'AccSMA') {
+			$record_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', userinfo()->partisipan_id)->get()->getResult();
+		}
+
+		// cek apa record nilai kosong dan generate
+		if(empty($record_nilai)){
+			$_jawaban = $this->JAWABAN_PARTISIPAN->getSingleJawabanPartisipan($kode_voucher);
+			$_nilai_1 = $_nilai_2 = $_nilai_3 = 0;
+			foreach($_jawaban as $jawaban){
+				if($jawaban->jawaban_kode == $jawaban->jawaban_kode_benar){
+					if($jawaban->segmen == 1){
+						$_nilai_1 = $_nilai_1 + 2;
+					}
+
+					if($jawaban->segmen == 2){
+						$_nilai_2 = $_nilai_2 + 2;
+					}
+
+					if($jawaban->segmen == 3){
+						$_nilai_3 = $_nilai_3 + 2;
+					}
+
+				} elseif($jawaban->jawaban_kode == ''){
+					if($jawaban->segmen == 1){
+						$_nilai_1 = $_nilai_1 + 0;
+					}
+
+					if($jawaban->segmen == 2){
+						$_nilai_2 = $_nilai_2 + 0;
+					}
+
+					if($jawaban->segmen == 3){
+						$_nilai_3 = $_nilai_3 + 0;
+					}
+
+				} else{
+					if($jawaban->segmen == 1){
+						$_nilai_1 = $_nilai_1 -1;
+					}
+
+					if($jawaban->segmen == 2){
+						$_nilai_2 = $_nilai_2 - 1;
+					}
+
+					if($jawaban->segmen == 3){
+						$_nilai_3 = $_nilai_3 - 1;
+					}
+				}
+			}
+
+			// insert ke db
+			if(userinfo()->partisipan_jenis == 'AccUniv'){
+				db()->table('nilai_acc_univ')->insert(['partisipan_id' => userinfo()->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
+			} else if(userinfo()->partisipan_jenis == 'AccSMA') {
+				db()->table('nilai_acc_sma')->insert(['partisipan_id' => userinfo()->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
+			}
+		}
 		
+		$data['nilai'] = $record_nilai[0];
 		$data['voucher'] = $kode_voucher;
 		$data['record_jawaban'] = $this->JAWABAN_PARTISIPAN->getSingleJawabanPartisipan($kode_voucher);
 

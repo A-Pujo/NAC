@@ -1,7 +1,17 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 
 <?= $this->section('content') ?>
-<?php $data_nilai = null?>
+
+<?php 
+    $user_lomba = db()->table('partisipan_lomba')->where('partisipan_id', userinfo()->partisipan_id)->get()->getRow();
+
+    $kuota_habis_semua = false;
+
+    if($user_lomba->kuota_1 == 0 and $user_lomba->kuota_2 == 0 and $user_lomba->kuota_3 == 0){
+        $kuota_habis_semua = true;
+    }
+
+?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
 
@@ -98,7 +108,13 @@
                     <td>1</td>
                     <td>Simulasi Preliminary Round</td>
                     <td><?= tanggal('start_pre') ?></td>
-                    <td><?= $data_nilai != null ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
+                    <td>
+                        <?php if($kuota_habis_semua) : ?>
+                            <a href="<?= base_url('lomba/reviu-lju/' . $voucher) ?>" target="_blank">cek di sini</a>
+                        <?php else : ?>
+                            Nilai belum
+                        <?php endif; ?>
+                    </td>
                 </tr>
             </tbody>
         </table>
