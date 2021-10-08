@@ -1,8 +1,36 @@
 <?= $this->extend('statis/layout/main')  ?>
 <?= $this->section('content') ?>
 <div class="p-24">
-    <div id="info" class="text-base-100 my-8 card border border-4 border-neutral-60 p-16 flex items-center justify-start flex-row space-x-4">
-        <span>Waktu pengerjaan soal akan dimulai dalam</span> <span id="time"></span>
+    <div class="flex space-y-16 flex-col p-24 sticky top-8 z-50">
+        <!-- ALERt -->
+        <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
+                <div class="flex-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
+                    </svg> 
+                    <label>Waktu pengerjaan soal akan dimulai dalam</span> <span id="time" class="btn btn-xs btn-primary"></label>
+                </div>
+                <svg
+                    @click="active = false"
+                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+        </div>
+        <?php if(session()->getFlashData('pesan')): ?>
+        <div class="alert alert-info" x-data="{active: true}" x-show="active">
+            <div class="flex-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
+                </svg> 
+                <label><?= session()->getFlashData('pesan') ?></label>
+            </div>
+            <svg
+                @click="active = false"
+                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <?php endif ?>
     </div>
     <div class="p-24 text-base-100">
         <form action="<?= base_url('/lomba/get-soal-all') ?>" method="get">

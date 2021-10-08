@@ -111,6 +111,7 @@ class Lomba extends BaseController
 
 	public function get_soal_all(){
 		if(sekarang() < tanggal('start-pre') || sekarang() > tanggal('finish-pre')){
+			session()->setFlashdata('pesan', 'Preliminary Round dapat diakses pada '.tanggal('start-pre')." hingga ".tanggal('finish-pre'));
 			return redirect()->to(base_url('lomba'));
 		}
 
