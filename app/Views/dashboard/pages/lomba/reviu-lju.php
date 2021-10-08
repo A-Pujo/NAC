@@ -9,13 +9,13 @@
 </head>
 <body>
     <div class="container py-5">
-        <h4 class="text-center">Lembar Reviu LJU - Kode Voucher: <b><?= $voucher ?></b></h4>
+    <h4 class="text-center">Lembar Reviu LJU - Tim: <b><?= userinfo()->nama_tim ?></b></h4>
         <div class="container my-3">
             <div class="row my-3">
                 <div class="col-3 text-center"><b>Nilai Total</b></div>
-                <div class="col-3 text-center">Nilai segmen 1</div>
-                <div class="col-3 text-center">Nilai segmen 2</div>
-                <div class="col-3 text-center">Nilai segmen 3</div>
+                <div class="col-3 text-center">Nilai <?= $voucher ?>qw</div>
+                <div class="col-3 text-center">Nilai <?= $voucher ?>as</div>
+                <div class="col-3 text-center">Nilai <?= $voucher ?>zx</div>
             </div>
             <div class="row my-3">
                 <div class="col-3 text-center"><?= $nilai->segmen_1 + $nilai->segmen_2 + $nilai->segmen_3 ?></div>
@@ -38,7 +38,7 @@
                     <p>
                         <?= $i . '. ' . $jawaban->soal_teks ?>
                         <br>
-                        Jawaban: <b><?= $jawaban->jawaban_teks ?></b>
+                        Jawabanmu: <b><?= $jawaban->jawaban_teks ?></b>
                         <!-- &nbsp; <b>(Jawaban benar: <?= $jawaban->jawaban_kode_benar ?>)</b> -->
                     </p>
                     <hr>
