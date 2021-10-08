@@ -27,7 +27,7 @@ class Lomba extends BaseController
 
 	// dashboard perlombaan
 	public function dashboard(){
-		if(!isLoggedIn()){
+		if(!isLoggedIn() or !isInRole('peserta lomba')){
 			return redirect()->to(base_url('dashboard'));
 		}
 
