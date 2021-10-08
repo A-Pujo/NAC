@@ -416,7 +416,7 @@ class Lomba extends BaseController
 			} else if(userinfo()->partisipan_jenis == 'AccSMA') {
 				db()->table('nilai_acc_sma')->insert(['partisipan_id' => userinfo()->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
 			}
-			return redirect()->to(base_url('lomba/reviu-lju/' . $kode_voucher))
+			return redirect()->to(base_url('lomba/reviu-lju/' . $kode_voucher));
 		}
 		
 		$data['nilai'] = $record_nilai[0];
