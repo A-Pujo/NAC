@@ -121,7 +121,13 @@
                     <td>1</td>
                     <td>Simulasi Preliminary Round</td>
                     <td><?= tanggal('start_pre') ?></td>
-                    <td><?= $data_nilai != null ? $data_nilai->prelim : "Nilai belum tersedia" ?></td>
+                    <td>
+                        <?php if($kuota_habis_semua) : ?>
+                            <a href="<?= base_url('lomba/reviu-lju/' . $voucher) ?>" target="_blank">cek di sini</a>
+                        <?php else : ?>
+                            Nilai belum
+                        <?php endif; ?>
+                    </td>
                 </tr>
             </tbody>
         </table>
