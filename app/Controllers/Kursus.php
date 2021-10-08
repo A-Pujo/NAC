@@ -22,7 +22,6 @@ class Kursus extends BaseController{
             'judul' => 'Course NAC 2021',
             'halaman' => 'kursus',
         ];
-
         return view('dashboard/pages/kursus/kursus-index', $data);
     }
 
@@ -230,7 +229,7 @@ class Kursus extends BaseController{
 
     public function video_attempt($index_video = null){
         if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
-            session()->setFlashdata('alert', 'Course hanya bisa dikerjakan pada tanggal 1-8 Oktober 2021');
+            session()->setFlashdata('pesan-error', 'Course hanya bisa dikerjakan pada tanggal 1-8 Oktober 2021');
             return redirect()->to('kursus');
         }
         $video = [
@@ -261,6 +260,7 @@ class Kursus extends BaseController{
 
     public function kuis($index = null){
         if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
+            session()->setFlashdata('pesan-error', 'Course hanya bisa dikerjakan pada tanggal 1-8 Oktober 2021');
             return redirect()->to('kursus');
         }
         $kuis = ['video-1', 'video-2', 'video-3', 'video-4', 'video-5', 'video-6', 'video-7'];
@@ -290,6 +290,7 @@ class Kursus extends BaseController{
 
     public function submit_jawaban($index){
         if(sekarang() < tanggal('start_course') || sekarang() > tanggal('finish_course')){
+            session()->setFlashdata('pesan-error', 'Course hanya bisa dikerjakan pada tanggal 1-8 Oktober 2021');
             return redirect()->to('kursus');
         }
         if($this->request->getPost()){

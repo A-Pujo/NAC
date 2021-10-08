@@ -47,6 +47,9 @@
             </div>
         </div>
     <?php endif ?>
+    <div class="col-span-12">
+        <?= $this->include('component/pesan') ?>
+    </div>
     <?php if(sekarang()>tanggal('start_course') && sekarang() < tanggal('finish_course')) : ?>
     <div class="card col-span-12 bg-primary-300 p-24 ">
         <iframe width="560" height="315" src="https://www.youtube.com/embed/ACmbZe0j0sk" title="YouTube video player" allowfullscreen></iframe>

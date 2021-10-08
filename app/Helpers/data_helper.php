@@ -20,7 +20,7 @@ function tanggal($aksi){
 
         // tahap prelim
         'start_pre' => '2021-10-07 14:00', // start pengerjaan soal
-        'finish_pre' => '2021-10-08 17:00', // start pengerjaan soal
+        'finish_pre' => '2021-10-10 17:00', // start pengerjaan soal
 
         '' => '2021-01-01 00:00',
     ];
