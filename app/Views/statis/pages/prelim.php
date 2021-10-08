@@ -16,7 +16,7 @@
                 <span id="time"></span>
             </div>
             <div id="submit">
-                <input type="submit" name="nav" value="finish" class="btn btn-primary btn-sm">
+                <input type="submit" name="nav" value="submit" class="btn btn-primary btn-sm">
             </div>
         </div>
     </div>

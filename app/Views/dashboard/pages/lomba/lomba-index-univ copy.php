@@ -3,17 +3,7 @@
 <?= $this->section('content') ?>
 <?php $data_nilai = null?>
 
-<!-- cek kondisi semua kuota == 0
-<?php 
-    $user_lomba = db()->table('partisipan_lomba')
-                ->where('partisipan_id', userinfo()->partisipan_id)->get()->getRow();
-    // dd($user_lomba);
 
-    $kuota_habis_semua = false;
-    if($user_lomba->kuota_1 == 0 and $user_lomba->kuota_2 == 0 and $user_lomba->kuota_3 == 0){
-        $kuota_habis_semua = true;
-    }
-?> -->
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
 
@@ -85,7 +75,20 @@
                     </div>
                     <?php endforeach ?>
             </span>
+            <span>
+                <!-- Review LJU -->
+                <!-- cek kondisi semua kuota == 0
+                <?php 
+                    $user_lomba = db()->table('partisipan_lomba')
+                                ->where('partisipan_id', userinfo()->partisipan_id)->get()->getRow();
 
+                    $kuota_habis_semua = false;
+                    if($user_lomba->kuota_1 == 0 and $user_lomba->kuota_2 == 0 and $user_lomba->kuota_3 == 0){
+                        $kuota_habis_semua = true;
+                    }
+                ?> -->
+                
+            </span>
             <small>Satu kode voucher diperuntukkan untuk satu anggota tim.</small>
             <small>Jaga kerahasiaan voucher tim Anda. Pastikan tidak ada peserta selain anggota tim Anda yang mengetahuinya.</small>
         <?php else : ?>

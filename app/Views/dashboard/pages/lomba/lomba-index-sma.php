@@ -2,8 +2,37 @@
 
 <?= $this->section('content') ?>
 <?php $data_nilai = null?>
+<?php     $data = db()->table('partisipan_lomba')
+                        ->join('data_partisipan', 'data_partisipan.partisipan_id=partisipan_lomba.partisipan_id ')
+                        ->where('user_id', userinfo()->id)
+                        ->get()->getRow();
+            $voucher = ! empty($data) ?  $data->kode_voucher : false;
+            
+            $kode_segmen = ['qw', 'as', 'zx'];
+             ?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
+    <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
+        <?php 
+            $user_lomba = db()->table('partisipan_lomba')->where('partisipan_id', userinfo()->partisipan_id)->get()->getRow();
+            $kuota_habis_semua = false;
+            if($user_lomba->kuota_1 == 0 and $user_lomba->kuota_2 == 0 and $user_lomba->kuota_3 == 0) :
+        ?>
+        <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
+            <div class="flex-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
+                </svg>
+                <span>Data jawaban Preliminary Round dapat diakses pada <a class="btn btn-xs" href="<?= base_url('lomba/reviu-lju/' . $voucher) ?>" target="_blank">tautan ini</a></span>
+            </div>
+            <svg
+                @click="active = false"
+                xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+        </div>
+        <?php endif ?>
+    </div>
 
     <div class="card col-span-12 p-24 bg-neutral-100">
         <table class="tabel-card text-12 lg:text-16">
@@ -47,13 +76,6 @@
     </div>
     <div class="card col-span-12 p-24 bg-neutral-100">
         <?php 
-            $data = db()->table('partisipan_lomba')
-                        ->join('data_partisipan', 'data_partisipan.partisipan_id=partisipan_lomba.partisipan_id ')
-                        ->where('user_id', userinfo()->id)
-                        ->get()->getRow();
-            $voucher = ! empty($data) ?  $data->kode_voucher : false;
-            
-            $kode_segmen = ['qw', 'as', 'zx'];
             if($voucher) :
         ?>
             <span>Voucher untuk pengerjaan soal Preliminary Round tim Anda adalah 
@@ -73,6 +95,7 @@
                     </div>
                     <?php endforeach ?>
             </span>
+
 
             <small>Satu kode voucher diperuntukkan untuk satu anggota tim.</small>
             <small>Jaga kerahasiaan voucher tim Anda. Pastikan tidak ada peserta selain anggota tim Anda yang mengetahuinya.</small>
