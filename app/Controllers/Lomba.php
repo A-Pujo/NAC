@@ -352,7 +352,7 @@ class Lomba extends BaseController
 		$data['halaman'] = 'lomba';
 		$data['judul'] = 'Hasil pengerjaan';
 
-		// return view('dashboard/pages/lomba/reviu-lju', $data);
-		return view('test/riviu-lju', $data);
+		return view('dashboard/pages/lomba/reviu-lju', $data);
+		// return view('test/riviu-lju', $data);
 	}
 }
