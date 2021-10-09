@@ -22,6 +22,13 @@ function tanggal($aksi){
         'start_pre' => '2021-10-10 09:30', // start pengerjaan soal
         'finish_pre' => '2021-10-10 10:30', // finish pengerjaan soal
 
+        // seminar
+        'seminar_pass_1' => 'DevelopmentGoals',
+        'seminar_pass_2' => 'AuditingCapability',
+        'seminar_pass_3' => 'EconomicSolution',
+
+
+
         '' => '2021-01-01 00:00',
     ];
     if($aksi == 'all'){
