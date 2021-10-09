@@ -18,7 +18,7 @@
     $peserta_nilai = db()->table('nilai_acc_sma')
         ->where('partisipan_id', $peserta->partisipan_id)
         ->get()->getRow();
-?>
+    ?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
     <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
@@ -145,7 +145,13 @@
                         ?>
                     </td>
                     <td>
-                        Status
+                        <?php if($peserta_nilai->prelim == null) : ?>
+                            Informasi Belum Tersedia
+                        <?php elseif($peserta_nilai->prelim == 1) : ?>
+                            Tidak Lolos
+                        <?php else: ?>
+                            Lolos
+                        <?php endif; ?>
                     </td>
                 </tr>
             </tbody>

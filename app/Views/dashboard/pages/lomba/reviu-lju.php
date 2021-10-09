@@ -17,7 +17,7 @@
 <body style="font-family: 'Raleway', sans-serif;" class="text-base-100">
     <div class="px-16 sm:px-32 md:px-48 lg:px-96 grid grid-cols-12 gap-16 bg-neutral-200 py-80">
         <div class="col-span-12 card bg-accent p-24">
-            <span class="text-24 font-bold">Lembar jawaban hasil pengerjaan Preliminary Round tim <?= userinfo()->nama_tim ?></span>
+            <span class="text-24 font-bold">Lembar jawaban hasil pengerjaan Preliminary Round tim <?= $partisipan->nama_tim ?></span>
         </div>
         <div class="col-span-12 md:col-span-6 lg:col-span-3 card bg-accent p-24">
             <span class="text-24 font-bold">Total Nilai <?= $nilai->segmen_1 + $nilai->segmen_2 + $nilai->segmen_3 ?></span>
@@ -35,34 +35,43 @@
             <div class="col-span-12 card bg-accent p-16 sticky top-16 z-50">
                 <span>Bagian 1 : Hasil pengerjaan voucher: <?= $voucher ?>qw</span>
             </div>
-            <?php for($i=0; $i<50; $i++) : ?>
+
+            <?php $i = 1; ?>
+
+            <?php foreach($record_jawaban as $jawaban) : ?>
+                <?php if($jawaban->segmen == 1) : ?>
                 <div class="col-span-12 card bg-neutral-100 p-16">
-                    <p><strong class="text-24"><?= $i+1 ?>.</strong> <?= $record_jawaban[$i]->soal_teks ?></p>
-                    <p><strong>Jawab :</strong> <?= $record_jawaban[$i]->jawaban_kode == '' ? 'Tidak menjawab' : $record_jawaban[$i]->jawaban_teks ?></p>
+                    <p><strong class="text-24"><?= $i ?>.</strong> <?= $jawaban->soal_teks ?></p>
+                    <p><strong>Jawab :</strong> <?= $jawaban->jawaban_kode == '' ? 'Tidak menjawab' : $jawaban->jawaban_teks ?></p>
                 </div>
-            <?php endfor ?>
+                <?php endif; $i++; ?>
+            <?php endforeach; ?>
         </div>
         <div class="col-span-12 grid grid-cols-12 gap-16">
             <div class="col-span-12 card bg-accent p-16 sticky top-16 z-50">
                 <span>Bagian 2 : Hasil pengerjaan voucher: <?= $voucher ?>as</span>
             </div>
-            <?php for($i=$i; $i<100; $i++) : ?>
+            <?php foreach($record_jawaban as $jawaban) : ?>
+                <?php if($jawaban->segmen == 2) : ?>
                 <div class="col-span-12 card bg-neutral-100 p-16">
-                    <p><strong class="text-24"><?= $i-49 ?>.</strong> <?= $record_jawaban[$i]->soal_teks ?></p>
-                    <p><strong>Jawab :</strong> <?= $record_jawaban[$i]->jawaban_kode == '' ? 'Tidak menjawab' : $record_jawaban[$i]->jawaban_teks ?></p>
+                    <p><strong class="text-24"><?= $i ?>.</strong> <?= $jawaban->soal_teks ?></p>
+                    <p><strong>Jawab :</strong> <?= $jawaban->jawaban_kode == '' ? 'Tidak menjawab' : $jawaban->jawaban_teks ?></p>
                 </div>
-            <?php endfor ?>
+                <?php endif; $i++; ?>
+            <?php endforeach; ?>
         </div>
         <div class="col-span-12 grid grid-cols-12 gap-16">
             <div class="col-span-12 card bg-accent p-16 sticky top-16 z-50">
                 <span>Bagian 3 : Hasil pengerjaan voucher: <?= $voucher ?>zx</span>
             </div>
-            <?php for($i=$i; $i<150; $i++) : ?>
+            <?php foreach($record_jawaban as $jawaban) : ?>
+                <?php if($jawaban->segmen == 3) : ?>
                 <div class="col-span-12 card bg-neutral-100 p-16">
-                    <p><strong class="text-24"><?= $i-99 ?>.</strong> <?= $record_jawaban[$i]->soal_teks ?></p>
-                    <p><strong>Jawab :</strong> <?= $record_jawaban[$i]->jawaban_kode == '' ? 'Tidak menjawab' : $record_jawaban[$i]->jawaban_teks ?></p>
+                    <p><strong class="text-24"><?= $i ?>.</strong> <?= $jawaban->soal_teks ?></p>
+                    <p><strong>Jawab :</strong> <?= $jawaban->jawaban_kode == '' ? 'Tidak menjawab' : $jawaban->jawaban_teks ?></p>
                 </div>
-            <?php endfor ?>
+                <?php endif; $i++; ?>
+            <?php endforeach; ?>
         </div>
     </div>
 </body>

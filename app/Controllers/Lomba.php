@@ -365,12 +365,15 @@ class Lomba extends BaseController
 			return redirect()->to('lomba');
 		}
 
+		$data_partisipan = db()->table('partisipan_lomba')->join('data_partisipan', 'data_partisipan.partisipan_id=partisipan_lomba.partisipan_id')
+							->where('kode_voucher', $kode_voucher)->get()->getRow();
+
 		$record_nilai = null;
 		// cek jenis lomba sudah ada
-		if(userinfo()->partisipan_jenis == 'AccUniv'){
-			$record_nilai = db()->table('nilai_acc_univ')->where('partisipan_id', userinfo()->partisipan_id)->get()->getResult();
-		} else if(userinfo()->partisipan_jenis == 'AccSMA') {
-			$record_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', userinfo()->partisipan_id)->get()->getResult();
+		if($data_partisipan->partisipan_jenis == 'AccUniv'){
+			$record_nilai = db()->table('nilai_acc_univ')->where('partisipan_id', $data_partisipan->partisipan_id)->get()->getResult();
+		} else if($data_partisipan->partisipan_jenis == 'AccSMA') {
+			$record_nilai = db()->table('nilai_acc_sma')->where('partisipan_id', $data_partisipan->partisipan_id)->get()->getResult();
 		}
 
 		// cek apa record nilai kosong dan generate
@@ -420,10 +423,10 @@ class Lomba extends BaseController
 			}
 
 			// insert ke db
-			if(userinfo()->partisipan_jenis == 'AccUniv'){
-				db()->table('nilai_acc_univ')->insert(['partisipan_id' => userinfo()->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
-			} else if(userinfo()->partisipan_jenis == 'AccSMA') {
-				db()->table('nilai_acc_sma')->insert(['partisipan_id' => userinfo()->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
+			if($data_partisipan->partisipan_jenis == 'AccUniv'){
+				db()->table('nilai_acc_univ')->insert(['partisipan_id' => $data_partisipan->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
+			} else if($data_partisipan->partisipan_jenis == 'AccSMA') {
+				db()->table('nilai_acc_sma')->insert(['partisipan_id' => $data_partisipan->partisipan_id, 'segmen_1' => $_nilai_1, 'segmen_2' => $_nilai_2, 'segmen_3' => $_nilai_3]);
 			}
 			return redirect()->to(base_url('lomba/reviu-lju/' . $kode_voucher));
 		}
@@ -433,6 +436,7 @@ class Lomba extends BaseController
 		$data['record_jawaban'] = $this->JAWABAN_PARTISIPAN->getSingleJawabanPartisipan($kode_voucher);
 		$data['halaman'] = 'lomba';
 		$data['judul'] = 'Hasil pengerjaan';
+		$data['partisipan'] = $data_partisipan;
 
 		return view('dashboard/pages/lomba/reviu-lju', $data);
 		// return view('test/riviu-lju', $data);
