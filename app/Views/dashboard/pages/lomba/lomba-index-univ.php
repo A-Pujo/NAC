@@ -145,12 +145,14 @@
                         ?>
                     </td>
                     <td>
-                        <?php if($peserta_nilai->prelim == null) : ?>
+                        <?php if($peserta_nilai == null || sekarang() < tanggal('acc-univ-pre-peng')) : ?>
                             Informasi Belum Tersedia
-                        <?php elseif($peserta_nilai->prelim == 1) : ?>
-                            Tidak Lolos
                         <?php else: ?>
-                            Lolos
+                            <?php if($peserta_nilai->prelim == 1) : ?>
+                                Tidak Lolos
+                            <?php else: ?>
+                                Lolos
+                            <?php endif; ?>
                         <?php endif; ?>
                     </td>
                 </tr>
