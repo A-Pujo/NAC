@@ -9,7 +9,21 @@
     if($user_lomba->kuota_1 == 0 and $user_lomba->kuota_2 == 0 and $user_lomba->kuota_3 == 0){
         $kuota_habis_semua = true;
     }
+?>
 
+<?php
+    # daftar nilai top 20
+    $nilai_top_20 = db()->table('nilai_acc_univ')->select('partisipan_id, (segmen_1 + segmen_2 + segmen_3) as nilai_total') # cari top 20
+                    ->orderBy('nilai_total', 'DESC')->get('20')->getResult(); # tampilkan hasil banyak dari yg terbesar
+    $lolos = false;
+    // dd($nilai_top_20);
+
+    foreach($nilai_top_20 as $n){
+        if(userinfo()->partisipan_id == $n->partisipan_id){
+            $lolos = true;
+            break;
+        }
+    }
 ?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
@@ -99,6 +113,9 @@
                     <th>Tahap</th>
                     <th>Tanggal Pelaksanaan</th>
                     <th>Nilai</th>
+                    <?php if($kuota_habis_semua or date('Y-m-d H:i') > tanggal('finish_pre')) : ?>
+                    <th>Lolos</th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -107,12 +124,21 @@
                     <td>Simulasi Preliminary Round</td>
                     <td><?= tanggal('start_pre') ?></td>
                     <td>
-                        <?php if($kuota_habis_semua) : ?>
-                            <a href="<?= base_url('lomba/reviu-lju/' . $voucher) ?>" target="_blank">cek di sini</a>
+                        <?php if($kuota_habis_semua or date('Y-m-d H:i') > tanggal('finish_pre')) : ?>
+                        <a href="<?= base_url('lomba/reviu-lju/' . $voucher) ?>" target="_blank">cek di sini</a>
                         <?php else : ?>
-                            Nilai belum tersedia
+                        Nilai belum
                         <?php endif; ?>
                     </td>
+                    <?php if($kuota_habis_semua or date('Y-m-d H:i') > tanggal('finish_pre')) : ?>
+                    <td>
+                        <?php if($lolos) : ?>
+                            Lolos
+                        <?php else : ?>
+                            Tidak Lolos
+                        <?php endif; ?>
+                    </td>
+                    <?php endif;?>
                 </tr>
             </tbody>
         </table>

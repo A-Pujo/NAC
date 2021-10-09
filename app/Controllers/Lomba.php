@@ -247,20 +247,56 @@ class Lomba extends BaseController
 		$voucher_peserta = db()->query('SELECT DISTINCT partisipan_kode_voucher FROM jawaban_partisipan')->getResult();
 		foreach($voucher_peserta as $voucher){
 			// Init Nilai per user
-			$nilai = 0;
+			$_nilai_1 = $_nilai_2 = $_nilai_3 = 0;
 			// Get id jawaban per user
-			$jawaban_peserta_id = db()->table('jawaban_partisipan')->select('jawaban_id')->where('partisipan_kode_voucher', $voucher->partisipan_kode_voucher)->get()->getResult();
-			$jawaban_peserta_id = array_map(function($e){ return $e->jawaban_id; }, $jawaban_peserta_id);
+			// $jawaban_peserta_id = db()->table('jawaban_partisipan')->select('jawaban_id')->where('partisipan_kode_voucher', $voucher->partisipan_kode_voucher)->get()->getResult();
+			// $jawaban_peserta_id = array_map(function($e){ return $e->jawaban_id; }, $jawaban_peserta_id);
 			// Get Jawaban per user
-			$jawaban_peserta = db()->table('pilihan_jawaban')->whereIn('jawaban_id', $jawaban_peserta_id)->get()->getResult();
+			// $jawaban_peserta = db()->table('pilihan_jawaban')->whereIn('jawaban_id', $jawaban_peserta_id)->get()->getResult();
+
+			// get jawaban
+			$jawaban_peserta = $this->JAWABAN_PARTISIPAN->getFullJawabanPartisipan();
+
 			// Cek jawaban
 			foreach($jawaban_peserta as $jawaban){
 				if($jawaban->jawaban_kode == $jawaban->jawaban_kode_benar){
-					$nilai = $nilai + 2;
+					if($jawaban->segmen == 1){
+						$_nilai_1 = $_nilai_1 + 2;
+					}
+
+					if($jawaban->segmen == 2){
+						$_nilai_2 = $_nilai_2 + 2;
+					}
+
+					if($jawaban->segmen == 3){
+						$_nilai_3 = $_nilai_3 + 2;
+					}
+
 				} elseif($jawaban->jawaban_kode == ''){
-					$nilai = $nilai + 0;
+					if($jawaban->segmen == 1){
+						$_nilai_1 = $_nilai_1 + 0;
+					}
+
+					if($jawaban->segmen == 2){
+						$_nilai_2 = $_nilai_2 + 0;
+					}
+
+					if($jawaban->segmen == 3){
+						$_nilai_3 = $_nilai_3 + 0;
+					}
+
 				} else{
-					$nilai = $nilai -1;
+					if($jawaban->segmen == 1){
+						$_nilai_1 = $_nilai_1 -1;
+					}
+
+					if($jawaban->segmen == 2){
+						$_nilai_2 = $_nilai_2 - 1;
+					}
+
+					if($jawaban->segmen == 3){
+						$_nilai_3 = $_nilai_3 - 1;
+					}
 				}
 			}
 			// Insert jawaban
@@ -271,15 +307,20 @@ class Lomba extends BaseController
 			if($kode_lomba == 'AccSMA') {
 				db()->table('nilai_acc_sma')->insert([
 					'partisipan_id' => $partisipan_id,
-					'prelim' => $nilai,
+					'segmen_1' => $_nilai_1,
+					'segmen_2' => $_nilai_2,
+					'segmen_3' => $_nilai_3,
 				]);
 			} else if($kode_lomba == 'AccUniv') {
 				db()->table('nilai_acc_univ')->insert([
 					'partisipan_id' => $partisipan_id,
-					'prelim' => $nilai,
+					'segmen_1' => $_nilai_1,
+					'segmen_2' => $_nilai_2,
+					'segmen_3' => $_nilai_3,
 				]);
 			}
 		}
+		return 'OK';
 	}
 
 	public function reviu_lju($kode_voucher = null){
