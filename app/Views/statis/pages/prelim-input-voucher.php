@@ -33,14 +33,17 @@
             </div>
             <button class="btn btn-primary btn-sm mt-8">Mulai</button>
         </form>
+
     </div>
 </div>
 
+
     <script>
 <?php if(sekarang() < tanggal('start_pre')) : ?>
-    let countDownDate = new Date('<?= tanggal('start_pre') ?>').getTime();
+    // let countDownDate = new Date.UTC('<?= tanggal('start_pre') ?>').getTime();
+    let countDownDate = <?= date_timestamp_get(date_create(tanggal('start_pre')))*1000 ?>;
 <?php else :?>
-    let countDownDate = new Date('<?= tanggal('finish_pre') ?>').getTime();
+    let countDownDate = <?= date_timestamp_get(date_create(tanggal('finish_pre')))*1000 ?>;
 <?php endif?>
 // Adjustment time
 let serverTime = <?= time()*1000 ?>;
