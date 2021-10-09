@@ -74,6 +74,10 @@ class Admin_Lomba extends BaseController
 		$nilai_top_20_univ = db()->table('nilai_acc_univ')->select('partisipan_id, (segmen_1 + segmen_2 + segmen_3) as total_nilai')
 						->orderBy('total_nilai', 'DESC')->get(20)->getResult();
 
+		# init tidak lulus semua
+		db()->table('nilai_acc_sma')->update(['prelim' => 1]);
+		db()->table('nilai_acc_univ')->update(['prelim' => 1]);
+
 		# set lulus / gk
 		# sma
 		foreach($nilai_top_20_sma as $n){
@@ -85,10 +89,6 @@ class Admin_Lomba extends BaseController
 			db()->table('nilai_acc_univ')->where('partisipan_id', $n->partisipan_id)->update(['prelim' => 9]);
 		}
 
-		if(db()->affectedRows() > 0){
-			return 'OK';
-		} else {
-			return 'Aduh';
-		}
+		return 'Sip';
 	}
 }
