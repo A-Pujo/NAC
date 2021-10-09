@@ -76,6 +76,24 @@ class Lomba extends BaseController
 	}
 
 	public function get_soal_all(){
+		$email_tes = [
+			'shaszaymm@gmail.com',
+			'4302180033_fernanda@pknstan.ac.id',
+			'hanifawidayanti@gmail.com',
+			'putumasyeni14@gmail.com',
+			'naclomba@gmail.com',
+			'fikriadhitiya@gmail.com',
+			'lnsafira63@gmail.com',
+			'zalsanabilla@gmail.com',
+			'4301180474.intanwidya@gmail.com',
+			'1302180799_wanda@pknstan.ac.id',
+			'akumaujadimanusia@gmail.com',
+			'mudrikarilfie700@gmail.com'
+		];
+		if(!in_array(userinfo()->email, $email_tes)){
+			return redirect()->to(base_url('lomba'));
+		}
+
 		if(sekarang() < tanggal('start_pre') || sekarang() > tanggal('finish_pre')){
 			session()->setFlashdata('pesan-error', 'Preliminary Round dapat diakses pada '.tanggal('start_pre')." hingga ".tanggal('finish_pre'));
 			return redirect()->to(base_url('lomba'));
@@ -124,11 +142,10 @@ class Lomba extends BaseController
 		// 		}
 		// 	}
 		// }
-
 		if(!isset($_COOKIE['device_token'])){
 			// belum punya cokis
 			$klaim_akses = db()->table('data_device_prelim')->where(['kode_voucher' => $voucher, 'segmen' => $segmen])
-							->get()->getResult()[0];
+							->get()->getRow();
 		
 			if($klaim_akses){
 				// udah ada yang akses : lempar ke home
@@ -164,7 +181,6 @@ class Lomba extends BaseController
 		$pilihan_jawaban = $this->JAWABAN->whereIn('soal_id', $soal_id)->get()->getResult();
 
 		// Jawaban User
-		// $jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
 		$jawaban_user = $this->JAWABAN_PARTISIPAN->getJawabanUser($kode_voucher, $segmen);
 		
 		//=== USER PERTAMA AKSES SOAL : Isi db dengan data 'kosong' atau 'tidak menjawab' ===//
@@ -176,7 +192,6 @@ class Lomba extends BaseController
 						return ($e->jawaban_kode == '');
 					});
 				$jawaban_kosong_id = array_values(array_map(function($e){ return $e->jawaban_id; }, $jawaban_kosong));
-				// var_dump($pilihan_jawaban); die();
 	
 				// Isi database jawaban dengan jawaban 'kosong' atau 'tidak menjawab'
 				for($i=0; $i<50; $i++){
@@ -188,10 +203,9 @@ class Lomba extends BaseController
 					]);
 				}
 				// Ambil jawaban user yang barusan diinput
-				$jawaban_user = db()->table('jawaban_partisipan')->where('partisipan_kode_voucher', $kode_voucher)->where('segmen', $segmen)->get()->getResult();
+				$jawaban_user = $this->JAWABAN_PARTISIPAN->getJawabanUser($kode_voucher, $segmen);
 			}
 		//=== END USER PERTAMA AKSES SOAL ===//
-			// dd($jawaban_user);
 		session()->set([
 			'soal' => $soal,
 			'jawaban' => $pilihan_jawaban,
@@ -226,9 +240,9 @@ class Lomba extends BaseController
 
 	// Jawaban prelim
 	public function submit_jawaban($kode_voucher, $segmen){
-		if(sekarang() < tanggal('start_pre') || sekarang() > tanggal('finish_pre')){
-			return redirect()->to(base_url('lomba'));
-		}
+		// if(sekarang() < tanggal('start_pre') || sekarang() + 5000 > tanggal('finish_pre')){
+		// 	return redirect()->to(base_url('lomba'));
+		// }
 		if(!$this->PARTISIPAN_LOMBA->isValid($kode_voucher)){
 			return redirect()->to(base_url('/lomba/pengajuan-lomba'));
 		}
@@ -253,7 +267,7 @@ class Lomba extends BaseController
 				return redirect()->to(base_url('/lomba/prelim?step='.$step + 1));
 			} elseif($nav == 'prev') {
 				return redirect()->to(base_url('/lomba/prelim?step='.$step - 1));
-			} elseif($nav == 'submit') {
+			} elseif($nav == 'submit' || $nav == null) {
 				$this->PARTISIPAN_LOMBA->where(['kode_voucher' => $kode_voucher])->update(null, ['kuota_' . $segmen => 0]);
 				session()->setFlashdata('pesan-success', 'Selamat, Anda telah menyelesaikan tahap Preliminary Round.');
 				return redirect()->to(base_url());

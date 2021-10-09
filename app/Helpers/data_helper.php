@@ -19,8 +19,8 @@ function tanggal($aksi){
         'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
 
         // tahap prelim
-        'start_pre' => '2021-10-10 09:30', // start pengerjaan soal
-        'finish_pre' => '2021-10-10 10:30', // finish pengerjaan soal
+        'start_pre' => '2021-10-09 09:30', // start pengerjaan soal
+        'finish_pre' => '2021-10-09 19:15', // finish pengerjaan soal
 
         // seminar
         'seminar_pass_1' => 'DevelopmentGoals',

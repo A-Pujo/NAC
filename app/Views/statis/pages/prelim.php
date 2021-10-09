@@ -85,6 +85,7 @@
     </div>
     </form>
     <script>
+      
 // === COUNT DOWN === //
 
 // let countDownDate = new Date(2021,08,19,12,15,0,0).getTime();
@@ -118,6 +119,7 @@ let x = setInterval(function() {
     clearInterval(x);
     document.getElementById("time").innerHTML = "WAKTU HABIS";
     document.getElementById("submit").innerHTML = "";
+    document.getElementsByTagName("form")[0].submit()
   }
 }, 1000);
 
