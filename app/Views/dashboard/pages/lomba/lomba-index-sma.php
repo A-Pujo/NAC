@@ -12,18 +12,8 @@
 ?>
 
 <?php
-    # daftar nilai top 20
-    $nilai_top_20 = db()->table('nilai_acc_univ')->select('partisipan_id, (segmen_1 + segmen_2 + segmen_3) as nilai_total') # cari top 20
-                    ->orderBy('nilai_total', 'DESC')->get('20')->getResult(); # tampilkan hasil banyak dari yg terbesar
-    $lolos = false;
-    // dd($nilai_top_20);
-
-    foreach($nilai_top_20 as $n){
-        if(userinfo()->partisipan_id == $n->partisipan_id){
-            $lolos = true;
-            break;
-        }
-    }
+    # cari record nilainya
+    $data_nilai = db()->table('nilai_acc_univ')->where('partisipan_id', userinfo()->partisipan_id)->get()->getRow();
 ?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
@@ -148,10 +138,12 @@
                     </td>
                     <?php if($kuota_habis_semua or date('Y-m-d H:i') > tanggal('finish_pre')) : ?>
                     <td>
-                        <?php if($lolos) : ?>
-                            Lolos
-                        <?php else : ?>
+                        <?php if($data_nilai->prelim == null) : ?>
+                            Informasi Belum Tersedia
+                        <?php elseif($data_nilai->prelim == 1) : ?>
                             Tidak Lolos
+                        <?php else: ?>
+                            Lolos
                         <?php endif; ?>
                     </td>
                     <?php endif;?>
