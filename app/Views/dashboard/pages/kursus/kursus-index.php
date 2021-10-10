@@ -95,12 +95,17 @@
                             </div>
                         </td>
                         <td>
-                            <?php if($nilai_video[$i]) : ?>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-success" viewBox="0 0 20 20" fill="currentColor">
+                            <?php // if($nilai_video[$i]) : ?>
+                                <!-- <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-success" viewBox="0 0 20 20" fill="currentColor">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                                </svg>
+                                </svg> -->
+                            <?php // else : ?>
+                                <!-- <a href="<?= base_url('kursus/video-attempt/video_kursus_'.$i + 1) ?>" class="btn btn-primary btn-xs">Kerjakan</a> -->
+                            <?php // endif ?>
+                            <?php if(sekarang() < tanggal('pengumuman_course')) : ?>
+                                Nilai belum tersedia
                             <?php else : ?>
-                                <a href="<?= base_url('kursus/video-attempt/video_kursus_'.$i + 1) ?>" class="btn btn-primary btn-xs">Kerjakan</a>
+                                <?= $nilai_video[$i] ?>
                             <?php endif ?>
                         </td>
                     </tr>
@@ -109,6 +114,7 @@
         </table>
         <small class="text-base-100">Sertifikat peserta akan diterbitkan jika Anda telah menonton seluruh video dan mengerjakan seluruh kuis. </small>
         <small class="text-base-100">Sertifikat kelulusan akan diterbitkan jika Anda telah mengerjakan seluruh kuis dengan nilai minimal 75%. </small>
+        <small class="text-base-100">Pembagian sertifikat akan disampaikan kemudian. </small>
     </div>
 
 </div>

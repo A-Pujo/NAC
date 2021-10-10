@@ -76,23 +76,6 @@ class Lomba extends BaseController
 	}
 
 	public function get_soal_all(){
-		$email_tes = [
-			'shaszaymm@gmail.com',
-			'4302180033_fernanda@pknstan.ac.id',
-			'hanifawidayanti@gmail.com',
-			'putumasyeni14@gmail.com',
-			'naclomba@gmail.com',
-			'fikriadhitiya@gmail.com',
-			'lnsafira63@gmail.com',
-			'zalsanabilla@gmail.com',
-			'4301180474.intanwidya@gmail.com',
-			'1302180799_wanda@pknstan.ac.id',
-			'akumaujadimanusia@gmail.com',
-			'mudrikarilfie700@gmail.com'
-		];
-		if(!in_array(userinfo()->email, $email_tes)){
-			return redirect()->to(base_url('lomba'));
-		}
 
 		if(sekarang() < tanggal('start_pre') || sekarang() > tanggal('finish_pre')){
 			session()->setFlashdata('pesan-error', 'Preliminary Round dapat diakses pada '.tanggal('start_pre')." hingga ".tanggal('finish_pre'));
