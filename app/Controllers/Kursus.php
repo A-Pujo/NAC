@@ -350,6 +350,118 @@ class Kursus extends BaseController{
         return redirect()->to(base_url('kursus'));
     }
 
+    public function kalkulasi_semua(){
+        $peserta_kursus = $this->PESERTA_K->where('verifikasi_peserta', 1)->findAll();
+        $array_nilai = array();
+
+        // id_peserta
+        foreach($peserta_kursus as $p){
+            $record_jawaban = $this->JPK->join('soal', 'soal.soal_id = jawaban_peserta_kursus.soal_id')->join('pilihan_jawaban', 'pilihan_jawaban.jawaban_id = jawaban_peserta_kursus.jawaban_id')->where(['peserta_kursus_id' => $p->id_peserta])->findAll();
+            // $record_jawaban = db()->table('jawaban_peserta_kursus')->join('soal', 'soal.soal_id=jawaban_peserta_kursus.soal_id')
+            //                 ->join('pilihan_jawaban', 'pilihan_jawaban.jawaban_id=jawaban_peserta_kursus.jawaban_id')
+            //                 ->where('peserta_kursus_id', $p->id_peserta)->get()->getResult();
+
+            # init nilai
+            $nilai_video_1 = $nilai_video_2 = $nilai_video_3 = $nilai_video_4 = $nilai_video_5 = $nilai_video_6 = $nilai_video_7 = 0;
+
+            foreach($record_jawaban as $jawaban){
+                if($jawaban->jawaban_kode == ''){
+                    // do nothing
+                }
+                else if($jawaban->jawaban_kode == $jawaban->jawaban_kode_benar){
+                    switch ($jawaban->kode_lomba) {
+                        case 'video-1':
+                            $nilai_video_1 += 2;
+                            break;
+
+                        case 'video-2':
+                            $nilai_video_2 += 2;
+                            break;
+
+                        case 'video-3':
+                            $nilai_video_3 += 2;
+                            break;
+
+                        case 'video-4':
+                            $nilai_video_4 += 2;
+                            break;
+
+                        case 'video-5':
+                            $nilai_video_5 += 2;
+                            break;
+
+                        case 'video-6':
+                            $nilai_video_6 += 2;
+                            break;
+
+                        case 'video-7':
+                            $nilai_video_7 += 2;
+                            break;
+
+                        default:
+                            break;
+                    }
+                } else{
+                    switch ($jawaban->kode_lomba) {
+                        case 'video-1':
+                            $nilai_video_1 += -1;
+                            break;
+
+                        case 'video-2':
+                            $nilai_video_2 += -1;
+                            break;
+
+                        case 'video-3':
+                            $nilai_video_3 += -1;
+                            break;
+
+                        case 'video-4':
+                            $nilai_video_4 += -1;
+                            break;
+
+                        case 'video-5':
+                            $nilai_video_5 += -1;
+                            break;
+
+                        case 'video-6':
+                            $nilai_video_6 += -1;
+                            break;
+
+                        case 'video-7':
+                            $nilai_video_7 += -1;
+                            break;
+
+                        default:
+                            break;
+                    }
+                }
+
+                $array_nilai[$p->id_peserta] = [
+                    'nilai_video_1' => $nilai_video_1,
+                    'nilai_video_2' => $nilai_video_2,
+                    'nilai_video_3' => $nilai_video_3,
+                    'nilai_video_4' => $nilai_video_4,
+                    'nilai_video_5' => $nilai_video_5,
+                    'nilai_video_6' => $nilai_video_6,
+                    'nilai_video_7' => $nilai_video_7,
+                ];
+
+                // update db
+                db()->table('peserta_kursus')->where('id_peserta', $p->id_peserta)->update([
+                    'nilai_video_1' => $nilai_video_1,
+                    'nilai_video_2' => $nilai_video_2,
+                    'nilai_video_3' => $nilai_video_3,
+                    'nilai_video_4' => $nilai_video_4,
+                    'nilai_video_5' => $nilai_video_5,
+                    'nilai_video_6' => $nilai_video_6,
+                    'nilai_video_7' => $nilai_video_7,
+                ]);
+            }
+            
+        }
+        dd($array_nilai);
+    }
+
     public function peserta_index(){
         if(!isInRole('tim registrasi')){
             return redirect()->to(base_url('dashboard'));

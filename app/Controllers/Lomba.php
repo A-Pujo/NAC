@@ -275,7 +275,7 @@ class Lomba extends BaseController
 			// $jawaban_peserta = db()->table('pilihan_jawaban')->whereIn('jawaban_id', $jawaban_peserta_id)->get()->getResult();
 
 			// get jawaban
-			$jawaban_peserta = $this->JAWABAN_PARTISIPAN->getFullJawabanPartisipan();
+			$jawaban_peserta = $this->JAWABAN_PARTISIPAN->getSingleJawabanPartisipan($voucher->partisipan_kode_voucher);
 
 			// Cek jawaban
 			foreach($jawaban_peserta as $jawaban){
