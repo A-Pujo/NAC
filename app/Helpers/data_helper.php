@@ -14,8 +14,8 @@ function tanggal($aksi){
         'pengumuman_course' => '2021-10-10 14:00', //pengumuman kelulusan course
 
         // pengumuman
-        'acc-sma-pre-peng' => '2021-10-10 10:00', // kelulusan pre el
-        'acc-univ-pre-peng' => '2021-10-10 10:00', // kelulusan pre el
+        'acc-sma-pre-peng' => '2021-10-12 10:00', // kelulusan pre el
+        'acc-univ-pre-peng' => '2021-10-12 10:00', // kelulusan pre el
         'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
 
         // tahap prelim
