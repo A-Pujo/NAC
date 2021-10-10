@@ -11,7 +11,7 @@ function tanggal($aksi){
         'close_course' => '2021-09-30 23:59', // tutup daftar
         'start_course' => '2021-01-01 08:00', // mulai masa mengerjakan
         'finish_course' => '2021-10-08 23:59', // akhir masa mengerjakan
-        'pengumuman_course' => '2021-10-10 16:00', //pengumuman kelulusan course
+        'pengumuman_course' => '2021-10-10 14:00', //pengumuman kelulusan course
 
         // pengumuman
         'acc-sma-pre-peng' => '2021-10-10 10:00', // kelulusan pre el

@@ -9,7 +9,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
                 </svg> 
-                <label>Pengumuman hasil Preliminary Round dapat Anda lihat pada hari Selasa, 12 Oktober 2021 pukul 10:00</label>
+                <label>Pengumuman hasil Preliminary Round dapat Anda lihat di <a class="btn btn-xs btn-primary" href="<?= base_url('pengumuman') ?>">Pengumuman</a> pada hari Selasa, 12 Oktober 2021 pukul 10:00</label>
             </div>
             <svg
                 @click="active = false"
@@ -22,7 +22,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
                 </svg> 
-                <label>Hasil pelaksanaan NAC Accounting Course dapat dilihat pada akun masing-masing peserta</label>
+                <label>Hasil pelaksanaan NAC Accounting Course dapat dilihat di <a class="btn btn-xs btn-primary" href="<?= base_url('kursus') ?>">Dashboard</a> akun masing-masing peserta</label>
             </div>
             <svg
                 @click="active = false"

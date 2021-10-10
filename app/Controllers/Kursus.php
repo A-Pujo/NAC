@@ -402,38 +402,38 @@ class Kursus extends BaseController{
                             break;
                     }
                 } else{
-                    switch ($jawaban->kode_lomba) {
-                        case 'video-1':
-                            $nilai_video_1 += -1;
-                            break;
+                    // switch ($jawaban->kode_lomba) {
+                    //     case 'video-1':
+                    //         $nilai_video_1 += 0;
+                    //         break;
 
-                        case 'video-2':
-                            $nilai_video_2 += -1;
-                            break;
+                    //     case 'video-2':
+                    //         $nilai_video_2 += 0;
+                    //         break;
 
-                        case 'video-3':
-                            $nilai_video_3 += -1;
-                            break;
+                    //     case 'video-3':
+                    //         $nilai_video_3 += 0;
+                    //         break;
 
-                        case 'video-4':
-                            $nilai_video_4 += -1;
-                            break;
+                    //     case 'video-4':
+                    //         $nilai_video_4 += 0;
+                    //         break;
 
-                        case 'video-5':
-                            $nilai_video_5 += -1;
-                            break;
+                    //     case 'video-5':
+                    //         $nilai_video_5 += 0;
+                    //         break;
 
-                        case 'video-6':
-                            $nilai_video_6 += -1;
-                            break;
+                    //     case 'video-6':
+                    //         $nilai_video_6 += 0;
+                    //         break;
 
-                        case 'video-7':
-                            $nilai_video_7 += -1;
-                            break;
+                    //     case 'video-7':
+                    //         $nilai_video_7 += 0;
+                    //         break;
 
-                        default:
-                            break;
-                    }
+                    //     default:
+                    //         break;
+                    // }
                 }
 
                 $array_nilai[$p->id_peserta] = [

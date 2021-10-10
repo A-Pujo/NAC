@@ -3469,6 +3469,11 @@ html {
   color: rgba(27, 205, 152, var(--tw-text-opacity));
 }
 
+.text-error {
+  --tw-text-opacity: 1;
+  color: rgba(255, 72, 72, var(--tw-text-opacity));
+}
+
 .text-base-80 {
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
