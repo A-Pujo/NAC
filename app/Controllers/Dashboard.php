@@ -733,5 +733,21 @@ class Dashboard extends BaseController
         }
     }
 
+
+    public function nilai_lomba_sma(){
+        $data =[
+            'judul' => 'Data Nilai Accounting for High School',
+            'halaman' => 'nilai-lomba-sma',
+        ];
+        return view('dashboard/pages/lomba/nilai-lomba-sma', $data);
+    }
+    public function nilai_lomba_univ(){
+        $data =[
+            'judul' => 'Data Nilai Accounting for University',
+            'halaman' => 'nilai-lomba-sma',
+        ];
+        return view('dashboard/pages/lomba/nilai-lomba-univ', $data);
+    }
+
 }
 ?>

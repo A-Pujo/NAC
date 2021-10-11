@@ -24,13 +24,13 @@
                 [
                     'Acc for SMA',
                     [
-                        ['Preliminary', 'acc-sma-pre'],
+                        ['Preliminary', 'acc-sma-pre-peng'],
                     ]
                 ],
                 [
                     'Acc for Univ',
                     [
-                        ['Preliminary', 'acc-univ-pre'],
+                        ['Preliminary', 'acc-univ-pre-peng'],
                     ]
                 ],
                 [
@@ -44,9 +44,9 @@
             <ul x-data="{show : 
 
                 <?php 
-                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-pre'])){
+                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-pre-peng'])){
                         echo 1;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-pre'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-pre-peng'])) {
                         echo 2;
                     } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-paper'])) {
                         echo 3;

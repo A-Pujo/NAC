@@ -268,6 +268,8 @@ class Lomba extends BaseController
 		foreach($voucher_peserta as $voucher){
 			// Init Nilai per user
 			$_nilai_1 = $_nilai_2 = $_nilai_3 = 0;
+			$_prelim_jawab_benar = 0;
+			$_prelim_jawab_salah = 0;
 			// Get id jawaban per user
 			// $jawaban_peserta_id = db()->table('jawaban_partisipan')->select('jawaban_id')->where('partisipan_kode_voucher', $voucher->partisipan_kode_voucher)->get()->getResult();
 			// $jawaban_peserta_id = array_map(function($e){ return $e->jawaban_id; }, $jawaban_peserta_id);
@@ -282,14 +284,17 @@ class Lomba extends BaseController
 				if($jawaban->jawaban_kode == $jawaban->jawaban_kode_benar){
 					if($jawaban->segmen == 1){
 						$_nilai_1 = $_nilai_1 + 2;
+						$_prelim_jawab_benar = $_prelim_jawab_benar + 1;
 					}
 
 					if($jawaban->segmen == 2){
 						$_nilai_2 = $_nilai_2 + 2;
+						$_prelim_jawab_benar = $_prelim_jawab_benar + 1;
 					}
 
 					if($jawaban->segmen == 3){
 						$_nilai_3 = $_nilai_3 + 2;
+						$_prelim_jawab_benar = $_prelim_jawab_benar + 1;
 					}
 
 				} elseif($jawaban->jawaban_kode == ''){
@@ -308,14 +313,17 @@ class Lomba extends BaseController
 				} else{
 					if($jawaban->segmen == 1){
 						$_nilai_1 = $_nilai_1 -1;
+						$_prelim_jawab_salah = $_prelim_jawab_salah + 1;
 					}
 
 					if($jawaban->segmen == 2){
 						$_nilai_2 = $_nilai_2 - 1;
+						$_prelim_jawab_salah = $_prelim_jawab_salah + 1;
 					}
 
 					if($jawaban->segmen == 3){
 						$_nilai_3 = $_nilai_3 - 1;
+						$_prelim_jawab_salah = $_prelim_jawab_salah + 1;
 					}
 				}
 			}
@@ -330,6 +338,8 @@ class Lomba extends BaseController
 					'segmen_1' => $_nilai_1,
 					'segmen_2' => $_nilai_2,
 					'segmen_3' => $_nilai_3,
+					'prelim_jawab_benar' => $_prelim_jawab_benar,
+					'prelim_jawab_salah' => $_prelim_jawab_salah,
 				]);
 			} else if($kode_lomba == 'AccUniv') {
 				db()->table('nilai_acc_univ')->insert([
@@ -337,6 +347,8 @@ class Lomba extends BaseController
 					'segmen_1' => $_nilai_1,
 					'segmen_2' => $_nilai_2,
 					'segmen_3' => $_nilai_3,
+					'prelim_jawab_benar' => $_prelim_jawab_benar,
+					'prelim_jawab_salah' => $_prelim_jawab_salah,
 				]);
 			}
 		}
@@ -424,4 +436,42 @@ class Lomba extends BaseController
 		return view('dashboard/pages/lomba/reviu-lju', $data);
 		// return view('test/riviu-lju', $data);
 	}
+	public function lulus_prelim(){
+		$peserta_lolos = db()->table('nilai_acc_sma')
+		->select('id, (segmen_1 + segmen_2 + segmen_3) as nilai_total, prelim_jawab_salah, prelim_jawab_benar')
+		// ->select('(segmen_1 + segmen_2 + segmen_3) as nilai_total, prelim_jawab_salah, prelim_jawab_benar, data_partisipan.partisipan_id, nama_tim, kode_voucher')
+		// ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
+		// ->join('partisipan_lomba', 'partisipan_lomba.partisipan_id = nilai_acc_sma.partisipan_id')
+		->orderBy('nilai_total', 'DESC')
+		->orderBy('prelim_jawab_salah', 'ASC')
+		->orderBy('prelim_jawab_benar', 'DESC')
+		->limit(20)
+		->get()->getResult();
+		foreach($peserta_lolos as $peserta){
+			db()->table('nilai_acc_sma')->where('id', $peserta->id)->update(['prelim' => 1]);
+		}
+		$peserta_lolos = db()->table('nilai_acc_univ')
+		->select('id, (segmen_1 + segmen_2 + segmen_3) as nilai_total, prelim_jawab_salah, prelim_jawab_benar')
+		->orderBy('nilai_total', 'DESC')
+		->orderBy('prelim_jawab_salah', 'ASC')
+		->orderBy('prelim_jawab_benar', 'DESC')
+		->limit(20)
+		->get()->getResult();
+		foreach($peserta_lolos as $peserta){
+			db()->table('nilai_acc_univ')->where('id', $peserta->id)->update(['prelim' => 1]);
+		}
+
+		// 1035 f19eb2fc, 95183a3f, d62a97d9, bb85d3af, f87a5e59
+		// 515 95183a3f
+		// 505 d62a97d9
+		// 262 bb85d3af
+		// 525 f87a5e59
+// 		SELECT * FROM `jawaban_partisipan` WHERE 
+// `partisipan_kode_voucher` = `f19eb2fc` OR
+// `partisipan_kode_voucher` = `95183a3f` OR
+// `partisipan_kode_voucher` = `d62a97d9` OR
+// `partisipan_kode_voucher` = `bb85d3af` OR
+// `partisipan_kode_voucher` = `f87a5e59`;
+	}
+
 }
