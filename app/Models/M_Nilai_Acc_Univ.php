@@ -30,7 +30,7 @@ class M_Nilai_Acc_Univ extends Model
         ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_univ.partisipan_id')
         ->orderBy('prelim', 'DESC')
         ->orderBy('nilai_total', 'DESC')
-        ->orderBy('prelim_jawab_salah')
+        ->orderBy('prelim_jawab_salah', 'ASC')
         ->get()->getResult();
     }
 
