@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\M_Nilai_Acc_Sma;
+use App\Models\M_Nilai_Acc_Univ;
 
 class Dashboard extends BaseController
 {
@@ -734,19 +736,36 @@ class Dashboard extends BaseController
     }
 
 
-    public function nilai_lomba_sma(){
-        $data =[
-            'judul' => 'Data Nilai Accounting for High School',
-            'halaman' => 'nilai-lomba-sma',
-        ];
-        return view('dashboard/pages/lomba/nilai-lomba-sma', $data);
+    public function nilai_lomba_sma($tahap = false){
+        $data = ['halaman' => 'nilai-lomba-sma'];
+        if($tahap == 'prelim'){
+            $pesertas =  new M_Nilai_Acc_Sma();
+            $data['judul'] = 'Data Nilai Prelim ';
+            $data['sub_halaman'] = 'sma-prelim';
+            $data['pesertas'] = $pesertas->getPrelim();
+            return view('dashboard/pages/lomba/nilai/sma-prelim', $data);
+        } else {
+            $pesertas =  new M_Nilai_Acc_Sma();
+            $data['judul'] = 'Data Nilai Accounting for High School';
+            $data['pesertas'] = $pesertas->getAll();
+            return view('dashboard/pages/lomba/nilai/sma-all', $data);
+        }
+
     }
-    public function nilai_lomba_univ(){
-        $data =[
-            'judul' => 'Data Nilai Accounting for University',
-            'halaman' => 'nilai-lomba-sma',
-        ];
-        return view('dashboard/pages/lomba/nilai-lomba-univ', $data);
+    public function nilai_lomba_univ($tahap = false){
+        $data = ['halaman' => 'nilai-lomba-univ'];
+        if($tahap == 'prelim'){
+            $pesertas =  new M_Nilai_Acc_Univ();
+            $data['judul'] = 'Data Nilai Prelim';
+            $data['sub_halaman'] = 'univ-prelim';
+            $data['pesertas'] = $pesertas->getPrelim();
+            return view('dashboard/pages/lomba/nilai/univ-prelim', $data);
+        } else {
+            $pesertas =  new M_Nilai_Acc_Univ();
+            $data['judul'] = 'Data Nilai Accounting for University';
+            $data['pesertas'] = $pesertas->getAll();
+            return view('dashboard/pages/lomba/nilai/univ-all', $data);
+        }
     }
 
 }

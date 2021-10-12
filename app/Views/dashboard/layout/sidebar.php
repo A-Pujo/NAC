@@ -1,4 +1,4 @@
-<div class="sticky top-0 flex flex-col space-y-16 p-32 sidebar h-screen relative"
+<div class="sticky top-0 flex flex-col space-y-16 p-32 sidebar h-screen relative overflow-auto"
     :class="
         {'sidebar-expand' : sidebarExpand == true ,
         'sidebar-limit' : sidebarExpand == false }
@@ -86,22 +86,56 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
             </svg>
             <span>Data Nilai Kursus</span>
         </a>
+        <hr>
+        <!-- Nilai SMA -->
         <a href="<?= base_url('/dashboard/nilai-lomba-sma') ?>" class="<?= $halaman == 'nilai-lomba-sma' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
             <span>Data Nilai ACC SMA</span>
         </a>
+        <?php if($halaman == 'nilai-lomba-sma') : ?>
+            <a href="<?= base_url('/dashboard/nilai-lomba-sma/prelim') ?>" class="ml-24 <?= ( $sub_halaman ?? false ) == 'sma-prelim' ? 'aktif' : 'nonaktif' ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>ACC SMA - Prelim</span>
+            </a>
+            <a href="" class="ml-24 <?= ( $sub_halaman ?? false ) == 'sma-tahap-1' ? 'aktif' : 'nonaktif' ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>ACC SMA - Tahap X</span>
+            </a>
+        <?php endif ?>
+        <!-- End Nilai SMA -->
+        <hr>
+        <!-- Nilai Univ -->
         <a href="<?= base_url('/dashboard/nilai-lomba-univ') ?>" class="<?= $halaman == 'nilai-lomba-univ' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
             <span>Data Nilai ACC UNIV</span>
         </a>
+        <?php if($halaman == 'nilai-lomba-univ') : ?>
+            <a href="<?= base_url('/dashboard/nilai-lomba-univ/prelim') ?>" class="ml-24 <?= ( $sub_halaman ?? false ) == 'univ-prelim' ? 'aktif' : 'nonaktif' ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>ACC Univ - Prelim</span>
+            </a>
+            <a href="" class="ml-24 <?= ( $sub_halaman ?? false ) == 'sma-tahap-1' ? 'aktif' : 'nonaktif' ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span>ACC Univ - Tahap X</span>
+            </a>
+        <?php endif ?>
+        <!-- End Nilai Univ -->
     <?php endif; ?>
     <!-- Peserta Lomba -->
     <?php if(isInRole('peserta lomba')) : ?>
-        <a href="<?= base_url('/lomba/dashboard') ?>" class="<?= $halaman == 'data-nilai-kursus' ? 'aktif' : 'nonaktif' ?>">
+        <a href="<?= base_url('/lomba/dashboard') ?>" class="<?= $halaman == 'lomba' ? 'aktif' : 'nonaktif' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
         </svg>

@@ -41,10 +41,10 @@
             <?php foreach($record_jawaban as $jawaban) : ?>
                 <?php if($jawaban->segmen == 1) : ?>
                 <div class="col-span-12 card bg-neutral-100 p-16">
-                    <p><strong class="text-24"><?= $i ?>.</strong> <?= $jawaban->soal_teks ?></p>
+                    <p><strong class="text-24"><?= $i++ ?>.</strong> <?= $jawaban->soal_teks ?></p>
                     <p><strong>Jawab :</strong> <?= $jawaban->jawaban_kode == '' ? 'Tidak menjawab' : $jawaban->jawaban_teks ?></p>
                 </div>
-                <?php endif; $i++; ?>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
         <div class="col-span-12 grid grid-cols-12 gap-16">
@@ -54,10 +54,10 @@
             <?php foreach($record_jawaban as $jawaban) : ?>
                 <?php if($jawaban->segmen == 2) : ?>
                 <div class="col-span-12 card bg-neutral-100 p-16">
-                    <p><strong class="text-24"><?= $i ?>.</strong> <?= $jawaban->soal_teks ?></p>
+                    <p><strong class="text-24"><?= $i++ ?>.</strong> <?= $jawaban->soal_teks ?></p>
                     <p><strong>Jawab :</strong> <?= $jawaban->jawaban_kode == '' ? 'Tidak menjawab' : $jawaban->jawaban_teks ?></p>
                 </div>
-                <?php endif; $i++; ?>
+                <?php endif ?>
             <?php endforeach; ?>
         </div>
         <div class="col-span-12 grid grid-cols-12 gap-16">
@@ -67,10 +67,10 @@
             <?php foreach($record_jawaban as $jawaban) : ?>
                 <?php if($jawaban->segmen == 3) : ?>
                 <div class="col-span-12 card bg-neutral-100 p-16">
-                    <p><strong class="text-24"><?= $i ?>.</strong> <?= $jawaban->soal_teks ?></p>
+                    <p><strong class="text-24"><?= $i++ ?>.</strong> <?= $jawaban->soal_teks ?></p>
                     <p><strong>Jawab :</strong> <?= $jawaban->jawaban_kode == '' ? 'Tidak menjawab' : $jawaban->jawaban_teks ?></p>
                 </div>
-                <?php endif; $i++; ?>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
     </div>

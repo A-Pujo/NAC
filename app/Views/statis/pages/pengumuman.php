@@ -9,7 +9,7 @@
                 'block' : menu == true,
                 'lg:block hidden' : menu == false
             }"
-            class="w-full h-full overflow-y-auto sm:w-480 bg-neutral-200 lg:bg-neutral-300 z-10 p-32 lg:p-0 lg:relative absolute top-0 right-0">
+            class="w-full h-full overflow-y-auto sm:w-144 bg-neutral-200 lg:bg-neutral-300 z-10 p-32 lg:p-0 lg:relative absolute top-0 right-0 flex-shrink-0">
             <div class="flex justify-between items-center">
                 <h2 class="font-bold text-20">Daftar Pengumuman</h2>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer lg:hidden" viewBox="0 0 20 20" fill="currentColor"
