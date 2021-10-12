@@ -128,11 +128,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
                     </svg>
-                    <?php if(false) : ?>
-                        <span>Selamat Anda lolos tahap Preliminary Round. Sebelum melanjutkan tahap berikutnya, Anda diwajibkan untuk melengkapi biodata tim Anda pada <a class="btn btn-xs" href="<?= base_url('') ?>" >tautan ini</a></span>
-                    <?php else : ?>
-                        <span>Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/LkkOiPIZO60BOjTgHtKVCl" >tautan ini</a></span>
-                    <?php endif ?>
+                    <span>Selamat Anda lolos tahap Preliminary Round. Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/LkkOiPIZO60BOjTgHtKVCl" >tautan ini</a></span>
                 </div>
                 <svg
                     @click="active = false"

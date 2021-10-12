@@ -14,13 +14,10 @@
     </thead>
     <tbody>
     <?php $no=1 ?>
-      <?php foreach(
-          db()->table('data_partisipan')
-          ->select('(segmen_1 + segmen_2 + segmen_3) as nilai_total, nama_tim, pt, prelim')
-          ->join('nilai_acc_univ', 'nilai_acc_univ.partisipan_id = data_partisipan.partisipan_id')
-          ->orderBy('prelim', 'DESC')
-          ->orderBy('nilai_total', 'DESC')
-          ->get()->getResult() as $partisipan) : ?>
+      <?php
+          $partisipans = new App\Models\M_Nilai_Acc_Univ();
+          foreach($partisipans->getPrelim() 
+           as $partisipan) : ?>
       <tr <?= $partisipan->prelim ? '' : 'x-show="all"' ?>>
         <td><?= $no++ ?> </td>
         <td><?= $partisipan->nama_tim ?></td>
