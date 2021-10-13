@@ -3,7 +3,8 @@
 
     <div class="text-base-100 max-w-600 p-32">
         <div x-data="{ data: 'ketua' }">
-            <?= form_open_multipart(base_url('/Main_Round/submit-data-diri'), ['method' => 'post']) ?>
+            <?php // form_open_multipart(base_url('/Main_Round/submit-data-diri'), ['method' => 'post'], ['onsubmit' => 'return validasi()']); ?>
+            <?= form_open(base_url('/Main_Round/submit-data-diri'), 'onsubmit="return validasi()"') ?>
                 <?= csrf_field() ?>
 
                 <input type="hidden" name="partisipan_id" value="<?= $user_info->partisipan_id ?>">
@@ -696,10 +697,33 @@
                         <span class="mt-4 font-light text-12 text-error"><?= initValidation()->getError('kuisioner_4') ?? '' ?></span>
                     </div>
                 </div>
+                <div class="card bg-neutral-100 p-16 mt-16">
+                    <div class="flex flex-row justify-start items-center space-x-8">
+                        <input id="konsekuensi" type="checkbox" class="checkbox checkbox-primary flex-shrink-0" onclick="check()">
+                        <label for="konsekuensi" >Saya menyatakan bahwa data yang telah saya isi adalah benar dan dapat dipertanggungjawabkan.</label>
+                    </div>
+                    <small class="text-error" id="err-konsekuensi">
+                    </small>
+                </div>
+
 
                 <button type="submit" class="btn btn-block btn-primary mt-24">submit</button>
             </form>
         </div>
     </div>
+    <script>
+        function validasi(){
+            let konsekuensi = document.getElementById('konsekuensi').checked;
+            if(konsekuensi){
+                return true;
+            } else {
+                document.getElementById('err-konsekuensi').innerHTML = `Harap isi pernyataan terlebih dahulu.`;
+                return false;
+            }
+        }
+        function check(){
+            document.getElementById('err-konsekuensi').innerHTML = ``;
+        }
+    </script>
 
 <?= $this->endSection() ?>
