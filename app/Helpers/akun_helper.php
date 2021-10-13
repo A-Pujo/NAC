@@ -70,6 +70,9 @@ function getGoogleClient(){
         return empty($partisipan) ? 0 : count($partisipan);
     }
 
-
+    function user_main_round(){
+        $data = new \App\Models\M_Data_Main_Round();
+        return $data->where('partisipan_id', userinfo()->partisipan_id)->first();
+    }
 
 ?>

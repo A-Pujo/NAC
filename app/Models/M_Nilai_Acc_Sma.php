@@ -30,7 +30,7 @@ class M_Nilai_Acc_Sma extends Model
         ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
         ->orderBy('prelim', 'DESC')
         ->orderBy('nilai_total', 'DESC')
-        ->orderBy('prelim_jawab_salah', 'DESC')
+        ->orderBy('prelim_jawab_salah', 'ASC')
         ->get()->getResult();
     }
 
