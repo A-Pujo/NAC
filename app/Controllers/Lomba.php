@@ -103,28 +103,6 @@ class Lomba extends BaseController
 			return redirect()->to(base_url('lomba'));
 		}
 
-		// Cek apakah soal telah diakses oleh device tertentu
-		// if(!isset($_COOKIE['device_token'])){
-		// 	// belum punya cokis
-		// 	$klaim_akses = db()->table('data_device_prelim')->where(['kode_voucher' => $voucher, 'segmen' => $segmen])
-		// 					->get()->getResult();
-		// 	if(empty($klaim_akses)){
-		// 		// belom ada yang akses
-		// 		db()->table('data_device_prelim')->insert(['kode_voucher' => $voucher, 'segmen' => $segmen, 'alamat_ip' => $_SERVER['REMOTE_ADDR']]);
-		// 		setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
-		// 	} else {
-		// 		// ada yang akses
-		// 		if($_SERVER['REMOTE_ADDR'] != $klaim_akses[0]->alamat_ip){
-		// 		// if($klaim_akses[0]->alamat_ip){
-		// 			// ip laptop saya tidak sama : lempar
-		// 			session()->setFlashdata('pesan-error', 'Soal dengan kode voucher '. $kode_voucher .' telah diakses menggunakan device dengan alamat IP: ' . $_COOKIE['user_ip'] .'.');
-		// 			return redirect()->to(base_url());
-		// 		} else {
-		// 			// ip laptop saya sama 
-		// 			setcookie('device_token', hash('ripemd128', 'token-for-' . $_SERVER['REMOTE_ADDR']), time() + (3600 * 3), "/");
-		// 		}
-		// 	}
-		// }
 		if(!isset($_COOKIE['device_token'])){
 			// belum punya cokis
 			$klaim_akses = db()->table('data_device_prelim')->where(['kode_voucher' => $voucher, 'segmen' => $segmen])
@@ -460,18 +438,6 @@ class Lomba extends BaseController
 		foreach($peserta_lolos as $peserta){
 			db()->table('nilai_acc_univ')->where('id', $peserta->id)->update(['prelim' => 1]);
 		}
-
-		// 1035 f19eb2fc, 95183a3f, d62a97d9, bb85d3af, f87a5e59
-		// 515 95183a3f
-		// 505 d62a97d9
-		// 262 bb85d3af
-		// 525 f87a5e59
-// 		SELECT * FROM `jawaban_partisipan` WHERE 
-// `partisipan_kode_voucher` = `f19eb2fc` OR
-// `partisipan_kode_voucher` = `95183a3f` OR
-// `partisipan_kode_voucher` = `d62a97d9` OR
-// `partisipan_kode_voucher` = `bb85d3af` OR
-// `partisipan_kode_voucher` = `f87a5e59`;
 	}
 
 }

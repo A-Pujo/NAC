@@ -10,6 +10,12 @@ class M_Nilai_Acc_Sma extends Model
 
     protected $returnType     = 'object';
 
+    public function isLulusPrelim($partisipan_id){
+        return $this
+        ->where('partisipan_id', $partisipan_id)
+        ->get()->getRow()->prelim;
+    }
+
     public function getAll(){
         return $this
         ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')

@@ -18,6 +18,7 @@
     $peserta_nilai = db()->table('nilai_acc_sma')
         ->where('partisipan_id', $peserta->partisipan_id)
         ->get()->getRow();
+    $peserta_biodata = user_main_round();
     ?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
@@ -59,6 +60,10 @@
                 <td><?= $peserta->wa ?></td>
             </tr>
         </table>
+    </div>
+    <!-- FLash Data -->
+    <div class="col-span-12">
+        <?= $this->include('component/pesan') ?>
     </div>
     <!-- <div class="card col-span-12 p-24 bg-neutral-100">
         <?php 
@@ -137,6 +142,23 @@
                 </svg>
             </div>
         </div>
+        <?php if(!$peserta_biodata) : ?>
+        <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
+            <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
+                <div class="flex-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
+                    </svg>
+                    <span>Segera lengkapi biodata Anda pada <a target="_blank" class="btn btn-xs" href="<?= base_url('Main_Round/lengkapi-data-diri') ?>" >tautan ini</a></span>
+                </div>
+                <svg
+                    @click="active = false"
+                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
+        </div>
+        <?php endif ?>
     <?php endif ?>
 <!-- == END UPDATE BIODATA == -->
     <div class="col-span-12 ">
