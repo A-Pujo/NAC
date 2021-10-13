@@ -13,10 +13,10 @@ class M_Webinar extends Model
     //     return $this->where('user_id', $user_id)->get()->getRow();
     // }
 
-    public function getDataPeserta($user_id){
+    public function getDataPeserta(){
         return $this
             ->join('users', 'users.id = peserta_webinar.user_id')
-            ->where('user_id', $user_id)
+            ->where('email', session('loggedEmail'))
             ->get()->getRow();
     }
 }

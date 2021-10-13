@@ -7,30 +7,25 @@ use function PHPUnit\Framework\isNull;
 
 class Webinar extends BaseController
 {
-
-    public function __construct()
-    {
-        $model = new M_Webinar();
-        $sudah_daftar = $model->getDataPeserta(userinfo()->id);
-        if($sudah_daftar){
-            return redirect()->to(base_url('/webinar'));
-        }   
-    }
-
     public function index(){
         return view('statis/pages/webinar');
     }
     public function dashboard(){
-        $peserta = new M_Webinar();
+        $user_webinar = user_webinar();
+        if(is_null($user_webinar)){
+            return redirect()->to(base_url('webinar/dashboard'));
+        }
         $data =[
             'judul' => 'Selamat Datang Peserta Webinar',
             'halaman' => 'webinar',
-            'peserta' => $peserta->getDataPeserta(userinfo()->id),
+            'peserta' => $user_webinar,
         ];
         return view('dashboard/pages/webinar/index', $data);
     }
     public function pendaftaran(){
-        // dd(base_url('webinar/pilih/'.session('webinar_id')));
+        if(user_webinar()){
+            return redirect()->to(base_url('webinar/dashboard'));
+        }
 
         if(!is_null($this->request->getVar('submit'))){
             $validasi = [
@@ -82,7 +77,7 @@ class Webinar extends BaseController
                             ];
                             $model = new M_Webinar();
                             $model->insert($data);
-                            return redirect()->to(base_url('webinar/pilih/'.session('webinar_id')));
+                            return redirect()->to(base_url('webinar/dashboard'));
                         }
                     } else {
                         $validasi['npm'] = 
@@ -113,7 +108,7 @@ class Webinar extends BaseController
                             ];
                             $model = new M_Webinar();
                             $model->insert($data);
-                            return redirect()->to(base_url('webinar/pilih/'.session('webinar_id')));
+                            return redirect()->to(base_url('webinar/dashboard'));
                         }
                     }
                 }
@@ -127,12 +122,28 @@ class Webinar extends BaseController
         return view('dashboard/pages/webinar/pendaftaran', $data);
     }
     public function pilih($webinar_id){
-        $model = new M_Webinar();
-        $sudah_daftar = $model->getDataPeserta(userinfo()->id);
-        if(is_null($sudah_daftar)){
+        if(is_null(user_webinar())){
             session()->set(['webinar_id' => $webinar_id]);
             return redirect()->to(base_url('webinar/pendaftaran'));
+        } else {
+            session()->set(['webinar_id' => $webinar_id]);
+            return redirect()->to(base_url('webinar/dashboard'));
         }
+    }
+
+    public function klaim(){
+        $validasi = [
+            'ig' => [
+                'rules' => 'regex_match[/instagram.com\/p\//]',
+                'errors' => [
+                    'required' => 'Link share twibbon tidak valid',
+                ],
+            ],
+        ];
+        if($this->validate($validasi)){
+        }
+        return redirect()->to('/webinar/pendaftaran')->withInput();
+
     }
 
 }

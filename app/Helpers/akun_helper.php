@@ -46,6 +46,15 @@ function getGoogleClient(){
         return $user_kursus->getFullUserInfo();
     }
 
+    function user_webinar(){
+        if(! isLoggedIn()){
+            return redirect()->to(getGoogleClient()->createAuthUrl());
+        }
+
+        $peserta = new \App\Models\M_Webinar();
+        return $peserta->getDataPeserta();
+    }
+
     function countPartisipan($kolom = null, $value = null){
         $PARTISIPAN = new \App\Models\M_Partisipan();
         $PARTISIPAN->join('users', 'users.id = data_partisipan.user_id')

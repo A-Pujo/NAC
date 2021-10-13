@@ -103,6 +103,7 @@ module.exports = {
         '64' : '64px',
       },
       inset:{
+        '-16' : '-16px',
         '8' : '8px',
         '16' : '16px',
         '32' : '32px',
@@ -121,6 +122,9 @@ module.exports = {
       maxWidth : {
         '600' : '600px',
         '1000' : '1000px'
+      },
+      minWidth : {
+        '600' : '600px',
       },
       minHeight : {
         '300' : '300px'

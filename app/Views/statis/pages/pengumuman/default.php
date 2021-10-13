@@ -2,8 +2,8 @@
     <?php
     
     $data = [
-        ['acc-sma-pre-peng','Peserta lolos seleksi Preliminary Raound Accounting High Scholl.'],
-        ['acc-univ-pre-peng','Peserta lolos seleksi Preliminary Raound Accounting University.'],
+        ['acc-sma-pre-peng','Peserta lolos seleksi Preliminary Round Accounting High School.'],
+        ['acc-univ-pre-peng','Peserta lolos seleksi Preliminary Round Accounting University.'],
     ]
     
     ?>
