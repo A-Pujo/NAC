@@ -442,4 +442,37 @@ class Lomba extends BaseController
 		}
 	}
 
+	public function upload_absen_sma(){
+		if($records = $this->request->getPost()){
+			if(!$this->validate([
+				'bukti' => [
+					'rules' => 'max_size[bukti,600]|ext_in[bukti,jpg,png,jpeg]',
+					'errors' => [
+						'max_size' => lang('Validasi.max_size', ['bukti', '500 KB']),
+						'ext_in' => lang('Validasi.ext_in', ['bukti', 'jpg, jpeg, atau png']),
+					],
+				]
+			])){
+				return redirect()->to('lomba/dashboard')->withInput();
+			} else {
+				// file bukti
+				$strBukti = [];
+				if($files = $this->request->getFile('bukti')){
+					foreach($files as $file){
+						if ($file->isValid() && ! $file->hasMoved()) {
+							$newName = $file->getRandomName();
+							$file->move(APPPATH . '../public/uploads/partisipan/lomba/absen', $newName);
+							array_push($strBukti, $newName);
+						}
+					}
+
+					// update db
+					$strBukti = implode('|', $strBukti);
+					db()->table('nilai_acc_sma')->where('id', $records['id'])->update(['absen_' . $records['absen_id'] => $strBukti]);
+					return redirect()->to('lomba/dashboard')->withInput();
+				}
+			}
+		}
+	}
+
 }
