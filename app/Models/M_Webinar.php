@@ -12,7 +12,7 @@ class M_Webinar extends Model
 
     public function getDataPeserta(){
         return $this
-            ->select('*, peserta_webinar.id as peserta_id')
+            ->select('*, peserta_webinar.id as peserta_id, peserta_webinar.nama as nama')
             ->join('users', 'users.id = peserta_webinar.user_id')
             ->where('email', session('loggedEmail'))
             ->get()->getRow();

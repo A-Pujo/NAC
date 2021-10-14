@@ -166,9 +166,9 @@ class Webinar extends BaseController
         // == CEK KUOTA == //
             $kuota = new M_Webinar();
             if($instansi == 'PKN STAN'){
-                $kuota = $kuota->countStan('webinar_'.$webinar_id);
+                $kuota = info('webinar_kuota_stan_'.$webinar_id) - $kuota->countStan('webinar_'.$webinar_id);
             } else {
-                $kuota = $kuota->countNonStan('webinar_'.$webinar_id);
+                $kuota = info('webinar_kuota_stan_'.$webinar_id) - $kuota->countNonStan('webinar_'.$webinar_id);
             }
             if($kuota <= 0){
                 session()->set(['webinar_id' => 0]);
