@@ -113,7 +113,9 @@
                             </td>
                             <td>
                                 <!-- Absensi : sudah daftar(1) ? -->
-                                <?php if($data_webinar_peserta[$i-1] != '0') : ?>
+                                <?php if($data_webinar_peserta[$i-1] == '2') : ?>
+                                    <a class="verif-sukses">Berhasil</a>
+                                <?php elseif($data_webinar_peserta[$i-1] != '0') : ?>
                                     <a class="btn btn-primary btn-sm 
                                         <?= sekarang() > tanggal('webinar_start_absen_'.$i) && sekarang() < tanggal('webinar_finish_absen_'.$i) ? '' : 'btn-disabled' ?>
                                     "
@@ -140,7 +142,7 @@
                 </tbody>
             </table>
             <small>*Sisa kuota pendaftar untuk <?= $peserta->instansi == "PKN STAN" ? 'mahasiswa PKN STAN' : 'umum' ?></small><br>
-            <small>*Batas waktu absensi hingga 1 jam setelah acara usai</small>
+            <small>*Batas waktu absensi hingga 2,5 jam setelah acara usai</small>
         </div>
     </div>
     <!-- == MODAL REGIS == -->

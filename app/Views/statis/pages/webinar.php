@@ -32,7 +32,7 @@
                 <p class="text-accent font-bold"><?= tanggal_human('webinar_start_'.$i) .'-'. jam_human('webinar_finish_'.$i)?></p>
                 <p class="leading-4 font-light text-14"><?= $tema[$i - 1] ?></p> 
                 <?php if($sudah_daftar[$i - 1]) :  ?>
-                    <a class="btn btn-primary mt-16  btn-outline">Sudah daftar</a>
+                    <a href="<?= base_url('webinar/dashboard') ?>" class="btn btn-primary mt-16  btn-outline">Link Zoom</a>
                 <?php else :?>
                     <a href="<?= base_url('webinar/pilih/'.$i) ?>" class="btn btn-primary mt-16">Daftar sekarang</a>
                 <?php endif?>
