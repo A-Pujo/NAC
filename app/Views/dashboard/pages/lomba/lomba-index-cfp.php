@@ -12,16 +12,14 @@
     $peserta = db()->table('data_partisipan')
         ->where('user_id', $user_id)
         ->get()->getRow();
-    $peserta_prelim = db()->table('partisipan_lomba')
-        ->where('partisipan_id', $peserta->partisipan_id)
-        ->get()->getRow();
-    $peserta_nilai = db()->table('nilai_acc_sma')
+    $peserta_nilai = db()->table('nilai_acc_univ')
         ->where('partisipan_id', $peserta->partisipan_id)
         ->get()->getRow();
     $peserta_biodata = user_main_round();
-    ?>
+        ?>
     
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100">
+
     <div class="card col-span-12 p-24 bg-neutral-100">
         <table class="tabel-card text-12 lg:text-16">
             <tr>
@@ -52,7 +50,7 @@
             <tr>
                 <td>Jenis Lomba</td>
                 <td>:</td>
-                <td>Accounting for High School</td>
+                <td>Accounting for University</td>
             </tr>
             <tr>
                 <td>Nomor Whatsapp</td>
@@ -100,7 +98,8 @@
         <?php endif?>
 
     </div> -->
-<!-- == REVIEW LJU == -->
+
+    <!-- == REVIEW LJU == -->
     <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
         <?php 
             if($peserta_prelim):
@@ -124,16 +123,17 @@
             endif;
         ?>
     </div>
-<!-- == END RIVEW LJU == -->
-<!-- == UPDATE BIODATA == -->
-    <?php if($peserta_nilai->prelim == 1 && sekarang() > tanggal('acc-sma-pre-peng') ) : ?>
+    <!-- == END RIVEW LJU == -->
+
+    <!-- == UPDATE BIODATA == -->
+    <?php if($peserta_nilai->prelim == 1 && sekarang() > tanggal('acc-univ-pre-peng') ) : ?>
         <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
                     </svg>
-                    <span>Selamat Anda lolos tahap Preliminary Round. Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/LkkOiPIZO60BOjTgHtKVCl" >tautan ini</a></span>
+                        <span>Selamat Anda lolos tahap Preliminary Round. Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/BShE1hDXpOK0Z4Ps5rvZFu" >tautan ini</a></span>
                 </div>
                 <svg
                     @click="active = false"
@@ -160,13 +160,14 @@
         </div>
         <?php endif ?>
     <?php endif ?>
-<!-- == END UPDATE BIODATA == -->
+    <!-- == END UPDATE BIODATA == -->
+
     <div class="col-span-12 ">
         <table class="tabel">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Kegiatan</th>
+                    <th>Tahap</th>
                     <th>Tanggal Pelaksanaan</th>
                     <th>Nilai</th>
                     <th>Status</th>
@@ -175,7 +176,7 @@
             <tbody>
                 <tr>
                     <td>1</td>
-                    <td>Preliminary Round</td>
+                    <td>Simulasi Preliminary Round</td>
                     <td><?= tanggal('start_pre') ?></td>
                     <td>
                         <?php 
@@ -187,8 +188,7 @@
                         ?>
                     </td>
                     <td>
-
-                        <?php if($peserta_nilai == null || sekarang() < tanggal('acc-sma-pre-peng')) : ?>
+                        <?php if($peserta_nilai == null || sekarang() < tanggal('acc-univ-pre-peng')) : ?>
                             Informasi Belum Tersedia
                         <?php else: ?>
                             <?php if($peserta_nilai->prelim == 1) : ?>
@@ -199,45 +199,8 @@
                         <?php endif; ?>
                     </td>
                 </tr>
-                <!-- <tr>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        Absensi Tahap X
-                    </td>
-                    <td>
-                        29 Oktober 2020
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        <a class="verif-sukses">Sukses</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        3
-                    </td>
-                    <td>
-                        Absensi Closing Ceremony
-                    </td>
-                    <td>
-                        29 Oktober 2020
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-primary">absen</a>
-                    </td>
-                </tr> -->
             </tbody>
         </table>
-    </div>
-    <div>
-        
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>

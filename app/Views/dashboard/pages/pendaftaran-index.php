@@ -225,7 +225,11 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
                         <?php endif?>
                     <?php elseif(userinfo()->lolos_abstrak) : ?>
                         <!-- Udah pengumuman dan lolos -->
-                        <span>Selamat, Anda lolos tahap seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a href="<?= base_url('dashboard/upload-paper-show') ?>" class="btn btn-xs btn-primary">berikut</a></span>
+                        <?php if(sekarang() > tanggal('close_paper')) : ?>
+                            <span>Formulir unggah full paper telah ditutup</span>
+                        <?php else : ?>
+                            <span>Selamat, Anda lolos tahap seleksi abstrak. Silakan Anda mengunggah berkas full paper pada tautan <a href="<?= base_url('dashboard/upload-paper-show') ?>" class="btn btn-xs btn-primary">berikut</a></span>
+                        <?php endif ?>
                     <?php elseif(!userinfo()->lolos_abstrak) : ?>
                         <!-- Udah pengumuman dan tidak lolos :) -->
                         <span>Mohon maaf, Anda tidak lolos tahap seleksi abstrak.

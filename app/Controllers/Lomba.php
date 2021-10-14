@@ -40,6 +40,8 @@ class Lomba extends BaseController
 			return view('dashboard/pages/lomba/lomba-index-sma', $data);
 		} elseif($lomba == 'AccUniv') {
 			return view('dashboard/pages/lomba/lomba-index-univ', $data);
+		} else {
+			return view('dashboard/pages/lomba/lomba-index-cfp', $data);
 		}
 	}
 

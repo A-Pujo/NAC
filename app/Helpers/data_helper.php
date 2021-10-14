@@ -6,7 +6,7 @@ function tanggal($aksi){
         'close_acc_sma' => '2021-10-07 23:59', //batas waktu pendaftaran
         'close_acc_univ' => '2021-10-07 23:59', //batas waktu pendaftaran
         'close_abstrak' => '2021-09-24 23:59', //batas waktu pengumpulan abstrak
-        'close_abstrak' => '2021-10-16 23:59', // batas waktu full paper
+        'close_paper' => '2021-10-16 23:59', // batas waktu full paper
         // course
         'open_course' => '2021-09-24 08:00', // buka daftar
         'close_course' => '2021-09-30 23:59', // tutup daftar

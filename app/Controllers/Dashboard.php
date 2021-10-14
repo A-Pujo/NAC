@@ -768,5 +768,20 @@ class Dashboard extends BaseController
         }
     }
 
+    public function nilai_sma(){
+        $data = [
+            'halaman' => 'nilai-sma',
+            'judul' => 'Data Nilai Accounting for High School'
+        ];
+        return view('dashboard/pages/nilai/nilai-sma', $data);
+    }
+    public function nilai_univ(){
+        $data = [
+            'halaman' => 'nilai-univ',
+            'judul' => 'Data Nilai Accounting for University'
+        ];
+        return view('dashboard/pages/nilai/nilai-univ', $data);
+    }
+
 }
 ?>

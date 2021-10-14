@@ -51,7 +51,7 @@
 
             /* Select */
             .form-select {
-                @apply w-1/2 relative;
+                @apply w-1/2 relative cursor-pointer;
             }
             .form-select div:nth-child(2) {
                 @apply self-stretch bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 relative

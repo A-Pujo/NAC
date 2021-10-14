@@ -2061,6 +2061,7 @@ html {
 .form-select {
   position: relative;
   width: 50%;
+  cursor: pointer;
 }
 
 .form-select div:nth-child(2) {
