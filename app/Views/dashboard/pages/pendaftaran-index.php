@@ -388,7 +388,7 @@ $jumlah_transfer = substr($jumlah_transfer, 0, (strlen($jumlah_transfer) - strle
         <h2 class="col-span-12 text-36 font-extrabold mt-32">Webinar NAC Digital Series </h2>
         <p class="col-span-12 text-16 mt-8">Webinar NAC Digital Series adalah bagian dari rangkaian acara National Accounting Challenge 2021 yang akan menghadirkan narasumber-narasumber berkompeten di bidang akuntansi/audit. Brace yourself and #GetReadyToTransform with us!</p>
         <div class="col-span-12 rounded-md bg-neutral-100 p-24 mt-24">
-            Coming Soon!
+            Daftar webinar dapat diakses pada tautan <a href="<?= base_url('webinar') ?>" class="btn btn-xs btn-primary">berikut ini</a>
         </div>
 
 
