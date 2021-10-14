@@ -448,6 +448,7 @@ class Lomba extends BaseController
 				'bukti' => [
 					'rules' => 'uploaded[bukti]|max_size[bukti,600]|ext_in[bukti,jpg,png,jpeg]',
 					'errors' => [
+						'uploaded' => lang('Validasi.required'),
 						'max_size' => lang('Validasi.max_size', ['bukti', '500 KB']),
 						'ext_in' => lang('Validasi.ext_in', ['bukti', 'jpg, jpeg, atau png']),
 					],
@@ -458,8 +459,8 @@ class Lomba extends BaseController
 			} else {
 				// file bukti
 				$strBukti = [];
-				if($files = $this->request->getFile('bukti')){
-					foreach($files as $file){
+				if($files = $this->request->getFiles()){
+					foreach($files['bukti'] as $file){
 						if ($file->isValid() && ! $file->hasMoved()) {
 							$newName = $file->getRandomName();
 							$file->move(APPPATH . '../public/uploads/partisipan/lomba/absen', $newName);
@@ -480,8 +481,9 @@ class Lomba extends BaseController
 		if($records = $this->request->getPost()){
 			if(!$this->validate([
 				'bukti' => [
-					'rules' => 'max_size[bukti,600]|ext_in[bukti,jpg,png,jpeg]',
+					'rules' => 'uploaded[bukti]|max_size[bukti,600]|ext_in[bukti,jpg,png,jpeg]',
 					'errors' => [
+						'uploaded' => lang('Validasi.required'),
 						'max_size' => lang('Validasi.max_size', ['bukti', '500 KB']),
 						'ext_in' => lang('Validasi.ext_in', ['bukti', 'jpg, jpeg, atau png']),
 					],
@@ -492,8 +494,8 @@ class Lomba extends BaseController
 			} else {
 				// file bukti
 				$strBukti = [];
-				if($files = $this->request->getFile('bukti')){
-					foreach($files as $file){
+				if($files = $this->request->getFiles()){
+					foreach($files['bukti'] as $file){
 						if ($file->isValid() && ! $file->hasMoved()) {
 							$newName = $file->getRandomName();
 							$file->move(APPPATH . '../public/uploads/partisipan/lomba/absen', $newName);
