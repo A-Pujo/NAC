@@ -7,7 +7,7 @@
             <li><a href="<?= base_url() ?>"class="btn btn-ghost">Home</a></li>
             <li><a href="<?= base_url('guide') ?>" class="btn btn-ghost">Panduan</a></li>
             <li><a href="<?= base_url('pengumuman') ?>" class="btn btn-ghost">Pengumuman</a></li>
-            <li><a href="<?= base_url('') ?>" class="btn btn-ghost">webinar</a></li>
+            <li><a href="<?= base_url('webinar') ?>" class="btn btn-ghost">webinar</a></li>
             <li><a href="<?= base_url('dashboard') ?>" class="btn btn-primary">Dashboard</a></li>
         </ul>
     </div>
@@ -29,7 +29,7 @@
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/guide') ?>">Panduan</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/pengumuman') ?>">Pengumuman</a></li>
-                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('') ?>">webinar</a></li>
+                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/webinar') ?>">webinar</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/dashboard') ?>">Dashboard</a></li>
                 </ul>
             </div>

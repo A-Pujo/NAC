@@ -30,6 +30,15 @@
     </div>
     <div class="">
         <h2 class="font-bold text-24">Sponsor</h2>
+        <div class="flex flex-row">
+            <a href="https://piranhasmartcenter.com/" target="_blank">
+                <img class="h-64 cursor-pointer" src="<?= base_url('img/sponsor_psc.png') ?>" alt="">
+            </a>
+            <a href="https://www.zenius.net/" target="_blank">
+                <img class="h-64 cursor-pointer" src="<?= base_url('img/sponsor_zenius.png') ?>" alt="">
+            </a>
+
+        </div>
         <ul class="pl-8">
             <li>
                 NAC 2021 is looking for sponsors!
@@ -69,6 +78,13 @@
                     <span>NAC Call for Paper</span><br>
                     <span class="link link-primary">082376333321</span>
                     <span>(Aras)</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://wa.me/622131527144">
+                    <span>Webinar</span><br>
+                    <span class="link link-primary">082131527144</span>
+                    <span>(Ibrah)</span>
                 </a>
             </li>
         </ul>

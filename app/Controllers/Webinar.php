@@ -13,12 +13,27 @@ class Webinar extends BaseController
     public function dashboard(){
         $user_webinar = user_webinar();
         if(is_null($user_webinar)){
-            return redirect()->to(base_url('webinar/dashboard'));
+            return redirect()->to(base_url('webinar/pendaftaran'));
+        }
+        $model = new M_Webinar();
+        if($user_webinar->instansi == 'PKN STAN'){
+            $kuota = [
+                info('webinar_kuota_stan_1') - $model->countStan('webinar_1'),
+                info('webinar_kuota_stan_2') - $model->countStan('webinar_2'),
+                info('webinar_kuota_stan_3') - $model->countStan('webinar_3'),
+            ];
+        } else {
+            $kuota = [
+                info('webinar_kuota_non_stan_1') - $model->countNonStan('webinar_1'),
+                info('webinar_kuota_non_stan_2') - $model->countNonStan('webinar_2'),
+                info('webinar_kuota_non_stan_3') - $model->countNonStan('webinar_3'),
+            ];
         }
         $data =[
             'judul' => 'Selamat Datang Peserta Webinar',
             'halaman' => 'webinar',
             'peserta' => $user_webinar,
+            'kuota' => $kuota,
         ];
         return view('dashboard/pages/webinar/index', $data);
     }
@@ -27,6 +42,7 @@ class Webinar extends BaseController
             return redirect()->to(base_url('webinar/dashboard'));
         }
 
+        // SUBMIT
         if(!is_null($this->request->getVar('submit'))){
             $validasi = [
                 'nama' => [
@@ -115,6 +131,7 @@ class Webinar extends BaseController
             }
         }
 
+        // VIEW
         $data =[
             'judul' => 'Formulir pendaftaran Webinar',
             'halaman' => 'beranda',
@@ -140,9 +157,67 @@ class Webinar extends BaseController
                 ],
             ],
         ];
-        if($this->validate($validasi)){
+        if(!$this->validate($validasi)){
+            return redirect()->to('/webinar/dashboard')->withInput();
         }
-        return redirect()->to('/webinar/pendaftaran')->withInput();
+        $webinar_id = $this->request->getVar('webinar_id');
+        $instansi = $this->request->getVar('instansi');
+
+        // == CEK KUOTA == //
+            $kuota = new M_Webinar();
+            if($instansi == 'PKN STAN'){
+                $kuota = $kuota->countStan('webinar_'.$webinar_id);
+            } else {
+                $kuota = $kuota->countNonStan('webinar_'.$webinar_id);
+            }
+            if($kuota <= 0){
+                session()->set(['webinar_id' => 0]);
+                session()->setFlashdata('pesan-error', "Maaf, kuota telah habis");
+                return redirect()->to(base_url('webinar/dashboard'));
+            }
+        // == END CEK KUOTA //
+
+        $data = [
+            'id' => $this->request->getVar('peserta_id'),
+            'webinar_'.$webinar_id => 1,
+            'pertanyaan_'.$webinar_id => $this->request->getVar('pertanyaan'),
+        ];
+        $model = new M_Webinar();
+        $model->save($data);
+        session()->setFlashdata('pesan-success', "Klaim tiket Webinar #$webinar_id berhasil");
+        return redirect()->to(base_url('webinar/dashboard'));
+
+    }
+    public function absen(){
+        // === VALIDASI PASSWORD === //
+            $pass = $this->request->getVar('pass'); 
+            $pass = preg_replace('/\s+/', '', $pass); // hapus whitespace 
+            $pass = strtolower($pass); // konversi lowercase
+
+            $absen_id = $this->request->getVar('absen_id');
+            if($absen_id == 1 && $pass == strtolower(preg_replace('/\s+/', '', info('webinar_pass_1')))){
+                $kode = 2;
+            } elseif($absen_id == 2 && $pass == strtolower(preg_replace('/\s+/', '', info('webinar_pass_2')))){
+                $kode = 2;
+            } elseif($absen_id == 3 && $pass == strtolower(preg_replace('/\s+/', '', info('webinar_pass_3')))){
+                $kode = 2;
+            } else {
+                $kode = $this->request->getVar('pass');
+            }
+        // === END VALIDASI PASSWORD === //
+
+        $data = [
+            'id' => $this->request->getVar('peserta_id'),
+            'webinar_'.$absen_id => $kode,
+        ];
+        $model = new M_Webinar();
+        $model->save($data);
+        if($kode == 2){
+            session()->setFlashdata('pesan-success', "Absen Webinar #$absen_id berhasil. Silakan Anda mengunduh sertifikat pada tautan yang telah disediakan");
+        } else {
+            session()->setFlashdata('pesan-error', "Maaf, password yang Anda input salah. Silakan Anda menghubungi CP agar panitia dapat memvalidasi password Anda secara manual.");
+        }
+        return redirect()->to(base_url('webinar/dashboard'));
 
     }
 
