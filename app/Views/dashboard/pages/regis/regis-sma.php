@@ -11,7 +11,7 @@
 
     <div class="p-32 grid grid-cols-12 gap-24 text-base-100">
       <div class="col-span-12">
-      <div class="form-select" x-data="{menu : '<?= $pages[$_GET['page'] ?? 'default'] ?>', dropdown: false}">
+        <div class="form-select" x-data="{menu : '<?= $pages[$_GET['page'] ?? 'default'] ?>', dropdown: false}">
             <label>Pilih Data</label>
             <div
                 @click="dropdown = !dropdown"
@@ -27,7 +27,7 @@
             <div x-show="dropdown" @click.outside="dropdown = false">
                 <ul>
                     <?php $i = 0; foreach($pages as $page) : $i++?>
-                        <li><a href="<?= base_url('dashboard/regis/regis?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
+                        <li><a href="<?= base_url('dashboard/regis-sma?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
                     <?php endforeach ?>
                 </ul>
             </div>
@@ -36,5 +36,6 @@
       <div class="col-span-12">
             <?= ($_GET['page'] ?? false) ? $this->include('dashboard/pages/regis/sma/'.$_GET['page']) : '' ?>
       </div>
-      <?= $this->include('dashboard/layout/datatables') ?>
+    </div>
+    <?= $this->include('dashboard/layout/datatables') ?>
 <?= $this->endSection() ?>

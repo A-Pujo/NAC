@@ -12,6 +12,13 @@ class M_Data_Main_Round extends Model
     public function insertData($data){
         db()->table($this->table)->insert($data);
     }
+
+    public function getDataSMA(){
+        return $this
+            ->join('data_partisipan', 'data_partisipan.partisipan_id = data_main_round.partisipan_id')
+            ->where('partisipan_jenis', 'AccSMA')
+            ->get()->getResult();
+    }
 }
 
 ?>

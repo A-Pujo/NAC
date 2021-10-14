@@ -256,7 +256,7 @@
                             </div>
                         </template>
                     </div>
-                    <label for="absen">Upload Data</label>
+                    <label for="bukti">Upload Data</label>
                     <input type="file" id="bukti" @change="files = $event.target.files" name="bukti[]" multiple/>
                     <input type="hidden" name="absen_id" :value="absen_id">
                     <input type="hidden" name="id" value="<?= $peserta_nilai->id ?>" >
