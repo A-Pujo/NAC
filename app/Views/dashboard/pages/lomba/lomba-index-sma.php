@@ -239,7 +239,7 @@
     <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
         <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
             <h2 class="text-24 font-bold text-center">Form absen #<span x-text="absen_id"></span></h2>
-            <form method="post" action="<?=base_url('') ?>">
+            <?= form_open(base_url('lomba/upload-absen-sma'), ['method' => 'post']) ?>
             <?= csrf_field() ?>
 
                 <div class="form-upload" x-data="{files : ''}">
@@ -260,7 +260,7 @@
                     <input type="file" id="bukti" @change="files = $event.target.files" name="bukti[]" multiple/>
                     <input type="hidden" name="absen_id" :value="absen_id">
                     <input type="hidden" name="id" value="<?= $peserta_nilai->id ?>" >
-                    <span><?= initValidation()->getError('twibbon') ?? '' ?></span>
+                    <span><?= initValidation()->getError('bukti') ?? '' ?></span>
 
                     <small>Foto bukti kehadiran berupa gambar dengan format jpg, jpeg atau png</small>
                     <small>Ukuran maksimal untuk setiap file 500 Kb</small>
