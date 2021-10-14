@@ -216,26 +216,10 @@
                         <a class="btn btn-sm btn-primary" @click="absen_id = 1">Absen</a>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        Absensi TM 2
-                    </td>
-                    <td>
-                        20 Oktober 2021 pukul 20:00 WIB
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        <a class="btn btn-sm btn-primary" @click="absen_id = 2">Absen</a>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>
+    <!-- === MODAL ABSEN === -->
     <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
         <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
             <h2 class="text-24 font-bold text-center">Form absen #<span x-text="absen_id"></span></h2>
@@ -276,6 +260,7 @@
         </form>
         </div>
     </div>
+    <!-- === END MODAL ABSEN === -->
 </div>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
 <script>

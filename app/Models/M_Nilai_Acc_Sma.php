@@ -40,4 +40,10 @@ class M_Nilai_Acc_Sma extends Model
         ->get()->getResult();
     }
 
+
+    // REGIS //
+    public function getAbsen($absen_id){
+        return $this->select($absen_id)->get()->getResult();
+    }
+
 }

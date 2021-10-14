@@ -6,7 +6,7 @@
         'daful' => 'Daful SMA',
     ];
     $pages_key = array_keys($pages);
-
+    $pesertas = new \App\Models\M_Nilai_Acc_Sma();
 ?>
 
     <div class="p-32 grid grid-cols-12 gap-24 text-base-100">
