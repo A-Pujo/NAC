@@ -60,7 +60,7 @@
                 @apply absolute right-8 top-input-icon text-primary-200 ;
             }
             .form-select div:nth-child(3) {
-                @apply absolute right-0 top-80 bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 ;
+                @apply z-50 absolute right-0 top-80 bg-neutral-200 border border-neutral-60 hover:border-primary-100 rounded-md p-8 text-base-100 text-12 ;
             }
             .form-select div:nth-child(3) ul {
                 @apply divide-y divide-primary-100 max-h-300 overflow-auto;

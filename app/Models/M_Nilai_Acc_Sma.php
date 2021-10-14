@@ -16,11 +16,19 @@ class M_Nilai_Acc_Sma extends Model
         ->get()->getRow()->prelim;
     }
 
-    public function getAll(){
-        return $this
-        ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
-        ->orderBy('nama_tim')
-        ->get()->getResult();
+    public function getAll($kolom = false, $where = false){
+        if($kolom){
+            return $this
+            ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
+            ->where($kolom, $where)
+            ->orderBy('nama_tim')
+            ->get()->getResult();
+        } else {
+            return $this
+            ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
+            ->orderBy('nama_tim')
+            ->get()->getResult();
+        }
     }
 
     public function getPrelim(){
@@ -38,12 +46,6 @@ class M_Nilai_Acc_Sma extends Model
         ->orderBy('nilai_total', 'DESC')
         ->orderBy('prelim_jawab_salah', 'ASC')
         ->get()->getResult();
-    }
-
-
-    // REGIS //
-    public function getAbsen($absen_id){
-        return $this->select($absen_id)->get()->getResult();
     }
 
 }
