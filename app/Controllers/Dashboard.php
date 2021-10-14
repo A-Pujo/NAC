@@ -782,6 +782,13 @@ class Dashboard extends BaseController
         ];
         return view('dashboard/pages/nilai/nilai-univ', $data);
     }
+    public function regis_sma(){
+        $data = [
+            'halaman' => 'regis-sma',
+            'judul' => 'Data registrasi Accounting for High School'
+        ];
+        return view('dashboard/pages/regis/regis-sma', $data);
+    }
 
 }
 ?>
