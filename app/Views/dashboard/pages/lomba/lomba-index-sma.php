@@ -21,7 +21,7 @@
     $peserta_biodata = user_main_round();
     ?>
     
-<div class="grid grid-cols-12 gap-24 p-32 text-base-100">
+<div class="grid grid-cols-12 gap-24 p-32 text-base-100" x-data="{absen_id:0}">
     <div class="card col-span-12 p-24 bg-neutral-100">
         <table class="tabel-card text-12 lg:text-16">
             <tr>
@@ -101,7 +101,7 @@
 
     </div> -->
 <!-- == REVIEW LJU == -->
-    <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
+    <div class="col-span-12 flex space-y-16 flex-col">
         <?php 
             if($peserta_prelim):
                 if($peserta_prelim->kuota_1 == 0 && $peserta_prelim->kuota_2 == 0 && $peserta_prelim->kuota_3 == 0):
@@ -127,7 +127,7 @@
 <!-- == END RIVEW LJU == -->
 <!-- == UPDATE BIODATA == -->
     <?php if($peserta_nilai->prelim == 1 && sekarang() > tanggal('acc-sma-pre-peng') ) : ?>
-        <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
+        <div class="col-span-12 flex space-y-16 flex-col">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
@@ -199,45 +199,82 @@
                         <?php endif; ?>
                     </td>
                 </tr>
-                <!-- <tr>
+                <tr>
                     <td>
                         2
                     </td>
                     <td>
-                        Absensi Tahap X
+                        Absensi TM
                     </td>
                     <td>
-                        29 Oktober 2020
+                        14 Oktober 2021 pukul 20:00 WIB
                     </td>
                     <td>
                         -
                     </td>
                     <td>
-                        <a class="verif-sukses">Sukses</a>
+                        <a class="btn btn-sm btn-primary" @click="absen_id = 1">Absen</a>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        3
+                        2
                     </td>
                     <td>
-                        Absensi Closing Ceremony
+                        Absensi TM 2
                     </td>
                     <td>
-                        29 Oktober 2020
+                        20 Oktober 2021 pukul 20:00 WIB
                     </td>
                     <td>
                         -
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-primary">absen</a>
+                        <a class="btn btn-sm btn-primary" @click="absen_id = 2">Absen</a>
                     </td>
-                </tr> -->
+                </tr>
             </tbody>
         </table>
     </div>
-    <div>
-        
+    <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+            <h2 class="text-24 font-bold text-center">Form absen #<span x-text="absen_id"></span></h2>
+            <form method="post" action="<?=base_url('') ?>">
+            <?= csrf_field() ?>
+
+                <div class="form-upload" x-data="{files : ''}">
+                    <label for="bukti">Bukti Kehadiran</label>
+                    <div x-show="files">
+                        <!-- Loop the image -->
+                        <template x-for="file in files" x-if="files">
+                            <div>
+                                <img :src="URL.createObjectURL(file)">
+                                <div>
+                                    <span x-text="file.name"></span>
+                                    <span x-text="file.size / 1000 + ' Kb'"></span>
+                                </div> 
+                            </div>
+                        </template>
+                    </div>
+                    <label for="absen">Upload Data</label>
+                    <input type="file" id="bukti" @change="files = $event.target.files" name="bukti[]" multiple/>
+                    <input type="hidden" name="absen_id" :value="absen_id">
+                    <input type="hidden" name="id" value="<?= $peserta_nilai->id ?>" >
+                    <span><?= initValidation()->getError('twibbon') ?? '' ?></span>
+
+                    <small>Foto bukti kehadiran berupa gambar dengan format jpg, jpeg atau png</small>
+                    <small>Ukuran maksimal untuk setiap file 500 Kb</small>
+                    <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu gambar</small>
+                </div>
+            <!-- SUBMIT -->
+            <input type="hidden" name="absen_id" :value="absen_id">
+            <input type="hidden" name="peserta_id" value="<?= $peserta_nilai->id ?>">
+            <div class="flex flex-row justify-between">
+                <span class="btn btn-error btn-sm" @click="absen_id = 0">Cancel</span>
+                <input type="submit" value="submit" name="submit" class="btn btn-primary btn-sm">
+            </div>
+        </form>
+        </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
