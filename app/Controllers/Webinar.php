@@ -21,16 +21,18 @@ class Webinar extends BaseController
                 info('webinar_kuota_stan_1') - $model->countStan('webinar_1'),
                 info('webinar_kuota_stan_2') - $model->countStan('webinar_2'),
                 info('webinar_kuota_stan_3') - $model->countStan('webinar_3'),
+                info('webinar_kuota_stan_4') - $model->countStan('webinar_4'),
             ];
         } else {
             $kuota = [
                 info('webinar_kuota_non_stan_1') - $model->countNonStan('webinar_1'),
                 info('webinar_kuota_non_stan_2') - $model->countNonStan('webinar_2'),
                 info('webinar_kuota_non_stan_3') - $model->countNonStan('webinar_3'),
+                info('webinar_kuota_non_stan_4') - $model->countNonStan('webinar_4'),
             ];
         }
         $data =[
-            'judul' => 'Selamat Datang Peserta Webinar',
+            'judul' => 'Selamat Datang Peserta Webinar / Open Ceremony',
             'halaman' => 'webinar',
             'peserta' => $user_webinar,
             'kuota' => $kuota,
@@ -138,8 +140,11 @@ class Webinar extends BaseController
         ];
         return view('dashboard/pages/webinar/pendaftaran', $data);
     }
+
+    // === PROSES DARI HALAMAN DEPAN === //
     public function pilih($webinar_id){
         if(is_null(user_webinar())){
+            // Belum isi biodata
             session()->set(['webinar_id' => $webinar_id]);
             return redirect()->to(base_url('webinar/pendaftaran'));
         } else {
@@ -147,6 +152,35 @@ class Webinar extends BaseController
             return redirect()->to(base_url('webinar/dashboard'));
         }
     }
+    public function pilih_opening(){
+        $user_webinar = user_webinar();
+        if(is_null($user_webinar)){
+            // Daftar akun
+            session()->set(['webinar_id' => 4]);
+            return redirect()->to(base_url('webinar/pendaftaran'));
+        } else {
+            if($user_webinar->webinar_4 == '' || $user_webinar->webinar_4 == '0' ){
+                //Klaim
+                session()->set(['webinar_id' => 4]);
+                return redirect()->to(base_url('webinar/dashboard'));
+            } else {
+                // Buka link zoom
+                session()->set(['zoom_id' => 4]);
+                return redirect()->to(base_url('webinar/dashboard'));
+            }
+        }
+    }
+    public function get_zoom_id($zoom_id){
+        $user_webinar = user_webinar();
+        if(is_null($user_webinar)){
+            // Daftar akun;
+            return redirect()->to(base_url('webinar/pendaftaran'));
+        } else {
+            session()->set(['zoom_id' => $zoom_id]);
+            return redirect()->to(base_url('webinar/dashboard'));
+        }
+    }
+    // === END PROSES DARI HALAMAN DEPAN === //
 
     public function klaim(){
         $validasi = [
@@ -184,7 +218,8 @@ class Webinar extends BaseController
         ];
         $model = new M_Webinar();
         $model->save($data);
-        session()->setFlashdata('pesan-success', "Klaim tiket Webinar #$webinar_id berhasil");
+        $judul = $this->request->getVar('judul');
+        session()->setFlashdata('pesan-success', "Klaim tiket $judul berhasil");
         return redirect()->to(base_url('webinar/dashboard'));
 
     }
@@ -212,8 +247,9 @@ class Webinar extends BaseController
         ];
         $model = new M_Webinar();
         $model->save($data);
+        $judul = $this->request->getVar('judul');
         if($kode == 2){
-            session()->setFlashdata('pesan-success', "Absen Webinar #$absen_id berhasil. Silakan Anda mengunduh sertifikat pada tautan yang telah disediakan");
+            session()->setFlashdata('pesan-success', "Absen $judul berhasil. Silakan Anda mengunduh sertifikat pada tautan yang telah disediakan");
         } else {
             session()->setFlashdata('pesan-error', "Maaf, password yang Anda input salah. Silakan Anda menghubungi CP agar panitia dapat memvalidasi password Anda secara manual.");
         }

@@ -2,16 +2,17 @@
     <a href="<?=base_url() ?>" class="font-black text-3xl">
         <img src="<?= base_url('img/logo.png') ?>" alt="" class="w-58 p-8 bg-neutral-300 rounded-md">
     </a>
-    <div class="hidden md:inline-block">
+    <div class="hidden lg:inline-block">
         <ul class="flex flex-row space-x-2">
             <li><a href="<?= base_url() ?>"class="btn btn-ghost">Home</a></li>
             <li><a href="<?= base_url('guide') ?>" class="btn btn-ghost">Panduan</a></li>
             <li><a href="<?= base_url('pengumuman') ?>" class="btn btn-ghost">Pengumuman</a></li>
+            <li><a href="<?= base_url('webinar/pilih-opening') ?>" class="btn btn-ghost">Opening Ceremony</a></li>
             <li><a href="<?= base_url('webinar') ?>" class="btn btn-ghost">webinar</a></li>
             <li><a href="<?= base_url('dashboard') ?>" class="btn btn-primary">Dashboard</a></li>
         </ul>
     </div>
-    <button class="relative btn btn-primary inline-block md:hidden"
+    <button class="relative btn btn-primary inline-block lg:hidden"
     x-data="{NavbarPhone : false}"
     >
         <svg
@@ -29,7 +30,8 @@
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/guide') ?>">Panduan</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/pengumuman') ?>">Pengumuman</a></li>
-                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/webinar') ?>">webinar</a></li>
+                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/webinar/pilih-opening') ?>">Opening Ceremony</a></li>
+                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/webinar') ?>">Webinar</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/dashboard') ?>">Dashboard</a></li>
                 </ul>
             </div>

@@ -3,7 +3,7 @@
 
 
     <!-- == NOTIFICATION == -->
-    <div class="flex space-y-16 flex-col p-24 sticky top-8 z-50">
+    <div class="flex space-y-16 flex-col p-24 sticky top-8 z-40">
         <div class="alert alert-info" x-data="{active: true}" x-show="active">
             <div class="flex-1">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">

@@ -8,7 +8,7 @@ class M_Webinar extends Model
 {
     protected $table      = 'peserta_webinar';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['user_id', 'nama', 'npm', 'prodi', 'wa', 'instansi', 'webinar_1', 'webinar_2', 'webinar_3', 'pertanyaan_1', 'pertanyaan_2', 'pertanyaan_3'];
+    protected $allowedFields = ['user_id', 'nama', 'npm', 'prodi', 'wa', 'instansi', 'webinar_1', 'webinar_2', 'webinar_3', 'webinar_4', 'pertanyaan_1', 'pertanyaan_2', 'pertanyaan_3','pertanyaan_4'];
 
     public function getDataPeserta(){
         return $this

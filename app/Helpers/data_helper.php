@@ -29,33 +29,41 @@ function tanggal($aksi){
         'webinar_open_regis_1' => '2021-10-14 10:10',
         'webinar_open_regis_2' => '2021-10-14 10:10',
         'webinar_open_regis_3' => '2021-10-14 10:10',
+        'webinar_open_regis_4' => '2021-10-14 10:10',
         // penutupan regis
         'webinar_close_regis_1' => '2021-10-17 13:30',
         'webinar_close_regis_2' => '2021-10-20 07:30',
         'webinar_close_regis_3' => '2021-10-21 09:30',
+        'webinar_close_regis_4' => '2021-10-21 09:30',
         // start join
         'webinar_start_join_zoom_1' => '2021-10-17 13:30',
         'webinar_start_join_zoom_2' => '2021-10-20 07:30',
         'webinar_start_join_zoom_3' => '2021-10-21 09:30',
+        'webinar_start_join_zoom_4' => '2021-10-21 09:30',
         // finish join zoom
         'webinar_finish_join_zoom_1' => '2021-10-17 17:15',
         'webinar_finish_join_zoom_2' => '2021-10-20 11:00',
         'webinar_finish_join_zoom_3' => '2021-10-21 13:00',
+        'webinar_finish_join_zoom_4' => '2021-10-21 13:00',
         // pembukaan absen
         'webinar_start_absen_1' => '2021-10-17 17:00',
         'webinar_start_absen_2' => '2021-10-20 10:45',
         'webinar_start_absen_3' => '2021-10-21 12:45',
+        'webinar_start_absen_4' => '2021-10-21 12:45',
         // penutupan absen
         'webinar_finish_absen_1' => '2021-10-17 19:45',
         'webinar_finish_absen_2' => '2021-10-20 13:30',
         'webinar_finish_absen_3' => '2021-10-21 15:30',
+        'webinar_finish_absen_4' => '2021-10-21 15:30',
         // Tanggal pelaksanaan webinar
         'webinar_start_1' => '2021-10-17 13:30',
         'webinar_start_2' => '2021-10-20 07:30',
         'webinar_start_3' => '2021-10-21 09:30',
+        'webinar_start_4' => '2021-10-17 11:00',
         'webinar_finish_1' => '2021-10-17 17:15',
         'webinar_finish_2' => '2021-10-20 11:00',
         'webinar_finish_3' => '2021-10-21 13:00',
+        'webinar_finish_4' => '2021-10-17 12:05',
 
 
         '' => '2021-01-01 00:00',
@@ -74,15 +82,18 @@ function info($info){
         'webinar_pass_1' => 'DevelopmentGoals',
         'webinar_pass_2' => 'AuditingCapability',
         'webinar_pass_3' => 'EconomicSolution',
+        'webinar_pass_4' => 'EconomicSolution',
 
         // kuota untuk mahasiswa stan
         'webinar_kuota_stan_1' => 700,
         'webinar_kuota_stan_2' => 700,
         'webinar_kuota_stan_3' => 700,
+        'webinar_kuota_stan_4' => 700,
         // kuota untuk non mahasiswa stan
         'webinar_kuota_non_stan_1' => 300,
         'webinar_kuota_non_stan_2' => 300,
         'webinar_kuota_non_stan_3' => 300,
+        'webinar_kuota_non_stan_4' => 300,
         // data zoom 1
         'webinar_zoom_id_1' => '868 9321 4300',
         'webinar_zoom_pass_1' => '363886',
@@ -95,6 +106,10 @@ function info($info){
         'webinar_zoom_id_3' => '983980',
         'webinar_zoom_pass_3' => '963 7865 0991',
         'webinar_zoom_link_3' => 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09',
+        // data zoom 4
+        'webinar_zoom_id_4' => '983980',
+        'webinar_zoom_pass_4' => '963 7865 0991',
+        'webinar_zoom_link_4' => 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09',
 
     ];
     return $data[$info];
