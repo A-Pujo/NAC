@@ -529,4 +529,20 @@ class Lomba extends BaseController
 		}
 	}
 
+	public function initial_cfp(){
+		db()->table('nilai_cfp')->truncate();
+		$partisipan = $this->PARTISIPAN->where('lolos_abstrak', 1)->findAll();
+		foreach($partisipan as $p){
+			db()->table('nilai_cfp')->insert(['partisipan_id' => $p->partisipan_id]);
+		}
+	}
+
+	public function verif_paper($id){
+		db()->table('nilai_cfp')->where('id', $id)->update(['full_paper' => 1]);
+	}
+
+	public function unverif_paper($id){
+		db()->table('nilai_cfp')->where('id', $id)->update(['full_paper' => 0]);
+	}
+
 }
