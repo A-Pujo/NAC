@@ -782,6 +782,7 @@ class Dashboard extends BaseController
         ];
         return view('dashboard/pages/nilai/nilai-univ', $data);
     }
+    // === REGIS === //
     public function regis_sma(){
         $data = [
             'halaman' => 'regis-sma',
@@ -789,6 +790,28 @@ class Dashboard extends BaseController
         ];
         return view('dashboard/pages/regis/regis-sma', $data);
     }
+    public function regis_univ(){
+        $data = [
+            'halaman' => 'regis-univ',
+            'judul' => 'Data registrasi Accounting for University'
+        ];
+        return view('dashboard/pages/regis/regis-univ', $data);
+    }
+    public function regis_cfp(){
+        $data = [
+            'halaman' => 'regis-cfp',
+            'judul' => 'Data registrasi Call for Paper'
+        ];
+        return view('dashboard/pages/regis/regis-cfp', $data);
+    }
+    public function regis_webinar(){
+        $data = [
+            'halaman' => 'regis-webinar',
+            'judul' => 'Data registrasi Webinar'
+        ];
+        return view('dashboard/pages/regis/regis-webinar', $data);
+    }
+    // === END REGIS === //
 
 }
 ?>

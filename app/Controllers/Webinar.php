@@ -221,4 +221,17 @@ class Webinar extends BaseController
 
     }
 
+    public function verif_absen($webinar_id){
+        if( $data = $this->request->getVar('check')){
+            $model = new \App\Models\M_Webinar();
+            $model->update($data, ['webinar_'.$webinar_id => '2']);
+            session()->setFlashdata('pesan-success', 'Update data Webinar #'.$webinar_id.' berhasil');
+            return redirect()->to(base_url('dashboard/regis-webinar?page=default'));
+        } else {
+            session()->setFlashdata('pesan-error', 'Tidak ada data yang diupdate');
+            return redirect()->to(base_url('dashboard/regis-webinar?page=default'));
+        }
+        
+    }
+
 }

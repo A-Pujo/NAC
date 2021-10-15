@@ -46,13 +46,12 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
     <!-- Tim Registrasi -->
     <?php elseif(isInRole('tim registrasi')) : ?>
         <!-- Lomba -->
-        <a href="<?= base_url('/dashboard/verifikasi-pendaftaran') ?>" class="<?= $halaman == 'kelola-pendaftaran' ? 'aktif' : 'nonaktif' ?>">
+        <!-- <a href="<?= base_url('/dashboard/verifikasi-pendaftaran') ?>" class="<?= $halaman == 'kelola-pendaftaran' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
             <span >Verifikasi Lomba</span>
         </a>
-        <!-- Kursus -->
         <a href="<?= base_url('/kursus/verifikasi') ?>" class="<?= $halaman == 'verifikasi-kursus' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -64,16 +63,9 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
             </svg>
             <span >Data Peserta Kursus</span>
-        </a>
+        </a> -->
         <!--  -->
-        <a href="<?= base_url('/dashboard/regis-sma') ?>" class="<?= $halaman == 'regis-sma' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-            </svg>
-            <span>Data SMA</span>
-        </a>
+
 
 
     <!-- Tim Bendahara -->
@@ -144,7 +136,7 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
     <?php endif?>
 
     <!-- All panitia -->
-    <?php if(isInRole('tim lomba') || isInRole('tim bendahara') || isInRole('tim registrasi')) : ?>
+    <!-- <?php if(isInRole('tim lomba') || isInRole('tim bendahara') || isInRole('tim registrasi')) : ?>
         <a href="<?= base_url('/dashboard/peserta_index') ?>" class="<?= $halaman == 'kelola-peserta' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -152,7 +144,45 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
             <span >Data Peserta Lomba</span>
         </a>
 
-    <?php endif; ?>
+    <?php endif; ?> -->
+    <?php if(isInRole('tim registrasi')) : ?>
+        <!-- SMA -->
+        <a href="<?= base_url('/dashboard/regis-sma') ?>" class="<?= $halaman == 'regis-sma' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+            </svg>
+            <span>Data Acc SMA</span>
+        </a>
+        <!-- Univ -->
+        <a href="<?= base_url('/dashboard/regis-univ') ?>" class="<?= $halaman == 'regis-univ' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+            </svg>
+            <span>Data Acc Univ</span>
+        </a>
+        <!-- CFP -->
+        <a href="<?= base_url('/dashboard/regis-cfp') ?>" class="<?= $halaman == 'regis-cfp' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+            </svg>
+            <span>Data CFP</span>
+        </a>
+        <!-- Webinar -->
+        <a href="<?= base_url('/dashboard/regis-webinar') ?>" class="<?= $halaman == 'regis-webinar' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+            </svg>
+            <span>Data Webinar</span>
+        </a>
+    <?php endif ?>
     
 
 

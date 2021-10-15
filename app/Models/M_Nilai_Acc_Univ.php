@@ -16,11 +16,19 @@ class M_Nilai_Acc_Univ extends Model
         ->get()->getRow()->prelim;
     }
 
-    public function getAll(){
-        return $this
-        ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_univ.partisipan_id')
-        ->orderBy('nama_tim')
-        ->get()->getResult();
+    public function getAll($kolom = false , $kondisi = false){
+        if($kolom){
+            return $this
+            ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_univ.partisipan_id')
+            ->where($kolom, $kondisi)
+            ->orderBy('nama_tim')
+            ->get()->getResult();
+        } else {
+            return $this
+            ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_univ.partisipan_id')
+            ->orderBy('nama_tim')
+            ->get()->getResult();
+        }
     }
 
     public function getPrelim(){

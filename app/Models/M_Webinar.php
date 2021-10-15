@@ -30,6 +30,22 @@ class M_Webinar extends Model
             ->where($webinar.' !=', '0')
             ->countAllResults();
     }
+    public function countAbsen($webinar){
+        return $this
+            ->whereNotIn($webinar,['0', '1'])
+            ->countAllResults();
+    }
+    public function countVerifAbsen($webinar){
+        return $this
+            ->whereNotIn($webinar,['0', '1', '2'])
+            ->countAllResults();
+    }
+    public function getVerifAbsen($webinar){
+        return $this
+            ->whereNotIn($webinar,['0', '1', '2'])
+            ->get()->getResult();
+            
+    }
 }
 
 ?>

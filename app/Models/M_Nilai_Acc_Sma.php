@@ -16,11 +16,11 @@ class M_Nilai_Acc_Sma extends Model
         ->get()->getRow()->prelim;
     }
 
-    public function getAll($kolom = false, $where = false){
+    public function getAll($kolom = false, $kondisi = false){
         if($kolom){
             return $this
             ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
-            ->where($kolom, $where)
+            ->where($kolom, $kondisi)
             ->orderBy('nama_tim')
             ->get()->getResult();
         } else {
