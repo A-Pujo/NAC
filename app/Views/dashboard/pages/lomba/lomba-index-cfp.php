@@ -12,7 +12,7 @@
     $peserta = db()->table('data_partisipan')
         ->where('user_id', $user_id)
         ->get()->getRow();
-    $peserta_nilai = db()->table('nilai_acc_univ')
+    $peserta_nilai = db()->table('nilai_acc_cfp')
         ->where('partisipan_id', $peserta->partisipan_id)
         ->get()->getRow();
     $peserta_biodata = user_main_round();

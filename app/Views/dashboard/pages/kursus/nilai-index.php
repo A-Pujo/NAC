@@ -57,6 +57,8 @@
                         <th>No</th>
                         <th>Nama Peserta</th>
                         <th>Nama Sekolah</th>
+                        <th>Kelulusan Partisipasi</th>
+                        <th>Kelulusan Nilai Minimal</th>
                         <th>Akses Video 1</th>
                         <th>Akses Video 2</th>
                         <th>Akses Video 3</th>
@@ -71,8 +73,6 @@
                         <th>Nilai Kuis 5</th>
                         <th>Nilai Kuis 6</th>
                         <th>Nilai Kuis 7</th>
-                        <th>Kelulusan Partisipasi</th>
-                        <th>Kelulusan Nilai Minimal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,20 +84,6 @@
                             <td><?= $no++ ?></td>
                             <td><?= $peserta->nama_peserta ?></td>
                             <td><?= $peserta->nama_sekolah ?></td>
-                            <td><span class="<?= $peserta->video_kursus_1 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_1 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->video_kursus_2 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_2 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->video_kursus_3 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_3 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->video_kursus_4 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_4 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->video_kursus_5 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_5 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->video_kursus_6 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_6 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->video_kursus_7 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_7 ? 'ya' : 'tidak' ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_1 < 14? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_1 ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_2 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_2 ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_3 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_3 ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_4 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_4 ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_5 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_5 ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_6 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_6 ?></span></td>
-                            <td><span class="<?= $peserta->nilai_video_7 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_7 ?></span></td>
                             <td>
                                 <?php if(
                                     $peserta->video_kursus_1 == 1 &&
@@ -123,11 +109,29 @@
                                     $peserta->nilai_video_6 >= 14 &&
                                     $peserta->nilai_video_7 >= 14
                                 ) : ?>
-                                    <a target="_blank" href="<?= "http://localhost/cetak-pdf-nac/index.php?id=$peserta->id_peserta&pass=$peserta->wa" ?>"  class="verif-sukses"> Lulus <a>
+                                        <?= form_open('sertif') ?>
+                                            <input type="hidden" name="id" value="<?= $peserta->id_peserta ?>">
+                                            <input type="hidden" name="wa" value="<?= $peserta->wa ?>">
+                                            <input type="submit" class="btn btn-primary btn-sm" value="Lulus">
+                                        <?= form_close() ?>
                                 <?php else : ?>
                                     <a class="verif-gagal"> Tidak lulus <a>
                                 <?php endif ?>
                             </td>
+                            <td><span class="<?= $peserta->video_kursus_1 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_1 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->video_kursus_2 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_2 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->video_kursus_3 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_3 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->video_kursus_4 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_4 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->video_kursus_5 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_5 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->video_kursus_6 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_6 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->video_kursus_7 ? 'verif-sukses' : 'verif-gagal' ?>"><?= $peserta->video_kursus_7 ? 'ya' : 'tidak' ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_1 < 14? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_1 ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_2 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_2 ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_3 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_3 ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_4 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_4 ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_5 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_5 ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_6 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_6 ?></span></td>
+                            <td><span class="<?= $peserta->nilai_video_7 < 14 ? 'verif-gagal' : 'verif-sukses' ?>"><?= $peserta->nilai_video_7 ?></span></td>
                         </tr>
                         <?php endif; ?>
                     <?php endforeach; ?>

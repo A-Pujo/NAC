@@ -78,15 +78,18 @@ function getGoogleClient(){
 
     function user_main_round(){
         $data = new \App\Models\M_Data_Main_Round();
-        $lomba = userinfo()->partisipan_jenis;
+        $user = userinfo();
+        $lomba = $user->partisipan_jenis;
         if($lomba == 'AccSMA'){
             return $data
             ->join('nilai_acc_sma', 'nilai_acc_sma.partisipan_id = data_main_round.partisipan_id')
-            ->where('nilai_acc_sma.partisipan_id', userinfo()->partisipan_id)->first();
+            ->where('nilai_acc_sma.partisipan_id', $user->partisipan_id)->first();
         } elseif($lomba == 'AccUniv'){
             return $data
             ->join('nilai_acc_univ', 'nilai_acc_univ.partisipan_id = data_main_round.partisipan_id')
-            ->where('nilai_acc_univ.partisipan_id', userinfo()->partisipan_id)->first();
+            ->where('nilai_acc_univ.partisipan_id', $user->partisipan_id)->first();
+        }  else {
+            return $data;
         }
     }
 
