@@ -1,3 +1,6 @@
+<?php $role_user = role_user(userinfo()->id)?>
+
+
 <div class="sticky top-0 flex flex-col space-y-16 p-32 sidebar h-screen relative overflow-auto"
     :class="
         {'sidebar-expand' : sidebarExpand == true ,
@@ -23,11 +26,7 @@
         <span >Beranda</span>
     </a>
     <!-- Umum -->
-    <?php
-
-                                                    use App\Controllers\Kursus;
-
-if(isInRole('umum') or isInRole('peserta lomba')): ?>
+    <?php if($role_user == 'umum' || $role_user == 'peserta lomba'): ?>
         <a href="<?= base_url('/dashboard/pendaftaran_index') ?>" class="<?= $halaman == 'pendaftaran' ? 'aktif' : 'nonaktif' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -35,48 +34,25 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
         </svg>
             <span >Pendaftaran</span>
         </a>
+    <?php endif ?>
         
     <!-- Admin -->
-    <?php elseif(isInRole('admin')) : ?>
+    <?php if($role_user == 'admin') : ?>
         <a href="<?= base_url('/dashboard/admin') ?>" class="<?= $halaman == 'admin' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z"/></svg>
             <span >Team</span>
-        </a>         
-
-    <!-- Tim Registrasi -->
-    <?php elseif(isInRole('tim registrasi')) : ?>
-        <!-- Lomba -->
-        <!-- <a href="<?= base_url('/dashboard/verifikasi-pendaftaran') ?>" class="<?= $halaman == 'kelola-pendaftaran' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span >Verifikasi Lomba</span>
         </a>
-        <a href="<?= base_url('/kursus/verifikasi') ?>" class="<?= $halaman == 'verifikasi-kursus' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span >Verifikasi Kursus</span>
-        </a>
-        <a href="<?= base_url('/kursus/peserta_index') ?>" class="<?= $halaman == 'data-peserta-kursus' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span >Data Peserta Kursus</span>
-        </a> -->
-        <!--  -->
-
-
-
+    <?php endif ?>
     <!-- Tim Bendahara -->
-    <?php elseif(isInRole('tim bendahara')) : ?>
+    <?php if($role_user == 'tim bendahara') : ?>
         <a href="<?= base_url('/dashboard/verifikasi-pembayaran') ?>" class="<?= $halaman == 'kelola-pembayaran' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z"/></svg>
             <span >Verifikasi Pembayaran</span>
         </a>
+    <?php endif ?>
 
     <!-- Tim Lomba -->
-    <?php elseif(isInRole('tim lomba')) : ?>
+    <?php if($role_user == 'tim lomba') : ?>
         <a href="<?= base_url('/dashboard/verifikasi-abstrak') ?>" class="<?= $halaman == 'kelola-abstrak' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FCFEFF"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v1c0 .55.45 1 1 1h14c.55 0 1-.45 1-1v-1c0-2.66-5.33-4-8-4z"/></svg>
             <span >Verifikasi Abstrak</span>
@@ -107,7 +83,7 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
         </a>
     <?php endif; ?>
     <!-- Peserta Lomba -->
-    <?php if(isInRole('peserta lomba')) : ?>
+    <?php if($role_user == 'peserta lomba') : ?>
         <a href="<?= base_url('/lomba/dashboard') ?>" class="<?= $halaman == 'lomba' ? 'aktif' : 'nonaktif' ?>">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
@@ -125,7 +101,7 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
             <span >Course</span>
         </a>
     <?php endif?>
-    <!-- Peserta Weminar -->
+    <!-- Peserta Webinar -->
     <?php if(user_webinar()) : ?>
         <a href="<?= base_url('/webinar/dashboard') ?>" class="<?= $halaman == 'webinar' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -135,17 +111,7 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
         </a>
     <?php endif?>
 
-    <!-- All panitia -->
-    <!-- <?php if(isInRole('tim lomba') || isInRole('tim bendahara') || isInRole('tim registrasi')) : ?>
-        <a href="<?= base_url('/dashboard/peserta_index') ?>" class="<?= $halaman == 'kelola-peserta' ? 'aktif' : 'nonaktif' ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span >Data Peserta Lomba</span>
-        </a>
-
-    <?php endif; ?> -->
-    <?php if(isInRole('tim registrasi')) : ?>
+    <?php if($role_user == 'tim registrasi') : ?>
         <!-- SMA -->
         <a href="<?= base_url('/dashboard/regis-sma') ?>" class="<?= $halaman == 'regis-sma' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -188,12 +154,12 @@ if(isInRole('umum') or isInRole('peserta lomba')): ?>
 
     
     <!-- Logout -->
-        <a href="<?= base_url('/auth/logout') ?>" class="nonaktif">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
-            </svg>
-            <span >Logout</span>
-        </a> 
+    <a href="<?= base_url('/auth/logout') ?>" class="nonaktif">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-180" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+        </svg>
+        <span >Logout</span>
+    </a> 
     
 
         

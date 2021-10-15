@@ -27,6 +27,12 @@ function getGoogleClient(){
 
         return ($role->role_id == $userRole->role_id) ? true : false;
     }
+    function role_user($id){
+        return db()->table('role_user_groups')
+            ->join('roles', 'roles.role_id = role_user_groups.role_id')
+            ->where('user_id', $id)
+            ->get()->getRow()->role_name;
+    }
 
     function userinfo(){
         if(! isLoggedIn()){
