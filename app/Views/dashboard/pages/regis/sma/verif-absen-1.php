@@ -1,7 +1,8 @@
 <?php $pesertas = new \App\Models\M_Nilai_Acc_Sma() ?>
 
+<?= form_open('lomba/verif-absen-sma', ['method' => 'post']) ?>
 <table class="tabel" id="tabel">
-<thead>
+    <thead>
         <tr>
             <th>#</th>
             <th>Nama Team</th>
@@ -23,9 +24,16 @@
                 Ini bukti gambar (kolom absen)
             </td>
             <td>
-                <input type="checkbox" checked="checked" class="checkbox">
+                <input type="checkbox" checked="checked" class="checkbox" name="<?= $peserta->id ?>" value="1">
+                <input type="hidden" name="absen_<?= $peserta->id ?>" value="<?= $peserta->absen_1 ?>">
             </td>
         </tr>
         <?php endforeach ?>
     </tbody>
+    <tfoot>
+        <td colspan="4">
+            <button type="submit">Verifikasi</button>
+        </td>
+    </tfoot>
 </table>
+</form>

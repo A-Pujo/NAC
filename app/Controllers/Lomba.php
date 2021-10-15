@@ -513,4 +513,20 @@ class Lomba extends BaseController
 		}
 	}
 
+	public function verif_absen_sma(){
+		if($records = $this->request->getPost()){
+			// dd(array_keys($records));
+			foreach (array_keys($records) as $id) {
+				foreach(explode('|', $records['absen_'.$id]) as $file){
+					unlink(APPPATH.'../public/uploads/partisipan/lomba/absen' . $file);
+				}
+				db()->table('nilai_acc_sma')->where('id', $records['id'])->update(['absen_1' => $records[$id]]);
+			}
+			return 'ok';
+		} else {
+			// return 'tidak kesubmit';
+			return view('dashboard/pages/regis/sma/verif-absen-1');
+		}
+	}
+
 }
