@@ -181,7 +181,7 @@ if($zoom_id){
                 </thead>
                 <tbody>
                         <tr>
-                            <td>4</td>
+                            <td>1</td>
                             <td><?= $judul[$j-1] ?></td>
                             <td><?= tanggal_human('webinar_start_'.$j) .' - '. jam_human('webinar_finish_'.$j)  ?></td>
                             <td>

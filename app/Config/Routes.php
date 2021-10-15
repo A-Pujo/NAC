@@ -36,6 +36,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Home::index');
 $routes->get('/guide', 'Home::guide');
 $routes->get('/pengumuman', 'Home::pengumuman');
+$routes->get('/ceremony','Webinar::pilih-opening');
 
 /*
  * --------------------------------------------------------------------

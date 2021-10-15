@@ -34,27 +34,27 @@ function tanggal($aksi){
         'webinar_close_regis_1' => '2021-10-17 13:30',
         'webinar_close_regis_2' => '2021-10-20 07:30',
         'webinar_close_regis_3' => '2021-10-21 09:30',
-        'webinar_close_regis_4' => '2021-10-21 09:30',
+        'webinar_close_regis_4' => '2021-10-17 11:00',
         // start join
         'webinar_start_join_zoom_1' => '2021-10-17 13:30',
         'webinar_start_join_zoom_2' => '2021-10-20 07:30',
         'webinar_start_join_zoom_3' => '2021-10-21 09:30',
-        'webinar_start_join_zoom_4' => '2021-10-21 09:30',
+        'webinar_start_join_zoom_4' => '2021-10-17 11:00',
         // finish join zoom
         'webinar_finish_join_zoom_1' => '2021-10-17 17:15',
         'webinar_finish_join_zoom_2' => '2021-10-20 11:00',
         'webinar_finish_join_zoom_3' => '2021-10-21 13:00',
-        'webinar_finish_join_zoom_4' => '2021-10-21 13:00',
+        'webinar_finish_join_zoom_4' => '2021-10-17 12:00',
         // pembukaan absen
         'webinar_start_absen_1' => '2021-10-17 17:00',
         'webinar_start_absen_2' => '2021-10-20 10:45',
         'webinar_start_absen_3' => '2021-10-21 12:45',
-        'webinar_start_absen_4' => '2021-10-21 12:45',
+        'webinar_start_absen_4' => '2021-10-17 11:50',
         // penutupan absen
         'webinar_finish_absen_1' => '2021-10-17 19:45',
         'webinar_finish_absen_2' => '2021-10-20 13:30',
         'webinar_finish_absen_3' => '2021-10-21 15:30',
-        'webinar_finish_absen_4' => '2021-10-21 15:30',
+        'webinar_finish_absen_4' => '2021-10-17 14:35',
         // Tanggal pelaksanaan webinar
         'webinar_start_1' => '2021-10-17 13:30',
         'webinar_start_2' => '2021-10-20 07:30',
