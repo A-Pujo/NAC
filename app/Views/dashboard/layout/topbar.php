@@ -56,7 +56,6 @@
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url() ?>">Home</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/guide') ?>">Panduan</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/pengumuman') ?>">Pengumuman</a></li>
-                    <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/webinar/pilih-opening') ?>">Opening Ceremony</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/webinar') ?>">Webinar</a></li>
                     <li class="btn btn-primary btn-ghost whitespace-nowrap"><a href="<?= base_url('/auth/logout') ?>">Logout</a></li>
                 </ul>

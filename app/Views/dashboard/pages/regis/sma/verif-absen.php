@@ -3,7 +3,6 @@ $pesertas = new \App\Models\M_Nilai_Acc_Sma();
 $absen_id = explode('-',$_GET['page'])[3];
 $tahap_id = explode('-',$_GET['page'])[2];
 $tahap = ['prelim', 'semifinal'];
-
 ?>
 
 <?= form_open('lomba/verif-absen-sma/'.$absen_id, ['method' => 'post']) ?>

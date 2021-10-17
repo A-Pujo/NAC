@@ -9,7 +9,7 @@ class M_Nilai_CFP extends Model
 
     protected $table      = 'nilai_cfp';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['full_paper'];
+    protected $allowedFields = ['full_paper', 'nilai_1'];
 
     public function getUserData(){
         return $this
@@ -21,6 +21,7 @@ class M_Nilai_CFP extends Model
     public function getAll(){
         return $this
         ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_cfp.partisipan_id')
+        ->join('data_pembayaran', 'data_partisipan.user_id = data_pembayaran.user_id')
         ->orderBy('nama_tim')
         ->get()->getResult();
     }
