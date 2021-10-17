@@ -56,7 +56,7 @@ class BaseController extends Controller
 		// E.g.: $this->session = \Config\Services::session();
 		
 		// Helpers
-		helper(['form', 'akun', 'validasi', 'data']);
+		helper(['form', 'akun', 'validasi', 'data', 'md']);
 		
 		// Libraries
 

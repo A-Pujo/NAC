@@ -547,12 +547,16 @@ class Lomba extends BaseController
 		}
 	}
 
-	public function verif_paper($id){
-		db()->table('nilai_cfp')->where('id', $id)->update(['full_paper' => 1]);
-	}
-
-	public function unverif_paper($id){
-		db()->table('nilai_cfp')->where('id', $id)->update(['full_paper' => 0]);
+	public function cfp_verif_full_paper(){
+		$cfp = md('cfp');
+		$ids = $this->request->getVar('ids');
+		$cfp->update($ids, ['full_paper' => 0]); // set ke 0 semua
+		$checks = $this->request->getVar('check');
+		if($checks){
+			$cfp->update($checks, ['full_paper' => 1]); // set 1 bagi yang terpilih
+		}
+		session()->setFlashdata('pesan-success', 'Perubahan data berhasil disimpan');
+		return redirect()->to(previous_url());
 	}
 
 }

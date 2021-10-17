@@ -1,16 +1,16 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
 <?php
-    $page = [
-        '0_default' => 'Semua Data',
-        '1_prelim' => 'Preliminary Round',
+    $pages = [
+        '0_default' => 'All',
+        '1_paper' => 'Full Paper Peserta',
     ];
-
+    $pages_key = array_keys($pages);
 ?>
 
     <div class="p-32 grid grid-cols-12 gap-24 text-base-100">
       <div class="col-span-12">
-      <div class="form-select" x-data="{menu : '<?= $page[$_GET['page'] ?? '0_default'] ?>', dropdown: false}">
+        <div class="form-select" x-data="{menu : '<?= $pages[$_GET['page'] ?? '0_default'] ?>', dropdown: false}">
             <label>Pilih Data</label>
             <div
                 @click="dropdown = !dropdown"
@@ -25,14 +25,27 @@
             </div>
             <div x-show="dropdown" @click.outside="dropdown = false">
                 <ul>
-                    <li><a href="<?= base_url('dashboard/nilai-sma') ?>">Semua Data</a></li>
-                    <li><a href="<?= base_url('dashboard/nilai-sma?page=1_prelim') ?>">Data Preliminary Round</a></li>
+                    <?php $i = 0; foreach($pages as $page) : $i++?>
+                        <li><a href="<?= base_url('dashboard/acara-cfp?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
+                    <?php endforeach ?>
                 </ul>
             </div>
         </div>
       </div>
       <div class="col-span-12">
-            <?= $this->include('/dashboard/pages/nilai/sma/'.($_GET['page'] ?? '0_default')) ?>
+          <?= $this->include('component/pesan') ?>
       </div>
-      <?= $this->include('dashboard/layout/datatables') ?>
+      <div class="col-span-12">
+          <?php 
+                if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'pertanyaan')){
+                    echo $this->include('dashboard/pages/acara/cfp/pertanyaan');
+                } elseif(($_GET['page'] ?? false)) {
+                    echo $this->include('dashboard/pages/acara/cfp/'.$_GET['page']);
+                } else {
+                    echo $this->include('dashboard/pages/acara/cfp/0_default');
+                }
+            ?>
+      </div>
+    </div>
+    <?= $this->include('dashboard/layout/datatables') ?>
 <?= $this->endSection() ?>

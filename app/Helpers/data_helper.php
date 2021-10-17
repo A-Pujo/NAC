@@ -49,7 +49,7 @@ function tanggal($aksi){
         'webinar_start_absen_1' => '2021-10-17 17:00',
         'webinar_start_absen_2' => '2021-10-20 10:45',
         'webinar_start_absen_3' => '2021-10-21 12:45',
-        'webinar_start_absen_4' => '2021-10-17 11:50',
+        'webinar_start_absen_4' => '2021-10-17 11:40',
         // penutupan absen
         'webinar_finish_absen_1' => '2021-10-17 19:45',
         'webinar_finish_absen_2' => '2021-10-20 13:30',

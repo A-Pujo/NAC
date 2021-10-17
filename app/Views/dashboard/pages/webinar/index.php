@@ -202,7 +202,7 @@ if($zoom_id){
                             <td>
                                 <!-- Join Zoom : telah daftar (0) ? -->
                                 <?php if($data_webinar_peserta[$j-1] != '0') : ?>
-                                    <a class="btn btn-primary btn-sm btn-disabled">Link Youtube</a>
+                                    <a class="btn btn-primary btn-sm" href="https://youtu.be/7zvrtkgPcVA" target="_blank">Link Youtube</a>
                                 <?php else:?>
                                         <a @click="judul = '<?= $judul[$j -1] ?>',webinar_id = '<?= $j ?>'" class="btn btn-primary btn-sm
                                         <?= (sekarang() > tanggal('webinar_open_regis_'.$j) && sekarang() < tanggal('webinar_close_regis_'.$j) && $kuota[$j -1] > 0 ) ? '' : 'btn-disabled' ?>"

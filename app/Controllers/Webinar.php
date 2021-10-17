@@ -236,6 +236,8 @@ class Webinar extends BaseController
                 $kode = 2;
             } elseif($absen_id == 3 && $pass == strtolower(preg_replace('/\s+/', '', info('webinar_pass_3')))){
                 $kode = 2;
+            } elseif($absen_id == 4 && $pass == strtolower(preg_replace('/\s+/', '', info('webinar_pass_4')))){
+                $kode = 2;
             } else {
                 $kode = $this->request->getVar('pass');
             }
@@ -249,7 +251,11 @@ class Webinar extends BaseController
         $model->save($data);
         $judul = $this->request->getVar('judul');
         if($kode == 2){
-            session()->setFlashdata('pesan-success', "Absen $judul berhasil. Silakan Anda mengunduh sertifikat pada tautan yang telah disediakan");
+            if($absen_id == 4){
+                session()->setFlashdata('pesan-success', "Absen $judul berhasil.");
+            } else {
+                session()->setFlashdata('pesan-success', "Absen $judul berhasil. Silakan Anda mengunduh sertifikat pada tautan yang telah disediakan");
+            }
         } else {
             session()->setFlashdata('pesan-error', "Maaf, password yang Anda input salah. Silakan Anda menghubungi CP agar panitia dapat memvalidasi password Anda secara manual.");
         }

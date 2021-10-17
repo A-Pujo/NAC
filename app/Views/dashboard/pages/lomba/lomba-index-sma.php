@@ -258,13 +258,13 @@ x-data="{
                         <td><?= $absen[$i][5] ?></td>
                         <td>
                             <?php if($i == 1):?>
-                                    <a class="btn btn-primary btn-sm" target="_blank" href="https://youtube.com">Tautan Youtube</a>
+                                    <a class="btn btn-primary btn-sm" target="_blank" href="https://youtu.be/7zvrtkgPcVA">Tautan Youtube</a>
                                     <div 
                                         data-tip="Salin tautan"
                                         class="inline tooltip tooltip-primary"
                                     >
                                         <svg 
-                                            data-clipboard-text="https://youtube.com" 
+                                            data-clipboard-text="https://youtu.be/7zvrtkgPcVA" 
                                             class="h-5 w-5 copy cursor-pointer inline"
                                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />

@@ -6,6 +6,7 @@
         'verif-webinar-1' => 'Verifikasi manual absen webinar 1',
         'verif-webinar-2' => 'Verifikasi manual absen webinar 2',
         'verif-webinar-3' => 'Verifikasi manual absen webinar 3',
+        'verif-webinar-4' => 'Verifikasi manual absen Opening Ceremony',
     ];
     $pages_key = array_keys($pages);
 ?>
