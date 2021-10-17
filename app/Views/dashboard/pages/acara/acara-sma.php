@@ -25,14 +25,14 @@
             </div>
             <div x-show="dropdown" @click.outside="dropdown = false">
                 <ul>
-                    <li><a href="<?= base_url('dashboard/nilai-univ') ?>">Semua Data</a></li>
-                    <li><a href="<?= base_url('dashboard/nilai-univ?page=1_prelim') ?>">Data Preliminary Round</a></li>
+                    <li><a href="<?= base_url('dashboard/acara-sma') ?>">Semua Data</a></li>
+                    <li><a href="<?= base_url('dashboard/acara-sma?page=1_prelim') ?>">Data Preliminary Round</a></li>
                 </ul>
             </div>
         </div>
       </div>
       <div class="col-span-12">
-            <?= $this->include('/dashboard/pages/nilai/univ/'.($_GET['page'] ?? '0_default')) ?>
+            <?= $this->include('/dashboard/pages/acara/sma/'.($_GET['page'] ?? '0_default')) ?>
       </div>
       <?= $this->include('dashboard/layout/datatables') ?>
 <?= $this->endSection() ?>

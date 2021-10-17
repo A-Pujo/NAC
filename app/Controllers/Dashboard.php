@@ -770,26 +770,33 @@ class Dashboard extends BaseController
 
     // === NILAI === //
 
-        public function nilai_sma(){
+        public function acara_sma(){
             $data = [
-                'halaman' => 'nilai-sma',
-                'judul' => 'Data Nilai Accounting for High School'
+                'halaman' => 'acara-sma',
+                'judul' => 'Data acara Accounting for High School'
             ];
-            return view('dashboard/pages/nilai/nilai-sma', $data);
+            return view('dashboard/pages/acara/acara-sma', $data);
         }
-        public function nilai_univ(){
+        public function acara_univ(){
             $data = [
-                'halaman' => 'nilai-univ',
-                'judul' => 'Data Nilai Accounting for University'
+                'halaman' => 'acara-univ',
+                'judul' => 'Data acara Accounting for University'
             ];
-            return view('dashboard/pages/nilai/nilai-univ', $data);
+            return view('dashboard/pages/acara/acara-univ', $data);
         }
-        public function nilai_cfp(){
+        public function acara_cfp(){
             $data = [
-                'halaman' => 'nilai-cfp',
-                'judul' => 'Data Nilai Call for Paper'
+                'halaman' => 'acara-cfp',
+                'judul' => 'Data acara Call for Paper'
             ];
-            return view('dashboard/pages/nilai/nilai-cfp', $data);
+            return view('dashboard/pages/acara/acara-cfp', $data);
+        }
+        public function acara_webinar(){
+            $data = [
+                'halaman' => 'acara-webinar',
+                'judul' => 'Data acara Webinar'
+            ];
+            return view('dashboard/pages/acara/acara-webinar', $data);
         }
     // === END NILAI === //
 

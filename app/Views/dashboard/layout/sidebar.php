@@ -65,29 +65,37 @@
             </svg>
             <span>Nilai Kursus</span>
         </a>
-        <a href="<?= base_url('/dashboard/nilai-sma') ?>" class="<?= $halaman == 'nilai-sma' ? 'aktif' : 'nonaktif' ?>">
+        <a href="<?= base_url('/dashboard/acara-sma') ?>" class="<?= $halaman == 'acara-sma' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
                 <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
                 <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
             </svg>
-            <span>Nilai ACC SMA</span>
+            <span>Data ACC SMA</span>
         </a>
-        <a href="<?= base_url('/dashboard/nilai-univ') ?>" class="<?= $halaman == 'nilai-univ' ? 'aktif' : 'nonaktif' ?>">
+        <a href="<?= base_url('/dashboard/acara-univ') ?>" class="<?= $halaman == 'acara-univ' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
                 <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
                 <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
             </svg>
-            <span>Nilai ACC UNIV</span>
+            <span>Data ACC UNIV</span>
         </a>
-        <a href="<?= base_url('/dashboard/nilai-cfp') ?>" class="<?= $halaman == 'nilai-cfp' ? 'aktif' : 'nonaktif' ?>">
+        <a href="<?= base_url('/dashboard/acara-cfp') ?>" class="<?= $halaman == 'acara-cfp' ? 'aktif' : 'nonaktif' ?>">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
                 <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
                 <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
             </svg>
-            <span>Nilai CFP</span>
+            <span>Data CFP</span>
+        </a>
+        <a href="<?= base_url('/dashboard/acara-webinar') ?>" class="<?= $halaman == 'acara-webinar' ? 'aktif' : 'nonaktif' ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+            </svg>
+            <span>Data Webinar</span>
         </a>
     <?php endif; ?>
     <!-- Peserta Lomba -->

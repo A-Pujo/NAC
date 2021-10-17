@@ -208,15 +208,15 @@ x-data="{
                             //start zoom, id, pass, link, judul acara, tanggal
                             ['2021-10-17 11:00','ini_id_zoom1','ini_pass_zoom1','ini_link_zoom','Technical Meeting Semifinal', '14 Oktober 2021 pukul 19:00 - 20:00 WIB'],
                             ['2021-10-16 11:00','ini_id_zoom2','ini_pass_zoom2','ini_link_zoom','Opening Ceremony', '17 Oktober 2021 pukul 11:00 - 12:05 WIB'],
-                            ['2021-10-16 11:00','938 2889 7613','900923','https://zoom.us/j/93828897613?pwd=M3Z2Wnp6aDdsaTlWdGZheW9iZUZqQT09','NAC Digital Series #1: Webinar Internasional', '17 Oktober 2021 pukul 13:30 - 17:15 WIB'],
-                            ['2021-10-16 11:00','ini_id_zoom4','ini_pass_zoom4','ini_link_zoom','Fast and Furious', '18 Oktober 2021 pukul 07:30 - 09:30 WIB'],
-                            ['2021-10-16 11:00','ini_id_zoom5','ini_pass_zoom5','ini_link_zoom','Fun Games', ''],
-                            ['2021-10-16 11:00','ini_id_zoom6','ini_pass_zoom6','ini_link_zoom','Breakdown the Case', '18 Oktober 2021 pukul 14:35 - 15:20 WIB'],
-                            ['2021-10-16 11:00','ini_id_zoom7','ini_pass_zoom7','ini_link_zoom','NAC Digital Series #2: Webinar Nasional', '20 Oktober 2021 pukul 07:30 - 11:00 WIB'],
-                            ['2021-10-16 11:00','ini_id_zoom8','ini_pass_zoom8','ini_link_zoom','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
-                            ['2021-10-16 11:00','ini_id_zoom9','ini_pass_zoom9','ini_link_zoom','Technical Meeting Final Round', ''],
-                            ['2021-10-16 11:00','ini_id_zoom10','ini_pass_zoom10','ini_link_zoom','Final Round Accounting Challenge', '23 Oktober 2021 pukul 08:30 - 10:40 WIB'],
-                            ['2021-10-16 11:00','ini_id_zoom11','ini_pass_zoom11','ini_link_zoom','Closing Ceremony and Awarding Night', '24 Oktober 2021 pukul 19:00 - 20:30 WIB'],
+                            ['2021-10-17 13:30','938 2889 7613','900923','https://zoom.us/j/93828897613?pwd=M3Z2Wnp6aDdsaTlWdGZheW9iZUZqQT09','NAC Digital Series #1: Webinar Internasional', '17 Oktober 2021 pukul 13:30 - 17:15 WIB'],
+                            ['2021-10-18 11:00','ini_id_zoom4','ini_pass_zoom4','ini_link_zoom','Fast and Furious', '18 Oktober 2021 pukul 07:30 - 09:30 WIB'],
+                            ['2021-10-18 00:00','ini_id_zoom5','ini_pass_zoom5','ini_link_zoom','Fun Games', ''],
+                            ['2021-10-19 08:00','ini_id_zoom6','ini_pass_zoom6','ini_link_zoom','Breakdown the Case', '19 Oktober 2021 pukul 08:00 - 09:20 WIB'],
+                            ['2021-10-20 07:30','963 7865 0991','983980','https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09','NAC Digital Series #2: Webinar Nasional', '20 Oktober 2021 pukul 07:30 - 11:00 WIB'],
+                            ['2021-10-21 09:30','ini_id_zoom8','ini_pass_zoom8','ini_link_zoom','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
+                            ['2021-10-22 00:00','ini_id_zoom9','ini_pass_zoom9','ini_link_zoom','Technical Meeting Final Round', ''],
+                            ['2021-10-23 08:30','ini_id_zoom10','ini_pass_zoom10','ini_link_zoom','Final Round Accounting Challenge', '23 Oktober 2021 pukul 08:30 - 10:40 WIB'],
+                            ['2021-10-24 19:00','ini_id_zoom11','ini_pass_zoom11','ini_link_zoom','Closing Ceremony and Awarding Night', '24 Oktober 2021 pukul 19:00 - 20:30 WIB'],
                         ];
                         $absen_peserta = [
                             $peserta_nilai->absen_1,
@@ -314,7 +314,7 @@ x-data="{
                         <tr>
                             <td><?= $no++?></td>
                             <td>Breakdown the Case (Unggah File)</td>
-                            <td>18 Oktober 2021 pukul 15:20 - 17:00</td>
+                            <td>19 Oktober 2021 pukul 15:20 - 17:00</td>
                             <td><a class="btn btn-neutral btn-sm">Unduh Logo</a></td>
                             <td><a class="btn btn-neutral btn-sm">Unggah Berkas</a></td>
                             <td>-</td>

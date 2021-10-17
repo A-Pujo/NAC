@@ -46,6 +46,21 @@ class M_Webinar extends Model
             ->get()->getResult();
             
     }
+
+    public function getPertanyaan($webinar){
+        return $this
+            ->where("$webinar !=", '')
+            ->where("$webinar !=", '-')
+            ->where("$webinar !=", 'aman')
+            ->where("$webinar !=", 'Belom ada')
+            ->where("$webinar !=", 'Belom ada.')
+            ->where("$webinar !=", 'Belum ada')
+            ->where("$webinar !=", 'Belum ada.')
+            ->where("$webinar !=", 'Tidak ada')
+            ->where("$webinar !=", 'Tidak ada.')
+            ->where("$webinar !=", 'Tidak')
+            ->get()->getResultArray();
+    }
 }
 
 ?>
