@@ -52,7 +52,7 @@ class M_Webinar extends Model
             ->where("$webinar !=", '')
             ->where("$webinar !=", '-')
             ->where("$webinar !=", 'aman')
-            ->where("$webinar !=", 'Belom ada')
+            ->where("$webinar !=e", 'Belom ada')
             ->where("$webinar !=", 'Belom ada.')
             ->where("$webinar !=", 'Belum ada')
             ->where("$webinar !=", 'Belum ada.')
