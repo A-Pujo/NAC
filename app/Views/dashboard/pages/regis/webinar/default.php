@@ -2,9 +2,9 @@
 
 
 <div class="space-y-16">
-  <?php for($i = 1 ; $i< 4; $i++) : ?>
+  <?php for($i = 1 ; $i< 5; $i++) : ?>
     <div class="card bg-neutral-200 p-16">
-      Webinar #<?= $i ?>
+      Webinar #<?= $i ?>  
     </div>
     <div class="w-full stats border border-primary-100 grid-flow-row md:grid-flow-col">
       <div class="stat bg-neutral-300 text-base-100">

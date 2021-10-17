@@ -513,16 +513,26 @@ class Lomba extends BaseController
 		}
 	}
 
-	public function verif_absen_sma(){
-		if($records = $this->request->getPost()){
-			// dd(array_keys($records));
-			foreach (array_keys($records) as $id) {
-				foreach(explode('|', $records['absen_'.$id]) as $file){
-					unlink(APPPATH.'../public/uploads/partisipan/lomba/absen' . $file);
+	public function verif_absen_sma($absen_id){
+		if($check = $this->request->getPost('check')){
+			$model = new \App\Models\M_Nilai_Acc_Sma();
+			// Get Files
+			$files = $check;
+			// Get Id
+			$ids = array_keys($check);
+			foreach ($ids as $id) {
+				// dd($files[$id]);
+				if($files[$id] != ''){
+					foreach(explode('|', $files[$id]) as $file){
+						// d($file);
+						unlink(APPPATH.'../public/uploads/partisipan/lomba/absen/' . $file);
+					}
 				}
-				db()->table('nilai_acc_sma')->where('id', $records['id'])->update(['absen_1' => $records[$id]]);
 			}
-			return 'ok';
+			// dd('absen_'.$absen_id);
+			$model->update($ids, ['absen_'.$absen_id => 1]);
+			session()->setFlashdata('pesan-success', 'Update Absen berhasil');
+			return redirect()->to(base_url('dashboard/regis-sma'));
 		} else {
 			// return 'tidak kesubmit';
 			return view('dashboard/pages/regis/sma/verif-absen-1');

@@ -824,5 +824,19 @@ class Dashboard extends BaseController
     }
     // === END REGIS === //
 
+    // === VIEW BIODATA === //
+
+    public function biodata($partisipan_id){
+        if(isInRole('tim registrasi')){
+            $model = new \App\Models\M_Data_Main_Round();
+            $data['p'] = $model->getDataUser($partisipan_id);
+            $data['halaman'] = '';
+            $data['judul'] = 'Biodata Peserta';
+            return view('dashboard/pages/biodata', $data);
+        }
+    }
+    // === END VIEW BIODATA === //
+
+
 }
 ?>

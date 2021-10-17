@@ -31,6 +31,14 @@ class M_Data_Main_Round extends Model
             ->where('partisipan_jenis', 'CFP')
             ->get()->getResult();
     }
+
+    public function getDataUser($partisipan_id){
+        return $this
+            ->join('data_partisipan', 'data_partisipan.partisipan_id = data_main_round.partisipan_id')
+            ->join('users', 'users.id = data_partisipan.user_id')
+            ->where('data_partisipan.partisipan_id', $partisipan_id)
+            ->get()->getRow();
+    }
 }
 
 ?>

@@ -202,9 +202,7 @@ if($zoom_id){
                             <td>
                                 <!-- Join Zoom : telah daftar (0) ? -->
                                 <?php if($data_webinar_peserta[$j-1] != '0') : ?>
-                                    <a class="btn btn-primary btn-sm 
-                                    <?= sekarang() > tanggal('webinar_start_join_zoom_'.$j) && sekarang() < tanggal('webinar_finish_join_zoom_'.$j) ? '' : 'btn-disabled' ?>
-                                    " @click="judul = '<?= $judul[$j -1] ?>',zoom_id = '<?= $j ?>', zoom_id_join = '<?= info('webinar_zoom_id_'.$j) ?>', zoom_link='<?= info('webinar_zoom_link_'.$j) ?>', zoom_pass='<?= info('webinar_zoom_pass_'.$j) ?>'">Join zoom</a>
+                                    <a class="btn btn-primary btn-sm btn-disabled">Link Youtube</a>
                                 <?php else:?>
                                         <a @click="judul = '<?= $judul[$j -1] ?>',webinar_id = '<?= $j ?>'" class="btn btn-primary btn-sm
                                         <?= (sekarang() > tanggal('webinar_open_regis_'.$j) && sekarang() < tanggal('webinar_close_regis_'.$j) && $kuota[$j -1] > 0 ) ? '' : 'btn-disabled' ?>"
@@ -362,7 +360,10 @@ if($zoom_id){
                     </tr>
                 </tbody>
             </table>
-            <a class="btn btn-sm btn-error" @click="zoom_id = ''">cancel</a>
+            <div class="flex flex-row justify-between mt-8">
+                <a target="_blank" :href="'<?= base_url('file/vb_webinar_') ?>'+zoom_id+'.png'" class="btn btn-sm btn-info" download>Unduh Virtual Background</a>
+                <a class="btn btn-sm btn-error" @click="zoom_id = ''">Tutup</a>
+            </div>
         </div>
     </div>
     <!-- == END ZOOM == -->

@@ -21,7 +21,17 @@
     $peserta_biodata = user_main_round();
         ?>
     
-<div class="grid grid-cols-12 gap-24 p-32 text-base-100" x-data="{absen_id : 0}">
+    <div class="grid grid-cols-12 gap-24 p-32 text-base-100" 
+x-data="{
+    absen_id:0,
+    judul:'',
+    zoom_id : '',
+    zoom_id_join : '',
+    zoom_pass : '',
+    zoom_link : '',
+
+}"
+>
 
     <div class="card col-span-12 p-24 bg-neutral-100">
         <table class="tabel-card text-12 lg:text-16">
@@ -103,7 +113,7 @@
     </div> -->
 
     <!-- == REVIEW LJU == -->
-    <div class="col-span-12 flex space-y-16 flex-col">
+    <!-- <div class="col-span-12 flex space-y-16 flex-col">
         <?php 
             if($peserta_prelim):
                 if($peserta_prelim->kuota_1 == 0 && $peserta_prelim->kuota_2 == 0 && $peserta_prelim->kuota_3 == 0):
@@ -125,7 +135,7 @@
                 endif;
             endif;
         ?>
-    </div>
+    </div> -->
     <!-- == END RIVEW LJU == -->
 
     <!-- == UPDATE BIODATA == -->
@@ -165,33 +175,74 @@
     <?php endif ?>
     <!-- == END UPDATE BIODATA == -->
 
-    <div class="col-span-12 ">
+<!-- === PENGUMUMAN === -->
+<div class="alert alert-info col-span-12">
+  <div class="flex-1">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
+    </svg> 
+    <label>Unduh Virtual Background NAC Digital Series #1: Webinar Internasional pada <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_webinar_1.png')?>">tautan ini</a></label>
+  </div>
+</div>
+<div class="alert alert-info col-span-12">
+  <div class="flex-1">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
+    </svg> 
+    <label>Gunakan <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_lomba_acc.png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
+  </div>
+</div>
+<!-- === END PENGUMUMAN === -->
+    <div class="col-span-12 overflow-x-auto">
         <table class="tabel">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Tahap</th>
+                    <th>Kegiatan</th>
                     <th>Tanggal Pelaksanaan</th>
-                    <th>Nilai</th>
+                    <th>Data</th>
+                    <th>Aksi</th>
                     <th>Status</th>
                 </tr>
             </thead>
             <tbody>
+
+                <?php
+                        $absen = [
+                            //start zoom, id, pass, link, judul acara, tanggal
+                            ['2021-10-11 11:00', 'id', 'pass', 'link','Technical Meeting Semifinal', '14 Oktober 2021 pukul 19:00 - 20:00 WIB'],
+                            ['2021-10-11 11:00', 'id', 'pass', 'link','Opening Ceremony', '17 Oktober 2021 pukul 11:00 - 12:05 WIB'],
+                            ['2021-10-17 13:30', '938 2889 7613', '900923', 'https://zoom.us/j/93828897613?pwd=M3Z2Wnp6aDdsaTlWdGZheW9iZUZqQT09','NAC Digital Series #1: Webinar Internasional', '17 Oktober 2021 pukul 13:30 - 17:15 WIB'],
+                            ['2021-10-18 07:30', 'id', 'pass', 'link','FGD X Essay', '18 Oktober 2021 pukul 07:30 - 13:15 WIB'],
+                            ['2021-10-19 07:30', 'id', 'pass', 'link','Fun Games', '19 Oktober 2021 pukul 07:30 - 10:50 WIB'],
+                            ['2021-10-20 07:30', '963 7865 0991', '983980', 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09','NAC Digital Series #2: Webinar Nasional', '20 Oktober 2021 pukul 07:30 - 11:00 WIB'],
+                            ['2021-10-21 09:30', 'id', 'pass', 'link','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
+                            ['2021-10-22 00:00', 'id', 'pass', 'link','Technical Meeting Final Round', ''],
+                            ['2021-10-23 08:30', 'id', 'pass', 'link','Final Round Accounting Challenge', '23 Oktober 2021 pukul 08:30 - 10:40 WIB'],
+                            ['2021-10-24 19:00', 'id', 'pass', 'link','Closing Ceremony and Awarding Night', '24 Oktober 2021 pukul 19:00 - 20:30 WIB'],
+                        ];
+                        $absen_peserta = [
+                            $peserta_nilai->absen_1,
+                            $peserta_nilai->absen_2,
+                            $peserta_nilai->absen_3,
+                            $peserta_nilai->absen_4,
+                            $peserta_nilai->absen_5, // 2
+                            $peserta_nilai->absen_6, // 1
+                            $peserta_nilai->absen_7, // 1
+                            $peserta_nilai->absen_8,
+                            $peserta_nilai->absen_9,
+                            $peserta_nilai->absen_10,
+                        ];
+                        // ['Pengumuman Tahap Semifinal Accounting Challange', '12 Oktober 2021 pukul 12:00 WIB'],
+                ?>
                 <tr>
                     <td>1</td>
-                    <td>Simulasi Preliminary Round</td>
-                    <td><?= tanggal('start_pre') ?></td>
+                    <td>Pengumuman Preliminary Round</td>
+                    <td>12 Oktober 2021 pukul 12:00</td>
+                    <td>-</td>
+                    <td>-</td>
                     <td>
-                        <?php 
-                            if($peserta_nilai):
-                        ?>
-                            <?= $peserta_nilai->segmen_1 + $peserta_nilai->segmen_2 + $peserta_nilai->segmen_3 ?>
-                        <?php   
-                            endif;
-                        ?>
-                    </td>
-                    <td>
-                        <?php if($peserta_nilai == null || sekarang() < tanggal('acc-univ-pre-peng')) : ?>
+                        <?php if($peserta_nilai == null || sekarang() < tanggal('acc-sma-pre-peng')) : ?>
                             Informasi Belum Tersedia
                         <?php else: ?>
                             <?php if($peserta_nilai->prelim == 1) : ?>
@@ -202,36 +253,93 @@
                         <?php endif; ?>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        2
-                    </td>
-                    <td>
-                        Absensi TM
-                    </td>
-                    <td>
-                        14 Oktober 2021 pukul 20:00 WIB
-                    </td>
-                    <td>
-                        -
-                    </td>
-                    <td>
-                        <?php if($peserta_nilai->absen_1 == '') : ?>
-                            <a class="btn btn-sm btn-primary" @click="absen_id = 1">Absen</a>
-                        <?php elseif($peserta_nilai->absen_1 == '1') :?>
-                            <span class="verif-sukses">Terverifikasi</span>
-                        <?php else :?>
-                            <span class="verif-gagal">Dalam konfirmasi</span>
-                        <?php endif?>
-                    </td>
-                </tr>
+                <?php $no= 2; for($i=0; $i < 10; $i++):?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $absen[$i][4] ?></td>
+                        <td><?= $absen[$i][5] ?></td>
+                        <td>
+                            <?php if($i == 1):?>
+                                    <a class="btn btn-primary btn-sm" target="_blank" href="https://youtube.com">Tautan Youtube</a>
+                                    <div 
+                                        data-tip="Salin tautan"
+                                        class="inline tooltip tooltip-primary"
+                                    >
+                                        <svg 
+                                            data-clipboard-text="https://youtube.com" 
+                                            class="h-5 w-5 copy cursor-pointer inline"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                                <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                        </svg>
+                                    </div>
+                                <?php else: ?>
+                                    <a class="btn btn-primary btn-sm 
+                                            <?= sekarang() > $absen[$i][0]? '' : 'btn-disabled' ?>
+                                            " @click="judul = '<?= $absen[$i][4] ?>', zoom_id = '<?= $i ?>', zoom_id_join = '<?= $absen[$i][1] ?>', zoom_pass='<?= $absen[$i][2] ?>', zoom_link='<?= $absen[$i][3] ?>'">
+                                    Join zoom
+                                    </a>
+                            <?php endif?>
+                        </td>
+                        <td>
+                            <?php if($absen_peserta[$i] == '') : ?>
+                                <a class="btn btn-sm btn-primary" @click="absen_id = '<?= $i+1 ?>', judul='<?= $absen[$i][4] ?>'">Absen</a>
+                            <?php elseif($absen_peserta[$i] == '1') :?>
+                                <span class="verif-sukses">Terverifikasi</span>
+                            <?php else :?>
+                                <span class="verif-gagal">Dalam konfirmasi</span>
+                            <?php endif?>
+                        </td>
+                        <td>
+                            -
+                        </td>
+                    </tr>
+                    <?php if($no == 7 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Accounting in Row</td>
+                            <td>19 Oktober 2021</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Choose in Advance</td>
+                            <td>19 Oktober 2021</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    <?php endif ?>
+                    <?php if($no == 6 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>FGD X Essay (Unggah Berkas)</td>
+                            <td>18 Oktober 2021 pukul 13:15 - 17:00</td>
+                            <td><a class="btn btn-neutral btn-sm">Unduh Logo</a></td>
+                            <td><a class="btn btn-neutral btn-sm">Unggah Berkas</a></td>
+                            <td>-</td>
+                        </tr>
+                    <?php endif ?>
+                    <?php if($no == 9 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Pengumuman Finalis</td>
+                            <td></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    <?php endif ?>
+                <?php endfor ?>
             </tbody>
         </table>
     </div>
-        <!-- === MODAL ABSEN === -->
-        <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+    <!-- === MODAL ABSEN === -->
+    <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
         <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
-            <h2 class="text-24 font-bold text-center">Form absen #<span x-text="absen_id"></span></h2>
+            <h2 class="text-24 font-bold text-center">Form absen <span x-text="judul"></span></h2>
             <?= form_open_multipart(base_url('lomba/upload-absen-univ'), ['method' => 'post']) ?>
             <?= csrf_field() ?>
 
@@ -270,11 +378,84 @@
         </div>
     </div>
     <!-- === END MODAL ABSEN === -->
+        <!-- == MODAL ZOOM == -->
+        <div x-show="zoom_id != ''"  class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="zoom_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+        <h2 class="text-24 font-bold text-center">Data zoom <span x-text="judul"></span></h2>
+            <table class="tabel">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Data</th>
+                        <th>Salin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ID Zoom</td>
+                        <td><span x-text="zoom_id_join"></td>
+                        <td>
+                            <div 
+                                data-tip="Salin ID zoom"
+                                class="inline tooltip tooltip-primary"
+                            >
+                                <svg 
+                                    :data-clipboard-text="zoom_id_join" 
+                                    class="h-5 w-5 copy cursor-pointer inline"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Passcode Zoom</td>
+                        <td><span x-text="zoom_pass"></td>
+                        <td>
+                            <div 
+                                data-tip="Salin passcode zoom"
+                                class="inline tooltip tooltip-primary"
+                            >
+                                <svg 
+                                    :data-clipboard-text="zoom_pass" 
+                                    class="h-5 w-5 copy cursor-pointer inline"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tautan Zoom</td>
+                        <td><a class="btn btn-sm btn-primary" :href="zoom_link">Buka Tautan</td>
+                        <td>
+                            <div 
+                                data-tip="Salin tautan zoom"
+                                class="inline tooltip tooltip-primary"
+                            >
+                                <svg 
+                                    :data-clipboard-text="zoom_link" 
+                                    class="h-5 w-5 copy cursor-pointer inline"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-sm btn-error" @click="zoom_id = ''">cancel</a>
+        </div>
+    </div>
+    <!-- == END ZOOM == -->
 </div>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
 <script>
     new ClipboardJS('.copy');
-</script>
+</script>>
 
 
 <?= $this->endSection() ?>

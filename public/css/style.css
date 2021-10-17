@@ -2628,8 +2628,8 @@ html {
   top: 96px;
 }
 
-.-top-32 {
-  top: -32px;
+.-top-1 {
+  top: -0.25rem;
 }
 
 .right-0 {
@@ -2644,8 +2644,8 @@ html {
   right: 32px;
 }
 
-.-right-32 {
-  right: -32px;
+.-right-1 {
+  right: -0.25rem;
 }
 
 .bottom-32 {
@@ -3454,6 +3454,10 @@ html {
 
 .p-32 {
   padding: 32px;
+}
+
+.p-40 {
+  padding: 40px;
 }
 
 .p-64 {

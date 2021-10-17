@@ -36,9 +36,9 @@ function tanggal($aksi){
         'webinar_close_regis_3' => '2021-10-21 09:30',
         'webinar_close_regis_4' => '2021-10-17 11:00',
         // start join
-        'webinar_start_join_zoom_1' => '2021-10-17 13:30',
-        'webinar_start_join_zoom_2' => '2021-10-20 07:30',
-        'webinar_start_join_zoom_3' => '2021-10-21 09:30',
+        'webinar_start_join_zoom_1' => '2020-10-17 13:30',
+        'webinar_start_join_zoom_2' => '2020-10-20 07:30',
+        'webinar_start_join_zoom_3' => '2020-10-21 09:30',
         'webinar_start_join_zoom_4' => '2021-10-17 11:00',
         // finish join zoom
         'webinar_finish_join_zoom_1' => '2021-10-17 17:15',
@@ -82,26 +82,26 @@ function info($info){
         'webinar_pass_1' => 'DevelopmentGoals',
         'webinar_pass_2' => 'AuditingCapability',
         'webinar_pass_3' => 'EconomicSolution',
-        'webinar_pass_4' => 'EconomicSolution',
+        'webinar_pass_4' => 'GetReadyToTransform',
 
         // kuota untuk mahasiswa stan
         'webinar_kuota_stan_1' => 700,
         'webinar_kuota_stan_2' => 700,
         'webinar_kuota_stan_3' => 700,
-        'webinar_kuota_stan_4' => 700,
+        'webinar_kuota_stan_4' => 10000,
         // kuota untuk non mahasiswa stan
         'webinar_kuota_non_stan_1' => 300,
         'webinar_kuota_non_stan_2' => 300,
         'webinar_kuota_non_stan_3' => 300,
-        'webinar_kuota_non_stan_4' => 300,
+        'webinar_kuota_non_stan_4' => 10000,
         // data zoom 1
-        'webinar_zoom_id_1' => '868 9321 4300',
-        'webinar_zoom_pass_1' => '363886',
-        'webinar_zoom_link_1' => 'https://us02web.zoom.us/j/86893214300?pwd=K1lrUFJxUUpJM3M4bGpiWDA1UXBjUT09',
+        'webinar_zoom_id_1' => '938 2889 7613',
+        'webinar_zoom_pass_1' => '900923',
+        'webinar_zoom_link_1' => 'https://zoom.us/j/93828897613?pwd=M3Z2Wnp6aDdsaTlWdGZheW9iZUZqQT09',
         // data zoom 1
-        'webinar_zoom_id_2' => '856 5506 0432',
-        'webinar_zoom_pass_2' => '377369',
-        'webinar_zoom_link_2' => 'https://us02web.zoom.us/j/85655060432?pwd=UGlVeDRQbHMyWWhvSGwydUs5eUxnQT09',
+        'webinar_zoom_id_2' => '963 7865 0991',
+        'webinar_zoom_pass_2' => '983980',
+        'webinar_zoom_link_2' => 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09',
         // data zoom 1
         'webinar_zoom_id_3' => '983980',
         'webinar_zoom_pass_3' => '963 7865 0991',

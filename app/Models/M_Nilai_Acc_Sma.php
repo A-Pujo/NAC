@@ -10,6 +10,21 @@ class M_Nilai_Acc_Sma extends Model
 
     protected $returnType     = 'object';
 
+    protected $allowedFields = [
+        'absen_1',
+        'absen_2',
+        'absen_3',
+        'absen_4',
+        'absen_5',
+        'absen_6',
+        'absen_7',
+        'absen_8',
+        'absen_9',
+        'absen_10',
+        'absen_11'
+    ];
+    
+
     public function isLulusPrelim($partisipan_id){
         return $this
         ->where('partisipan_id', $partisipan_id)
@@ -22,7 +37,7 @@ class M_Nilai_Acc_Sma extends Model
             ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')
             ->where($kolom, $kondisi)
             ->orderBy('nama_tim')
-            ->get()->getResult();
+            ->get()->getResultArray();
         } else {
             return $this
             ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_sma.partisipan_id')

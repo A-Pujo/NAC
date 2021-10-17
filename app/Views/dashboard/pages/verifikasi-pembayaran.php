@@ -43,7 +43,9 @@
                         <th>#</th>
                         <th>Nama Tim</th>
                         <th>Jenis Partisipasi</th>
+                        <th>Asal Sekolah</th>
                         <th>Nama Ketua</th>
+                        <th>Jumlah Bayar</th>
                         <th>Status Verifikasi</th>
                         <th>Aksi</th>
                     </tr>
@@ -57,7 +59,9 @@
                         <td><?= $no++ ?></td>
                         <td><?= $partisipan->nama_tim ?></td>
                         <td><?= $partisipan->partisipan_jenis ?></td>
+                        <td><?= $partisipan->pt ?></td>
                         <td><?= $partisipan->nama_ketua ?></td>
+                        <td>Rp.<?= substr($partisipan->jumlah_transfer,0, -3).'.'. substr($partisipan->jumlah_transfer, -3)?></td>
                         <td>
                             <?php if($partisipan->pembayaran_aktif == 1) : ?>
                                 <span class="verif-sukses"> Terverifikasi <span>

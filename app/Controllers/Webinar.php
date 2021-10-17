@@ -165,7 +165,7 @@ class Webinar extends BaseController
                 return redirect()->to(base_url('webinar/dashboard'));
             } else {
                 // Buka link zoom
-                session()->set(['zoom_id' => 4]);
+                // session()->set(['zoom_id' => 4]);
                 return redirect()->to(base_url('webinar/dashboard'));
             }
         }
