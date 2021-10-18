@@ -1,16 +1,17 @@
 <?= $this->extend('dashboard/layout/main')  ?>
 <?= $this->section('content') ?>
 <?php
-    $page = [
-        '0_default' => 'Semua Data',
+    $pages = [
+        '0_default' => 'Pilih Halaman',
         '1_prelim' => 'Preliminary Round',
+        '2_berkas_fgd' => 'Berkas FGD',
     ];
-
+    $pages_key = array_keys($pages);
 ?>
 
     <div class="p-32 grid grid-cols-12 gap-24 text-base-100">
       <div class="col-span-12">
-      <div class="form-select" x-data="{menu : '<?= $page[$_GET['page'] ?? '0_default'] ?>', dropdown: false}">
+        <div class="form-select" x-data="{menu : '<?= $pages[$_GET['page'] ?? '0_default'] ?>', dropdown: false}">
             <label>Pilih Data</label>
             <div
                 @click="dropdown = !dropdown"
@@ -25,14 +26,24 @@
             </div>
             <div x-show="dropdown" @click.outside="dropdown = false">
                 <ul>
-                    <li><a href="<?= base_url('dashboard/acara-univ') ?>">Semua Data</a></li>
-                    <li><a href="<?= base_url('dashboard/acara-univ?page=1_prelim') ?>">Data Preliminary Round</a></li>
+                    <?php $i = 0; foreach($pages as $page) : $i++?>
+                        <li><a href="<?= base_url('dashboard/acara-univ?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
+                    <?php endforeach ?>
                 </ul>
             </div>
         </div>
       </div>
       <div class="col-span-12">
-            <?= $this->include('/dashboard/pages/acara/univ/'.($_GET['page'] ?? '0_default')) ?>
+          <?php 
+                if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'pertanyaan')){
+                    echo $this->include('dashboard/pages/acara/univ/pertanyaan');
+                } elseif(($_GET['page'] ?? false)) {
+                    echo $this->include('dashboard/pages/acara/univ/'.$_GET['page']);
+                } else {
+                    echo $this->include('dashboard/pages/acara/univ/0_default');
+                }
+            ?> 
       </div>
-      <?= $this->include('dashboard/layout/datatables') ?>
+    </div>
+    <?= $this->include('dashboard/layout/datatables') ?>
 <?= $this->endSection() ?>

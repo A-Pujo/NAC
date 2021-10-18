@@ -317,8 +317,8 @@ x-data="{
                         <tr>
                             <td><?= $no++?></td>
                             <td>FGD X Essay (Unggah Berkas)</td>
-                            <td>18 Oktober 2021 pukul 11:30 - 12:10</td>
-                            <td><a class="btn btn-neutral btn-sm">-</a></td>
+                            <td>18 Oktober 2021 pukul 11:30 - 12:12</td>
+                            <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/logo.png') ?>" download>Unduh Logo</a></td>
                             <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 1">Unggah Berkas</a></td>
                             <td>-</td>
                         </tr>
@@ -478,7 +478,7 @@ x-data="{
                     <input type="hidden" name="id" value="<?= $peserta_nilai->id ?>" >
                     <span><?= initValidation()->getError('berkas') ?? '' ?></span>
 
-                    <small>Format yang diizinkan ppt, pdf</small>
+                    <small>Format yang diizinkan doc, docx</small>
                     <small>Ukuran maksimal untuk setiap berkas 5 Mb</small>
                     <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu berkas</small>
                 </div>

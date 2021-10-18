@@ -7,7 +7,7 @@ class Peserta extends BaseController
         if($records = $this->request->getPost()){
 			if(!$this->validate([
 				'berkas' => [
-					'rules' => 'uploaded[berkas]|max_size[berkas,600]|ext_in[berkas,pdf,pptx,ppt]',
+					'rules' => 'uploaded[berkas]|max_size[berkas,600]|ext_in[berkas,doc,docx]',
 					'errors' => [
 						'uploaded' => lang('Validasi.required'),
 						'max_size' => lang('Validasi.max_size', ['berkas', '5 MB']),
