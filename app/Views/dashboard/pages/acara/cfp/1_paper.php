@@ -1,4 +1,4 @@
-<?=  form_open('lomba/cfp-verif-full-paper')?>
+<?=  form_open('acara/cfp-verif-full-paper')?>
 
 <div class="overflow-auto">
     <table class="tabel">

@@ -24,6 +24,7 @@
 <div class="grid grid-cols-12 gap-24 p-32 text-base-100" 
 x-data="{
     absen_id:0,
+    berkas_id:0,
     judul:'',
     zoom_id : '',
     zoom_id_join : '',
@@ -185,7 +186,7 @@ x-data="{
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
     </svg> 
-    <label>Gunakan <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_lomba_acc    .png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
+    <label>Gunakan <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_lomba_acc.png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
   </div>
 </div>
 <!-- === END PENGUMUMAN === -->
@@ -336,7 +337,7 @@ x-data="{
                             <td>Final Round Accounting Challange (Unggah File)</td>
                             <td>23 Oktober 2021 pukul 10:40 - 12:00</td>
                             <td><a class="btn btn-neutral btn-sm">Unduh Logo</a></td>
-                            <td><a class="btn btn-neutral btn-sm">Unggah Berkas</a></td>
+                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 2">Unggah Berkas</a></td>
                             <td>-</td>
                         </tr>
                     <?php endif ?>
@@ -459,6 +460,47 @@ x-data="{
         </div>
     </div>
     <!-- == END ZOOM == -->
+        <!-- === MODAL UPLOAD BERKAS === -->
+        <div x-show="berkas_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="berkas_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+            <h2 class="text-24 font-bold text-center">Form upload Berkas</h2>
+            <?= form_open_multipart(base_url('peserta/upload-berkas/nilai_acc_sma'), ['method' => 'post']) ?>
+
+                <div class="form-upload" x-data="{files : ''}">
+                    <label for="berkas">Berkas</label>
+                    <div x-show="files">
+                        <!-- Loop the image -->
+                        <template x-for="file in files" x-if="files">
+                            <div>
+                                <img :src="URL.createObjectURL(file)">
+                                <div>
+                                    <span x-text="file.name"></span>
+                                    <span x-text="file.size / 1000 + ' Kb'"></span>
+                                </div> 
+                            </div>
+                        </template>
+                    </div>
+                    <label for="berkas">Upload Data</label>
+                    <input type="file" id="berkas" @change="files = $event.target.files" name="berkas[]" multiple/>
+                    <input type="hidden" name="berkas_id" :value="berkas_id">
+                    <input type="hidden" name="id" value="<?= $peserta_nilai->id ?>" >
+                    <span><?= initValidation()->getError('berkas') ?? '' ?></span>
+
+                    <small>Format yang diizinkan ppt, pdf</small>
+                    <small>Ukuran maksimal untuk setiap berkas 5 Mb</small>
+                    <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu berkas</small>
+                </div>
+            <!-- SUBMIT -->
+            <input type="hidden" name="berkas_id" :value="berkas_id">
+            <input type="hidden" name="peserta_id" value="<?= $peserta_nilai->id ?>">
+            <div class="flex flex-row justify-between">
+                <span class="btn btn-error btn-sm" @click="berkas_id = 0">Cancel</span>
+                <input type="submit" value="submit" name="submit" class="btn btn-primary btn-sm">
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- === END MODAL UPLOAD BERKAS === -->
 </div>
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
 <script>
