@@ -320,7 +320,11 @@ x-data="{
                             <td>18 Oktober 2021 pukul 11:30 - 12:12</td>
                             <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/logo.png') ?>" download>Unduh Logo</a></td>
                             <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 1">Unggah Berkas</a></td>
-                            <td>-</td>
+                            <?php if($peserta_nilai->berkas_1 == '') : ?>
+                                <td>-</td>
+                                <?php else :?>
+                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
+                            <?php endif?>
                         </tr>
                     <?php endif ?>
                     <?php if($no == 9 ):?>

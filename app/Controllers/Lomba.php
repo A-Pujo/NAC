@@ -525,10 +525,31 @@ class Lomba extends BaseController
 			// Get Id
 			$ids = array_keys($check);
 			foreach ($ids as $id) {
-				// dd($files[$id]);
 				if($files[$id] != ''){
 					foreach(explode('|', $files[$id]) as $file){
-						// d($file);
+						unlink(APPPATH.'../public/uploads/partisipan/lomba/absen/' . $file);
+					}
+				}
+			}
+			// dd('absen_'.$absen_id);
+			$model->update($ids, ['absen_'.$absen_id => 1]);
+			session()->setFlashdata('pesan-success', 'Update Absen berhasil');
+			return redirect()->to(base_url('dashboard/regis-sma'));
+		} else {
+			// return 'tidak kesubmit';p
+			return view('dashboard/pages/regis/sma/verif-absen-1');
+		}
+	}
+	public function verif_absen_univ($absen_id){
+		if($check = $this->request->getPost('check')){
+			$model = md('univ');
+			// Get Files
+			$files = $check;
+			// Get Id
+			$ids = array_keys($check);
+			foreach ($ids as $id) {
+				if($files[$id] != ''){
+					foreach(explode('|', $files[$id]) as $file){
 						unlink(APPPATH.'../public/uploads/partisipan/lomba/absen/' . $file);
 					}
 				}
@@ -539,7 +560,7 @@ class Lomba extends BaseController
 			return redirect()->to(base_url('dashboard/regis-sma'));
 		} else {
 			// return 'tidak kesubmit';
-			return view('dashboard/pages/regis/sma/verif-absen-1');
+			return redirect()->to(base_url('dashboard/regis-sma'));
 		}
 	}
 
