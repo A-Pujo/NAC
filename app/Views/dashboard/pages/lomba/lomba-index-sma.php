@@ -316,8 +316,8 @@ x-data="{
                             <td><?= $no++?></td>
                             <td>Breakdown the Case (Unggah File)</td>
                             <td>19 Oktober 2021 pukul 15:20 - 17:00</td>
-                            <td><a class="btn btn-neutral btn-sm">Unduh Logo</a></td>
-                            <td><a class="btn btn-neutral btn-sm">Unggah Berkas</a></td>
+                            <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/Brekdown-the-Case.pdf') ?>" download>Unduh File</a></td>
+                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 1">Unggah Berkas</a></td>
                             <td>-</td>
                         </tr>
                     <?php endif ?>
