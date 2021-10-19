@@ -5,6 +5,7 @@
         '0_default' => 'Pilih Halaman',
         '1_prelim' => 'Preliminary Round',
         '2_berkas_fgd' => 'Berkas FGD',
+        '3_kelulusan_semifinal' => 'Kelulusan Semifinal',
     ];
     $pages_key = array_keys($pages);
 ?>
@@ -34,6 +35,9 @@
         </div>
       </div>
       <div class="col-span-12">
+          <?= $this->include('component/pesan') ?>
+      </div>
+      <div class="col-span-12">
           <?php 
                 if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'pertanyaan')){
                     echo $this->include('dashboard/pages/acara/univ/pertanyaan');
@@ -45,5 +49,4 @@
             ?> 
       </div>
     </div>
-    <?= $this->include('dashboard/layout/datatables') ?>
 <?= $this->endSection() ?>

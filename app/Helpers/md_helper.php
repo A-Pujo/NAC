@@ -9,6 +9,8 @@ function md($model){
             return new \App\Models\M_Nilai_Acc_Sma();
         case 'univ':
             return new \App\Models\M_Nilai_Acc_Univ();
+        case 'bio':
+            return new \App\Models\M_Data_Main_Round();
         default:
             dd('invalid argumen md');
     }

@@ -23,8 +23,8 @@
     
     <div class="grid grid-cols-12 gap-24 p-32 text-base-100" 
 x-data="{
-    berkas_id : 0,
-    absen_id:0,
+    berkas_id : <?= old('berkas_id') ?? 0 ?>,
+    absen_id: <?= old('absen_id') ?? 0 ?>,
     judul:'',
     zoom_id : '',
     zoom_id_join : '',
@@ -182,7 +182,7 @@ x-data="{
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
     </svg> 
-    <label>Unduh Virtual Background NAC Digital Series #1: Webinar Internasional pada <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_webinar_1.png')?>">tautan ini</a></label>
+    <label>Unduh Virtual Background NAC Digital Series #2: Webinar Nasional pada <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_webinar_2.png')?>">tautan ini</a></label>
   </div>
 </div>
 <div class="alert alert-info col-span-12">
@@ -204,6 +204,7 @@ x-data="{
                     <th>Data</th>
                     <th>Aksi</th>
                     <th>Status</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
@@ -217,7 +218,7 @@ x-data="{
                             ['2021-10-18 07:30', 'id', 'pass', 'link','FGD X Essay', '18 Oktober 2021 pukul 07:30 - 13:15 WIB'],
                             ['2021-10-19 07:30', 'id', 'pass', 'link','Fun Games', '19 Oktober 2021 pukul 07:30 - 10:50 WIB'],
                             ['2021-10-20 07:30', '963 7865 0991', '983980', 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09','NAC Digital Series #2: Webinar Nasional', '20 Oktober 2021 pukul 07:30 - 11:00 WIB'],
-                            ['2021-10-21 09:30', 'id', 'pass', 'link','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
+                            ['2021-10-21 09:30', '843 9684 2914', 'digital', 'https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
                             ['2021-10-22 00:00', 'id', 'pass', 'link','Technical Meeting Final Round', ''],
                             ['2021-10-23 08:30', 'id', 'pass', 'link','Final Round Accounting Challenge', '23 Oktober 2021 pukul 08:30 - 10:40 WIB'],
                             ['2021-10-24 19:00', 'id', 'pass', 'link','Closing Ceremony and Awarding Night', '24 Oktober 2021 pukul 19:00 - 20:30 WIB'],
@@ -253,6 +254,7 @@ x-data="{
                             <?php endif; ?>
                         <?php endif; ?>
                     </td>
+                    <td>-</td>
                 </tr>
                 <?php $no= 2; for($i=0; $i < 10; $i++):?>
                     <tr>
@@ -281,19 +283,20 @@ x-data="{
                                     Join zoom
                                     </a>
                             <?php endif?>
+                        </td> 
+                        <td>
+                            <a class="btn btn-sm btn-primary" @click="absen_id = '<?= $i+1 ?>', judul='<?= $absen[$i][4] ?>'">Absen</a>
                         </td>
                         <td>
-                            <?php if($absen_peserta[$i] == '') : ?>
-                                <a class="btn btn-sm btn-primary" @click="absen_id = '<?= $i+1 ?>', judul='<?= $absen[$i][4] ?>'">Absen</a>
-                            <?php elseif($absen_peserta[$i] == '1') :?>
+                            <?php if($absen_peserta[$i] == '1') : ?>
                                 <span class="verif-sukses">Terverifikasi</span>
+                            <?php elseif($absen_peserta[$i] == '') :?>
+                                <span class="verif-gagal">Belum absen</span>
                             <?php else :?>
                                 <span class="verif-gagal">Dalam konfirmasi</span>
                             <?php endif?>
                         </td>
-                        <td>
-                            -
-                        </td>
+                        <td>-</td>
                     </tr>
                     <?php if($no == 7 ):?>
                         <tr>
@@ -321,9 +324,11 @@ x-data="{
                             <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/logo.png') ?>" download>Unduh Logo</a></td>
                             <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 1">Unggah Berkas</a></td>
                             <?php if($peserta_nilai->berkas_1 == '') : ?>
+                                <td><span class="verif-gagal">Belum mengunggah</span></td>
                                 <td>-</td>
-                                <?php else :?>
+                            <?php else :?>
                                 <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
+                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta_nilai->berkas_1) ?>">Lihat berkas</a></td>
                             <?php endif?>
                         </tr>
                     <?php endif ?>
@@ -332,6 +337,7 @@ x-data="{
                             <td><?= $no++?></td>
                             <td>Pengumuman Finalis</td>
                             <td></td>
+                            <td>-</td>
                             <td>-</td>
                             <td>-</td>
                             <td>-</td>

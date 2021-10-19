@@ -18,6 +18,9 @@ function tanggal($aksi){
         'acc-sma-pre-peng' => '2021-10-12 12:00', // kelulusan pre el
         'acc-univ-pre-peng' => '2021-10-12 12:00', // kelulusan pre el
         'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
+        'acc-sma-semi-peng' => '2021-10-10 20:00', // kelulusan semifinal
+        'acc-univ-semi-peng' => '2021-10-10 20:00', // kelulusan semifinal
+        'cfp-full-paper-peng' => '2021-10-10 12:00', // kelulusan aFull paper
 
         // tahap prelim
         'start_pre' => '2021-10-09 09:30', // start pengerjaan soal
@@ -103,9 +106,9 @@ function info($info){
         'webinar_zoom_pass_2' => '983980',
         'webinar_zoom_link_2' => 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09',
         // data zoom 1
-        'webinar_zoom_id_3' => '983980',
-        'webinar_zoom_pass_3' => '963 7865 0991',
-        'webinar_zoom_link_3' => 'https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09',
+        'webinar_zoom_id_3' => '843 9684 2914',
+        'webinar_zoom_pass_3' => 'digital',
+        'webinar_zoom_link_3' => 'https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09',
         // data zoom 4
         'webinar_zoom_id_4' => '983980',
         'webinar_zoom_pass_4' => '963 7865 0991',

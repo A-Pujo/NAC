@@ -165,4 +165,9 @@
     .link-guide-aktif {
         @apply bg-primary-100 bg-opacity-25 text-primary-100 cursor-pointer;
     }
+
+    /*  */
+    input[type=submit] {
+        @apply btn btn-primary;
+    }
 }

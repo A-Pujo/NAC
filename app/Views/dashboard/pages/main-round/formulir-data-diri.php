@@ -286,7 +286,7 @@
                         <div>
                             <input 
                                 placeholder="contoh : Fulan Wulan"
-                                value="<?= $user_info->nama_1 ?>"
+                                value="<?= $user_info->nama_1 == '' ? '-' : $user_info->nama_1  ?>"
                                 type="text"
                                 name="nama_1" 
                                 readonly
@@ -438,7 +438,7 @@
                         <div>
                             <input 
                                 placeholder="contoh : Fulan Wulan"
-                                value="<?= $user_info->nama_2 ?>"
+                                value="<?= $user_info->nama_2 == '' ? '-' : $user_info->nama_2  ?>"
                                 type="text"
                                 name="nama_2" 
                                 readonly

@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <?php $no=1; foreach(md('cfp')->getAll() as $peserta):?>
+            <?php $no=1; foreach(md('cfp')->getLulusPendaftaran() as $peserta):?>
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $peserta->nama_tim ?></td>

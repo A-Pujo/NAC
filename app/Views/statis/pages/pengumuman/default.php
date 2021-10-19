@@ -4,8 +4,10 @@
     $data = [
         ['acc-sma-pre-peng','Peserta lolos seleksi Preliminary Round Accounting High School.'],
         ['acc-univ-pre-peng','Peserta lolos seleksi Preliminary Round Accounting University.'],
-    ]
-    
+        ['acc-sma-semi-peng','Peserta lolos seleksi Semifinal Accounting High School.'],
+        ['acc-univ-semi-peng','Peserta lolos seleksi Semifinal Accounting University.'],
+        ['cfp-full-paper-peng','Peserta lolos seleksi Full Paper Call for Paper.'],
+    ];
     ?>
 
     <?php foreach($data as $i) : ?>

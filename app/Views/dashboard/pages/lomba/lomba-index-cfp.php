@@ -2,23 +2,22 @@
 
 <?= $this->section('content') ?>
 <?php 
-    // === INIT DATA === //
-    // users : data login
-    // data_partisipan : biodata tim
-    // partisipan_lomba : voucher dan kuota prelim
-    // nilai_acc_sma : data nilai SMA
-
-    $user_id = userinfo()->id;
-    $peserta = db()->table('data_partisipan')
-        ->where('user_id', $user_id)
-        ->get()->getRow();
-    $peserta_nilai = db()->table('nilai_acc_cfp')
-        ->where('partisipan_id', $peserta->partisipan_id)
-        ->get()->getRow();
-    $peserta_biodata = user_main_round();
-        ?>
+    $peserta = md('cfp')->getUserData();
+    $peserta_bio = md('bio')->getDataUser(userinfo()->partisipan_id);
+?>
     
-<div class="grid grid-cols-12 gap-24 p-32 text-base-100">
+<div class="grid grid-cols-12 gap-24 p-32 text-base-100"
+x-data="{
+    absen_id:<?= old('absen_id') ?? 0 ?>,
+    berkas_id:<?= old('berkas_id') ?? 0 ?>,
+    judul:'',
+    zoom_id : '',
+    zoom_id_join : '',
+    zoom_pass : '',
+    zoom_link : '',
+
+}"
+>
 
     <div class="card col-span-12 p-24 bg-neutral-100">
         <table class="tabel-card text-12 lg:text-16">
@@ -63,77 +62,16 @@
     <div class="col-span-12">
         <?= $this->include('component/pesan') ?>
     </div>
-    <!-- <div class="card col-span-12 p-24 bg-neutral-100">
-        <?php 
-            if(isset($peserta_prelim->kode_voucher)) :
-        ?>
-            <span>Voucher untuk pengerjaan soal Preliminary Round tim Anda adalah 
-                    <?php
-                        $kode_segmen = ['qw', 'as', 'zx'];
-                        foreach($kode_segmen as $segmen) : 
-                    ?>
-                    <?= $peserta_prelim->kode_voucher.$segmen ?>
-                    <div 
-                        data-tip="Salin voucher"
-                        class="inline tooltip tooltip-primary"
-                    >
-                        <svg 
-                            data-clipboard-text="<?= $peserta_prelim->kode_voucher.$segmen ?>" 
-                            class="h-5 w-5 copy cursor-pointer inline"
-                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
-                                <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
-                        </svg>
-                    </div>
-                    <?php endforeach ?>
-            </span>
-
-
-            <small>Satu kode voucher diperuntukkan untuk satu anggota tim.</small>
-            <small>Jaga kerahasiaan voucher tim Anda. Pastikan tidak ada peserta selain anggota tim Anda yang mengetahuinya.</small>
-        <?php else : ?>
-            <span>Sebelum Anda memulai pengerjaan Preliminary Round, silakan Anda mengambil voucher dengan mengunjungi
-                <a href="<?= base_url('lomba/generate-voucher') ?>" class="btn btn-xs btn-primary">tautan ini</a>
-            </span>
-        <?php endif?>
-
-    </div> -->
-
-    <!-- == REVIEW LJU == -->
-    <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
-        <?php 
-            if($peserta_prelim):
-                if($peserta_prelim->kuota_1 == 0 && $peserta_prelim->kuota_2 == 0 && $peserta_prelim->kuota_3 == 0):
-        ?>
-                    <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
-                        <div class="flex-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
-                            </svg>
-                            <span>Data jawaban Preliminary Round dapat diakses pada <a class="btn btn-xs" href="<?= base_url('lomba/reviu-lju/' . $peserta_prelim->kode_voucher) ?>" target="_blank">tautan ini</a></span>
-                        </div>
-                        <svg
-                            @click="active = false"
-                            xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-        <?php 
-                endif;
-            endif;
-        ?>
-    </div>
-    <!-- == END RIVEW LJU == -->
 
     <!-- == UPDATE BIODATA == -->
-    <?php if($peserta_nilai->prelim == 1 && sekarang() > tanggal('acc-univ-pre-peng') ) : ?>
+    <?php if($peserta->full_paper == 1 && sekarang() > tanggal('cfp-full-paper-peng') ) : ?>
         <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
                     </svg>
-                        <span>Selamat Anda lolos tahap Preliminary Round. Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/BShE1hDXpOK0Z4Ps5rvZFu" >tautan ini</a></span>
+                        <span>Selamat Anda lolos tahap Full Paper. Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/BShE1hDXpOK0Z4Ps5rvZFu" >tautan ini</a></span>
                 </div>
                 <svg
                     @click="active = false"
@@ -142,7 +80,7 @@
                 </svg>
             </div>
         </div>
-        <?php if(!$peserta_biodata) : ?>
+        <?php if(is_null($peserta_bio)) : ?>
         <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
@@ -162,47 +100,251 @@
     <?php endif ?>
     <!-- == END UPDATE BIODATA == -->
 
-    <div class="col-span-12 ">
+    <div class="col-span-12 overflow-x-auto">
         <table class="tabel">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Tahap</th>
+                    <th>Kegiatan</th>
                     <th>Tanggal Pelaksanaan</th>
-                    <th>Nilai</th>
+                    <th>Data</th>
+                    <th>Aksi</th>
                     <th>Status</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody
+            <?php
+                        $absen = [
+                            //start zoom, id, pass, link, judul acara, tanggal
+                            ['2021-10-21 09:30','843 9684 2914','digital','https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
+                        ];
+                        $absen_peserta = [
+                            $peserta->absen_1,
+                            $peserta->absen_2,
+                        ];
+                        // ['Pengumuman Tahap Semifinal Accounting Challange', '12 Oktober 2021 pukul 12:00 WIB'],
+                ?>
+            >
                 <tr>
                     <td>1</td>
-                    <td>Simulasi Preliminary Round</td>
-                    <td><?= tanggal('start_pre') ?></td>
+                    <td>Pengumuman Full Paper</td>
+                    <td>20 Oktober 2021</td>
+                    <td>-</td>
+                    <td>-</td>
                     <td>
-                        <?php 
-                            if($peserta_nilai):
-                        ?>
-                            <?= $peserta_nilai->segmen_1 + $peserta_nilai->segmen_2 + $peserta_nilai->segmen_3 ?>
-                        <?php   
-                            endif;
-                        ?>
-                    </td>
-                    <td>
-                        <?php if($peserta_nilai == null || sekarang() < tanggal('acc-univ-pre-peng')) : ?>
-                            Informasi Belum Tersedia
+                        <?php if($peserta->full_paper == 1) : ?>
+                            <span class="verif-sukses">Lolos</span>
                         <?php else: ?>
-                            <?php if($peserta_nilai->prelim == 1) : ?>
-                                <span class="verif-sukses">Lolos</span>
-                            <?php else: ?>
-                                <span class="verif-gagal">Tidak Lolos</span>
-                            <?php endif; ?>
-                        <?php endif; ?>
+                            <span class="verif-gagal">Tidak Lolos</span>
+                        <?php endif ?>
                     </td>
+                    <td>-</td>
                 </tr>
+                <?php $no= 2; for($i=0; $i < 1; $i++):?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= $absen[$i][4] ?></td>
+                        <td><?= $absen[$i][5] ?></td>
+                        <td>
+                            <?php if($i == 1):?>
+                                    <a class="btn btn-primary btn-sm" target="_blank" href="https://youtu.be/7zvrtkgPcVA">Tautan Youtube</a>
+                                    <div 
+                                        data-tip="Salin tautan"
+                                        class="inline tooltip tooltip-primary"
+                                    >
+                                        <svg 
+                                            data-clipboard-text="https://youtu.be/7zvrtkgPcVA" 
+                                            class="h-5 w-5 copy cursor-pointer inline"
+                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                                <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                        </svg>
+                                    </div>
+                                <?php else: ?>
+                                    <a class="btn btn-primary btn-sm 
+                                            <?= sekarang() > $absen[$i][0]? '' : 'btn-disabled' ?>
+                                            " @click="judul = '<?= $absen[$i][4] ?>', zoom_id = '<?= $i ?>', zoom_id_join = '<?= $absen[$i][1] ?>', zoom_pass='<?= $absen[$i][2] ?>', zoom_link='<?= $absen[$i][3] ?>'">
+                                    Join zoom
+                                    </a>
+                            <?php endif?>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-primary" @click="absen_id = '<?= $i+1 ?>', judul='<?= $absen[$i][4] ?>'">Absen</a>
+                        </td>
+                        <td>
+                            <?php if($absen_peserta[$i] == '1') : ?>
+                                <span class="verif-sukses">Terverifikasi</span>
+                            <?php elseif($absen_peserta[$i] == '') :?>
+                                <span class="verif-gagal">Belum absen</span>
+                            <?php else :?>
+                                <span class="verif-gagal">Dalam konfirmasi</span>
+                            <?php endif?>
+                        </td>
+                        <td>-</td>
+                    </tr>
+                <?php endfor ?>
             </tbody>
         </table>
     </div>
+    <!-- === MODAL ABSEN === -->
+    <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+            <h2 class="text-24 font-bold text-center">Form absen <span x-text="judul"></span></h2>
+            <?= form_open_multipart(base_url('lomba/upload-absen-sma'), ['method' => 'post']) ?>
+            <?= csrf_field() ?>
+
+                <div class="form-upload" x-data="{files : ''}">
+                    <label for="bukti">Bukti Kehadiran</label>
+                    <div x-show="files">
+                        <!-- Loop the image -->
+                        <template x-for="file in files" x-if="files">
+                            <div>
+                                <img :src="URL.createObjectURL(file)">
+                                <div>
+                                    <span x-text="file.name"></span>
+                                    <span x-text="file.size / 1000 + ' Kb'"></span>
+                                </div> 
+                            </div>
+                        </template>
+                    </div>
+                    <label for="bukti">Upload Data</label>
+                    <input type="file" id="bukti" @change="files = $event.target.files" name="bukti[]" multiple/>
+                    <input type="hidden" name="absen_id" :value="absen_id">
+                    <input type="hidden" name="id" value="<?= $peserta->id ?>" >
+                    <span><?= initValidation()->getError('bukti') ?? '' ?></span>
+
+                    <small>Foto bukti kehadiran berupa gambar dengan format jpg, jpeg atau png</small>
+                    <small>Ukuran maksimal untuk setiap file 500 Kb</small>
+                    <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu gambar</small>
+                </div>
+            <!-- SUBMIT -->
+            <input type="hidden" name="absen_id" :value="absen_id">
+            <input type="hidden" name="peserta_id" value="<?= $peserta->id ?>">
+            <div class="flex flex-row justify-between">
+                <span class="btn btn-error btn-sm" @click="absen_id = 0">Cancel</span>
+                <input type="submit" value="submit" name="submit" class="btn btn-primary btn-sm">
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- === END MODAL ABSEN === -->
+        <!-- == MODAL ZOOM == -->
+        <div x-show="zoom_id != ''"  class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="zoom_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+        <h2 class="text-24 font-bold text-center">Data zoom <span x-text="judul"></span></h2>
+            <table class="tabel">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Data</th>
+                        <th>Salin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>ID Zoom</td>
+                        <td><span x-text="zoom_id_join"></td>
+                        <td>
+                            <div 
+                                data-tip="Salin ID zoom"
+                                class="inline tooltip tooltip-primary"
+                            >
+                                <svg 
+                                    :data-clipboard-text="zoom_id_join" 
+                                    class="h-5 w-5 copy cursor-pointer inline"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Passcode Zoom</td>
+                        <td><span x-text="zoom_pass"></td>
+                        <td>
+                            <div 
+                                data-tip="Salin passcode zoom"
+                                class="inline tooltip tooltip-primary"
+                            >
+                                <svg 
+                                    :data-clipboard-text="zoom_pass" 
+                                    class="h-5 w-5 copy cursor-pointer inline"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tautan Zoom</td>
+                        <td><a class="btn btn-sm btn-primary" :href="zoom_link">Buka Tautan</td>
+                        <td>
+                            <div 
+                                data-tip="Salin tautan zoom"
+                                class="inline tooltip tooltip-primary"
+                            >
+                                <svg 
+                                    :data-clipboard-text="zoom_link" 
+                                    class="h-5 w-5 copy cursor-pointer inline"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                                </svg>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn btn-sm btn-error" @click="zoom_id = ''">cancel</a>
+        </div>
+    </div>
+    <!-- == END ZOOM == -->
+        <!-- === MODAL UPLOAD BERKAS === -->
+        <div x-show="berkas_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="berkas_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+            <h2 class="text-24 font-bold text-center">Form upload Berkas</h2>
+            <?= form_open_multipart(base_url('peserta/upload-berkas/nilai_acc_sma'), ['method' => 'post']) ?>
+
+                <div class="form-upload" x-data="{files : ''}">
+                    <label for="berkas">Berkas</label>
+                    <div x-show="files">
+                        <!-- Loop the image -->
+                        <template x-for="file in files" x-if="files">
+                            <div>
+                                <img :src="URL.createObjectURL(file)">
+                                <div>
+                                    <span x-text="file.name"></span>
+                                    <span x-text="file.size / 1000 + ' Kb'"></span>
+                                </div> 
+                            </div>
+                        </template>
+                    </div>
+                    <label for="berkas">Upload Data</label>
+                    <input type="file" id="berkas" @change="files = $event.target.files" name="berkas[]" multiple/>
+                    <input type="hidden" name="berkas_id" :value="berkas_id">
+                    <input type="hidden" name="id" value="<?= $peserta->id ?>" >
+                    <span><?= initValidation()->getError('berkas') ?? '' ?></span>
+
+                    <small>Format yang diizinkan ppt, pdf, dan doc</small>
+                    <small>Ukuran maksimal untuk setiap berkas 5 Mb</small>
+                    <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu berkas</small>
+                </div>
+            <!-- SUBMIT -->
+            <input type="hidden" name="berkas_id" :value="berkas_id">
+            <input type="hidden" name="peserta_id" value="<?= $peserta->id ?>">
+            <div class="flex flex-row justify-between">
+                <span class="btn btn-error btn-sm" @click="berkas_id = 0">Cancel</span>
+                <input type="submit" value="submit" name="submit" class="btn btn-primary btn-sm">
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- === END MODAL UPLOAD BERKAS === -->
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
 <script>
     new ClipboardJS('.copy');

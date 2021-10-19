@@ -90,6 +90,7 @@ module.exports = {
         '560' : '560px',
         '590' : '590px',
         '640' : '640px',
+        'peng-main' : 'calc(100vw - 144px)',
       },
       fontSize: {
         '10' : '10px',

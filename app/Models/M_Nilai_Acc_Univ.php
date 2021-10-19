@@ -21,7 +21,9 @@ class M_Nilai_Acc_Univ extends Model
         'absen_8',
         'absen_9',
         'absen_10',
-        'absen_11'
+        'absen_11',
+        'semifinal',
+        'final',
     ];
 
     public function isLulusPrelim($partisipan_id){
@@ -30,17 +32,17 @@ class M_Nilai_Acc_Univ extends Model
         ->get()->getRow()->prelim;
     }
 
-    public function getAll($kolom = false , $kondisi = false){
+    public function getAll($kolom = false, $kondisi = false, $order = 'nama_tim', $orderResult= 'ASC'){
         if($kolom){
             return $this
             ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_univ.partisipan_id')
             ->where($kolom, $kondisi)
-            ->orderBy('nama_tim')
+            ->orderBy($order, $orderResult)
             ->get()->getResultArray();
         } else {
             return $this
             ->join('data_partisipan', 'data_partisipan.partisipan_id = nilai_acc_univ.partisipan_id')
-            ->orderBy('nama_tim')
+            ->orderBy($order)
             ->get()->getResult();
         }
     }

@@ -2,7 +2,7 @@
   <h1 class="text-24 font-bold">Pengumuman Kelulusan Seleksi Preliminary Accounting for High School</h1>
   <small><?= tanggal($_GET['halaman']) ?></small><br>
   <button @click="all = !all" class="btn btn-primary btn-sm">Tampilkan semua data</button>
-    <table class="tabel mt-24 " >
+    <table class="tabel mt-24" >
       <thead>
         <tr>
           <th>No</th>

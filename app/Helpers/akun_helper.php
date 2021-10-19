@@ -88,6 +88,10 @@ function getGoogleClient(){
             return $data
             ->join('nilai_acc_univ', 'nilai_acc_univ.partisipan_id = data_main_round.partisipan_id')
             ->where('nilai_acc_univ.partisipan_id', $user->partisipan_id)->first();
+        } elseif($lomba == 'CFP'){
+            return $data
+            ->join('nilai_cfp', 'nilai_cfp.partisipan_id = data_main_round.partisipan_id')
+            ->where('nilai_cfp.partisipan_id', $user->partisipan_id)->first();
         }  else {
             return $data;
         }

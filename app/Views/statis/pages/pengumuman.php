@@ -25,18 +25,20 @@
                     'Acc for SMA',
                     [
                         ['Preliminary', 'acc-sma-pre-peng'],
+                        ['Semifinal', 'acc-sma-semi-peng'],
                     ]
                 ],
                 [
                     'Acc for Univ',
                     [
                         ['Preliminary', 'acc-univ-pre-peng'],
+                        ['Semifinal', 'acc-univ-semi-peng'],
                     ]
                 ],
                 [
                     'CFP',
                     [
-
+                        ['Full Paper', 'cfp-full-paper'],
                     ]
                 ],
             ];
@@ -44,13 +46,12 @@
             <ul x-data="{show : 
 
                 <?php 
-                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-pre-peng'])){
+                    if (in_array(($_GET['halaman'] ?? ''), ['acc-sma-pre-peng', 'acc-sma-semi-peng'])){
                         echo 1;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-pre-peng'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['acc-univ-pre-peng', 'acc-univ-semi-peng'])) {
                         echo 2;
-                    } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-paper'])) {
+                    } elseif(in_array(($_GET['halaman'] ?? ''), ['cfp-full-paper'])) {
                         echo 3;
-                        
                     } else {
                         echo 0;
                     }
@@ -84,7 +85,7 @@
             </ul>
         </div>
         <!-- Main -->
-        <div class="w-full min-h-300 h:min-h-0">
+        <div class="w-peng-main overflow-auto min-h-300 h:min-h-0">
             <button 
                 @click="menu = true"
                 class="btn btn-sm btn-primary lg:hidden">
@@ -96,7 +97,7 @@
             <!-- Get data php sesuai parameter halaman -->
             <?php if(sekarang() < tanggal($_GET['halaman'] ?? '')) : ?>
                 Halaman pengumuman ini baru akan tersedia dalam 
-                <a href="<?= base_url('pengumuman?halaman='. $_GET['halaman']) ?>" id="time" class="btn btn-primary btn-xs"></a href="">
+                <a href="<?= base_url('pengumuman?halaman='. $_GET['halaman']) ?>" id="time" class="btn btn-primary btn-xs"></a>
             <?php else : ?>
                 <?php echo $this->include('/statis/pages/pengumuman/'. ($_GET['halaman'] ?? 'default')) ?>
             <?php endif ?>

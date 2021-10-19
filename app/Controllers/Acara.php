@@ -21,4 +21,20 @@ class Acara extends BaseController
 		session()->setFlashdata('pesan-success', 'Perubahan data berhasil disimpan');
 		return redirect()->to(previous_url());
 	}
+	public function verif_kelulusan($model, $kolom){
+		if($this->request->getVar('submit') && isInRole('tim lomba')){
+			$cfp = md($model);
+			// === Check kelulusan === //
+			$ids = $this->request->getVar('ids');
+			$cfp->update($ids, [$kolom => 0]); // set ke 0 semua
+			$checks = $this->request->getVar('check');
+			if($checks){
+				$cfp->update($checks, [$kolom => 1]); // set 1 bagi yang terpilih
+			}
+			session()->setFlashdata('pesan-success', 'Perubahan data berhasil disimpan');
+			return redirect()->to(previous_url());
+		} else {
+			return redirect()->to(base_url());
+		}
+	}
 }

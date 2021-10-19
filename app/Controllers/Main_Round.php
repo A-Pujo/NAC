@@ -32,6 +32,8 @@ class Main_Round extends BaseController
             } elseif($user_info->partisipan_jenis == 'AccUniv') {
                 $nilai = new M_Nilai_Acc_Univ();
                 $lulus = $nilai->isLulusPrelim($user_info->partisipan_id);
+            } else {
+                $lulus = md('cfp')->isLulusFullPaper($user_info->partisipan_id);
             }
             if(!$lulus){
                 return redirect()->to(base_url('lomba/dashboard'));

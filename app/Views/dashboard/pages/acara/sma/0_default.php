@@ -30,3 +30,4 @@
         <?php endforeach ?>
     </tbody>
 </table>
+<?= $this->include('dashboard/layout/datatables') ?>

@@ -6,6 +6,7 @@
         '1_prelim' => 'Preliminary Round',
         '2_berkas_bts' => 'Berkas BTS',
         '3_berkas_bts_lengkap' => 'Berkas BTS Full',
+        '4_kelulusan_semifinal' => 'Kelulusan Semifinal',
     ];
     $pages_key = array_keys($pages);
 ?>
@@ -35,6 +36,9 @@
         </div>
       </div>
       <div class="col-span-12">
+        <?= $this->include('component/pesan') ?>
+      </div>
+      <div class="col-span-12">
           <?php 
                 if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'pertanyaan')){
                     echo $this->include('dashboard/pages/acara/sma/pertanyaan');
@@ -45,6 +49,5 @@
                 }
             ?> 
       </div>
-    </div>
-    <?= $this->include('dashboard/layout/datatables') ?>
+    </div>  
 <?= $this->endSection() ?>
