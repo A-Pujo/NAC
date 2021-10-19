@@ -13,11 +13,11 @@ class Peserta extends BaseController
 			}
 			if(!$this->validate([
 				'berkas' => [
-					'rules' => 'uploaded[berkas]|max_size[berkas,5128]|ext_in[berkas,doc,docx]',
+					'rules' => 'uploaded[berkas]|max_size[berkas,5128]|ext_in[berkas, ppt, pptx,pdf,doc,docx]',
 					'errors' => [
 						'uploaded' => lang('Validasi.required'),
 						'max_size' => lang('Validasi.max_size', ['berkas', '5 MB']),
-						'ext_in' => lang('Validasi.ext_in', ['berkas', 'doc, atau docx']),
+						'ext_in' => lang('Validasi.ext_in', ['berkas', 'ppt, pptx,pdf,doc, atau docx']),
 					],
 				]
 			])){

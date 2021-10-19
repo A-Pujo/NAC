@@ -315,13 +315,29 @@ x-data="{
                         <tr>
                             <td><?= $no++?></td>
                             <td>Breakdown the Case (Unggah File)</td>
-                            <td>19 Oktober 2021 pukul 15:20 - 17:00</td>
+                            <td>19 Oktober 2021 pukul 09:10 - 09:20</td>
                             <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/Brekdown-the-Case.pdf') ?>" download>Unduh File</a></td>
                             <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 1">Unggah Berkas</a></td>
+                            <?php if($peserta_nilai->berkas_1 == '') : ?>
+                                <td>-</td>
+                                <?php else :?>
+                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
+                            <?php endif?>
+                        </tr>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Breakdown the Case (Unggah File Lengkap)</td>
+                            <td>19 Oktober 2021 pukul 09:20 - 12:00</td>
                             <td>-</td>
+                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 2">Unggah Berkas</a></td>
+                            <?php if($peserta_nilai->berkas_2 == '') : ?>
+                                <td>-</td>
+                                <?php else :?>
+                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
+                            <?php endif?>
                         </tr>
                     <?php endif ?>
-                    <?php if($no == 12 ):?>
+                    <?php if($no == 13 ):?>
                         <tr>
                             <td><?= $no++?></td>
                             <td>Pengumuman Finalis</td>
@@ -331,13 +347,13 @@ x-data="{
                             <td>-</td>
                         </tr>
                     <?php endif ?>
-                    <?php if($no == 16 ):?>
+                    <?php if($no == 17 ):?>
                         <tr>
                             <td><?= $no++?></td>
                             <td>Final Round Accounting Challange (Unggah File)</td>
                             <td>23 Oktober 2021 pukul 10:40 - 12:00</td>
                             <td><a class="btn btn-neutral btn-sm">Unduh Logo</a></td>
-                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 2">Unggah Berkas</a></td>
+                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 3">Unggah Berkas</a></td>
                             <td>-</td>
                         </tr>
                     <?php endif ?>
@@ -486,7 +502,7 @@ x-data="{
                     <input type="hidden" name="id" value="<?= $peserta_nilai->id ?>" >
                     <span><?= initValidation()->getError('berkas') ?? '' ?></span>
 
-                    <small>Format yang diizinkan ppt, pdf</small>
+                    <small>Format yang diizinkan ppt, pdf, dan doc</small>
                     <small>Ukuran maksimal untuk setiap berkas 5 Mb</small>
                     <small>Gunakan tombol <b>ctrl</b> untuk menyeleksi lebih dari satu berkas</small>
                 </div>
