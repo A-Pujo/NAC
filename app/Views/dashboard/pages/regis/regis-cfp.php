@@ -3,8 +3,8 @@
 <?php
     $pages = [
         'default' => 'Pilih Halaman',
-        'daful' => 'Daful SMA',
-        'verif-absen-1' => 'Absen TM SMA Semifinal',
+        'daful' => 'Daful CFP',
+        'verif-absen-1-1' => 'Verifikasi Absen CFP Webinar#3',
     ];
     $pages_key = array_keys($pages);
 ?>
@@ -27,14 +27,20 @@
             <div x-show="dropdown" @click.outside="dropdown = false">
                 <ul>
                     <?php $i = 0; foreach($pages as $page) : $i++?>
-                        <li><a href="<?= base_url('dashboard/regis-sma?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
+                        <li><a href="<?= base_url('dashboard/regis-cfp?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
                     <?php endforeach ?>
                 </ul>
             </div>
         </div>
       </div>
       <div class="col-span-12">
-            <?= ($_GET['page'] ?? false) ? $this->include('dashboard/pages/regis/sma/'.$_GET['page']) : '' ?>
+          <?php 
+                if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'absen')){
+                    echo $this->include('dashboard/pages/regis/cfp/verif-absen');
+                } elseif(($_GET['page'] ?? false)) {
+                    echo $this->include('dashboard/pages/regis/cfp/'.$_GET['page']);
+                }
+            ?>
       </div>
     </div>
     <?= $this->include('dashboard/layout/datatables') ?>

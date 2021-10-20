@@ -563,6 +563,29 @@ class Lomba extends BaseController
 			return redirect()->to(base_url('dashboard/regis-sma'));
 		}
 	}
+	public function verif_absen_cfp($absen_id){
+		if($check = $this->request->getPost('check')){
+			$model = md('cfp');
+			// Get Files
+			$files = $check;
+			// Get Id
+			$ids = array_keys($check);
+			foreach ($ids as $id) {
+				if($files[$id] != ''){
+					foreach(explode('|', $files[$id]) as $file){
+						unlink(APPPATH.'../public/uploads/partisipan/lomba/absen/' . $file);
+					}
+				}
+			}
+			// dd('absen_'.$absen_id);
+			$model->update($ids, ['absen_'.$absen_id => 1]);
+			session()->setFlashdata('pesan-success', 'Update Absen berhasil');
+			return redirect()->to(base_url('dashboard/regis-cfp'));
+		} else {
+			// return 'tidak kesubmit';
+			return redirect()->to(base_url('dashboard/regis-cfp'));
+		}
+	}
 
 	// public function initial_cfp(){
 	// 	db()->table('nilai_cfp')->truncate();
