@@ -133,7 +133,9 @@ x-data="{
                     <td>-</td>
                     <td>-</td>
                     <td>
-                        <?php if($peserta->full_paper == 1) : ?>
+                        <?php if(sekarang() < tanggal('cfp-full-paper-peng')) : ?>
+                            <span class="verif-gagal">Data belum tersedia</span>
+                        <?php elseif($peserta->full_paper == 1) : ?>
                             <span class="verif-sukses">Lolos</span>
                         <?php else: ?>
                             <span class="verif-gagal">Tidak Lolos</span>

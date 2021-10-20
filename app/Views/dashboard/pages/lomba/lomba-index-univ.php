@@ -339,7 +339,15 @@ x-data="{
                             <td></td>
                             <td>-</td>
                             <td>-</td>
-                            <td>-</td>
+                            <td>
+                                <?php if(sekarang() < tanggal('acc-univ-semi-peng')) : ?>
+                                    <span class="verif-gagal">Data belum tersedia</span>
+                                <?php elseif($peserta_nilai->semifinal == 1) : ?>
+                                    <span class="verif-sukses">Lulus</span>
+                                <?php else :?>
+                                    <span class="verif-gagal">Tidak lulus</span>
+                                <?php endif ?>
+                            </td>
                             <td>-</td>
                         </tr>
                     <?php endif ?>

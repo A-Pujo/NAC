@@ -18,9 +18,9 @@ function tanggal($aksi){
         'acc-sma-pre-peng' => '2021-10-12 12:00', // kelulusan pre el
         'acc-univ-pre-peng' => '2021-10-12 12:00', // kelulusan pre el
         'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
-        'acc-sma-semi-peng' => '2021-10-10 20:00', // kelulusan semifinal
-        'acc-univ-semi-peng' => '2021-10-20 20:00', // kelulusan semifinal
-        'cfp-full-paper-peng' => '2021-10-20 12:00', // kelulusan aFull paper
+        'acc-sma-semi-peng' => '2021-10-22 00:00', // kelulusan semifinal
+        'acc-univ-semi-peng' => '2021-10-22 00:00', // kelulusan semifinal
+        'cfp-full-paper-peng' => '2021-10-22 00:00', // kelulusan aFull paper
 
         // tahap prelim
         'start_pre' => '2021-10-09 09:30', // start pengerjaan soal
