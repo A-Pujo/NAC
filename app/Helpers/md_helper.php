@@ -13,6 +13,8 @@ function md($model){
             return new \App\Models\M_Data_Main_Round();
         case 'webinar':
             return new \App\Models\M_Webinar();
+        case 'kursus':
+            return new \App\Models\M_Peserta_Kursus();
         default:
             dd('invalid argumen md');
     }

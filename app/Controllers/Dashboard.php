@@ -829,6 +829,13 @@ class Dashboard extends BaseController
         ];
         return view('dashboard/pages/regis/regis-webinar', $data);
     }
+    public function regis_kursus(){
+        $data = [
+            'halaman' => 'regis-kursus',
+            'judul' => 'Data registrasi Kursus'
+        ];
+        return view('dashboard/pages/regis/regis-kursus', $data);
+    }
     // === END REGIS === //
 
     // === VIEW BIODATA === //

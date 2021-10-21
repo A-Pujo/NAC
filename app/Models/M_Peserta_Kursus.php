@@ -20,6 +20,10 @@ class M_Peserta_Kursus extends Model{
         return $this->where(['id_user' => userinfo()->id])->first();
     }
 
+    public function getAll(){
+        return $this->where('verifikasi_peserta', 1)->get()->getResult();
+    }
+
 }
 
 ?>

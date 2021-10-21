@@ -2,16 +2,16 @@
 <?= $this->section('content') ?>
 <?php
     $pages = [
-        '0_default' => 'All',
-        '1_paper' => 'Full Paper Peserta',
-        '2_video_final' => 'Video Final Round',
+        'default' => 'Pilih Halaman',
+        'peserta' => 'Peserta',
+        'peserta-lulus' => 'Peserta yang memenuhi kriteria kelulusan',
     ];
     $pages_key = array_keys($pages);
 ?>
 
     <div class="p-32 grid grid-cols-12 gap-24 text-base-100">
       <div class="col-span-12">
-        <div class="form-select" x-data="{menu : '<?= $pages[$_GET['page'] ?? '0_default'] ?>', dropdown: false}">
+        <div class="form-select" x-data="{menu : '<?= $pages[$_GET['page'] ?? 'default'] ?>', dropdown: false}">
             <label>Pilih Data</label>
             <div
                 @click="dropdown = !dropdown"
@@ -27,23 +27,18 @@
             <div x-show="dropdown" @click.outside="dropdown = false">
                 <ul>
                     <?php $i = 0; foreach($pages as $page) : $i++?>
-                        <li><a href="<?= base_url('dashboard/acara-cfp?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
+                        <li><a href="<?= base_url('dashboard/regis-kursus?page='.$pages_key[$i - 1]) ?>"><?= $page ?></a></li>
                     <?php endforeach ?>
                 </ul>
             </div>
         </div>
       </div>
       <div class="col-span-12">
-          <?= $this->include('component/pesan') ?>
-      </div>
-      <div class="col-span-12">
           <?php 
-                if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'pertanyaan')){
-                    echo $this->include('dashboard/pages/acara/cfp/pertanyaan');
+                if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'absen')){
+                    echo $this->include('dashboard/pages/regis/kursus/verif-absen');
                 } elseif(($_GET['page'] ?? false)) {
-                    echo $this->include('dashboard/pages/acara/cfp/'.$_GET['page']);
-                } else {
-                    echo $this->include('dashboard/pages/acara/cfp/0_default');
+                    echo $this->include('dashboard/pages/regis/kursus/'.$_GET['page']);
                 }
             ?>
       </div>

@@ -126,11 +126,9 @@ x-data="{
                         $absen = [
                             //start zoom, id, pass, link, judul acara, tanggal
                             ['2021-10-21 09:30','843 9684 2914','digital','https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
-                            ['2021-10-21 09:30','843 9684 2914','digital','https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
                         ];
                         $absen_peserta = [
                             $peserta->absen_1,
-                            $peserta->absen_2,
                         ];
                         // ['Pengumuman Tahap Semifinal Accounting Challange', '12 Oktober 2021 pukul 12:00 WIB'],
                 ?>
@@ -152,23 +150,7 @@ x-data="{
                     </td>
                     <td>-</td>
                 </tr>
-                <?php $no= 2; for($i=0; $i < 2; $i++):?>
-                    <?php if($no == 3 ):?>
-                        <tr>
-                            <td><?= $no++?></td>
-                            <td>Breakdown the Case (Unggah File)</td>
-                            <td>19 Oktober 2021 pukul 09:10 - 09:20</td>
-                            <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/Brekdown-the-Case.pdf') ?>" download>Unduh File</a></td>
-                            <td><a class="btn btn-neutral btn-sm" @click="video_id = 1">Unggah Link</a></td>
-                            <?php if($peserta->video_1 == '') : ?>
-                                <td><span class="verif-gagal">Belum mengunggah</span></td>
-                                <td>-</td>
-                            <?php else :?>
-                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
-                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta->video_1) ?>">Lihat berkas</a></td>
-                            <?php endif?>
-                        </tr>
-                    <?php else: ?>
+                <?php $no= 2; for($i=0; $i < 1; $i++):?>
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $absen[$i][4] ?></td>
@@ -210,6 +192,21 @@ x-data="{
                         </td>
                         <td>-</td>
                     </tr>
+                    <?php if($no == 3 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Final CFP (Unggah Berkas)</td>
+                            <td>22 Oktober 2021 pukul 20:00</td>
+                            <td>-</td>
+                            <td><a class="btn btn-neutral btn-sm" @click="video_id = 1">Unggah Link</a></td>
+                            <?php if($peserta->video_1 == '') : ?>
+                                <td><span class="verif-gagal">Belum mengunggah</span></td>
+                                <td>-</td>
+                            <?php else :?>
+                                <td><span class="verif-sukses">Link berhasil diunggah</span></td>
+                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= $peserta->video_1 ?>">Lihat Video</a></td>
+                            <?php endif?>
+                        </tr>
                     <?php endif ?>
                 <?php endfor ?>
             </tbody>
@@ -382,7 +379,7 @@ x-data="{
                 <label>Link share file gdrive</label>
                 <div>
                     <input 
-                        placeholder="contoh : https://www.instagram.com/p/CU40Gj-hVa7/?utm_source=ig_web_copy_link"
+                        placeholder="contoh : https://drive.google.com/file/d/dascdvmISifnp/view?usp=sharing"
                         value="<?= old('link-file') ?>"
                         type="text"
                         name="link-file" />
