@@ -24,6 +24,10 @@ class M_Nilai_Acc_Sma extends Model
         'absen_11',
         'semifinal',
         'final',
+        'nilai_1',
+        'nilai_2',
+        'nilai_3',
+        'nilai_4',
     ];
     
 

@@ -170,4 +170,7 @@
     input[type=submit] {
         @apply btn btn-primary;
     }
+    .input-text {
+        @apply w-full bg-neutral-200 border border-neutral-60 focus:border-primary-100 rounded-md p-8 text-base-100 text-12;
+    }
 }

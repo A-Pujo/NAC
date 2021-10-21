@@ -40,7 +40,7 @@
                         <?php else :?>
                             <span class="verif-gagal">Tidak ada berkas yang diunggah</span>
                         <?php endif?>
-                    <td><input type="text" class="w-full bg-neutral-200 border border-neutral-60 focus:border-primary-100 rounded-md p-8 text-base-100 text-12" name="nilai[<?= $peserta->id ?>]" value="<?= $peserta->nilai_1 ?>"></td>
+                    <td><input type="text" class="input-text" name="nilai[<?= $peserta->id ?>]" value="<?= $peserta->nilai_1 ?>"></td>
                     <td><input type="checkbox" class="checkbox checkbox-primary" <?= $peserta->full_paper ? 'checked': '' ?> name="check[]" value="<?= $peserta->id ?>"></td>
                     <input type="hidden" name="ids[]" value="<?= $peserta->id ?>">
                 </tr>

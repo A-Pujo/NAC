@@ -24,6 +24,8 @@ class M_Nilai_Acc_Univ extends Model
         'absen_11',
         'semifinal',
         'final',
+        'nilai_1',
+        'nilai_2',
     ];
 
     public function isLulusPrelim($partisipan_id){
