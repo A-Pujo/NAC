@@ -38,4 +38,17 @@ class Peserta extends BaseController
 			}
 		}
     }
+
+	public function upload_video($table){
+		if($records = $this->request->getPost()){
+			db()->table($table)->where('id', $records['id'])->update(['video_' . $records['video_id'] => $records['link-file']]);
+			if(db()->affectedRows() > 0){
+				session()->setFlashdata('pesan-success', 'Link berhasil tersimpan');
+				return redirect()->to('lomba/dashboard');
+			} else {
+				session()->setFlashdata('pesan-error', 'Link gagal terupload');
+				return redirect()->to('lomba/dashboard')->withInput();
+			}
+		}
+	}
 }

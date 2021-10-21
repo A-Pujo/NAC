@@ -10,6 +10,7 @@
 x-data="{
     absen_id:<?= old('absen_id') ?? 0 ?>,
     berkas_id:<?= old('berkas_id') ?? 0 ?>,
+    video_id:<?= old('video_id') ?? 0 ?>,
     judul:'',
     zoom_id : '',
     zoom_id_join : '',
@@ -125,6 +126,7 @@ x-data="{
                         $absen = [
                             //start zoom, id, pass, link, judul acara, tanggal
                             ['2021-10-21 09:30','843 9684 2914','digital','https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
+                            ['2021-10-21 09:30','843 9684 2914','digital','https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
                         ];
                         $absen_peserta = [
                             $peserta->absen_1,
@@ -150,7 +152,23 @@ x-data="{
                     </td>
                     <td>-</td>
                 </tr>
-                <?php $no= 2; for($i=0; $i < 1; $i++):?>
+                <?php $no= 2; for($i=0; $i < 2; $i++):?>
+                    <?php if($no == 3 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Breakdown the Case (Unggah File)</td>
+                            <td>19 Oktober 2021 pukul 09:10 - 09:20</td>
+                            <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/Brekdown-the-Case.pdf') ?>" download>Unduh File</a></td>
+                            <td><a class="btn btn-neutral btn-sm" @click="video_id = 1">Unggah Link</a></td>
+                            <?php if($peserta->video_1 == '') : ?>
+                                <td><span class="verif-gagal">Belum mengunggah</span></td>
+                                <td>-</td>
+                            <?php else :?>
+                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
+                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta->video_1) ?>">Lihat berkas</a></td>
+                            <?php endif?>
+                        </tr>
+                    <?php else: ?>
                     <tr>
                         <td><?= $no++ ?></td>
                         <td><?= $absen[$i][4] ?></td>
@@ -192,6 +210,7 @@ x-data="{
                         </td>
                         <td>-</td>
                     </tr>
+                    <?php endif ?>
                 <?php endfor ?>
             </tbody>
         </table>
@@ -352,11 +371,52 @@ x-data="{
         </div>
     </div>
     <!-- === END MODAL UPLOAD BERKAS === -->
+    <!-- == MODAL REGIS == -->
+    <div x-show="video_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
+        <div @click.outside="video_id = 0 " class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
+        <h2 class="text-24 font-bold text-center">Form Upload Link</h2>
+            <form method="post" action="<?= base_url('peserta/upload-video/nilai_cfp') ?>" name="video-up" onsubmit="return validasi()">
+            <?= csrf_field() ?>
+            <!-- IG -->
+            <div class="form-input">
+                <label>Link share file gdrive</label>
+                <div>
+                    <input 
+                        placeholder="contoh : https://www.instagram.com/p/CU40Gj-hVa7/?utm_source=ig_web_copy_link"
+                        value="<?= old('link-file') ?>"
+                        type="text"
+                        name="link-file" />
+                    <i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
+                    </svg>
+                    </i>
+                </div>
+                <span id="err-link"><?= initValidation()->getError('link-file') ?? '' ?></span>
+            </div>
+            <!-- SUBMIT -->
+            <input type="hidden" name="video_id" :value="video_id">
+            <input type="hidden" name="id" value="<?= $peserta->id ?>">
+            <div class="flex flex-row justify-between">
+                <span class="btn btn-error btn-sm" @click="video_id = 0">Cancel</span>
+                <input type="submit" value="submit" name="submit" class="btn btn-primary btn-sm">
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- == END REGIS == -->
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
 <script>
     new ClipboardJS('.copy');
+    function validasi(){
+        let link = document.forms['video-up']['link-file'].value;
+        if(!link.includes("drive.google.com/file/")){
+            document.getElementById('err-link').innerHTML = "Link gdrive video tidak valid."
+            return false
+        }
+    }
 </script>
 
 
