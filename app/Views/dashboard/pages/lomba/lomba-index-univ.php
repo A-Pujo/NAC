@@ -141,7 +141,7 @@ x-data="{
 
     <!-- == UPDATE BIODATA == -->
     <?php if($peserta_nilai->prelim == 1 && sekarang() > tanggal('acc-univ-pre-peng') ) : ?>
-        <div class="col-span-12 flex space-y-16 flex-col">
+        <!-- <div class="col-span-12 flex space-y-16 flex-col">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
@@ -155,9 +155,9 @@ x-data="{
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </div>
-        </div>
+        </div> -->
         <?php if(!$peserta_biodata) : ?>
-        <div class="col-span-12 flex space-y-16 flex-col">
+        <!-- <div class="col-span-12 flex space-y-16 flex-col">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
@@ -171,7 +171,7 @@ x-data="{
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </div>
-        </div>
+        </div> -->
         <?php endif ?>
     <?php endif ?>
     <!-- == END UPDATE BIODATA == -->
@@ -182,7 +182,7 @@ x-data="{
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
     </svg> 
-    <label>Unduh Virtual Background NAC Digital Series #2: Webinar Nasional pada <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_webinar_2.png')?>">tautan ini</a></label>
+    <label>Gunakan <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_lomba_acc.png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
   </div>
 </div>
 <div class="alert alert-info col-span-12">
@@ -190,7 +190,7 @@ x-data="{
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
     </svg> 
-    <label>Gunakan <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_lomba_acc.png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
+    <label>Downlad logo NAC <a class="btn btn-xs btn-primary" href="<?= base_url('file/logo.png') ?>" download>disini</a></label>
   </div>
 </div>
 <!-- === END PENGUMUMAN === -->
@@ -335,17 +335,6 @@ x-data="{
                     <?php if($no == 10 ):?>
                         <tr>
                             <td><?= $no++?></td>
-                            <td>Tahap XX (Unduh soal)</td>
-                            <td>21 Oktober 2021 pukul 20:00</td>
-                            <td><a class="btn btn-neutral btn-sm" download>Unduh berkas</a></td>
-                            <td>-</td>
-                            <td>-</td>
-                            <td>-</td>
-                        </tr>
-                    <?php endif ?>
-                    <?php if($no == 11 ):?>
-                        <tr>
-                            <td><?= $no++?></td>
                             <td>Pengumuman Finalis</td>
                             <td></td>
                             <td>-</td>
@@ -359,6 +348,21 @@ x-data="{
                                     <span class="verif-gagal">Tidak lulus</span>
                                 <?php endif ?>
                             </td>
+                            <td>-</td>
+                        </tr>
+                    <?php endif ?>
+                    <?php if($no == 13 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Final Round (Unduh soal)</td>
+                            <td>23 Oktober 2021 pukul 09:00</td>
+                            <?php if(sekarang() < '2021-10-23 09:00') : ?>
+                                <td><button class="btn btn-disabled btn-sm">Unduh Soal</button></td>
+                            <?php else :?>
+                                <td><a class="btn btn-neutral btn-sm" href="<?= base_url('file/Studi Kasus Babak Final.pdf') ?>" download>Unduh Soal</a></td>
+                            <?php endif?>
+                            <td>-</td>
+                            <td>-</td>
                             <td>-</td>
                         </tr>
                     <?php endif ?>

@@ -217,7 +217,7 @@ x-data="{
                             ['2021-10-20 07:30','963 7865 0991','983980','https://zoom.us/j/96378650991?pwd=YmphNWZsaEJLUHh5T0hEeUxjREcwQT09','NAC Digital Series #2: Webinar Nasional', '20 Oktober 2021 pukul 07:30 - 11:00 WIB'],
                             ['2021-10-21 09:30','843 9684 2914','digital','https://us02web.zoom.us/j/84396842914?pwd=Q3FwUktIVk1sUzFyWjBNSDNRZzJRQT09','NAC Digital Series #3: Webinar Nasional', '21 Oktober 2021 pukul 09:30 - 13:00 WIB'],
                             ['2021-10-22 00:00','ini_id_zoom9','ini_pass_zoom9','ini_link_zoom','Technical Meeting Final Round', ''],
-                            ['2021-10-23 08:30','ini_id_zoom10','ini_pass_zoom10','ini_link_zoom','Final Round Accounting Challenge', '23 Oktober 2021 pukul 08:30 - 10:40 WIB'],
+                            ['2021-10-23 08:30','ini_id_zoom10','ini_pass_zoom10','ini_link_zoom','Final Round Accounting Challenge', '23 Oktober 2021 pukul 07:30 - 10:45 WIB'],
                             ['2021-10-24 19:00','ini_id_zoom11','ini_pass_zoom11','ini_link_zoom','Closing Ceremony and Awarding Night', '24 Oktober 2021 pukul 19:00 - 20:30 WIB'],
                         ];
                         $absen_peserta = [
@@ -368,8 +368,8 @@ x-data="{
                     <?php if($no == 16 ):?>
                         <tr>
                             <td><?= $no++?></td>
-                            <td>Tahap XX (Unggah File)</td>
-                            <td>22 Oktober 2021 pukul 22:00</td>
+                            <td>Final Round (Unggah File)</td>
+                            <td>22 Oktober 2021 pukul 20:00</td>
                             <td>-</td>
                             <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 3">Unggah Berkas</a></td>
                             <?php if($peserta_nilai->berkas_3 == '') : ?>
@@ -378,22 +378,6 @@ x-data="{
                             <?php else :?>
                                 <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
                                 <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta_nilai->berkas_3) ?>">Lihat berkas</a></td>
-                            <?php endif?>
-                        </tr>
-                    <?php endif ?>
-                    <?php if($no == 18 ):?>
-                        <tr>
-                            <td><?= $no++?></td>
-                            <td>Final Round Accounting Challange (Unggah File)</td>
-                            <td>23 Oktober 2021 pukul 10:40 - 12:00</td>
-                            <td>-</td>
-                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 4">Unggah Berkas</a></td>
-                            <?php if($peserta_nilai->berkas_4 == '') : ?>
-                                <td><span class="verif-gagal">Belum mengunggah</span></td>
-                                <td>-</td>
-                            <?php else :?>
-                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
-                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta_nilai->berkas_4) ?>">Lihat berkas</a></td>
                             <?php endif?>
                         </tr>
                     <?php endif ?>
