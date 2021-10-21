@@ -20,7 +20,7 @@ function tanggal($aksi){
         'cfp-abstrak' => '2021-09-25 12:00', // kelulusan abstrak
         'acc-sma-semi-peng' => '2021-10-22 00:00', // kelulusan semifinal
         'acc-univ-semi-peng' => '2021-10-22 00:00', // kelulusan semifinal
-        'cfp-full-paper-peng' => '2021-10-22 00:00', // kelulusan aFull paper
+        'cfp-full-paper-peng' => '2021-10-21 07:30', // kelulusan aFull paper
 
         // tahap prelim
         'start_pre' => '2021-10-09 09:30', // start pengerjaan soal
