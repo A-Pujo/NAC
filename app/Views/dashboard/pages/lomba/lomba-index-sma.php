@@ -138,7 +138,7 @@ x-data="{
 <!-- == END RIVEW LJU == -->
 <!-- == UPDATE BIODATA == -->
     <?php if($peserta_nilai->prelim == 1 && sekarang() > tanggal('acc-sma-pre-peng') ) : ?>
-        <div class="col-span-12 flex space-y-16 flex-col">
+        <!-- <div class="col-span-12 flex space-y-16 flex-col">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
@@ -152,9 +152,9 @@ x-data="{
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </div>
-        </div>
+        </div> -->
         <?php if(!$peserta_biodata) : ?>
-        <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
+        <!-- <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
                 <div class="flex-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
@@ -168,7 +168,7 @@ x-data="{
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
             </div>
-        </div>
+        </div> -->
         <?php endif ?>
     <?php endif ?>
 <!-- == END UPDATE BIODATA == -->
@@ -178,7 +178,7 @@ x-data="{
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
     </svg> 
-    <label>Unduh Virtual Background NAC Digital Series #2: Webinar Nasional pada <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_webinar_2.png')?>">tautan ini</a></label>
+    <label>Gunakan<a class="btn btn-primary btn-xs" download href="<?= base_url('file/vb_lomba_acc.png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
   </div>
 </div>
 <div class="alert alert-info col-span-12">
@@ -186,7 +186,7 @@ x-data="{
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
     </svg> 
-    <label>Gunakan <a class="btn btn-info btn-xs" download href="<?= base_url('file/vb_lomba_acc.png')?>">Virtual Background</a> yang telah disediakan selama rangkain acara perlombaan berlangsung</label>
+    <label>Downlad logo NAC <a class="btn btn-xs btn-primary" href="<?= base_url('file/logo.png') ?>" download>disini</a></label>
   </div>
 </div>
 <!-- === END PENGUMUMAN === -->
@@ -346,7 +346,7 @@ x-data="{
                             <?php endif?>
                         </tr>
                     <?php endif ?>
-                    <?php if($no == 13 ):?>
+                    <?php if($no == 14 ):?>
                         <tr>
                             <td><?= $no++?></td>
                             <td>Pengumuman Finalis</td>
@@ -365,12 +365,12 @@ x-data="{
                             <td>-</td>
                         </tr>
                     <?php endif ?>
-                    <?php if($no == 17 ):?>
+                    <?php if($no == 16 ):?>
                         <tr>
                             <td><?= $no++?></td>
-                            <td>Final Round Accounting Challange (Unggah File)</td>
-                            <td>23 Oktober 2021 pukul 10:40 - 12:00</td>
-                            <td><a class="btn btn-neutral btn-sm">Unduh Logo</a></td>
+                            <td>Tahap XX (Unggah File)</td>
+                            <td>22 Oktober 2021 pukul 22:00</td>
+                            <td>-</td>
                             <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 3">Unggah Berkas</a></td>
                             <?php if($peserta_nilai->berkas_3 == '') : ?>
                                 <td><span class="verif-gagal">Belum mengunggah</span></td>
@@ -378,6 +378,22 @@ x-data="{
                             <?php else :?>
                                 <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
                                 <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta_nilai->berkas_3) ?>">Lihat berkas</a></td>
+                            <?php endif?>
+                        </tr>
+                    <?php endif ?>
+                    <?php if($no == 18 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Final Round Accounting Challange (Unggah File)</td>
+                            <td>23 Oktober 2021 pukul 10:40 - 12:00</td>
+                            <td>-</td>
+                            <td><a class="btn btn-neutral btn-sm" @click="berkas_id = 4">Unggah Berkas</a></td>
+                            <?php if($peserta_nilai->berkas_4 == '') : ?>
+                                <td><span class="verif-gagal">Belum mengunggah</span></td>
+                                <td>-</td>
+                            <?php else :?>
+                                <td><span class="verif-sukses">Berkas berhasil diunggah</span></td>
+                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= base_url('uploads/partisipan/lomba/berkas/'.$peserta_nilai->berkas_4) ?>">Lihat berkas</a></td>
                             <?php endif?>
                         </tr>
                     <?php endif ?>

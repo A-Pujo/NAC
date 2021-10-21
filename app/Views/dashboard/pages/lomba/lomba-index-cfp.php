@@ -193,7 +193,7 @@ x-data="{
     <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
         <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
             <h2 class="text-24 font-bold text-center">Form absen <span x-text="judul"></span></h2>
-            <?= form_open_multipart(base_url('lomba/upload-absen-sma'), ['method' => 'post']) ?>
+            <?= form_open_multipart(base_url('lomba/upload-absen-cfp'), ['method' => 'post']) ?>
             <?= csrf_field() ?>
 
                 <div class="form-upload" x-data="{files : ''}">

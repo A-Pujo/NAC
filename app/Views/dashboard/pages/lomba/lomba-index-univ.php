@@ -332,7 +332,18 @@ x-data="{
                             <?php endif?>
                         </tr>
                     <?php endif ?>
-                    <?php if($no == 9 ):?>
+                    <?php if($no == 10 ):?>
+                        <tr>
+                            <td><?= $no++?></td>
+                            <td>Tahap XX (Unduh soal)</td>
+                            <td>21 Oktober 2021 pukul 20:00</td>
+                            <td><a class="btn btn-neutral btn-sm" download>Unduh berkas</a></td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    <?php endif ?>
+                    <?php if($no == 11 ):?>
                         <tr>
                             <td><?= $no++?></td>
                             <td>Pengumuman Finalis</td>
@@ -351,6 +362,7 @@ x-data="{
                             <td>-</td>
                         </tr>
                     <?php endif ?>
+                    
                 <?php endfor ?>
             </tbody>
         </table>

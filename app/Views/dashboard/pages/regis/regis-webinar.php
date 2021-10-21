@@ -7,6 +7,10 @@
         'verif-webinar-2' => 'Verifikasi manual absen webinar 2',
         'verif-webinar-3' => 'Verifikasi manual absen webinar 3',
         'verif-webinar-4' => 'Verifikasi manual absen Opening Ceremony',
+        'skpm-1' => 'Data SKPM peserta Webinar#1 dan Opening',
+        'skpm-2' => 'Data SKPM peserta Webinar#2',
+        'skpm-3' => 'Data SKPM peserta Webinar#3',
+        'data-all' => 'Data semua peserta',
     ];
     $pages_key = array_keys($pages);
 ?>

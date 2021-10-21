@@ -18,6 +18,10 @@ class M_Webinar extends Model
             ->get()->getRow();
     }
 
+    public function getAll(){
+        return $this->get()->getResult();
+    }
+
     public function countStan($webinar){
         return $this
             ->where('instansi', 'PKN STAN')
@@ -60,6 +64,21 @@ class M_Webinar extends Model
             ->where("$webinar !=", 'Tidak ada.')
             ->where("$webinar !=", 'Tidak')
             ->get()->getResultArray();
+    }
+    public function getSKPM($step){
+        if($step == 1){
+            return
+                $this
+                ->distinct()
+                ->where("instansi='PKN STAN' AND (webinar_1='2' OR webinar_4='2')")
+                ->get()->getResult();
+        } else {
+            return
+                $this
+                ->distinct()
+                ->where('webinar_'.$step, 2)
+                ->get()->getResult();
+        }
     }
 }
 

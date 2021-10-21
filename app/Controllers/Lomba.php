@@ -474,7 +474,7 @@ class Lomba extends BaseController
 					$strBukti = implode('|', $strBukti);
 					db()->table('nilai_acc_sma')->where('id', $records['id'])->update(['absen_' . $records['absen_id'] => $strBukti]);
 					session()->setFlashdata('pesan-success', 'Absen berhasil terekam');
-					return redirect()->to('lomba/dashboard')->withInput();
+					return redirect()->to('lomba/dashboard');
 				}
 			}
 		}
@@ -509,7 +509,42 @@ class Lomba extends BaseController
 					$strBukti = implode('|', $strBukti);
 					db()->table('nilai_acc_univ')->where('id', $records['id'])->update(['absen_' . $records['absen_id'] => $strBukti]);
 					session()->setFlashdata('pesan-success', 'Absen berhasil terekam');
-					return redirect()->to('lomba/dashboard')->withInput();
+					return redirect()->to('lomba/dashboard');
+				}
+			}
+		}
+	}
+	public function upload_absen_cfp(){
+		if($records = $this->request->getPost()){
+			if(!$this->validate([
+				'bukti' => [
+					'rules' => 'uploaded[bukti]|max_size[bukti,600]|ext_in[bukti,jpg,png,jpeg]',
+					'errors' => [
+						'uploaded' => lang('Validasi.required'),
+						'max_size' => lang('Validasi.max_size', ['bukti', '500 KB']),
+						'ext_in' => lang('Validasi.ext_in', ['bukti', 'jpg, jpeg, atau png']),
+					],
+				]
+			])){
+				session()->setFlashdata('pesan-error', 'Absen tidak terekam');
+				return redirect()->to('lomba/dashboard')->withInput();
+			} else {
+				// file bukti
+				$strBukti = [];
+				if($files = $this->request->getFiles()){
+					foreach($files['bukti'] as $file){
+						if ($file->isValid() && ! $file->hasMoved()) {
+							$newName = $file->getRandomName();
+							$file->move(APPPATH . '../public/uploads/partisipan/lomba/absen', $newName);
+							array_push($strBukti, $newName);
+						}
+					}
+
+					// update db
+					$strBukti = implode('|', $strBukti);
+					db()->table('nilai_cfp')->where('id', $records['id'])->update(['absen_' . $records['absen_id'] => $strBukti]);
+					session()->setFlashdata('pesan-success', 'Absen berhasil terekam');
+					return redirect()->to('lomba/dashboard');
 				}
 			}
 		}
