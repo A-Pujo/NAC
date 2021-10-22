@@ -5,7 +5,7 @@ $tahap_id = explode('-',$_GET['page'])[2];
 $tahap = ['full_paper'];
 ?>
 
-<?= form_open('lomba/verif-absen-univ/'.$absen_id, ['method' => 'post']) ?>
+<?= form_open('lomba/verif-absen-cfp/'.$absen_id, ['method' => 'post']) ?>
 <table class="tabel" id="tabel">
     <thead>
         <tr>

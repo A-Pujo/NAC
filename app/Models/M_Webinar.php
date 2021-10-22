@@ -77,6 +77,7 @@ class M_Webinar extends Model
                 $this
                 ->distinct()
                 ->where('webinar_'.$step, 2)
+                ->where('instansi', 'PKN STAN')
                 ->get()->getResult();
         }
     }

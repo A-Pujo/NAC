@@ -43,6 +43,9 @@
         </div>
       </div>
       <div class="col-span-12">
+        <?= $this->include('component/pesan') ?>
+      </div>
+      <div class="col-span-12">
             <?= ($_GET['page'] ?? false) ? $this->include('dashboard/pages/regis/webinar/'.$_GET['page']) : $this->include('dashboard/pages/regis/webinar/default') ?>
       </div>
     </div>

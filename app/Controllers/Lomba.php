@@ -615,10 +615,10 @@ class Lomba extends BaseController
 			// dd('absen_'.$absen_id);
 			$model->update($ids, ['absen_'.$absen_id => 1]);
 			session()->setFlashdata('pesan-success', 'Update Absen berhasil');
-			return redirect()->to(base_url('dashboard/regis-cfp'));
+			return redirect()->to(previous_url());
 		} else {
 			// return 'tidak kesubmit';
-			return redirect()->to(base_url('dashboard/regis-cfp'));
+			return redirect()->to(previous_url());
 		}
 	}
 

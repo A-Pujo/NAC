@@ -34,6 +34,9 @@
         </div>
       </div>
       <div class="col-span-12">
+        <?= $this->include('component/pesan') ?>
+      </div>
+      <div class="col-span-12">
           <?php 
                 if(($_GET['page'] ?? false) && str_contains($_GET['page'], 'absen')){
                     echo $this->include('dashboard/pages/regis/kursus/verif-absen');
