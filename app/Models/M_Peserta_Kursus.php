@@ -21,7 +21,9 @@ class M_Peserta_Kursus extends Model{
     }
 
     public function getAll(){
-        return $this->where('verifikasi_peserta', 1)->get()->getResult();
+        return $this
+            ->join('users', 'users.id = peserta_kursus.id_user')
+            ->where('verifikasi_peserta', 1)->get()->getResult();
     }
 
 }

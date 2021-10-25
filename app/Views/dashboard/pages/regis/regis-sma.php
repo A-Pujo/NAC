@@ -3,7 +3,7 @@
 <?php
     $pages = [
         'default' => 'Pilih Halaman',
-        // 'daful' => 'Daful SMA',
+        'daful' => 'Daful SMA',
         // 'verif-absen-1-1' => 'Verifikasi Absen SMA TM Semifinal',
         // 'verif-absen-1-2' => 'Verifikasi Absen SMA Opening Ceremony',
         // 'verif-absen-1-3' => 'Verifikasi Absen SMA Webinar #1 ',

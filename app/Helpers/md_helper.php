@@ -15,6 +15,8 @@ function md($model){
             return new \App\Models\M_Webinar();
         case 'kursus':
             return new \App\Models\M_Peserta_Kursus();
+        case 'peserta_lomba':
+            return new \App\Models\M_Partisipan();
         default:
             dd('invalid argumen md');
     }

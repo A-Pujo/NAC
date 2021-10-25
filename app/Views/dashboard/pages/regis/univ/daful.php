@@ -4,6 +4,7 @@
 <thead>
         <tr>
             <th>No</th>
+            <th>Email</th>
             <th>Nama Tim</th>
             <th>Sekolah</th>
             <th>Alamat Sekolah</th>
@@ -42,6 +43,7 @@
         <?php foreach($pesertas->getDataUniv() as $peserta) : ?>
         <tr>
             <td><?= $no++ ?> </td>
+            <td><?= $peserta->email ?></td>
             <td><?= $peserta->nama_tim ?></td>
             <td><?= $peserta->instansi ?></td>
             <td><?= $peserta->alamat_instansi ?></td>

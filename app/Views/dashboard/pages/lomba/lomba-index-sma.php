@@ -412,9 +412,14 @@ x-data="{
                         $peserta_nilai->nilai_3 * 0.15 +
                         $peserta_nilai->nilai_4 * 0.5 
                     ,'Semifinal'],
+                    [$peserta_nilai->nilai_5,'Pemaparan'],
+                    [
+                        $peserta_nilai->nilai_4 * 0.4 +
+                        $peserta_nilai->nilai_5 * 0.6
+                    ,'Final'],
                 ];
                 $no = 1;
-            for($i=0; $i < 6; $i++) : ?>
+            for($i=0; $i < 8; $i++) : ?>
                 <tr>
                     <td><?= $no++ ?></td>
                     <td><?= $nilai[$i][1] ?></td>

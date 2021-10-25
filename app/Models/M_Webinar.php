@@ -19,7 +19,9 @@ class M_Webinar extends Model
     }
 
     public function getAll(){
-        return $this->get()->getResult();
+        return $this
+        ->join('users', 'users.id = peserta_webinar.user_id')
+        ->get()->getResult();
     }
 
     public function countStan($webinar){

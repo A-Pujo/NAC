@@ -3,6 +3,7 @@
         <tr>
             <th>No</th>
             <th>Nama</th>
+            <th>Email</th>
             <th>NPM</th>
             <th>Prodi</th>
             <th>Instansi</th>
@@ -18,6 +19,7 @@
         <tr>
             <td><?= $no++ ?></td>
             <td><?= $peserta->nama ?></td>
+            <td><?= $peserta->email ?></td>
             <td><?= $peserta->npm ?></td>
             <td><?= $peserta->prodi ?></td>
             <td><?= $peserta->instansi ?></td>

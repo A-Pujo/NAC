@@ -93,6 +93,8 @@ x-data="{
     <label>Downlad logo NAC <a class="btn btn-xs btn-primary" href="<?= base_url('file/logo.png') ?>" download>disini</a></label>
   </div>
 </div>
+    <!-- === KEGIATAN === -->
+    <div class="col-span-12 bg-neutral-200 card p-16"><h2 class="font-bold">Kegiatan</h2></div>
     <div class="col-span-12 overflow-x-auto">
         <table class="tabel">
             <thead>
@@ -197,6 +199,38 @@ x-data="{
             </tbody>
         </table>
     </div>
+        <!-- === END KEGIATAN === -->
+    <!-- === NILAI === -->
+    <div class="col-span-12 bg-neutral-200 card p-16"><h2 class="font-bold">Nilai</h2></div>
+    <table class="tabel">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Komponen</th>
+                <th>Nilai</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php 
+                $nilai = [
+                    [$peserta->nilai_1,'Paper'],
+                    [$peserta->nilai_2,'Pemaparan'],
+                    [
+                        $peserta->nilai_1 * 0.4 +
+                        $peserta->nilai_2 * 0.6
+                    ,'Final'],
+                ];
+                $no = 1;
+            for($i=0; $i < 3; $i++) : ?>
+                <tr>
+                    <td><?= $no++ ?></td>
+                    <td><?= $nilai[$i][1] ?></td>
+                    <td><?= $nilai[$i][0] ?></td>
+                </tr>
+            <?php endfor ?>
+        </tbody>
+    </table>
+    <!-- === END NILAI === -->
     <!-- === MODAL ABSEN === -->
     <div x-show="absen_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
         <div @click.outside="absen_id = ''" class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
