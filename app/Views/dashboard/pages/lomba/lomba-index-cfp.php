@@ -66,21 +66,6 @@ x-data="{
 
     <!-- == UPDATE BIODATA == -->
     <?php if($peserta->full_paper == 1 && sekarang() > tanggal('cfp-full-paper-peng') ) : ?>
-        <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
-            <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
-                <div class="flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>                          
-                    </svg>
-                        <span>Selamat Anda lolos tahap Full Paper. Silakan Anda bergabung grup Whatsapp Peserta Semifinal pada <a target="_blank" class="btn btn-xs" href="https://chat.whatsapp.com/BShE1hDXpOK0Z4Ps5rvZFu" >tautan ini</a></span>
-                </div>
-                <svg
-                    @click="active = false"
-                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-            </div>
-        </div>
         <?php if(is_null($peserta_bio)) : ?>
         <div class="col-span-12 flex space-y-16 flex-col sticky top-8 z-50">
             <div class="alert alert-info" x-data="{active: true}" x-show="active" id="info">
@@ -204,7 +189,7 @@ x-data="{
                                 <td>-</td>
                             <?php else :?>
                                 <td><span class="verif-sukses">Link berhasil diunggah</span></td>
-                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= $peserta->video_1 ?>">Lihat Video</a></td>
+                                <td><a class="btn btn-xs btn-primary" target="_blank" href="<?= $peserta->video_1 ?>">Lihat Data</a></td>
                             <?php endif?>
                         </tr>
                     <?php endif ?>
@@ -372,7 +357,7 @@ x-data="{
     <div x-show="video_id != 0" class="fixed top-0 left-0 w-screen h-screen flex justify-center items-center p-24 bg-neutral-400 bg-opacity-90">
         <div @click.outside="video_id = 0 " class="relative card bg-neutral-100 max-w-600 p-24 text-base-100 w-full">
         <h2 class="text-24 font-bold text-center">Form Upload Link</h2>
-            <form method="post" action="<?= base_url('peserta/upload-video/nilai_cfp') ?>" name="video-up" onsubmit="return validasi()">
+            <form method="post" action="<?= base_url('peserta/upload-video/nilai_cfp') ?>" name="video-up"">
             <?= csrf_field() ?>
             <!-- IG -->
             <div class="form-input">
