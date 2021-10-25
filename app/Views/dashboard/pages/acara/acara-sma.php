@@ -8,6 +8,7 @@
         '3_berkas_bts_lengkap' => 'Berkas BTS Full',
         '4_kelulusan_semifinal' => 'Kelulusan Semifinal',
         '5_berkas_final' => 'Berkas Final Round',
+        '6_final' => 'Final',
     ];
     $pages_key = array_keys($pages);
 ?>

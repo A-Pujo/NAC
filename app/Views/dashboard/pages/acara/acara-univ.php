@@ -6,6 +6,7 @@
         '1_prelim' => 'Preliminary Round',
         '2_berkas_fgd' => 'Berkas FGD',
         '3_kelulusan_semifinal' => 'Kelulusan Semifinal',
+        '4_final' => 'Final',
     ];
     $pages_key = array_keys($pages);
 ?>

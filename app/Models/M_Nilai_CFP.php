@@ -9,7 +9,7 @@ class M_Nilai_CFP extends Model
 
     protected $table      = 'nilai_cfp';
     protected $primaryKey = 'id';
-    protected $allowedFields = ['full_paper', 'nilai_1', 'absen_1'];
+    protected $allowedFields = ['full_paper', 'final', 'absen_1','nilai_1', 'nilai_2', 'nilai_3'];
 
     public function getUserData(){
         return $this
