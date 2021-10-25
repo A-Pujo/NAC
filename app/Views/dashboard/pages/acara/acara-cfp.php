@@ -5,6 +5,7 @@
         '0_default' => 'All',
         '1_paper' => 'Full Paper Peserta',
         '2_video_final' => 'Video Final Round',
+        '3_final' => 'Final',
     ];
     $pages_key = array_keys($pages);
 ?>

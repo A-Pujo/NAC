@@ -28,6 +28,8 @@ class M_Nilai_Acc_Sma extends Model
         'nilai_2',
         'nilai_3',
         'nilai_4',
+        'nilai_5',
+        'nilai_6',
     ];
     
 
