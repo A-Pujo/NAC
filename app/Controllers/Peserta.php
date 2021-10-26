@@ -31,7 +31,7 @@ class Peserta extends BaseController
 
 					// update db
 					$strBerkas = implode('|', $strBerkas);
-					db()->table($table)->where('id', $records['id'])->update(['berkas_' . $records['berkas_id'] => $strBerkas]);
+					db()->table($table)->where('id', $records['id'])->update(['berkas_' . $records['berkas_id'] => date('Y-m-d_H:i:s') . '|' . $strBerkas]);
 					session()->setFlashdata('pesan-success', 'Berkas berhasil tersimpan');
 					return redirect()->to('lomba/dashboard');
 				}
